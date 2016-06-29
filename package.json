@@ -1,0 +1,21 @@
+{
+  "name": "robotics-website",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/djmcoder/robotics-website.git"
+  },
+  "author": "David Melisso",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/djmcoder/robotics-website/issues/"
+  },
+  "homepage": "https://github.com/djmcoder/robotics-website#readme",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "ejs": "^2.4.2",
+    "express": "^4.14.0"
+  }
+}
