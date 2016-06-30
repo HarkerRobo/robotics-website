@@ -1,0 +1,11 @@
+.navbar-custom {
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255,255,255,.3);
+    text-transform: uppercase;
+    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    background: black; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(left,rgba(0,0,0,1),rgba(255,255,255,0)); /*Safari 5.1-6*/
+    background: -o-linear-gradient(right,rgba(0,0,0,1),rgba(255,255,255,0)); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(right,rgba(0,0,0,1),rgba(255,255,255,0)); /*Fx 3.6-15*/
+    background: linear-gradient(to right, rgba(0,0,0,1), rgba(255,255,255,0)); /*Standard*/
+}
