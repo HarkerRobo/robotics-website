@@ -1,9 +1,36 @@
 header, section {
   padding-top: 40px;
-  background: linear-gradient(234.58deg, #FF0000 0%, #000EFF 100%);
+  background: linear-gradient(90deg, #FF0000 0%, #000EFF 100%);
   mix-blend-mode: normal;
   opacity: .5;
   height: 100vh;
   width: 100vw;
   color: white;
+}
+
+#landing {
+  background: url('/img/media/direc/landing-background.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 1;
+
+}
+
+#landingtext {
+  font-family: neuropol, "Helvetica Neue", sans-serif;
+  text-align: center;
+}
+
+h1#landingtext {
+  font-size: 75px;
+}
+
+h2#landingtext {
+  font-size: 50px;
+}
+
+div#landingtext {
+  padding-top: 10%;
 }
