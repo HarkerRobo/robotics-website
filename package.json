@@ -1,7 +1,7 @@
 {
   "name": "robotics-website",
   "version": "1.0.0",
-  "description": "",
+  "description": "The website for harker robotics",
   "main": "index.js",
   "repository": {
     "type": "git",

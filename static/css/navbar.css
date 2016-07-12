@@ -1,35 +1,26 @@
 .navbar-custom {
-    margin-bottom: 0;
-    border-bottom: 1px solid rgba(255,255,255,.3);
-    text-transform: uppercase;
-    font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+  margin-bottom: 0;
+  border-bottom: 1px solid rgba(255,255,255,.3);
+  text-transform: uppercase;
+  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 
-    background: black; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(left,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Safari 5.1-6*/
-    background: -o-linear-gradient(right,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Opera 11.1-12*/
-    background: -moz-linear-gradient(right,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Fx 3.6-15*/
-    background: linear-gradient(to right, rgba(0,0,0,.81), rgba(243,243,243,.27)); /*Standard*/
+  background: black; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Fx 3.6-15*/
+  background: linear-gradient(to right, rgba(0,0,0,.81), rgba(243,243,243,.27)); /*Standard*/
 
-    border: 5px solid white;
+  border: 5px solid white;
 }
 
 nav a {
   color: white;
   font-size: 1.15em;
-  padding: 15px 10px 15px 15px !important;
+  padding: 15px 10px !important;
 }
 
 .navbar-brand {
   font-size: 1.5em !important;
-}
-
-nav a:hover, nav a:focus {
-  background: rgba(0,0,0,.2) !important;
-  color: white;
-}
-
-.navbar-toggle {
-  padding:5px 0px !important;
 }
 
 a.iconlink {
@@ -38,4 +29,37 @@ a.iconlink {
 
 i.iconlink {
   font-size: 40px;
+}
+
+@media (min-width: 768px) and (max-width: 1000px)
+{
+  nav a {
+    color: white;
+    font-size: 1em;
+    padding: 15px 5px !important;
+  }
+
+  .navbar-brand {
+    font-size: 1.5em !important;
+  }
+
+  a.iconlink {
+    padding: 10px 10px !important;
+  }
+
+  i.iconlink {
+    font-size: 30px;
+  }
+}
+
+nav a:hover, nav a:focus {
+  background: rgba(0,0,0,.2) !important;
+  color: white;
+}
+
+.navbar-toggle {
+  padding:0px 0px !important;
+  margin: 3px 10px !important;
+  color: white;
+  font-size: 30px;
 }

@@ -11,17 +11,52 @@
     <!-- Landing Tile -->
     <header id="landing">
       <div class="container-fluid">
-        <div id="landingtext">
-          <h1 id="landingtext">HARKER ROBOTICS</h1>
-          <h2 id="landingtext">BORN TO BUILD</h2>
+        <div class="landingtext">
+          <h1 class="landingtext">HARKER ROBOTICS</h1>
+          <h2 class="landingtext" id="demo">BORN TO BUILD</h2>
         </div>
       </div>
     </header>
 
     <!-- Contact Tile -->
     <section id="contact-tile">
+      <h1 class="title">CONTACT</h1>
       <div class="container-fluid">
-        <h1>WE ARE 1072</h1>
+
+        <div id="contact-tile-container">
+          <ul class="no-bullets">
+            <li>
+              <a href="mailto:harker1072@gmail.com" target="_blank">
+                <i class="fa fa-envelope"></i> harker1072@gmail.com
+              </a>
+            </li>
+            <li>
+              <a href="https://www.instagram.com/harkerrobotics" target="_blank">
+                <i class="fa fa-instagram"></i> @harkerrobotics
+              </a>
+            </li>
+            <li>
+              <a href="https://www.facebook.com/Harker-Robotics-Team-1072-199777950060812/" target="_blank">
+                <i class="fa fa-facebook"></i> Harker Robotics Team 1072
+              </a>
+            </li>
+            <li>
+              <a href="https://www.youtube.com/harker1072" target="_blank">
+                <i class="fa fa-youtube"></i> Harker1072
+              </a>
+            </li>
+            <li>
+              <a href="https://www.tiny.cc/1072calendar" target="_blank">
+                <i class="fa fa-calendar-o"></i> Harker1072
+              </a>
+            </li>
+            <li>
+              <a href="https://www.google.com/maps/place/500+Saratoga+Ave,+San+Jose,+CA+95129/" target="_blank">
+                <i class="fa fa-location-arrow"></i> 500 Saratoga Ave, San Jose, CA 95129
+              </a>
+            </li>
+          </ul>
+        </div>
       </div>
     </section>
 
@@ -53,6 +88,8 @@
         <h1>WE ARE 1072</h1>
       </div>
     </section>
+
+    <%- include ../partials/js.ejs %>
 
   </body>
 </html>

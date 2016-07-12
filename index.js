@@ -16,4 +16,4 @@ app.get('/', function (req, res) {
 });
 
 app.listen(port);
-console.log('Magic happens on port ' + port);
+console.log("We're live on port " + port);
