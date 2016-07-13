@@ -1,0 +1,11 @@
+#hackathon-form-container {
+  border-radius: 1em;
+  background: rgba(0,0,0, .4);
+  padding: 3% 0px;
+  width: 90%;
+  margin: auto;
+}
+
+form#hackathon-form {
+  width: 90%;
+}

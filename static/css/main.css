@@ -1,8 +1,8 @@
 header, section {
   padding-top: 70px;
-  background: linear-gradient(90deg, #FF0000 0%, #000EFF 100%);
+  background: linear-gradient(90deg, rgba(255,0,0, .5) 0%, rgba(0,14,255, .5) 100%);
   mix-blend-mode: normal;
-  opacity: .5;
+  opacity: 1;
   height: 100vh;
   width: 100vw;
   color: white;
@@ -13,11 +13,20 @@ ul.no-bullets {
 }
 
 .title {
-  font-size: 5em;
   font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
   color: white;
   font-weight: 700;
   text-align: center;
+  margin-bottom: .5em;
+}
+
+h1.title {
+  font-size: 5em;
+}
+
+@font-face {
+  font-family: neuropol;
+  src: url('../fonts/neuropol.ttf');
 }
 
 /* landing */
@@ -31,8 +40,8 @@ ul.no-bullets {
   opacity: 1;
 }
 
-.landingtext {
-  font-family: neuropol, "Helvetica Neue", sans-serif;
+h1.landingtext, h2.landingtext {
+  font-family: neuropol,  Montserrat, "Helvetica Neue", sans-serif;
   text-align: center;
   display: none;
 }

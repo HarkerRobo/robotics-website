@@ -15,5 +15,9 @@ app.get('/', function (req, res) {
   res.render('pages/index');
 });
 
+app.get('/hackathon', function (req, res) {
+  res.render('pages/hackathon');
+});
+
 app.listen(port);
 console.log("We're live on port " + port);
