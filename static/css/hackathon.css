@@ -9,3 +9,7 @@
 form#hackathon-form {
   width: 90%;
 }
+
+#hackathon-frc-team-name-group {
+  display: none;
+}

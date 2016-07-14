@@ -5,7 +5,12 @@ const express = require('express'),
   app = express(),
   router = express.Router(),
   bodyParser = require('body-parser'),
-  port = 80;
+  mongoose = require('mongoose'),
+  main_port = process.env.port || 80,
+  db_port = 27017;
+
+mongoose.connect('mongodb://localhost:' + db_port + '/test');
+console.log("Database live on port " + db_port);
 
 app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -19,5 +24,5 @@ app.get('/hackathon', function (req, res) {
   res.render('pages/hackathon');
 });
 
-app.listen(port);
-console.log("We're live on port " + port);
+app.listen(main_port);
+console.log("Website live on port " + main_port);
