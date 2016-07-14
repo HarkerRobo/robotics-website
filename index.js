@@ -9,11 +9,11 @@ const express = require('express'),
   main_port = process.env.port || 80,
   db_port = 27017;
 
-mongoose.connect('mongodb://localhost/test');
+mongoose.connect('mongodb://127.0.0.1:' + db_port + '/test');
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
-  console.log("Database live");
+  console.log("Database live on port " + db_port);
 });
 
 
