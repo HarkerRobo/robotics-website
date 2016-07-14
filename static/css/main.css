@@ -20,8 +20,16 @@ ul.no-bullets {
   margin-bottom: .5em;
 }
 
+
 h1.title {
   font-size: 5em;
+}
+
+@media (max-width:700px)
+{
+  h1.title {
+    font-size: 2.5em;
+  }
 }
 
 @font-face {
@@ -56,6 +64,21 @@ h2.landingtext {
 
 div.landingtext {
   padding-top: 10%;
+}
+
+@media (max-width:750px)
+{
+  h1.landingtext {
+    font-size: 40px;
+  }
+
+  h2.landingtext {
+    font-size: 25px;
+  }
+
+  div.landingtext {
+    padding-top: 5%;
+  }
 }
 
 
