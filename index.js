@@ -1,4 +1,4 @@
-'use strict';
+'use strict'
 
 const express = require('express'),
   ejs = require('ejs'),
@@ -6,28 +6,24 @@ const express = require('express'),
   router = express.Router(),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
-  main_port = process.env.port || 80,
-  db_port = 27017;
+  port = 80
 
-mongoose.connect('mongodb://127.0.0.1:' + db_port + '/test');
-var db = mongoose.connection;
-db.on('error', console.error.bind(console, 'connection error:'));
-db.once('open', function() {
-  console.log("Database live on port " + db_port);
-});
+mongoose.connect('mongodb://127.0.0.1/test', (err) => {
+  console.log('Database live on port ' + port)
+})
 
-
-app.set('view engine', 'ejs');
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(express.static('static'));
+app.set('view engine', 'ejs')
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(express.static('static'))
 
 app.get('/', function (req, res) {
-  res.render('pages/index');
-});
+  res.render('pages/index')
+})
 
 app.get('/hackathon', function (req, res) {
-  res.render('pages/hackathon');
-});
+  res.render('pages/hackathon')
+})
 
-app.listen(main_port);
-console.log("Website live on port " + main_port);
+app.listen(port, (err) => {
+  console.log('Website live on port ' + port)
+})
