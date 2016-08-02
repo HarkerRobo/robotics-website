@@ -1,5 +1,5 @@
 header, section {
-  padding-top: 70px;
+  padding-top: 40px;
   background: linear-gradient(90deg, rgba(255,0,0, .5) 0%, rgba(0,14,255, .5) 100%);
   mix-blend-mode: normal;
   opacity: 1;
@@ -17,7 +17,7 @@ ul.no-bullets {
   color: white;
   font-weight: 700;
   text-align: center;
-  margin-bottom: .5em;
+  margin-bottom: .25em;
 }
 
 
@@ -37,6 +37,25 @@ h1.title {
   src: url('../fonts/neuropol.ttf');
 }
 
+.learn-more-button {
+  font-size: 45px;
+  font-family: Montserrat, "Helvetica Neue", sans-serif;
+  height: 70px;
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  margin-top: 30px;
+}
+
+a.covert {
+  color: white;
+}
+
+a.covert:hover {
+  text-decoration: none;
+  color: white;
+}
+
 /* landing */
 
 #landing {
@@ -49,7 +68,7 @@ h1.title {
 }
 
 h1.landingtext, h2.landingtext {
-  font-family: neuropol,  Montserrat, "Helvetica Neue", sans-serif;
+  font-family: neuropol, Montserrat, "Helvetica Neue", sans-serif;
   text-align: center;
   display: none;
 }
@@ -66,7 +85,7 @@ div.landingtext {
   padding-top: 10%;
 }
 
-@media (max-width:750px)
+@media (max-width:750px), (max-height: 500px)
 {
   h1.landingtext {
     font-size: 40px;
@@ -108,11 +127,62 @@ div.landingtext {
   border-radius: 25px;
   width: 90%;
   padding: 30px 0px;
-  margin-top: 50px;
+  margin-top: 1vh;
 }
 
 #contact-tile li a {
   color: white;
   font-size: 2em;
   font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+@media (max-height: 530px), (max-width: 500px)
+{
+  #contact-tile li a {
+    font-size: 1.5em;
+  }
+}
+
+
+/* about */
+
+#about-tile {
+  background: url('/img/media/direc/about-background.jpg') no-repeat center center;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+#about-tile-container {
+  background-color: rgba(255, 122, 122, 0.8);
+  margin: 0 auto;
+  border-radius: 25px;
+  width: 90%;
+  padding: 2%;
+  margin-top: 50px;
+  font-size: 40px;
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 700;
+  text-align: center;
+}
+
+#about-tile-button {
+  background: rgba(255, 122, 122, 0.8);
+  border: 2px solid #FFFFFF;
+}
+
+
+/* outreach */
+
+#outreach-tile {
+  background: url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)),url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
 }

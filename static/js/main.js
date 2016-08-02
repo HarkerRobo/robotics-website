@@ -1,4 +1,5 @@
 $(function(){
+  $(':checkbox').checkboxpicker();
   $(".landingtext").fadeIn(1500);
 
   var $root = $('html, body');
