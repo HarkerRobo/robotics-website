@@ -3,7 +3,7 @@
 const express = require('express'),
   ejs = require('ejs'),
   app = express(),
-  router = express.Router(),
+  mainRouter = require('./routers/main'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   port = 80
@@ -15,14 +15,7 @@ mongoose.connect('mongodb://127.0.0.1/test', (err) => {
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
-
-app.get('/', function (req, res) {
-  res.render('pages/index')
-})
-
-app.get('/hackathon', function (req, res) {
-  res.render('pages/hackathon')
-})
+app.use('/', mainRouter)
 
 app.listen(port, (err) => {
   console.log('Website live on port ' + port)
