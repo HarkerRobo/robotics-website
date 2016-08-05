@@ -1,19 +1,24 @@
+'use strict'
+
 const express = require('express'),
   router = express.Router(),
-  ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  moment = require('moment')
 
 
 router.use(function logRequest(req, res, next) {
-  console.log("Time: ", Date.now())
-  console.log("IP: ", ip)
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  console.log()
+  console.log('--- NEW CONNECTION ---')
+  console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
+  console.log('IP: ', ip)
   next()
 })
 
-app.get('/', function (req, res) {
+router.get('/', function (req, res) {
   res.render('pages/index')
 })
 
-app.get('/hackathon', function (req, res) {
+router.get('/hackathon', function (req, res) {
   res.render('pages/hackathon')
 })
 
