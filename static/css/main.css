@@ -1,3 +1,7 @@
+*:focus {
+  outline: 0px !important;
+}
+
 header, section {
   padding-top: 40px;
   background: linear-gradient(90deg, rgba(255,0,0, .5) 0%, rgba(0,14,255, .5) 100%);
@@ -6,6 +10,7 @@ header, section {
   height: 100vh;
   width: 100vw;
   color: white;
+  position: relative;
 }
 
 ul.no-bullets {
@@ -19,7 +24,6 @@ ul.no-bullets {
   text-align: center;
   margin-bottom: .25em;
 }
-
 
 h1.title {
   font-size: 5em;
@@ -40,11 +44,41 @@ h1.title {
 .learn-more-button {
   font-size: 45px;
   font-family: Montserrat, "Helvetica Neue", sans-serif;
-  height: 70px;
-  width: 400px;
+  height: 15vh;
+  width: 35vw;
   margin: auto;
-  text-align: center;
   margin-top: 30px;
+  display: table;
+  background-color: rgba(0,0,0,0.4);
+  border: 2px solid #FFFFFF;
+  color: #FFFFFF;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.learn-more-button:hover {
+  background-color: rgba(0,0,0,.6);
+}
+
+.learn-more-button:active, a:focus > .learn-more-button {
+  background-color: rgba(0,0,0,.65);
+}
+
+.learn-more-button > p {
+  vertical-align: middle;
+  text-align: center;
+  display: table-cell;
+}
+
+a.regular {
+  color: aqua;
+  font-weight: bold;
+}
+
+a.regular:hover {
+  color: aqua;
 }
 
 a.covert {
@@ -54,6 +88,14 @@ a.covert {
 a.covert:hover {
   text-decoration: none;
   color: white;
+}
+
+.info-text {
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 40px;
+  margin: 5%;
+  color: white;
+  text-align: center;
 }
 
 /* landing */
@@ -105,10 +147,10 @@ div.landingtext {
 
 #contact-tile {
   background: url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.5)),url('/img/media/direc/contact-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)),url('/img/media/direc/contact-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -165,22 +207,43 @@ div.landingtext {
   font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
   font-weight: 700;
   text-align: center;
+  vertical-align: middle;
 }
 
+/*
 #about-tile-button {
   background: rgba(255, 122, 122, 0.8);
-  border: 2px solid #FFFFFF;
 }
+
+#about-tile-button:hover {
+  background: rgba(255, 80, 80, 0.9);
+}
+*/
 
 
 /* outreach */
 
 #outreach-tile {
   background: url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.25)),url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+
+/* logs */
+
+#logs-tile {
+  background: url('/img/media/direc/logs-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/logs-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/logs-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/logs-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),url('/img/media/direc/logs-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
