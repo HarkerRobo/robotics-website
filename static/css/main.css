@@ -98,9 +98,15 @@ a.covert:hover {
   text-align: center;
 }
 
+#player {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+}
+
 /* landing */
 
-#landing {
+#landing-tile {
   background: url('/img/media/direc/landing-background.jpg') no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;

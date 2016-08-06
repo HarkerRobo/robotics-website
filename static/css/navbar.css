@@ -5,12 +5,16 @@
   font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
 
   background: black; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Safari 5.1-6*/
-  background: -o-linear-gradient(right,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(right,rgba(0,0,0,.81),rgba(243,243,243,.27)); /*Fx 3.6-15*/
-  background: linear-gradient(to right, rgba(0,0,0,.81), rgba(243,243,243,.27)); /*Standard*/
+  background: -webkit-linear-gradient(left,rgba(50,50,50,.81),rgba(243,243,243,.27)); /*Safari 5.1-6*/
+  background: -o-linear-gradient(right,rgba(50,50,50,.81),rgba(243,243,243,.27)); /*Opera 11.1-12*/
+  background: -moz-linear-gradient(right,rgba(50,50,50,.81),rgba(243,243,243,.27)); /*Fx 3.6-15*/
+  background: linear-gradient(to right, rgba(50,50,50,.81), rgba(243,243,243,.27)); /*Standard*/
 
   border: 5px solid white;
+}
+
+nav {
+  border: 0 !important;
 }
 
 nav a {
@@ -53,7 +57,7 @@ i.iconlink {
 }
 
 nav a:hover, nav a:focus {
-  background: rgba(0,0,0,.2) !important;
+  background: rgba(0,0,0,.3) !important;
   color: white;
 }
 
@@ -66,4 +70,8 @@ nav a:hover, nav a:focus {
 
 .navbar-fixed-top {
   border: 0px;
+}
+
+a.current-nav, a.current-nav:focus {
+  background-color: rgba(0,255,127,.5) !important;
 }
