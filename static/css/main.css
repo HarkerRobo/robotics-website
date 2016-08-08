@@ -78,12 +78,14 @@ h1.title {
 }
 
 a.regular {
-  color: aqua;
+  /*color: aqua;*/
   font-weight: bold;
+  color: aquamarine;
 }
 
 a.regular:hover {
-  color: aqua;
+  /*color: aqua;*/
+  color: aquamarine;
 }
 
 a.covert {
