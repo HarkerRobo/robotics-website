@@ -9,37 +9,19 @@ router.use(function logRequest(req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
   console.log()
   console.log('--- NEW REQUEST ---')
+  console.log('From member.js')
   console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
   console.log('IP: ', ip)
   console.log('Request:', req.originalUrl)
   next()
 })
 
-router.get('/member/login', function (req, res) {
+router.get('/login', function(req, res){
   res.render('pages/member/login')
 })
 
-router.get('/member/register', function (req, res) {
-  res.render('pages/member/register')
-})
-
-router.get('/member/', function (req, res) {
+router.get('/', function(req, res){
   res.render('pages/member/index')
-})
-
-router.get('/member/*', function (req, res, next) {
-  res.status(404)
-  res.errCode = 404
-  req.member = 'true'
-  next('URL ' + req.originalUrl + ' Not Found')
-})
-
-router.get('/hackathon', function (req, res) {
-  res.render('pages/hackathon')
-})
-
-router.get('/', function (req, res) {
-  res.render('pages/index')
 })
 
 router.get('*', function (req, res, next) {

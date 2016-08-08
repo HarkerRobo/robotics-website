@@ -27,6 +27,7 @@ mongoose.connect('mongodb://127.0.0.1/test', (err) => {
 app.set('view engine', 'ejs')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
+
 app.use('/', mainRouter)
 
 app.listen(port, (err) => {
