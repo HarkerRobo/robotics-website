@@ -12,7 +12,6 @@ const express = require('express'),
   app = express(),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
-  compression = require('compression'),
   moment = require('moment'),
   mainRouter = require('./routers/main'),
   port = 80
@@ -32,7 +31,6 @@ mongoose.connect('mongodb://127.0.0.1/test', (err) => {
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('env', 'development')
-app.use(compression())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
 
