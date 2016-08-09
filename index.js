@@ -5,14 +5,19 @@ console.log()
 console.log('--- PROCESS INITIALIZED ---')
 console.log('Time:', Date.now())
 
+global.__base = __dirname + '/'
+
 const express = require('express'),
   ejs = require('ejs'),
   app = express(),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
+  compression = require('compression'),
   moment = require('moment'),
   mainRouter = require('./routers/main'),
   port = 80
+
+
 
 function getTimeFormatted() {
   return moment().format('MMMM Do YYYY, h:mm:ss a') + ' (' + Date.now() + ')'
@@ -25,6 +30,9 @@ mongoose.connect('mongodb://127.0.0.1/test', (err) => {
 })
 
 app.set('view engine', 'ejs')
+app.set('views', __dirname + '/views')
+app.set('env', 'development')
+app.use(compression())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
 

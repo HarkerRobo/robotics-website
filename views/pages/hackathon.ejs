@@ -3,12 +3,12 @@
   <head>
     <title> Hackathon | Harker Robotics 1072 </title>
     <link rel="stylesheet" type="text/css" href="/css/hackathon.css" />
-    <%- include ../partials/head.ejs %>
+    <%- include(__base + 'views/partials/head.ejs') %>
   </head>
   <body>
 
     <!-- Navbar -->
-    <%- include ../partials/navbar-main.ejs %>
+    <%- include(__base + 'views/partials/navbar-main.ejs') %>
 
     <header id="hackathon-tile">
       <div class="container-fluid">
@@ -58,7 +58,7 @@
       </div>
     </header>
 
-    <%- include ../partials/js-include.ejs %>
+    <%- include(__base + 'views/partials/js-include.ejs') %>
     <script src="/js/hackathon.js"></script>
 
   </body>

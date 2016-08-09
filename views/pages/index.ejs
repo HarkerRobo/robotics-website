@@ -1,19 +1,19 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include ../partials/head.ejs %>
+    <%- include(__base + 'views/partials/head.ejs') %>
   </head>
   <body>
 
     <!-- Navbar -->
-    <%- include ../partials/navbar-landing.ejs %>
+    <%- include(__base + 'views/partials/navbar-landing.ejs') %>
 
     <!-- Landing Tile -->
     <header id="landing-tile" hashname="landing">
       <div class="container-fluid">
         <div class="landingtext">
           <h1 class="landingtext">HARKER ROBOTICS</h1>
-          <h2 class="landingtext" id="demo">BORN TO BUILD</h2>
+          <h2 class="landingtext">WE ARE <span id="autotype">ENGINEERS|</span></h2>
         </div>
       </div>
     </header>
@@ -106,7 +106,7 @@
       </div>
     </section>
 
-    <%- include ../partials/js-include.ejs %>
+    <%- include(__base + 'views/partials/js-include.ejs') %>
     <script src="js/index-js.js"></script>
 
   </body>

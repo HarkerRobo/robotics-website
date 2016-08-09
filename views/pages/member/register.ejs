@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include ../../partials/head.ejs %>
+    <%- include(__base + 'views/partials/head') %>
   </head>
   <body>
 
     <!-- Navbar -->
-    <%- include ../../partials/navbar-login.ejs %>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
 
     <header id="register-tile">
       <div class="container-fluid">
@@ -15,7 +15,7 @@
       </div>
     </header>
 
-    <%- include ../../partials/js-include.ejs %>
+    <%- include(__base + 'views/partials/js-include.ejs') %>
 
   </body>
 </html>
