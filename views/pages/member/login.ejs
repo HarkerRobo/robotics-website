@@ -12,10 +12,20 @@
       <div class="container-fluid">
         <h1 class="title">LOGIN</h1>
         <p class="info-text">The login system is not yet ready.</p>
+        <div class="g-signin2" data-onsuccess="onSignIn"></div>
       </div>
     </header>
 
     <%- include(__base + 'views/partials/js-include.ejs') %>
+    <script>
+      function onSignIn(googleUser) {
+        var profile = googleUser.getBasicProfile();
+        console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+        console.log('Name: ' + profile.getName());
+        console.log('Image URL: ' + profile.getImageUrl());
+        console.log('Email: ' + profile.getEmail());
+      }
+    </script>
 
   </body>
 </html>

@@ -1,3 +1,5 @@
+/config.json
+
 /node_modules/
 
 /static/img/media/2012/
@@ -5,3 +7,5 @@
 /static/img/media/2014/
 /static/img/media/2015/
 /static/img/media/2016/
+
+/static/googlef3d505ccffd01f1b.html
