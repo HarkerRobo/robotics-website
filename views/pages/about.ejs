@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/about.css"
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <%- include(__base + 'views/partials/navbar-main.ejs') %>
+
+      <header class="scrollable" id="about">
+        <h1 class="title">ABOUT</h1>
+        <h2 class="title">MISSION STATEMENT</h2>
+        <p class="info-text">[insert mission statement here]</p>
+        <h2 class="title">LEADERS</h2>
+        <p class="info-text">Our leaders are chosen to direct the Harker Robotics team toward success.</p>
+        <table class="table" id="leaders">
+          <thead>
+            <tr>
+              <th>PICTURE</th>
+              <th>NAME</th>
+              <th>LEADERSHIP ROLE</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><img alt="picture here" /></td>
+              <td> Andrew Tierno </td>
+              <td> Executive President </td>
+            </tr>
+            <tr>
+              <td><img alt="picture here" /></td>
+              <td> James He </td>
+              <td> VP of Operations </td>
+            </tr>
+            <tr>
+              <td><img alt="picture here" /></td>
+              <td> David Melisso </td>
+              <td> Webmaster </td>
+            </tr>
+          </tbody>
+        </table>
+      </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+
+  </body>
+</html>

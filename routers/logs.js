@@ -12,50 +12,14 @@ router.use(function logRequest(req, res, next) {
   console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
   console.log('IP: ', ip)
   console.log('Request:', req.originalUrl)
+  console.log('Router: logs.js')
   next()
 })
 
-router.get('/member/login', function (req, res) {
-  res.render('pages/member/login')
-})
 
-router.get('/member/register', function (req, res) {
-  res.render('pages/member/register')
+router.get('/', function(req, res) {
+  res.render('pages/logs/logs.ejs')
 })
-
-router.get('/member/', function (req, res) {
-  res.render('pages/member/index')
-})
-
-router.get('/member/*', function (req, res, next) {
-  res.status(404)
-  res.errCode = 404
-  req.member = 'true'
-  next('URL ' + req.originalUrl + ' Not Found')
-})
-
-router.get('/hackathon', function (req, res) {
-  res.render('pages/hackathon')
-})
-
-router.get('/about', function (req, res) {
-  res.render('pages/about')
-})
-
-router.get('/photos', function (req, res) {
-  res.render('pages/photos')
-})
-
-router.get('/', function (req, res) {
-  res.render('pages/index')
-})
-
-router.get('*', function (req, res, next) {
-  res.status(404)
-  res.errCode = 404
-  next('URL ' + req.originalUrl + ' Not Found')
-})
-
 
 router.use(logErrors)
 router.use(clientErrorHandler)
