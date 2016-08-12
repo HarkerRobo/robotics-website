@@ -6,6 +6,7 @@ console.log('--- PROCESS INITIALIZED ---')
 console.log('Time:', Date.now())
 
 global.__base = __dirname + '/'
+console.log("__base:", __base)
 
 const express = require('express'),
   ejs = require('ejs'),
