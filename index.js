@@ -40,9 +40,8 @@ app.use(express.static('static'))
 // letsencrypt-express
 var LEX = require('letsencrypt-express').testing();
 
-// Change these two lines!
-var DOMAIN = 'myservice.example.com';
-var EMAIL = 'user@example.com';
+var DOMAIN = config['domain'];
+var EMAIL = config['email'];
 
 var lex = LEX.create({
   configDir: require('os').homedir() + '/letsencrypt/etc'
