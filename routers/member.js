@@ -4,8 +4,8 @@ const express = require('express'),
   router = express.Router(),
   moment = require('moment'),
   session = require('express-session'),
-  config = require(__base + 'config.json')
-  //RedisStore = require('connect-redis')(express)
+  config = require(__base + 'config.json'),
+  RedisStore = require('connect-redis')(session)
 
 
 router.use(function logRequest(req, res, next) {
@@ -23,9 +23,11 @@ router.use(function logRequest(req, res, next) {
 // DO NOT UPLOAD: CAUSES MEMORY LEAKS
 // For more information, go to https://github.com/expressjs/session#compatible-session-stores
 router.use(session({
-  secret: 'keyboard cat',
-  resave: false,
-  saveUninitialized: true
+  store: new RedisStore({
+    disableTTL: true,
+    logErrors: true
+  }),
+  secret: 'keyboard cat'
 }))
 
 //router.use(express.cookieParser())

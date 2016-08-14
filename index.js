@@ -14,6 +14,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   moment = require('moment'),
+  http = require('http'),
   port = 80,
 
   logsRouter = require('./routers/logs'),
