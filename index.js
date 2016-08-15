@@ -39,10 +39,12 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
 
 // letsencrypt-express
-var LEX = require('letsencrypt-express').testing();
+var LEX = require('letsencrypt-express')
 
-var DOMAIN = config['domain'];
-var EMAIL = config['email'];
+var DOMAIN = config['domain']
+console.log("DOMAIN:", DOMAIN)
+var EMAIL = config['email']
+console.log("EMAIL:", EMAIL)
 
 var lex = LEX.create({
   configDir: require('os').homedir() + '/letsencrypt/etc'
@@ -52,10 +54,10 @@ var lex = LEX.create({
         domains: [DOMAIN]
       , email: EMAIL
       , agreeTos: true
-      });
+      })
     }
   }
-});
+})
 
 app.use('/logs', logsRouter)
 app.use('/member', memberRouter)
@@ -118,12 +120,12 @@ function errorHandler(err, req, res, next) {
 }
 
 app.use(function (req, res) {
-  res.send({ success: true });
-});
+  res.send({ success: true })
+})
 
-lex.onRequest = app;
+lex.onRequest = app
 
 lex.listen([80], [443, 5001], function () {
-  var protocol = ('requestCert' in this) ? 'https': 'http';
-  console.log("Listening at " + protocol + '://localhost:' + this.address().port);
-});
+  var protocol = ('requestCert' in this) ? 'https': 'http'
+  console.log("Listening at " + protocol + '://localhost:' + this.address().port)
+})

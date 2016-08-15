@@ -1,6 +1,21 @@
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container-fluid">
 
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script>
+      gapi.load('auth2', function(){
+        gapi.auth2.init()
+      })
+
+      function signOut() {
+        var auth2 = gapi.auth2.getAuthInstance()
+        auth2.signOut().then(function () {
+          console.log('User signed out.')
+        })
+        location.reload()
+      }
+    </script>
+
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
         <span class="sr-only">Toggle navigation</span>
@@ -17,8 +32,9 @@
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <li><a href="/member/login"><i class="fa fa-sign-in" aria-hidden="true"></i> LOGIN</a></li>
-        <li><a href="/member/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a></li>
+        <li class="signedin" onclick="signOut()"><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
+        <li class="signedout"><a href="/member/login"><i class="fa fa-sign-in" aria-hidden="true"></i> LOGIN</a></li>
+        <li class="signedout"><a href="/member/register"><i class="fa fa-user-plus" aria-hidden="true"></i> REGISTER</a></li>
       </ul>
 
     </div><!-- /.navbar-collapse -->
