@@ -14,7 +14,6 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   moment = require('moment'),
-  subdomain = require('express-subdomain'),
   http = require('http'),
   https = require('spdy'),
   port = 80,
@@ -22,7 +21,6 @@ const express = require('express'),
   logsRouter = require('./routers/logs'),
   memberRouter = require('./routers/member'),
   hackathonRouter = require('./routers/hackathon'),
-  apiRouter = require('./routers/api'),
 
   config = require('./config.json')
 
@@ -66,7 +64,6 @@ var lex = LEX.create({
 app.use('/logs', logsRouter)
 app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
-app.use(subdomain('api', apiRouter));
 
 app.use(function logRequest(req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
