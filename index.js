@@ -131,7 +131,6 @@ if (config['httpsCapable']==="true") {
     })).listen(80);
 
     https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(443);
-    console.log('option1')
 } else {
   lex.onRequest = app
 
