@@ -20,7 +20,7 @@ const express = require('express'),
 
   logsRouter = require('./routers/logs'),
   memberRouter = require('./routers/member'),
-  hackathonRouter = require('./routers/hackathon')
+  hackathonRouter = require('./routers/hackathon'),
 
   config = require('./config.json')
 

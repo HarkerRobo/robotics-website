@@ -18,7 +18,7 @@ router.use(function logRequest(req, res, next) {
 
 
 router.get('/', function(req, res) {
-  res.render('pages/logs/logs.ejs')
+  res.render('pages/logs/logs')
 })
 
 router.use(logErrors)
