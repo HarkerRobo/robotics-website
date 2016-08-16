@@ -1,4 +1,5 @@
-var router = express.Router();
+const express = require('express'),
+ router = express.Router();
 
 //api specific routes
 router.get('/', function(req, res) {
