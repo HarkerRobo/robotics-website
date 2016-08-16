@@ -27,7 +27,11 @@ router.use(session({
     disableTTL: true,
     logErrors: true
   }),
-  secret: 'keyboard cat'
+  secret: config['cookieSecret'],
+  name: config['cookieName'],
+  proxy: true,
+  resave: true,
+  saveUninitialized: true
 }))
 
 //router.use(express.cookieParser())

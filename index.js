@@ -15,10 +15,12 @@ const express = require('express'),
   mongoose = require('mongoose'),
   moment = require('moment'),
   http = require('http'),
+  https = require('spdy'),
   port = 80,
 
   logsRouter = require('./routers/logs'),
   memberRouter = require('./routers/member'),
+  hackathonRouter = require('./routers/hackathon')
 
   config = require('./config.json')
 
@@ -61,6 +63,7 @@ var lex = LEX.create({
 
 app.use('/logs', logsRouter)
 app.use('/member', memberRouter)
+app.use('/hackathon', hackathonRouter)
 
 app.use(function logRequest(req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
@@ -70,10 +73,6 @@ app.use(function logRequest(req, res, next) {
   console.log('IP: ', ip)
   console.log('Request:', req.originalUrl)
   next()
-})
-
-app.get('/hackathon', function (req, res) {
-  res.render('pages/hackathon')
 })
 
 app.get('/about', function (req, res) {
@@ -123,9 +122,20 @@ app.use(function (req, res) {
   res.send({ success: true })
 })
 
-lex.onRequest = app
+if (config['httpsCapable']==="true") {
 
-lex.listen([80], [443, 5001], function () {
-  var protocol = ('requestCert' in this) ? 'https': 'http'
-  console.log("Listening at " + protocol + '://localhost:' + this.address().port)
-})
+  http.createServer(LEX.createAcmeResponder(lex, function redirectHttps(req, res) {
+      res.setHeader('Location', 'https://' + req.headers.host + req.url);
+      res.statusCode = 302; // use 307 if you want to redirect requests with POST, DELETE or PUT action.
+      res.end('<!-- Hello Developer Person! Please use HTTPS instead -->');
+    })).listen(80);
+
+    https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(443);
+} else {
+  lex.onRequest = app
+
+  lex.listen([80], [443, 5001], function () {
+    var protocol = ('requestCert' in this) ? 'https': 'http'
+    console.log("Listening at " + protocol + '://' + config['domain'] + ':' + this.address().port)
+  })
+}
