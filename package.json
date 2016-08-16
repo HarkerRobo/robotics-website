@@ -20,6 +20,7 @@
     "ejs": "^2.4.2",
     "express": "^4.14.0",
     "express-session": "^1.14.0",
+    "express-subdomain": "^1.0.5",
     "letsencrypt-express": "^1.2.0",
     "moment": "^2.14.1",
     "spdy": "^3.4.0"
