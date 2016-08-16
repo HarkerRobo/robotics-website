@@ -18,7 +18,7 @@ router.use(function logRequest(req, res, next) {
 
 
 router.get('/', function(req, res) {
-  res.render('pages/logs/hackathon.ejs')
+  res.render('pages/hackathon/hackathon.ejs')
 })
 
 router.use(logErrors)
