@@ -42,3 +42,16 @@ form#hackathon-form {
   font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
 
 }
+
+#donate-tile {
+  background: url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, .1)),url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  opacity: 1;
+}

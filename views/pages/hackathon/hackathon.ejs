@@ -8,21 +8,33 @@
   <body>
 
     <!-- Navbar -->
-    <%- include(__base + 'views/partials/navbar-main.ejs') %>
+    <%- include(__base + 'views/partials/navbar-hackathon.ejs') %>
 
-    <header id="hackathon-tile">
+    <header hashname="landing" id="hackathon-tile">
       <div class="container-fluid">
-        <h1 class="title">Harker Hacks</h1>
+        <h1 class="title">HARKER HACKS</h1>
         <p class="info-text">"Quote goes here"<br/>- [Position] [Name]</p>
         <div id="hackathon-form-container">
           <p class="info-text">Info text about<br/>the Hackathon</p>
         </div>
-        <a class="covert" href="/error"><div id="about-tile-button" class="learn-more-button">
+        <a class="covert" href=""><div class="learn-more-button">
           <p>SIGN UP</p>
         </div></a>
       </div>
     </header>
+
+    <section hashname="donate" id="donate-tile">
+      <div class="container-fluid">
+        <h1 class="title">SPONSOR</h1>
+        <p class="info-text"> Want to Sponsor? <br/> Join us now. </p>
+        <a class="covert" href=""><div class="learn-more-button">
+          <p>DONATE</p>
+        </div></a>
+      </div>
+    </section>
+
     <%- include(__base + 'views/partials/js-include.ejs') %>
     <script src="/js/hackathon.js"></script>
+    <script src="/js/tile.js"></script>
   </body>
 </html>

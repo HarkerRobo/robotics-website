@@ -1,5 +1,7 @@
 'use strict'
 
+var $root = $('html, body')
+
 $(function() {
 
   // blur after a nav click
