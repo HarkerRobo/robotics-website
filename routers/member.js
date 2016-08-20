@@ -3,6 +3,7 @@
 const express = require('express'),
   router = express.Router(),
   moment = require('moment'),
+  https = require('https'),
   session = require('express-session'),
   config = require(__base + 'config.json'),
   RedisStore = require('connect-redis')(session)
@@ -20,18 +21,18 @@ router.use(function logRequest(req, res, next) {
 })
 
 
-// DO NOT UPLOAD: CAUSES MEMORY LEAKS
+// DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
 // For more information, go to https://github.com/expressjs/session#compatible-session-stores
 router.use(session({
   store: new RedisStore({
     disableTTL: true,
     logErrors: true
   }),
+  secure: true,
   secret: config['cookieSecret'],
   name: config['cookieName'],
-  proxy: true,
-  resave: true,
-  saveUninitialized: true
+  resave: false,
+  saveUninitialized: false,
 }))
 
 //router.use(express.cookieParser())
@@ -53,8 +54,39 @@ router.get('/register', function (req, res) {
   res.render('pages/member/register')
 })
 
+router.post('/token', function (req, res) {
+  let token = req.body.idtoken
+  if (token !== undefined) {
+    // validate token here
+
+    let data = ""
+
+    https.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+token, (result) => {
+      console.log();
+      console.log('---API TOKEN REQUESTED---')
+      console.log('statusCode:', result.statusCode);
+      console.log('headers:', result.headers);
+      console.log()
+
+      result.on('data', (d) => {
+        data += d
+      });
+
+    }).on('error', (e) => {
+      console.error(e);
+    });
+    console.log('DATA:', data)
+
+    req.session.token = token
+    res.statusCode(200).end()
+  } else {
+    res.status(400).send('Bad Request: No token')
+  }
+
+})
+
 router.get('/', function (req, res) {
-  res.render('pages/member/index')
+  res.redirect('login')
 })
 
 router.get('/*', function (req, res, next) {

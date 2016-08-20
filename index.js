@@ -15,7 +15,8 @@ const express = require('express'),
   mongoose = require('mongoose'),
   moment = require('moment'),
   http = require('http'),
-  https = require('spdy'),
+  https = require('https'),
+  spdy = require('spdy'),
   port = 80,
 
   logsRouter = require('./routers/logs'),
@@ -130,7 +131,7 @@ if (config['httpsCapable']==="true") {
       res.end('<!-- Hello Developer Person! Please use HTTPS instead -->');
     })).listen(80);
 
-    https.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(443);
+    spdy.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(443);
 } else {
   lex.onRequest = app
 
