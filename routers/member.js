@@ -6,8 +6,20 @@ const express = require('express'),
   https = require('https'),
   session = require('express-session'),
   config = require(__base + 'config.json'),
-  RedisStore = require('connect-redis')(session)
+  MongoStore = require('connect-mongo')(session)
 
+// DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
+// For more information, go to https://github.com/expressjs/session#compatible-session-stores
+router.use(session({
+  store: new MongoStore({
+    url: `mongodb://localhost/robotics-website`
+  }),
+  secure: true,
+  secret: config['cookieSecret'],
+  name: config['cookieName'],
+  resave: false,
+  saveUninitialized: false,
+}))
 
 router.use(function logRequest(req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
@@ -17,72 +29,78 @@ router.use(function logRequest(req, res, next) {
   console.log('IP: ', ip)
   console.log('Request:', req.originalUrl)
   console.log('Router: member.js')
+  if (req.session.auth === undefined) {
+    req.session.auth = { loggedin: false }
+  }
   next()
 })
 
-
-// DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
-// For more information, go to https://github.com/expressjs/session#compatible-session-stores
-router.use(session({
-  store: new RedisStore({
-    disableTTL: true,
-    logErrors: true
-  }),
-  secure: true,
-  secret: config['cookieSecret'],
-  name: config['cookieName'],
-  resave: false,
-  saveUninitialized: false,
-}))
-
-//router.use(express.cookieParser())
-/*router.use(expres.session({
-  store: new RedisStore({
-    host: 'localhost',
-    port: 80,
-    db: 2,
-    pass
-  })
-}))*/
-
-
 router.get('/login', function (req, res) {
-  res.render('pages/member/login')
-})
-
-router.get('/register', function (req, res) {
-  res.render('pages/member/register')
+  res.render('pages/member/login', { authlevel: req.session.authlevel, token: req.session.token, info: req.session.info })
 })
 
 router.post('/token', function (req, res) {
   let token = req.body.idtoken
   if (token !== undefined) {
-    // validate token here
 
+    // validate token
+
+    // send to google
     let data = ""
+    let request = https.request(
+      {
+        hostname: 'www.googleapis.com',
+        port: 443,
+        path: '/oauth2/v3/tokeninfo?id_token='+token,
+        method: 'GET'
+      }, (result) => {
+        console.log()
+        console.log('---API TOKEN REQUESTED---')
+        console.log('statusCode:', result.statusCode)
+        console.log('headers:', result.headers)
+        console.log()
 
-    https.get('https://www.googleapis.com/oauth2/v3/tokeninfo?id_token='+token, (result) => {
-      console.log();
-      console.log('---API TOKEN REQUESTED---')
-      console.log('statusCode:', result.statusCode);
-      console.log('headers:', result.headers);
-      console.log()
-
-      result.on('data', (d) => {
-        data += d
-      });
-
-    }).on('error', (e) => {
-      console.error(e);
-    });
-    console.log('DATA:', data)
-
-    req.session.token = token
-    res.statusCode(200).end()
+        result.on('data', (d) => { data += d }).on('end', (d) => {
+          console.log('DATA:', data)
+          data = JSON.parse(data)
+          if (result.statusCode === 200) {
+            if (data.aud === config.GoogleClientID) {
+              if (data.hd !== undefined && data.hd === "students.harker.org") {
+                req.session.auth.level = 1
+              }
+              req.session.auth.loggedin = true
+              req.session.auth.token = token
+              req.session.auth.info = data
+              res.status(200).end()
+            } else {
+              req.session.auth = { loggedin: false }
+              res.status(400).end('Token does match Google Client ID')
+            }
+          } else {
+            req.session.auth = { loggedin: false }
+            res.status(400).end('Invalid Token')
+          }
+        })
+      }).on('error', (e) => {
+        console.error(e);
+      })
+      request.end()
   } else {
+    req.session.auth = { loggedin: false }
     res.status(400).send('Bad Request: No token')
   }
+})
 
+router.all('/*', function (req, res, next) {
+  if (req.session.loggedin) {
+    next()
+  } else {
+    res.redirect('/member/login')
+  }
+})
+
+router.get('/register', function (req, res) {
+  res.render('pages/member/register')
 })
 
 router.get('/', function (req, res) {
