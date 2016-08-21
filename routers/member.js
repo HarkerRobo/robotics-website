@@ -91,8 +91,13 @@ router.post('/token', function (req, res) {
   }
 })
 
+router.delete('/token', function (req, res) {
+  req.session.auth = { loggedin: false }
+  res.status(200).end()
+})
+
 router.all('/*', function (req, res, next) {
-  if (req.session.loggedin) {
+  if (req.session.auth.loggedin) {
     next()
   } else {
     res.redirect('/member/login')
