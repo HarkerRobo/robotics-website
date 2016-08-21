@@ -36,7 +36,7 @@ router.use(function logRequest(req, res, next) {
 })
 
 router.get('/login', function (req, res) {
-  res.render('pages/member/login', { authlevel: req.session.authlevel, token: req.session.token, info: req.session.info })
+  res.render('pages/member/login', { loggedin: req.session.auth.loggedin })
 })
 
 router.post('/token', function (req, res) {
