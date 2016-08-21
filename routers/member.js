@@ -5,8 +5,11 @@ const express = require('express'),
   moment = require('moment'),
   https = require('https'),
   session = require('express-session'),
+  cookieParser = require('cookie-parser'),
   config = require(__base + 'config.json'),
   MongoStore = require('connect-mongo')(session)
+
+router.use(cookieParser())
 
 // DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
 // For more information, go to https://github.com/expressjs/session#compatible-session-stores
@@ -19,6 +22,7 @@ router.use(session({
   name: config['cookieName'],
   resave: false,
   saveUninitialized: false,
+  httpOnly: false
 }))
 
 router.use(function logRequest(req, res, next) {
@@ -32,11 +36,8 @@ router.use(function logRequest(req, res, next) {
   if (req.session.auth === undefined) {
     req.session.auth = { loggedin: false }
   }
+  res.cookie('loggedin', req.session.auth.loggedin)
   next()
-})
-
-router.get('/login', function (req, res) {
-  res.render('pages/member/login')
 })
 
 router.post('/token', function (req, res) {
@@ -100,16 +101,24 @@ router.all('/*', function (req, res, next) {
   if (req.session.auth.loggedin) {
     next()
   } else {
-    res.redirect('/member/login')
+    res.render('pages/member/login')
   }
 })
 
-router.get('/register', function (req, res) {
-  res.render('pages/member/register')
+router.get('/challanges', function (req, res) {
+  res.render('pages/member/challanges')
+})
+
+router.get('/wiki', function (req, res) {
+  res.render('pages/member/wiki')
+})
+
+router.get('/volunteer', function (req, res) {
+  res.render('pages/member/volunteer')
 })
 
 router.get('/', function (req, res) {
-  res.redirect('login')
+  res.render('pages/member/index')
 })
 
 router.get('/*', function (req, res, next) {
