@@ -36,7 +36,7 @@ router.use(function logRequest(req, res, next) {
 })
 
 router.get('/login', function (req, res) {
-  res.render('pages/member/login', { loggedin: req.session.auth.loggedin })
+  res.render('pages/member/login')
 })
 
 router.post('/token', function (req, res) {
@@ -93,7 +93,6 @@ router.post('/token', function (req, res) {
 
 router.delete('/token', function (req, res) {
   req.session.auth = { loggedin: false }
-  console.log('test')
   res.status(200).end()
 })
 
