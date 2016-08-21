@@ -93,6 +93,7 @@ router.post('/token', function (req, res) {
 
 router.delete('/token', function (req, res) {
   req.session.auth = { loggedin: false }
+  console.log('test')
   res.status(200).end()
 })
 
