@@ -14,6 +14,7 @@ const express = require('express'),
   bodyParser = require('body-parser'),
   mongoose = require('mongoose'),
   moment = require('moment'),
+  compression = require('compression'),
   http = require('http'),
   https = require('https'),
   spdy = require('spdy'),
@@ -40,6 +41,7 @@ app.set('views', __dirname + '/views')
 app.set('env', 'development')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
+app.use(compression())
 
 // letsencrypt-express
 var LEX = require('letsencrypt-express')

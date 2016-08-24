@@ -4,6 +4,7 @@ const express = require('express'),
   router = express.Router(),
   moment = require('moment')
 
+app.use(compression())
 
 router.use(function logRequest(req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress

@@ -9,6 +9,7 @@ const express = require('express'),
   config = require(__base + 'config.json'),
   MongoStore = require('connect-mongo')(session)
 
+app.use(compression())
 router.use(cookieParser())
 
 // DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
