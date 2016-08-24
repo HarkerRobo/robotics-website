@@ -2,7 +2,8 @@
 
 const express = require('express'),
   router = express.Router(),
-  moment = require('moment')
+  moment = require('moment'),
+  compression = require('compression')
 
 router.use(compression())
 

@@ -3,6 +3,7 @@
 const express = require('express'),
   router = express.Router(),
   moment = require('moment'),
+  compression = require('compression'),
   https = require('https'),
   session = require('express-session'),
   cookieParser = require('cookie-parser'),
