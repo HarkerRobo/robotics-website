@@ -1,0 +1,26 @@
+header {
+  background: url('/img/media/direc/error-background.jpeg') no-repeat center center;
+  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('/img/media/direc/error-background.jpeg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('/img/media/direc/error-background.jpeg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('/img/media/direc/error-background.jpeg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.0)), url('/img/media/direc/error-background.jpeg') no-repeat center center; /* Standard syntax (must be last) */
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+}
+
+h1 {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 5em;
+  text-shadow: 5px 5px 0px black;
+}
+
+p {
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  text-align: center;
+  font-size: 2em;
+  text-shadow: 5px 5px 0px black;
+}

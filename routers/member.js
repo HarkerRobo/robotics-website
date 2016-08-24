@@ -97,6 +97,7 @@ router.delete('/token', function (req, res) {
   res.status(200).end()
 })
 
+// must be logged in to see below pages
 router.all('/*', function (req, res, next) {
   if (req.session.auth.loggedin) {
     next()
@@ -109,16 +110,25 @@ router.get('/challanges', function (req, res) {
   res.render('pages/member/challanges')
 })
 
-router.get('/wiki', function (req, res) {
-  res.render('pages/member/wiki')
-})
-
 router.get('/volunteer', function (req, res) {
   res.render('pages/member/volunteer')
 })
 
 router.get('/', function (req, res) {
   res.render('pages/member/index')
+})
+
+// must be harker student to see below pages
+router.all('/*', function (req, res, next) {
+  if (req.session.auth.level >= 1) {
+    next()
+  } else {
+    res.render('pages/member/error', { statusCode: 401, error: "Must be authenticated as harker student."})
+  }
+})
+
+router.get('/wiki', function (req, res) {
+  res.render('pages/member/wiki')
 })
 
 router.get('/*', function (req, res, next) {
