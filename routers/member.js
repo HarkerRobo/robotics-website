@@ -10,7 +10,6 @@ const express = require('express'),
   config = require(__base + 'config.json'),
   MongoStore = require('connect-mongo')(session)
 
-router.use(compression())
 router.use(cookieParser())
 
 // DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
@@ -27,15 +26,8 @@ router.use(session({
   httpOnly: false
 }))
 
-router.use(function logRequest(req, res, next) {
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  console.log()
-  console.log('--- NEW REQUEST ---')
-  console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
-  console.log('IP: ', ip)
-  console.log('Request:', req.originalUrl)
-  console.log('Router: member.js')
-  if (req.session.auth === undefined) {
+router.use(function (req, res, next) {
+  if (!req.session.auth) {
     req.session.auth = { loggedin: false }
   }
   res.cookie('loggedin', req.session.auth.loggedin)
@@ -56,7 +48,8 @@ router.post('/token', function (req, res) {
         port: 443,
         path: '/oauth2/v3/tokeninfo?id_token='+token,
         method: 'GET'
-      }, (result) => {
+      }, (result, err) => {
+        if (err) { return res.sendStatus(400); console.log('Error:', err) }
         console.log()
         console.log('---API TOKEN REQUESTED---')
         console.log('statusCode:', result.statusCode)
@@ -108,8 +101,8 @@ router.all('/*', function (req, res, next) {
   }
 })
 
-router.get('/challanges', function (req, res) {
-  res.render('pages/member/challanges')
+router.get('/challenges', function (req, res) {
+  res.render('pages/member/challenges')
 })
 
 router.get('/volunteer', function (req, res) {
@@ -138,30 +131,5 @@ router.get('/*', function (req, res, next) {
   res.errCode = 404
   next('URL ' + req.originalUrl + ' Not Found')
 })
-
-router.use(logErrors)
-router.use(clientErrorHandler)
-router.use(errorHandler)
-
-function logErrors(err, req, res, next) {
-  console.error(err.stack)
-  next(err)
-}
-
-function clientErrorHandler(err, req, res, next) {
-  if (req.xhr) {
-    res.status(500).render('pages/member/error', { statusCode: 500, error: 'Something failed!' })
-  } else {
-    next(err)
-  }
-}
-
-function errorHandler(err, req, res, next) {
-  if (res.headersSent) {
-    return next(err)
-  }
-  res.status(res.errCode || err.status || 500)
-  res.render('pages/member/error', { statusCode: res.errCode || err.status || 500, error: err })
-}
 
 module.exports = router

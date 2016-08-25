@@ -42,6 +42,11 @@ app.set('env', 'development')
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
 app.use(compression())
+app.use(logRequests)
+app.use(logErrors)
+app.use(clientErrorHandler)
+app.use(errorHandler)
+
 
 // letsencrypt-express
 var LEX = require('letsencrypt-express')
@@ -64,20 +69,13 @@ var lex = LEX.create({
   }
 })
 
+// use routers
 app.use('/logs', logsRouter)
 app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
 
-app.use(function logRequest(req, res, next) {
-  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
-  console.log()
-  console.log('--- NEW REQUEST ---')
-  console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
-  console.log('IP: ', ip)
-  console.log('Request:', req.originalUrl)
-  next()
-})
 
+// / router
 app.get('/about', function (req, res) {
   res.render('pages/about')
 })
@@ -96,9 +94,17 @@ app.get('*', function (req, res, next) {
   next('URL ' + req.originalUrl + ' Not Found')
 })
 
-app.use(logErrors)
-app.use(clientErrorHandler)
-app.use(errorHandler)
+
+// functions
+function logRequests(req, res, next) {
+  const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  console.log()
+  console.log('--- NEW REQUEST ---')
+  console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
+  console.log('IP: ', ip)
+  console.log('Request:', req.originalUrl)
+  next()
+}
 
 function logErrors(err, req, res, next) {
   console.error(err.stack)
@@ -121,10 +127,7 @@ function errorHandler(err, req, res, next) {
   res.render('pages/error', { statusCode: res.errCode || err.status || 500, error: err })
 }
 
-app.use(function (req, res) {
-  res.send({ success: true })
-})
-
+// create server
 if (config['httpsCapable']==="true") {
 
   http.createServer(LEX.createAcmeResponder(lex, function redirectHttps(req, res) {
