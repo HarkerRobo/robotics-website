@@ -1,7 +1,7 @@
 <nav class="navbar navbar-custom navbar-fixed-top" role="navigation">
   <div class="container-fluid">
 
-    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <script src="https://apis.google.com/js/platform.js" onload="loadGAPI()" async defer></script>
     <script>
 
 
@@ -20,7 +20,11 @@
         return "";
       }
 
-
+      function loadGAPI() {
+        gapi.load('auth2', function(){
+          gapi.auth2.init()
+        })
+      }
 
       function signOut() {
         var auth2 = gapi.auth2.getAuthInstance()
@@ -32,10 +36,6 @@
         xhr.send()
         location.reload()
       }
-
-      gapi.load('auth2', function(){
-        gapi.auth2.init()
-      })
     </script>
 
     <div class="navbar-header">

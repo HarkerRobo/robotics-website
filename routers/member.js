@@ -132,4 +132,14 @@ router.get('/*', function (req, res, next) {
   next('URL ' + req.originalUrl + ' Not Found')
 })
 
+router.use(errorHandler)
+
+function errorHandler(err, req, res, next) {
+  if (res.headersSent) {
+    return next(err)
+  }
+  res.status(res.errCode || err.status || 500)
+  res.render('pages/member/error', { statusCode: res.errCode || err.status || 500, error: err })
+}
+
 module.exports = router

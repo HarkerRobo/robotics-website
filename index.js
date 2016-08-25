@@ -45,7 +45,7 @@ app.use(compression())
 app.use(logRequests)
 app.use(logErrors)
 app.use(clientErrorHandler)
-app.use(errorHandler)
+
 
 
 // letsencrypt-express
@@ -105,6 +105,8 @@ function logRequests(req, res, next) {
   console.log('Request:', req.originalUrl)
   next()
 }
+
+app.use(errorHandler)
 
 function logErrors(err, req, res, next) {
   console.error(err.stack)
