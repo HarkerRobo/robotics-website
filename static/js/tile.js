@@ -2,6 +2,10 @@ var tiles = []
 
 $(function(){
 
+  // defers images
+  $("header, section").attr("id", $(this).attr("tid"));
+
+  // sets up snapping, nav animation
   tiles = $('header, section')
 
   $('.navbar-left > li > a, .navbar-brand').click(function() {
@@ -58,6 +62,7 @@ $(function(){
     }, 275))
   })
 })
+
 
 function navUpdate() {
   $('.navbar-left > li > a, .navbar-brand').each(function(){

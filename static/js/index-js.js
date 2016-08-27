@@ -6,7 +6,6 @@ var auto = document.getElementById('autotype')
 
 $(function(){
   try {
-
     // automatic typing on the front page
     setTimeout(autoType, 2000)
   } catch(err) {

@@ -75,7 +75,7 @@ app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
 
 
-// / router
+// '/' router
 app.get('/about', function (req, res) {
   res.render('pages/about')
 })
@@ -143,7 +143,7 @@ if (config['httpsCapable']==="true") {
   lex.onRequest = app
 
   lex.listen([80], [443, 5001], function () {
-    var protocol = ('requestCert' in this) ? 'https': 'http'
+    const protocol = ('requestCert' in this) ? 'https': 'http'
     console.log("Listening at " + protocol + '://' + config['domain'] + ':' + this.address().port)
   })
 }

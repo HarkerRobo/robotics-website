@@ -30,7 +30,7 @@ router.use(function (req, res, next) {
   if (!req.session.auth) {
     req.session.auth = { loggedin: false }
   }
-  res.cookie('loggedin', req.session.auth.loggedin)
+  req.app.locals.auth = req.session.auth
   next()
 })
 
