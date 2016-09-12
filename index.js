@@ -69,6 +69,8 @@ var lex = LEX.create({
   }
 })
 
+//TODO: Route mobile
+
 // use routers
 app.use('/logs', logsRouter)
 app.use('/member', memberRouter)

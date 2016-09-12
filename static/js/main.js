@@ -9,7 +9,7 @@ $(function() {
     $(this).blur()
   })
 
-  waitForWebfonts('neuropol', () => {
+  waitForWebfonts(['neuropol'], () => {
     $('.landingtext').fadeIn(1500)
   })
 
