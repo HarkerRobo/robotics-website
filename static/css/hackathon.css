@@ -1,14 +1,14 @@
 #table{
-  margin: 10px !important;
-  font-size: 30px;
+  margin: 5px !important;
+  font-size: 25px;
+}
+#dot{
+  color: cyan;
 }
 #quote {
   margin-top: -50px;
   background-color: rgba(0, 0, 0, 0.5);
 }
-/*#quoteText {
-  color:chartreuse;
-}*/
 #hackathon-form-container {
   /*background-color: rgba(0, 0, 0, 0.5);*/
   margin: 0 auto;
