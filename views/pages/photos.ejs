@@ -2,6 +2,7 @@
 <html>
   <head>
     <%- include(__base + 'views/partials/head.ejs') %>
+
   </head>
   <body>
 
@@ -10,9 +11,14 @@
 
       <header id="photos">
         <h1 class="title">PHOTOS</h1>
+
       </header>
 
     <%- include(__base + 'views/partials/js-include.ejs') %>
-
+    <script defer>
+      $(() => {
+        $.ajax({  method: "POST", url: "/photos/test"})
+      })
+    </script>
   </body>
 </html>

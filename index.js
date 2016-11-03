@@ -23,6 +23,7 @@ const express = require('express'),
   logsRouter = require('./routers/logs'),
   memberRouter = require('./routers/member'),
   hackathonRouter = require('./routers/hackathon'),
+  photosRouter = require('./routers/photos'),
 
   config = require('./config.json')
 
@@ -72,9 +73,14 @@ var lex = LEX.create({
 //TODO: Route mobile
 
 // use routers
+app.use(function(req, res, next) {
+  console.log(app.locals.auth);
+  next();
+})
 app.use('/logs', logsRouter)
 app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
+app.use('/photos', photosRouter)
 
 
 // '/' router
