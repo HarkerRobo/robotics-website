@@ -122,6 +122,10 @@ router.all('/*', function (req, res, next) {
   }
 })
 
+router.get('/resources', function(req, res){
+  res.render('pages/member/resources')
+})
+
 router.get('/wiki', function (req, res) {
   res.render('pages/member/wiki')
 })
