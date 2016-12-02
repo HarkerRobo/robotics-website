@@ -50,7 +50,40 @@ app.use(clientErrorHandler)
 
 
 // letsencrypt-express
-var LEX = require('letsencrypt-express')
+var lex = require('letsencrypt-express').create({
+  // set to https://acme-v01.api.letsencrypt.org/directory in production
+  server: 'staging'
+
+  // If you wish to replace the default plugins, you may do so here
+  , challenges: { 'http-01': require('le-challenge-fs').create({ webrootPath: '/tmp/acme-challenges' }) }
+  , store: require('le-store-certbot').create({ webrootPath: '/tmp/acme-challenges' })
+
+  , approveDomains: approveDomains
+});
+
+function approveDomains(opts, certs, cb) {
+  // This is where you check your database and associated
+  // email addresses with domains and agreements and such
+
+
+  // The domains being approved for the first time are listed in opts.domains
+  // Certs being renewed are listed in certs.altnames
+  if (certs) {
+    opts.domains = certs.altnames;
+  }
+  else {
+    opts.email = config['email'];
+    opts.agreeTos = true;
+  }
+
+  // NOTE: you can also change other options such as `challengeType` and `challenge`
+  // opts.challengeType = 'http-01';
+  // opts.challenge = require('le-challenge-fs').create({});
+
+  cb(null, { options: opts, certs: certs });
+}
+
+/*var LEX = require('letsencrypt-express')
 
 var DOMAIN = config['domain']
 console.log("DOMAIN:", DOMAIN)
@@ -68,7 +101,9 @@ var lex = LEX.create({
       })
     }
   }
-})
+})*/
+
+
 
 //TODO: Route mobile
 
@@ -138,15 +173,33 @@ function errorHandler(err, req, res, next) {
 }
 
 // create server
-if (config['httpsCapable']==="true") {
+if (config['httpsCapable']===true) {
 
-  http.createServer(LEX.createAcmeResponder(lex, function redirectHttps(req, res) {
+  /*http.createServer(LEX.createAcmeResponder(lex, function redirectHttps(req, res) {
       res.setHeader('Location', 'https://' + req.headers.host + req.url);
       res.statusCode = 302; // use 307 if you want to redirect requests with POST, DELETE or PUT action.
       res.end('<!-- Hello Developer Person! Please use HTTPS instead -->');
     })).listen(80);
 
-    spdy.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(443);
+    spdy.createServer(lex.httpsOptions, LEX.createAcmeResponder(lex, app)).listen(443);*/
+
+    // handles acme-challenge and redirects to https
+    require('http').createServer(lex.middleware(require('redirect-https')())).listen(80, function () {
+      console.log("Listening for ACME http-01 challenges on", this.address());
+    });
+
+
+
+    var app = require('express')();
+    app.use('/', function (req, res) {
+      res.end('Hello, World!');
+    });
+
+    // handles your app
+    require('https').createServer(lex.httpsOptions, lex.middleware(app)).listen(443, function () {
+      console.log("Listening for ACME tls-sni-01 challenges and serve app on", this.address());
+    });
+
 } else {
   lex.onRequest = app
 
