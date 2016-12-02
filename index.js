@@ -188,13 +188,6 @@ if (config['httpsCapable']===true) {
       console.log("Listening for ACME http-01 challenges on", this.address());
     });
 
-
-
-    var app = require('express')();
-    app.use('/', function (req, res) {
-      res.end('Hello, World!');
-    });
-
     // handles your app
     require('https').createServer(lex.httpsOptions, lex.middleware(app)).listen(443, function () {
       console.log("Listening for ACME tls-sni-01 challenges and serve app on", this.address());
