@@ -126,6 +126,10 @@ router.get('/resources', function(req, res){
   res.render('pages/member/resources')
 })
 
+router.get('/photos', function (req, res) {
+  res.render('pages/member/photos')
+})
+
 router.get('/wiki', function (req, res) {
   res.render('pages/member/wiki')
 })

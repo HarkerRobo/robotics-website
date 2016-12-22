@@ -2,7 +2,7 @@
 <html>
   <head>
     <%- include(__base + 'views/partials/head.ejs') %>
-
+    <link rel="stylesheet" type="text/css" href="/css/member.css" />
   </head>
   <body>
 
@@ -11,7 +11,11 @@
 
       <header id="photos">
         <h1 class="title">PHOTOS</h1>
-
+        <form method="post" enctype="multipart/form-data">
+          <p>title: <input type="filename" name="filename" /></p>
+          <p>file: <input type="file" name="file" /></p>
+          <p><input type="submit" value="Upload" /></p>
+        </form>
       </header>
 
     <%- include(__base + 'views/partials/js-include.ejs') %>

@@ -16,6 +16,7 @@
   "dependencies": {
     "body-parser": "^1.15.2",
     "compression": "^1.6.2",
+    "connect-form": "^0.2.1",
     "connect-mongo": "^1.3.2",
     "connect-redis": "^3.1.0",
     "cookie-parser": "^1.4.3",
@@ -25,6 +26,7 @@
     "express-subdomain": "^1.0.5",
     "letsencrypt-express": "^1.2.0",
     "moment": "^2.14.1",
+    "multiparty": "^4.1.2",
     "spdy": "^3.4.0"
   }
 }

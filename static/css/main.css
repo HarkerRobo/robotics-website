@@ -134,6 +134,11 @@ a.regular:hover {
   color: aquamarine;
 }
 
+a.regular:focus {
+  /*color: aqua;*/
+  color: aquamarine;
+}
+
 a.covert {
   color: white;
 }
