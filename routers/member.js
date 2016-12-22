@@ -62,7 +62,12 @@ router.post('/token', function (req, res) {
           if (result.statusCode === 200) {
             if (data.aud === config.GoogleClientID) {
               if (data.hd !== undefined && data.hd === "students.harker.org") {
-                req.session.auth.level = 1
+                if (data.email === "19DJM@students.harker.org"){
+                  req.session.auth.level = 2
+                }
+                else {
+                  req.session.auth.level = 1
+                }
               }
               req.session.auth.loggedin = true
               req.session.auth.token = token
@@ -126,12 +131,20 @@ router.get('/resources', function(req, res){
   res.render('pages/member/resources')
 })
 
-router.get('/photos', function (req, res) {
-  res.render('pages/member/photos')
-})
-
 router.get('/wiki', function (req, res) {
   res.render('pages/member/wiki')
+})
+
+router.all('/*', function (req, res, next) {
+  if (req.session.auth.level >= 2) {
+    next()
+  } else {
+    res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
+  }
+})
+
+router.get('/photos', function (req, res) {
+  res.render('pages/member/photos')
 })
 
 router.get('/*', function (req, res, next) {
