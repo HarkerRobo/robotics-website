@@ -1,6 +1,7 @@
 config.json
 
 node_modules/
+node_modules/*
 
 static/img/media/2012/
 static/img/media/2013/
