@@ -1,13 +1,12 @@
 config.json
 
-node_modules
 node_modules/
-node_modules/*
 
 static/img/media/2012/
 static/img/media/2013/
 static/img/media/2014/
 static/img/media/2015/
 static/img/media/2016/
+static/img/media/2017/
 
 static/googlef3d505ccffd01f1b.html
