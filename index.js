@@ -47,12 +47,13 @@ app.use(logRequests)
 app.use(logErrors)
 app.use(clientErrorHandler)
 
+app.locals.admins = ["19djm@students.harker.org", "17andrewt@students.harker.org", "19annaw@students.harker.org"]
 
 
 // letsencrypt-express
 var lex = require('letsencrypt-express').create({
   // set to https://acme-v01.api.letsencrypt.org/directory in production
-  server: 'staging'
+  server: 'https://acme-v01.api.letsencrypt.org/directory'
 
   // If you wish to replace the default plugins, you may do so here
   , challenges: { 'http-01': require('le-challenge-fs').create({ webrootPath: '/tmp/acme-challenges' }) }
@@ -109,7 +110,6 @@ var lex = LEX.create({
 
 // use routers
 app.use(function(req, res, next) {
-  console.log(app.locals.auth);
   next();
 })
 app.use('/logs', logsRouter)
