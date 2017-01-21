@@ -141,7 +141,7 @@ if (config['httpsCapable']===true) {
 
     cb(null, { options: opts, certs: certs });
   }
-  
+
   let lex = require('letsencrypt-express').create({
     // set to https://acme-v01.api.letsencrypt.org/directory in production
     server: 'https://acme-v01.api.letsencrypt.org/directory'
@@ -152,6 +152,7 @@ if (config['httpsCapable']===true) {
 
     , approveDomains: approveDomains
   });
+  console.log("lex =", lex)
 
   // handles acme-challenge and redirects to https
   require('http').createServer(lex.middleware(require('redirect-https')())).listen(80, function () {
