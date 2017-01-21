@@ -149,7 +149,7 @@ if (config['httpsCapable']===true) {
     // If you wish to replace the default plugins, you may do so here
     , challenges: { 'http-01': require('le-challenge-fs').create({ webrootPath: '/tmp/acme-challenges' }) }
     , store: require('le-store-certbot').create({ webrootPath: '/tmp/acme-challenges' })
-
+    , app: app
     , approveDomains: approveDomains
   });
   console.log("lex =", lex)
