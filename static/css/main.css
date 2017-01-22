@@ -1,4 +1,4 @@
-* {
+*::not(.btn) {
   transition: background .3s ease-in-out;
   -webkit-transition: background .3s ease-in-out;
 }
@@ -12,20 +12,28 @@
     height: 0;
 }
 
-
-header, section {
-  padding-top: 40px;
-  background: linear-gradient(90deg, rgba(255,0,0, .5) 0%, rgba(0,14,255, .5) 100%);
-  mix-blend-mode: normal;
-  opacity: 1;
-  height: 100vh;
-  width: 100vw;
-  color: white;
-  position: relative;
+.black-text {
+  color: black;
 }
 
-header.scrollable, section.scrollable {
-  height: 100%;
+.center {
+  text-align: center;
+}
+
+.float-right {
+  float: right;
+}
+
+
+header, section {
+  mix-blend-mode: normal;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+  padding-top: 80px;
+  background: linear-gradient(90deg, rgba(255,0,0, .5) 0%, rgba(0,14,255, .5) 100%);
+  opacity: 1;
+  color: white;
 }
 
 ul.no-bullets {
@@ -184,7 +192,12 @@ a.covert:hover {
 /* landing */
 
 #landing-tile {
-  background: url('/img/media/direc/landing-background.jpg') no-repeat center center;
+  /*background: url('/img/media/direc/landing-background.jpg') no-repeat center center;*/
+  background: url('/img/media/direc/landing-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/landing-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/landing-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/landing-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),url('/img/media/direc/landing-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

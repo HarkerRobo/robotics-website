@@ -5,7 +5,7 @@ var $root = $('html, body')
 $(function() {
 
   // blur after a nav click
-  $('*').focus(function(){
+  $('a.covert, nav a').focus(function(){
     $(this).blur()
   })
 

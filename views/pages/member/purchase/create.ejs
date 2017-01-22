@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <%- include(__base + 'views/partials/navbar-purchase.ejs') %>
+    <header>
+      <div class="container-fluid">
+        <form class="form-horizontal" method="POST">
+          <h1 class="title"> CREATE PURCHASE </h1>
+          <div class="form-group">
+            <label class="col-sm-2 control-label" for="premade">Premade Vendor</label>
+            <div class="col-sm-10 col-lg-8">
+              <select name="premade" id="premade" class="form-control" style="inline">
+                <option value="">Custom...</option>
+                <option value="Andymark">Andymark</option>
+                <option value="VexPro">Vex Pro</option>
+                <option value="Amazon">Amazon</option>
+                <option value="SDPSI">SDP/SI</option>
+                <option value="MMC">McMaster-Carr</option>
+                <option value="WCP">WCP</option>
+                <option value="LMS">Little Machine Shop</option>
+                <option value="MT">MariTool</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-sm-2 control-label">Subteam</label>
+            <div class="radio-inline col-sm-2">
+              <label>
+                &emsp;<input type="radio" name="subteam" value="0" /> Mech
+              </label>
+            </div>
+            <div class="radio-inline col-sm-2">
+              <label>
+                <input type="radio" name="subteam" value="1" /> E
+              </label>
+            </div>
+            <div class="radio-inline col-sm-2">
+              <label>
+                <input type="radio" name="subteam" value="2" /> Software
+              </label>
+            </div>
+            <div class="radio-inline col-sm-2">
+              <label>
+                <input type="radio" name="subteam" value="3" /> Ops
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vendor" class="col-sm-2 control-label">Vendor Name</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="text" class="form-control vendor-fill" name="vendor" id="vendor" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vendor_phone" class="col-sm-2 control-label">Vendor Phone Number</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="text" class="form-control vendor-fill" name="vendor_phone" id="vendor_phone" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vendor_email" class="col-sm-2 control-label">Vendor Email</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="email" class="form-control vendor-fill" name="vendor_email" id="vendor_email" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vendor_address" class="col-sm-2 control-label">Vendor Address</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="text" class="form-control vendor-fill" name="vendor_address" id="vendor_address" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="reason_for_purchase" class="col-sm-2 control-label">Reason For Purchase</label>
+            <div class="col-sm-10 col-lg-8">
+              <textarea class="form-control" rows="3" id="reason_for_purchase" name="reason_for_purchase"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="shipping_and_handling" class="col-sm-2 control-label">Shipping and Handling</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="text" class="form-control" name="shipping_and_handling" id="shipping_and_handling" pattern="^\d+(\.\d{0,2})?$">
+            </div>
+          </div>
+          <div id="parts">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th class="center">Part URL</th>
+                  <th class="center">Part #</th>
+                  <th class="center">Part Name</th>
+                  <th class="center">Subsystem</th>
+                  <th class="center">$/Unit</th>
+                  <th class="center">Quantity</th>
+                  <th class="center">Add/Cut Rows</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr id="input-row">
+                  <td><input type="text"    id="part_url"       name="part_url"       class="form-control" /></td>
+                  <td><input type="text"    id="part_number"    name="part_number"    class="form-control" /></td>
+                  <td><input type="text"    id="part_name"      name="part_name"      class="form-control" /></td>
+                  <td><input type="text"    id="subsystem"      name="subsystem"      class="form-control" /></td>
+                  <td><input type="text"    id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$"/></td>
+                  <td><input type="number"  id="quantity"       name="quantity"       class="form-control" /></td>
+                  <td><button type="button" id="add-row" class="btn btn-info form-control">Add</button></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+      </div>
+    </header>
+
+    <script>
+      $("#add-row").click(function() {
+        $("#parts > table > tbody").append(""
+          + '<tr>'
+          +   '<td><input type="text" name="part_url" class="form-control" value="' + $("#part_url").val() + '" /></td>'
+          +   '<td><input type="text" name="part_number" class="form-control" value="' + $("#part_number").val() + '" /></td>'
+          +   '<td><input type="text" name="part_name" class="form-control" value="' + $("#part_name").val() + '" /></td>'
+          +   '<td><input type="text" name="subsystem" class="form-control" value="' + $("#subsystem").val() + '" /></td>'
+          +   '<td><input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" /></td>'
+          +   '<td><input type="text" name="quantity" class="form-control" value="' + $("#quantity").val() + '" /></td>'
+          +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
+          + '</tr>'
+        );
+        $("#input-row input").val("");
+        $(".remove-row").click(function() {
+          $(this).parent().parent().remove();
+        });
+      });
+      var vendors = {
+        "Andymark": ["Andymark", "877-868-4770", "sales@andymark.com", "2311 N. Washington St., Kokomo, IN 46901"],
+        "VexPro": ["Vex Pro", "903-453-0802", "sales@vexrobotics.com", "1519 Interstate 30, West Greenville, TX 75402"],
+        "Amazon": ["Amazon", "(888) 280-3321", "", "4625 Albany Drive, San Jose, CA 95129"],
+        "SDPSI": ["SDP/SI", "800-819-8900", "SDP-SIsupport@sdp-si.com", "2101 Jericho Turnpike, Box 5416, New Hyde Park, New York 11042-5416"],
+        "MMC": ["McMaster-Carr", "(562) 692-5911", "la.sales@mcmaster.com", "P.O. Box 54960, Los Angeles, CA 90054-0960"],
+        "WCP": ["West Coast Products", "323-989-2718", "sales@wcproducts.net", "2214 Driftwood Drive, Madera, CA 93637"],
+        "LMS": ["Little Machine Stop", "(800) 981-9663", "info@littlemachineshop.com", "396 W. Washington Blvd. #500 Pasadena, CA 91103"],
+        "MT": ["MariTool", "888 352 7773", "info@maritool.com", "242 Beinoris Drive Wood Dale, IL 60191 United States"]
+      };
+      $("#premade").change(function() {
+        $('.vendor-fill').empty();
+        var val = $(this).val();
+        if (!val || val==="") return;
+        var vendor = vendors[$(this).val()];
+        $(".vendor-fill").each(function(i, e) {
+          $($(".vendor-fill")[i]).val(vendor[i]);
+        });
+      });
+    </script>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+
+  </body>
+</html>

@@ -8,7 +8,28 @@ const express = require('express'),
   session = require('express-session'),
   cookieParser = require('cookie-parser'),
   config = require(__base + 'config.json'),
-  MongoStore = require('connect-mongo')(session)
+  MongoStore = require('connect-mongo')(session),
+  Purchase = require('../models/purchase'),
+  nodemailer = require('nodemailer'),
+  smtpConfig = require('../config.json')["automail"],
+  transporter = nodemailer.createTransport(smtpConfig)
+
+
+
+const toNumber = (num, err) => {
+  var res = parseInt(num, 10)
+  return isNaN(res) ? err : res
+}
+const mapToNumber = (arr, err) => {
+  return Array.isArray(arr) ? arr.map((x) => {
+    return toNumber(x, err)
+  }) : toNumber(arr, err)
+}
+const deleteBlanks = (arr) => {
+  for (let i = arr.length - 1; i >= 0; i--) {
+    if (typeof arr[i] === 'undefined' || arr[i] === null || arr[i] === '') arr.splice(i, 1)
+  }
+}
 
 router.use(cookieParser())
 
@@ -30,7 +51,7 @@ router.use(function (req, res, next) {
   if (!req.session.auth) {
     req.session.auth = { loggedin: false }
   }
-  req.app.locals.auth = req.session.auth
+  res.locals.auth = req.session.auth
   next()
 })
 
@@ -62,7 +83,7 @@ router.post('/token', function (req, res) {
           if (result.statusCode === 200) {
             if (data.aud === config.GoogleClientID) {
               if (data.hd !== undefined && data.hd === "students.harker.org") {
-                if (data.email === "19DJM@students.harker.org"){
+                if (req.app.locals.admins.includes(data.email.toLowerCase())){
                   req.session.auth.level = 2
                 }
                 else {
@@ -115,6 +136,21 @@ router.get('/volunteer', function (req, res) {
 })
 
 router.get('/', function (req, res) {
+  // setup e-mail data with unicode symbols
+  var mailOptions = {
+    from: 'David Melisso <19djm@students.harker.org>', // sender address
+    to: '19djm@stduents.harker.org', // list of receivers
+    subject: 'Hello', // Subject line
+    text: 'Hello world' // plaintext body
+  };
+
+  // send mail with defined transport object
+  transporter.sendMail(mailOptions, function(error, info){
+      if(error){
+          return console.error(error);
+      }
+      console.log('Message sent: ' + info.response);
+  });
   res.render('pages/member/index')
 })
 
@@ -135,12 +171,162 @@ router.get('/wiki', function (req, res) {
   res.render('pages/member/wiki')
 })
 
+router.get('/purchase', function (req, res) {
+  res.render('pages/member/purchase/list', { filter: 'my' })
+})
+
+router.get('/purchase/view/:purchase_id', function (req, res) {
+  Purchase.findById(req.params.purchase_id, (err, purchase) => {
+    if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
+    else res.render('pages/member/purchase/view', { purchase: purchase })
+  })
+})
+
+router.get('/purchase/list_object/:filter', function (req, res) {
+  if (req.params.filter === 'my') {
+    Purchase.find({ submitted_by: req.session.auth.info.email }, (err, purchases) => {
+      let map = {}
+      purchases.forEach((e) => { map[e._id] = e })
+      res.send(map)
+    })
+  }
+  else {
+    Purchase.find({}, (err, purchases) => {
+      let map = {}
+      purchases.forEach((e) => { map[e._id] = e })
+      res.send(map)
+    })
+  }
+})
+
+router.get('/purchase/list_object/', function (req, res) {
+  Purchase.find({}, (err, purchases) => {
+    let map = {}
+    purchases.forEach((e) => { map[e._id] = e })
+    res.send(map)
+  })
+})
+
+router.get('/purchase/list/', function (req, res) {
+  res.render('pages/member/purchase/list', { filter: 'all' })
+})
+
+router.get('/purchase/list/my', function (req, res) {
+  res.render('pages/member/purchase/list', { filter: 'my' })
+})
+
+router.get('/purchase/create', function (req, res) {
+  res.render('pages/member/purchase/create')
+})
+
+router.post('/purchase/create', function (req, res) {
+  if (req.body.part_url[0] === "") {
+    req.body.part_url.shift()
+    req.body.part_number.shift()
+    req.body.part_name.shift()
+    req.body.subsystem.shift()
+    req.body.price_per_unit.shift()
+    req.body.quantity.shift()
+  }
+  else if (req.body.part_url === "") {
+    req.body.part_url =
+      req.body.part_number =
+      req.body.part_name =
+      req.body.subsystem =
+      req.body.price_per_unit =
+      req.body.quantity = []
+  }
+  req.body.part_url === ""
+  Purchase.create({
+    subteam: req.body.subteam,
+    vendor: req.body.vendor,
+    vendor_phone: req.body.vendor_phone,
+    vendor_email: req.body.vendor_email,
+    vendor_address: req.body.vendor_address,
+    reason_for_purchase: req.body.reason_for_purchase,
+    part_url: req.body.part_url,
+    part_number: req.body.part_number,
+    part_name: req.body.part_name,
+    subsystem: req.body.subsystem,
+    price_per_unit: mapToNumber(req.body.price_per_unit, 0),
+    quantity: mapToNumber(req.body.quantity, 0),
+    shipping_and_handling: toNumber(req.body.shipping_and_handling),
+    submitted_by: req.session.auth.info.email,
+  }, (err, purchase) => {
+    if (err) console.error(err)
+    res.redirect('view/' + purchase._id)
+  });
+})
+
+router.get('/purchase/edit/:purchase_id', function (req, res) {
+
+  Purchase.findById(req.params.purchase_id, (err, purchase) => {
+    if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
+    else if (purchase.submitted_by === req.session.auth.info.email) res.render('pages/member/purchase/edit', { purchase: purchase })
+    else res.render('pages/member/purchase/view', { purchase: purchase })
+  })
+})
+
+router.post('/purchase/edit/:purchase_id', function (req, res) {
+  if (req.body.part_url[0] === "") {
+    req.body.part_url.shift()
+    req.body.part_number.shift()
+    req.body.part_name.shift()
+    req.body.subsystem.shift()
+    req.body.price_per_unit.shift()
+    req.body.quantity.shift()
+  }
+  else if (req.body.part_url === "") {
+    req.body.part_url =
+      req.body.part_number =
+      req.body.part_name =
+      req.body.subsystem =
+      req.body.price_per_unit =
+      req.body.quantity = []
+  }
+  req.body.part_url === ""
+  Purchase.findByIdAndUpdate(req.params.purchase_id, {
+    subteam: req.body.subteam,
+    vendor: req.body.vendor,
+    vendor_phone: req.body.vendor_phone,
+    vendor_email: req.body.vendor_email,
+    vendor_address: req.body.vendor_address,
+    reason_for_purchase: req.body.reason_for_purchase,
+    part_url: req.body.part_url,
+    part_number: req.body.part_number,
+    part_name: req.body.part_name,
+    subsystem: req.body.subsystem,
+    price_per_unit: mapToNumber(req.body.price_per_unit, 0),
+    quantity: mapToNumber(req.body.quantity, 0),
+    shipping_and_handling: toNumber(req.body.shipping_and_handling),
+    submitted_by: req.session.auth.info.email,
+  }, (err, purchase) => {
+    if (err) console.error(err)
+    transporter.sendMail({
+      from: '"David Melisso <19djm@students.harker.org>', // sender address
+      to: '19djm@students.harker.org', // list of receivers
+      subject: 'Hello', // Subject line
+      text: 'Hello world', // plaintext body
+    }, (err) => {
+      console.error(err)
+      if (err) res.render('pages/member/error', { statusCode: 500, error: err })
+      else res.redirect('../view/' + purchase._id)
+    })
+  });
+})
+
+
+// must be an admin to see below pages
 router.all('/*', function (req, res, next) {
   if (req.session.auth.level >= 2) {
     next()
   } else {
     res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
   }
+})
+
+router.get('/purchase/admin', function (req, res) {
+  res.render('pages/member/purchase/admin')
 })
 
 router.get('/photos', function (req, res) {
