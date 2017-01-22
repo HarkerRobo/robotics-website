@@ -139,7 +139,7 @@ router.get('/', function (req, res) {
   // setup e-mail data with unicode symbols
   var mailOptions = {
     from: 'David Melisso <19djm@students.harker.org>', // sender address
-    to: '19djm@stduents.harker.org', // list of receivers
+    to: '19djm@students.harker.org', // list of receivers
     subject: 'Hello', // Subject line
     text: 'Hello world' // plaintext body
   };
@@ -211,7 +211,7 @@ router.get('/purchase/list/', function (req, res) {
   res.render('pages/member/purchase/list', { filter: 'all' })
 })
 
-router.get('/purchase/list/my', function (req, res) {
+router.get('/purchase/list_my', function (req, res) {
   res.render('pages/member/purchase/list', { filter: 'my' })
 })
 
@@ -253,8 +253,20 @@ router.post('/purchase/create', function (req, res) {
     shipping_and_handling: toNumber(req.body.shipping_and_handling),
     submitted_by: req.session.auth.info.email,
   }, (err, purchase) => {
-    if (err) console.error(err)
-    res.redirect('view/' + purchase._id)
+    if (err) {
+      console.error(err)
+      res.render('pages/member/error', { statusCode: 500, error: err })
+      return
+    }
+    transporter.sendMail({
+      from: 'HarkerRobotics1072 Purchase System', // sender address
+      to: 'harker1072@gmail.com', // list of receivers
+      subject: 'Purchase Order has been created!', // Subject line
+      text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
+    }, (err) => {
+      console.error(err)
+    })
+    else res.redirect('../view/' + purchase._id)
   });
 })
 
@@ -301,17 +313,20 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     shipping_and_handling: toNumber(req.body.shipping_and_handling),
     submitted_by: req.session.auth.info.email,
   }, (err, purchase) => {
-    if (err) console.error(err)
+    if (err) {
+      console.error(err)
+      res.render('pages/member/error', { statusCode: 500, error: err })
+      return
+    }
     transporter.sendMail({
-      from: '"David Melisso <19djm@students.harker.org>', // sender address
-      to: '19djm@students.harker.org', // list of receivers
-      subject: 'Hello', // Subject line
-      text: 'Hello world', // plaintext body
+      from: 'HarkerRobotics1072 Purchase System', // sender address
+      to: 'harker1072@gmail.com', // list of receivers
+      subject: 'Purchase Order has been edited!', // Subject line
+      text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
     }, (err) => {
       console.error(err)
-      if (err) res.render('pages/member/error', { statusCode: 500, error: err })
-      else res.redirect('../view/' + purchase._id)
     })
+    else res.redirect('../view/' + purchase._id)
   });
 })
 
