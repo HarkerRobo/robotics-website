@@ -14,16 +14,27 @@ const express = require('express'),
   smtpConfig = require('../config.json')["automail"],
   transporter = nodemailer.createTransport(smtpConfig)
 
-
+const safeString = (str) => {
+  return (typeof str === 'undefined' ? "" : str)
+}
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
   return isNaN(res) ? err : res
 }
+const toDollarAmount = (num, err) => {
+  var res = parseFloat(num, 10).toFixed(2)
+  return res==="NaN" ? err : res
+}
 const mapToNumber = (arr, err) => {
   return Array.isArray(arr) ? arr.map((x) => {
     return toNumber(x, err)
   }) : toNumber(arr, err)
+}
+const mapToDollarAmount = (arr, err) => {
+  return Array.isArray(arr) ? arr.map((x) => {
+    return toDollarAmount(x, err)
+  }) : toDollarAmount(arr, err)
 }
 const deleteBlanks = (arr) => {
   for (let i = arr.length - 1; i >= 0; i--) {
@@ -157,7 +168,7 @@ router.get('/wiki', function (req, res) {
 })
 
 router.get('/purchase', function (req, res) {
-  res.render('pages/member/purchase/list', { filter: 'my' })
+  res.redirect('purchase/list_my')
 })
 
 router.get('/purchase/view/:purchase_id', function (req, res) {
@@ -205,15 +216,13 @@ router.get('/purchase/create', function (req, res) {
 })
 
 router.post('/purchase/create', function (req, res) {
-  if (req.body.part_url[0] === "") {
-    req.body.part_url.shift()
-    req.body.part_number.shift()
-    req.body.part_name.shift()
-    req.body.subsystem.shift()
-    req.body.price_per_unit.shift()
-    req.body.quantity.shift()
-  }
-  else if (req.body.part_url === "") {
+  if (req.body.part_url === ""&&
+      req.body.part_number === ""&&
+      req.body.part_name === ""&&
+      req.body.subsystem === ""&&
+      req.body.part_url === ""&&
+      !req.body.price_per_unit&&
+      !req.body.quantity) {
     req.body.part_url =
       req.body.part_number =
       req.body.part_name =
@@ -221,22 +230,35 @@ router.post('/purchase/create', function (req, res) {
       req.body.price_per_unit =
       req.body.quantity = []
   }
-  req.body.part_url === ""
+  else if (req.body.part_url[0] === ""&&
+          req.body.part_number[0] === ""&&
+          req.body.part_name[0] === ""&&
+          req.body.subsystem[0] === ""&&
+          req.body.part_url[0] === ""&&
+          !req.body.price_per_unit[0]&&
+          !req.body.quantity[0]) {
+    req.body.part_url.shift()
+    req.body.part_number.shift()
+    req.body.part_name.shift()
+    req.body.subsystem.shift()
+    req.body.price_per_unit.shift()
+    req.body.quantity.shift()
+  }
   Purchase.create({
-    subteam: req.body.subteam,
-    vendor: req.body.vendor,
-    vendor_phone: req.body.vendor_phone,
-    vendor_email: req.body.vendor_email,
-    vendor_address: req.body.vendor_address,
-    reason_for_purchase: req.body.reason_for_purchase,
+    subteam: safeString(req.body.subteam),
+    vendor: safeString(req.body.vendor),
+    vendor_phone: safeString(req.body.vendor_phone),
+    vendor_email: safeString(req.body.vendor_email),
+    vendor_address: safeString(req.body.vendor_address),
+    reason_for_purchase: safeString(req.body.reason_for_purchase),
     part_url: req.body.part_url,
     part_number: req.body.part_number,
     part_name: req.body.part_name,
     subsystem: req.body.subsystem,
-    price_per_unit: mapToNumber(req.body.price_per_unit, 0),
+    price_per_unit: mapToDollarAmount(req.body.price_per_unit, 0),
     quantity: mapToNumber(req.body.quantity, 0),
-    shipping_and_handling: toNumber(req.body.shipping_and_handling),
-    submitted_by: req.session.auth.info.email,
+    shipping_and_handling: toDollarAmount(req.body.shipping_and_handling, 0),
+    submitted_by: safeString(req.session.auth.info.email),
   }, (err, purchase) => {
     if (err) {
       console.error(err)
@@ -251,12 +273,11 @@ router.post('/purchase/create', function (req, res) {
     }, (err) => {
       console.error(err)
     })
-    res.redirect('../view/' + purchase._id)
+    res.redirect('view/' + purchase._id)
   });
 })
 
 router.get('/purchase/edit/:purchase_id', function (req, res) {
-
   Purchase.findById(req.params.purchase_id, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
     else if (purchase.submitted_by === req.session.auth.info.email) res.render('pages/member/purchase/edit', { purchase: purchase })
@@ -265,15 +286,15 @@ router.get('/purchase/edit/:purchase_id', function (req, res) {
 })
 
 router.post('/purchase/edit/:purchase_id', function (req, res) {
-  if (req.body.part_url[0] === "") {
-    req.body.part_url.shift()
-    req.body.part_number.shift()
-    req.body.part_name.shift()
-    req.body.subsystem.shift()
-    req.body.price_per_unit.shift()
-    req.body.quantity.shift()
-  }
-  else if (req.body.part_url === "") {
+  console.log("req.body =", req.body)
+  if (req.body.part_url === ""&&
+      req.body.part_number === ""&&
+      req.body.part_name === ""&&
+      req.body.subsystem === ""&&
+      req.body.part_url === ""&&
+      !req.body.price_per_unit&&
+      !req.body.quantity) {
+    console.log("price_per_unit = ", req.body.price_per_unit)
     req.body.part_url =
       req.body.part_number =
       req.body.part_name =
@@ -281,22 +302,36 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
       req.body.price_per_unit =
       req.body.quantity = []
   }
-  req.body.part_url === ""
+  else if (req.body.part_url[0] === ""&&
+          req.body.part_number[0] === ""&&
+          req.body.part_name[0] === ""&&
+          req.body.subsystem[0] === ""&&
+          req.body.part_url[0] === ""&&
+          !req.body.price_per_unit[0]&&
+          !req.body.quantity[0]) {
+    req.body.part_url.shift()
+    req.body.part_number.shift()
+    req.body.part_name.shift()
+    req.body.subsystem.shift()
+    req.body.price_per_unit.shift()
+    req.body.quantity.shift()
+  }
+
   Purchase.findByIdAndUpdate(req.params.purchase_id, {
-    subteam: req.body.subteam,
-    vendor: req.body.vendor,
-    vendor_phone: req.body.vendor_phone,
-    vendor_email: req.body.vendor_email,
-    vendor_address: req.body.vendor_address,
-    reason_for_purchase: req.body.reason_for_purchase,
+    subteam: safeString(req.body.subteam),
+    vendor: safeString(req.body.vendor),
+    vendor_phone: safeString(req.body.vendor_phone),
+    vendor_email: safeString(req.body.vendor_email),
+    vendor_address: safeString(req.body.vendor_address),
+    reason_for_purchase: safeString(req.body.reason_for_purchase),
     part_url: req.body.part_url,
     part_number: req.body.part_number,
     part_name: req.body.part_name,
     subsystem: req.body.subsystem,
-    price_per_unit: mapToNumber(req.body.price_per_unit, 0),
+    price_per_unit: mapToDollarAmount(req.body.price_per_unit, 0),
     quantity: mapToNumber(req.body.quantity, 0),
-    shipping_and_handling: toNumber(req.body.shipping_and_handling),
-    submitted_by: req.session.auth.info.email,
+    shipping_and_handling: toDollarAmount(req.body.shipping_and_handling, 0),
+    submitted_by: safeString(req.session.auth.info.email),
   }, (err, purchase) => {
     if (err) {
       console.error(err)

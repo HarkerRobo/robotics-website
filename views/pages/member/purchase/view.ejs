@@ -74,7 +74,10 @@
           <div class="form-group">
             <label for="shipping_and_handling" class="col-sm-2 control-label">Shipping and Handling</label>
             <div class="col-sm-10 col-lg-8">
-              <input type="text" class="form-control" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" disabled />
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" disabled />
+              </div>
             </div>
           </div>
           <div id="parts">
@@ -90,23 +93,17 @@
                 </tr>
               </thead>
               <tbody>
-                <!--<tr id="input-row">
-                  <td><input type="text"    id="part_url"       name="part_url"       class="form-control" /></td>
-                  <td><input type="text"    id="part_number"    name="part_number"    class="form-control" /></td>
-                  <td><input type="text"    id="part_name"      name="part_name"      class="form-control" /></td>
-                  <td><input type="text"    id="subsystem"      name="subsystem"      class="form-control" /></td>
-                  <td><input type="text"    id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$"/></td>
-                  <td><input type="number"  id="quantity"       name="quantity"       class="form-control" /></td>
-                  <td><button type="button" id="add-row" class="btn btn-info form-control">Add</button></td>
-                </tr>-->
                 <% for(var i = 0; i < purchase.part_url.length; i++) { %>
                   <tr>
-                    <td><input type="text"   class="form-control" value="<%- purchase.part_url[i] %>" disabled /></td>
-                    <td><input type="text"   class="form-control" value="<%- purchase.part_number[i] %>" disabled /></td>
-                    <td><input type="text"   class="form-control" value="<%- purchase.part_name[i] %>" disabled /></td>
-                    <td><input type="text"   class="form-control" value="<%- purchase.subsystem[i] %>" disabled /></td>
-                    <td><input type="text"   class="form-control" value="<%- purchase.price_per_unit[i] %>" disabled /></td>
-                    <td><input type="number" class="form-control" value="<%- purchase.quantity[i] %>" disabled /></td>
+                    <td><input type="text" name="part_url" class="form-control" value="<%- purchase.part_url[i] %>" disabled /></td>
+                    <td><input type="text" name="part_number" class="form-control" value="<%- purchase.part_number[i] %>" disabled /></td>
+                    <td><input type="text" name="part_name" class="form-control" value="<%- purchase.part_name[i] %>" disabled /></td>
+                    <td><input type="text" name="subsystem" class="form-control" value="<%- purchase.subsystem[i] %>" disabled /></td>
+                    <td><div class="input-group">
+                     <span class="input-group-addon">$</span>
+                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" value="<%- purchase.price_per_unit[i] %>" disabled />
+                    </div></td>
+                    <td><input type="number" name="quantity" class="form-control" value="<%- purchase.quantity[i] %>" disabled /></td>
                   </tr>
                 <% } %>
                 <% if (purchase.part_url.length === 0) { %>
@@ -131,7 +128,10 @@
           +   '<td><input type="text" name="part_number" class="form-control" value="' + $("#part_number").val() + '" /></td>'
           +   '<td><input type="text" name="part_name" class="form-control" value="' + $("#part_name").val() + '" /></td>'
           +   '<td><input type="text" name="subsystem" class="form-control" value="' + $("#subsystem").val() + '" /></td>'
-          +   '<td><input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" /></td>'
+          +   '<td><div class="input-group">'
+          +     '<span class="input-group-addon">$</span>'
+          +     '<input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" />'
+          +   '</div></td>'
           +   '<td><input type="text" name="quantity" class="form-control" value="' + $("#quantity").val() + '" /></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'

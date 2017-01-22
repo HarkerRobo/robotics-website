@@ -1,4 +1,4 @@
-*::not(.btn) {
+*:not(.btn) {
   transition: background .3s ease-in-out;
   -webkit-transition: background .3s ease-in-out;
 }
