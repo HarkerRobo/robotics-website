@@ -266,7 +266,7 @@ router.post('/purchase/create', function (req, res) {
     }, (err) => {
       console.error(err)
     })
-    else res.redirect('../view/' + purchase._id)
+    res.redirect('../view/' + purchase._id)
   });
 })
 
@@ -326,7 +326,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     }, (err) => {
       console.error(err)
     })
-    else res.redirect('../view/' + purchase._id)
+    res.redirect('../view/' + purchase._id)
   });
 })
 

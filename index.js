@@ -155,15 +155,22 @@ if (config['httpsCapable']===true) {
 
   // handles acme-challenge and redirects to https
   require('http').createServer(require('redirect-https')()).listen(80, function () {
-    console.log("Listening for ACME http-01 challenges on", this.address())
+    console.log()
+    console.log("--- HTTP REDIRECT ON ---")
+    console.log()
   });
 
   // handles your app
   require('https').createServer(lex.httpsOptions, app).listen(443, function () {
-    console.log("Listening for ACME tls-sni-01 challenges and serve app on", this.address())
+    console.log()
+    console.log("--- HTTPS SERVER ON ---")
+    console.log()
   });
 } else {
   app.listen(80, () => {
+    console.log()
+    console.log("--- WEBSERVER ON ---")
     console.log("Listening at http://" + config['domain'] + ':80')
+    console.log()
   })
 }
