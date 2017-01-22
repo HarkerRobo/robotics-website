@@ -136,21 +136,6 @@ router.get('/volunteer', function (req, res) {
 })
 
 router.get('/', function (req, res) {
-  // setup e-mail data with unicode symbols
-  var mailOptions = {
-    from: 'David Melisso <19djm@students.harker.org>', // sender address
-    to: '19djm@students.harker.org', // list of receivers
-    subject: 'Hello', // Subject line
-    text: 'Hello world' // plaintext body
-  };
-
-  // send mail with defined transport object
-  transporter.sendMail(mailOptions, function(error, info){
-      if(error){
-          return console.error(error);
-      }
-      console.log('Message sent: ' + info.response);
-  });
   res.render('pages/member/index')
 })
 
