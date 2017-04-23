@@ -129,6 +129,7 @@ if (config['httpsCapable']===true) {
     // Certs being renewed are listed in certs.altnames
     if (certs) {
       opts.domains = certs.altnames;
+      opts.email = config['email'];
     }
     else {
       opts.email = config['email'];
