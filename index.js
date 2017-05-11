@@ -166,7 +166,7 @@ if (config['httpsCapable']===true) {
   });
 
   // handles your app
-  require('https').createServer(lex.httpsOptions, app).listen(443, function () {
+  require('https').createServer(lex.httpsOptions, lex.middleware(app)).listen(443, function () {
     console.log()
     console.log("--- HTTPS SERVER ON ---")
     console.log()
