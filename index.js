@@ -148,7 +148,8 @@ if (config['httpsCapable']===true) {
 
   let lex = require('letsencrypt-express').create({
     // set to https://acme-v01.api.letsencrypt.org/directory in production
-    server: 'https://acme-v01.api.letsencrypt.org/directory'
+    // set to 'staging' otherwise
+    server: config.httpsStaging ? 'staging' : 'https://acme-v01.api.letsencrypt.org/directory',
 
     // If you wish to replace the default plugins, you may do so here
     , challenges: { 'http-01': require('le-challenge-fs').create({ webrootPath: '/tmp/acme-challenges' }) }
