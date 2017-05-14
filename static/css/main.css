@@ -191,6 +191,7 @@ a.covert:hover {
 @media (max-height: 600px), (max-width: 400px) {
   .info-text {
     margin-top: 10vh;
+    margin-bottom: 3vh;
     font-size: 25px;
   }
 }
@@ -361,18 +362,28 @@ div.landingtext {
 */
 
 
-/* outreach */
+/* outreach/sponsorship */
 
 #outreach-tile {
   background: url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.4)),url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+  background: -webkit-linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)),url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
+}
+
+#outreach-tile > div.container-fluid > div.sponsor-logo {
+  display: table;
+  margin: 0 auto;
+}
+
+#outreach-tile > div.container-fluid > div.sponsor-logo > img.sponsor-logo {
+  width: 30vw;
+  max-width: 40vh;
 }
 
 
