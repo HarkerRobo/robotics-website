@@ -58,7 +58,7 @@ app.use(function(req, res, next) {
 })
 if (config.runInternal) app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
-app.use('/photos', photosRouter)
+//app.use('/photos', photosRouter)
 
 
 // '/' router
