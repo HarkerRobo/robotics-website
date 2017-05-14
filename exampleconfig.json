@@ -1,0 +1,20 @@
+{
+  "GoogleClientID": "[GoogleClientID].apps.googleusercontent.com",
+  "GoogleSecretKey": "secret",
+  "domain": "localhost",
+  "email": "harker1072@gmail.com",
+  "cookieSecret": "secret",
+  "cookieName": "Harker1072Robotics",
+  "httpsCapable": false,
+  "database": {
+    "port": 27017,
+    "databaseName": "robotics-website"
+  },
+  "automail": {
+    "service": "gmail",
+    "auth": {
+      "user": "email@example.com",
+      "pass": "pass"
+    }
+  }
+}
