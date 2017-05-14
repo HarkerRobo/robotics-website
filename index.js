@@ -56,7 +56,7 @@ app.use(function(req, res, next) {
   console.log("req.session =", req.session);
   next();
 })
-app.use('/member', memberRouter)
+if (config.runInternal) app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
 app.use('/photos', photosRouter)
 

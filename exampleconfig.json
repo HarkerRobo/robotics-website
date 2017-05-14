@@ -6,6 +6,7 @@
   "cookieSecret": "secret",
   "cookieName": "Harker1072Robotics",
   "httpsCapable": false,
+  "runInternal": true,
   "database": {
     "port": 27017,
     "databaseName": "robotics-website"
