@@ -20,7 +20,6 @@ const express = require('express'),
   spdy = require('spdy'),
   port = 80,
 
-  logsRouter = require('./routers/logs'),
   memberRouter = require('./routers/member'),
   hackathonRouter = require('./routers/hackathon'),
   photosRouter = require('./routers/photos'),
@@ -57,7 +56,6 @@ app.use(function(req, res, next) {
   console.log("req.session =", req.session);
   next();
 })
-app.use('/logs', logsRouter)
 app.use('/member', memberRouter)
 app.use('/hackathon', hackathonRouter)
 app.use('/photos', photosRouter)
@@ -70,6 +68,14 @@ app.get('/about', function (req, res) {
 
 app.get('/photos', function (req, res) {
   res.render('pages/photos')
+})
+
+app.get('/contact/map', function (req, res) {
+  res.render('pages/map')
+})
+
+app.get('/contact/message', function (req, res) {
+  res.render('pages/contactform')
 })
 
 app.get('/', function (req, res) {

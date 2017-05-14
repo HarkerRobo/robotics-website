@@ -56,7 +56,7 @@ i.iconlink {
   }
 }
 
-nav a:hover, nav a:focus {
+nav a:hover, nav a:focus nav, nav .open > a {
   background: rgba(0,0,0,.3) !important;
   color: white;
 }

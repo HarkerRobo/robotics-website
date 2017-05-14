@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <style>
+      header { padding-top: 50px; }
+      iframe { width: 100%; height: 100%; }
+      body, header { background-color: lightgray }
+    </style>
+    <link rel="stylesheet" type="text/css" href="/css/about.css">
+  </head>
+  <body>
+
+    <!-- Navbar -->
+    <%- include(__base + 'views/partials/navbar-main.ejs') %>
+
+    <header>
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3173.127014599291!2d-121.97247173469553!3d37.315818929845605!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x808fcac0ebbe21e3%3A0x97827dd6b23239ec!2sThe+Harker+School+-+Middle+School+Campus!5e0!3m2!1sen!2sus!4v1494720517764" frameborder="0" style="border:0" allowfullscreen></iframe>
+    </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+
+  </body>
+</html>

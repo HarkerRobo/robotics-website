@@ -24,6 +24,11 @@
   float: right;
 }
 
+.zero-vertical-margin {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
 
 header, section {
   mix-blend-mode: normal;
@@ -104,9 +109,23 @@ h2.title {
   transform: translateX(-50%);
 }
 
-@media (max-width: 750px) {
+.multiple-learn-more-button {
+  margin: auto;
+  position: absolute;
+  bottom: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+}
+
+.multiple-learn-more-button .learn-more-button {
+  margin: 0 1vw;
+  position: relative;
+}
+
+@media (max-width: 1000px) {
   .learn-more-button {
-    font-size: 30px;
+    font-size: 40px;
     width: 50vw;
   }
 }
@@ -114,6 +133,11 @@ h2.title {
 @media (max-width: 450px) {
   .learn-more-button {
     width: 70vw;
+    font-size: 30px;
+  }
+
+  .multiple-learn-more-button {
+    display: block;
   }
 }
 
@@ -166,7 +190,7 @@ a.covert:hover {
 
 @media (max-height: 600px), (max-width: 400px) {
   .info-text {
-    margin-top: 10vh !important;
+    margin-top: 10vh;
     font-size: 25px;
   }
 }
@@ -255,7 +279,6 @@ div.landingtext {
 }
 
 #contact-tile .container-fluid {
-  height: 100%;
   width: 100%;
 }
 
@@ -300,7 +323,7 @@ div.landingtext {
 }
 
 #about-tile-container {
-  background-color: rgba(50, 191, 255, 0.8);
+  background-color: rgba(65,105,225,.9);
   margin: 0 auto;
   border-radius: 25px;
   width: 90%;
@@ -313,18 +336,16 @@ div.landingtext {
   vertical-align: middle;
 }
 
-@media (max-width: 750px), (max-height: 500px)
+@media (max-width: 1050px), (max-height: 500px)
 {
   #about-tile-container {
-    margin-top: 10vh;
-    font-size: 25px;
+    font-size: 40px;
   }
 }
 
-@media (max-height: 350px)
+@media (max-width: 600px)
 {
   #about-tile-container {
-    margin-top: 0;
     font-size: 25px;
   }
 }
@@ -355,14 +376,14 @@ div.landingtext {
 }
 
 
-/* logs */
+/* wiki */
 
-#logs-tile {
-  background: url('/img/media/direc/logs-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/logs-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/logs-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/logs-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),url('/img/media/direc/logs-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
+#wiki-tile {
+  background: url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
