@@ -23,12 +23,27 @@ const purchaseSchema = mongoose.Schema({
   quantity: [Number],
   shipping_and_handling: [Number],
   submitted_by: String,
+  /*
+    approval:
+      0 - awaiting admin approval
+      1 - admin rejected
+      2 - admin approved, awaiting mentor approval
+      3 - mentor rejected
+      4 - mentor approved
+  */
   approval: {
     type: Number,
     default: 0,
   },
   admin_comments: String,
+  admin_username: String,
+  admin_date_approved: Date,
   mentor_comments: String,
+  mentor_date_approved: Date,
+  locked: {
+    type: Boolean,
+    default: true,
+  },
 })
 
 const Purchase = mongoose.model('Purchase', purchaseSchema)

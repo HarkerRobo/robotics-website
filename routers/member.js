@@ -271,7 +271,8 @@ router.post('/purchase/create', function (req, res) {
       subject: 'Purchase Order has been created!', // Subject line
       text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
     }, (err) => {
-      console.error(err)
+      if (err) console.error(err)
+      else console.log("Email sent!")
     })
     res.redirect('view/' + purchase._id)
   });
@@ -344,7 +345,8 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
       subject: 'Purchase Order has been edited!', // Subject line
       text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
     }, (err) => {
-      console.error(err)
+      if (err) console.error(err)
+      else console.log("Email sent!")
     })
     res.redirect('../view/' + purchase._id)
   });
