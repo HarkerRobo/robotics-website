@@ -28,7 +28,13 @@ $(function(){
     navUpdate()
   })
 
-  $(document).scroll(function() {
+  $root.bind('scroll mousedown wheel DOMMouseScroll mousewheel keyup', function(e){
+    if ( e.which > 0 || e.type == "mousedown" || e.type == "mousewheel"){
+      $root.stop();
+    }
+  })
+
+  $(document).scroll(function(e) {
     clearTimeout($.data(this, 'scrollTimer'))
 
     $.data(this, 'scrollTimer', setTimeout(function() {
@@ -54,7 +60,7 @@ $(function(){
       var hashname = $.attr(lastPast, 'hashname')
       $root.animate({
         scrollTop: $(id).offset().top
-      }, 500, 'easeInOutExpo', function () {
+      }, 1000, 'easeInOutExpo', function () {
         window.location.hash = hashname
       })
 
