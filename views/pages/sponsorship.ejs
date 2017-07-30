@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <%- include(__base + 'views/partials/navbar-main.ejs') %>
+
+    <header>
+      <div class="container-fluid">
+        <h1 class="title">SPONSORSHIP</h1>
+        <p class="info-text">As a robotics team, sponsorships keep us afloat.
+          We offer some <a class="regular">amazing rewards</a> as a thanks for your support.
+          Interested in sponsoring us? <a class="regular" href="/contact/message">Send us a message.</a>
+        </p>
+        <div class="container-fluid">
+          <div class="multiple-learn-more-button">
+            <a class="covert" href="/contact/"><div class="learn-more-button">
+              <p><i class="fa fa-envelope iconlink" aria-hidden="true"></i> &nbsp;CONTACT US </p>
+            </div></a>
+            <a class="covert" href="/contact/map"><div class="learn-more-button">
+              <p><i class="fa fa-trophy iconlink" aria-hidden="true"></i> &nbsp;VIEW REWARDS</p>
+            </div></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+
+  </body>
+</html>

@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <%- include(__base + 'views/partials/navbar-main.ejs') %>
+
+    <!-- Landing Tile -->
+    <header>
+      <div class="container-fluid">
+        <h1 class="title">CONTACT US</h1>
+        <p class="info-text zero-vertical-margin">If you are interested in contacting us, you can
+          <a class="regular" href="/contact/message">send us a message</a> or <a class="regular" href="/contact/map">visit us</a>.<br/>
+          <a class="small-info-btn covert" target="_blank" href="https://twitter.com/harker1072">
+            <i class="fa fa-twitter" aria-hidden="true"></i>&nbsp;TWITTER
+          </a>
+          <a class="small-info-btn covert" target="_blank" href="https://instagram.com/harkerrobotics">
+            <i class="fa fa-instagram" aria-hidden="true"></i>&nbsp;INSTAGRAM
+          </a>
+          <a class="small-info-btn covert" target="_blank" href="https://youtube.com/harker1072">
+            <i class="fa fa-youtube" aria-hidden="true"></i>&nbsp;YOUTUBE
+          </a>
+          <a class="small-info-btn covert" target="_blank" href="https://www.facebook.com/Harker-Robotics-Team-1072-199777950060812/">
+            <i class="fa fa-facebook" aria-hidden="true"></i>&nbsp;FACEBOOK
+          </a>
+        </p>
+        <div class="container-fluid">
+          <div class="multiple-learn-more-button">
+            <a class="covert" href="/contact/message"><div id="contact-tile-button" class="learn-more-button">
+              <p><i class="fa fa-envelope iconlink" aria-hidden="true"></i> &nbsp;SEND MESSAGE </p>
+            </div></a>
+            <a class="covert" href="/contact/map"><div id="contact-tile-button" class="learn-more-button">
+              <p><i class="fa fa-map-marker iconlink" aria-hidden="true"></i> &nbsp;VISIT US</p>
+            </div></a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+
+  </body>
+</html>

@@ -70,6 +70,14 @@ app.get('/photos', function (req, res) {
   res.render('pages/photos')
 })
 
+app.get('/contact', function(req, res) {
+  res.render('pages/contact')
+})
+
+app.get('/sponsorship', function(req, res) {
+  res.render('pages/sponsorship')
+})
+
 app.get('/contact/map', function (req, res) {
   res.render('pages/map')
 })
