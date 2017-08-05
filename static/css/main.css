@@ -433,7 +433,7 @@ div.landingtext {
 }
 
 #outreach-tile > div.container-fluid > div.sponsor-logo > img.sponsor-logo {
-  height: 30vh;
+  max-height: 30vh;
   max-width: 40vw;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;

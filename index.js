@@ -55,6 +55,7 @@ app.use(function(req, res, next) {
   next();
 })
 if (config.runInternal) app.use('/member', memberRouter)
+app.locals.GoogleClientID = config.GoogleClientID
 app.use('/hackathon', hackathonRouter)
 //app.use('/photos', photosRouter)
 

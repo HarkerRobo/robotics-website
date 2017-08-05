@@ -60,10 +60,11 @@ router.use(session({
 }))
 
 router.use(function (req, res, next) {
-  if (!req.session.auth) {
-    req.session.auth = { loggedin: false }
+  req.auth = req.session.auth
+  if (!req.auth) {
+    req.auth = { loggedin: false }
   }
-  res.locals.auth = req.session.auth
+  res.locals.auth = req.auth
   next()
 })
 
@@ -93,21 +94,23 @@ router.post('/token', function (req, res) {
           console.log('DATA:', data)
           data = JSON.parse(data)
           if (result.statusCode === 200) {
+            console.log(data.aud)
+            console.log(config.GoogleClientID)
             if (data.aud === config.GoogleClientID) {
+              req.session.auth = { loggedin: true }
               if (data.hd !== undefined && data.hd.endsWith(".harker.org")) req.session.auth.level = 1
               if (config.users.admins.includes(data.email.toLowerCase())) req.session.auth.level = 2
-              else if (config.users.mentors.includes(data.email.toLowerCase())) req.session.auth.level = 3
+              if (config.users.mentors.includes(data.email.toLowerCase())) req.session.auth.level = 3
               if (config.users.superadmins.includes(data.email.toLowerCase())) req.session.auth.level = 4
               req.session.auth.loggedin = true
               req.session.auth.token = token
               req.session.auth.info = data
+              console.log(req.session)
               res.status(200).end()
             } else {
-              req.session.auth = { loggedin: false }
               res.status(400).end('Token does match Google Client ID')
             }
           } else {
-            req.session.auth = { loggedin: false }
             res.status(400).end('Invalid Token')
           }
         })
@@ -116,19 +119,21 @@ router.post('/token', function (req, res) {
       })
       request.end()
   } else {
-    req.session.auth = { loggedin: false }
     res.status(400).send('Bad Request: No token')
   }
 })
 
 router.delete('/token', function (req, res) {
-  req.session.auth = { loggedin: false }
-  res.status(200).end()
+  req.session.destroy(function(err) {
+    if (err) res.status(500).json({ success: false, error: { message: err } })
+    else res.status(200).end()
+  })
 })
 
 // must be logged in to see below pages
 router.all('/*', function (req, res, next) {
-  if (req.session.auth.loggedin) {
+  console.log(req.auth)
+  if (req.auth.loggedin) {
     next()
   } else {
     res.render('pages/member/login')
@@ -149,7 +154,7 @@ router.get('/', function (req, res) {
 
 // must be harker student to see below pages
 router.all('/*', function (req, res, next) {
-  if (req.session.auth.level >= 1) {
+  if (req.auth.level >= 1) {
     next()
   } else {
     res.render('pages/member/error', { statusCode: 401, error: "Must be authenticated as harker student."})
@@ -177,7 +182,7 @@ router.get('/purchase/view/:purchase_id', function (req, res) {
 
 router.get('/purchase/list_object/:filter', function (req, res) {
   if (req.params.filter === 'my') {
-    Purchase.find({ submitted_by: req.session.auth.info.email }, (err, purchases) => {
+    Purchase.find({ submitted_by: req.auth.info.email }, (err, purchases) => {
       if (err) {
         res.status(500).json({ success: false, error: { message: err } })
         return
@@ -289,7 +294,7 @@ router.post('/purchase/create', function (req, res) {
     price_per_unit: xss(mapToDollarAmount(req.body.price_per_unit, 0)),
     quantity: xss(mapToNumber(req.body.quantity, 0)),
     shipping_and_handling: xss(toDollarAmount(req.body.shipping_and_handling, 0)),
-    submitted_by: xss(safeString(req.session.auth.info.email)),
+    submitted_by: xss(safeString(req.auth.info.email)),
   }, (err, purchase) => {
     if (err) {
       console.error(err)
@@ -312,7 +317,7 @@ router.post('/purchase/create', function (req, res) {
 router.get('/purchase/edit/:purchase_id', function (req, res) {
   Purchase.findById(req.params.purchase_id, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
-    else if (purchase.submitted_by === req.session.auth.info.email) res.render('pages/member/purchase/edit', { purchase: purchase })
+    else if (purchase.submitted_by === req.auth.info.email) res.render('pages/member/purchase/edit', { purchase: purchase })
     else res.render('pages/member/purchase/view', { purchase: purchase })
   })
 })
@@ -363,7 +368,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     price_per_unit: mapToDollarAmount(req.body.price_per_unit, 0),
     quantity: mapToNumber(req.body.quantity, 0),
     shipping_and_handling: toDollarAmount(req.body.shipping_and_handling, 0),
-    submitted_by: safeString(req.session.auth.info.email),
+    submitted_by: safeString(req.auth.info.email),
   }, (err, purchase) => {
     if (err) {
       console.error(err)
@@ -386,7 +391,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
 
 // must be an admin to see below pages
 router.all('/*', function (req, res, next) {
-  if (req.session.auth.level >= 2) {
+  if (req.auth.level >= 2) {
     next()
   } else {
     res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
@@ -399,7 +404,7 @@ router.get('/purchase/admin', function (req, res) {
 
 router.post('/purchase/admin/approve/:id', function (req, res) {
   let approval_level = 2
-  if (req.session.auth.level >= 3) approval_level = 4
+  if (req.auth.level >= 3) approval_level = 4
   Purchase.findByIdAndUpdate(req.params.id, { approval: approval_level }, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
@@ -415,7 +420,7 @@ router.post('/purchase/admin/approve/:id', function (req, res) {
 
 router.post('/purchase/admin/reject/:id', function (req, res) {
   let approval_level = 1
-  if (req.session.auth.level >= 3) approval_level = 3
+  if (req.auth.level >= 3) approval_level = 3
   Purchase.findByIdAndUpdate(req.params.id, { approval: approval_level }, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
@@ -435,7 +440,7 @@ router.get('/photos', function (req, res) {
 
 // must be an mentor to see below pages
 router.all('/*', function (req, res, next) {
-  if (req.session.auth.level >= 3) {
+  if (req.auth.level >= 3) {
     next()
   } else {
     res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
