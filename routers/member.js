@@ -434,9 +434,9 @@ router.post('/purchase/admin/reject/:id', function (req, res) {
   })
 })
 
-router.get('/photos', function (req, res) {
+/*router.get('/photos', function (req, res) {
   res.render('pages/member/photos')
-})
+})*/
 
 // must be an mentor to see below pages
 router.all('/*', function (req, res, next) {

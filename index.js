@@ -65,9 +65,9 @@ app.get('/about', function (req, res) {
   res.render('pages/about')
 })
 
-app.get('/photos', function (req, res) {
+/*app.get('/photos', function (req, res) {
   res.render('pages/photos')
-})
+})*/
 
 app.get('/contact', function(req, res) {
   res.render('pages/contact')
