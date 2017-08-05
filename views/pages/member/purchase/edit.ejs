@@ -70,7 +70,7 @@
             <div class="col-sm-10 col-lg-8">
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" />
+                <input type="text" class="form-control to-price" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" />
               </div>
             </div>
           </div>
@@ -108,7 +108,7 @@
                     <td><input type="text" name="subsystem" class="form-control" value="<%- purchase.subsystem[i] %>" /></td>
                     <td><div class="input-group">
                      <span class="input-group-addon">$</span>
-                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" value="<%- purchase.price_per_unit[i] %>" pattern="^\d+(\.\d{0,2})?$" />
+                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%- purchase.price_per_unit[i] %>" pattern="^\d+(\.\d{0,2})?$" />
                     </div></td>
                     <td><input type="number" name="quantity" class="form-control" value="<%- purchase.quantity[i] %>" /></td>
                     <td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>
@@ -123,6 +123,9 @@
     </header>
 
     <script>
+      $(".to-price").each(function(i, e) {
+        $(e).val(parseFloat($(e).val(), 10).toFixed(2))
+      })
       $("#add-row").click(function() {
         $("#parts > table > tbody").append(""
           + '<tr>'

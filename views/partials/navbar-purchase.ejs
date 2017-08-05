@@ -49,11 +49,15 @@
 
       <ul class="nav navbar-nav navbar-left">
         <li><a href="/member/">Home</a></li>
-        <li><a href="/member/purchase/create">Create Purchase</a></li>
-        <li><a href="/member/purchase/list">View Purchases</a></li>
-        <li><a href="/member/purchase/list_my">My Purchases</a></li>
-        <% if (auth.loggedin && auth.level >= 2) { %>
+        <li><a href="/member/purchase/list">Purhcases:</a></li>
+        <li><a href="/member/purchase/create">Create</a></li>
+        <li><a href="/member/purchase/list">View</a></li>
+        <li><a href="/member/purchase/list_my">View My</a></li>
+        <% if (auth.loggedin && (auth.level == 2 || auth.level == 4)) { %>
           <li><a href="/member/purchase/admin">Admin</a></li>
+        <% } %>
+        <% if (auth.loggedin && auth.level >= 3) { %>
+          <li><a href="/member/purchase/mentor">Mentor</a></li>
         <% } %>
       </ul>
 

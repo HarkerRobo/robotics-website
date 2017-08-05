@@ -17,5 +17,10 @@
       "user": "email@example.com",
       "pass": "pass"
     }
+  },
+  "users": {
+    "admins": ["admin@example.org"],
+    "mentors": ["mentor@example.org"],
+    "superadmins": ["webmaster@example.org"]
   }
 }

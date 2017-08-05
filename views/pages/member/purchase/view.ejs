@@ -7,7 +7,7 @@
 
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-purchase.ejs') %>
-    <% if (typeof purchase === 'undefined' || purchase === null) purchase = { "vendor":"","vendor_phone":"","vendor_email":"","reason_for_purchase":"","submitted_by":"N/A","__v":0,"approval":0,"shipping_and_handling":[],"quantity":[],"price_per_unit":[],"subsystem":[],"part_name":[],"part_number":[],"part_url":[]} %>
+    <% if (typeof purchase === 'undefined' || purchase === null) purchase = { "_id": "blank","vendor":"","vendor_phone":"","vendor_email":"","reason_for_purchase":"","submitted_by":"N/A","__v":0,"approval":-1,"shipping_and_handling":[],"quantity":[],"price_per_unit":[],"subsystem":[],"part_name":[],"part_number":[],"part_url":[]} %>
     <header>
       <div class="container-fluid">
         <form class="form-horizontal" method="POST">
@@ -76,7 +76,7 @@
             <div class="col-sm-10 col-lg-8">
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" class="form-control" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" disabled />
+                <input type="text" class="form-control to-price" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" disabled />
               </div>
             </div>
           </div>
@@ -101,7 +101,7 @@
                     <td><input type="text" name="subsystem" class="form-control" value="<%- purchase.subsystem[i] %>" disabled /></td>
                     <td><div class="input-group">
                      <span class="input-group-addon">$</span>
-                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" value="<%- purchase.price_per_unit[i] %>" disabled />
+                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%- purchase.price_per_unit[i] %>" disabled />
                     </div></td>
                     <td><input type="number" name="quantity" class="form-control" value="<%- purchase.quantity[i] %>" disabled /></td>
                   </tr>
@@ -117,10 +117,22 @@
             </table>
           </div>
         </form>
+        <% if (auth.loggedin && ((auth.level >= 2 && purchase.approval == 0) || (auth.level >=3 && purchase.approval == 2))) { %>
+          <div class="center">
+            <div class="btn-group">
+              <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve</button>
+              <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject</button>
+            </div>
+          </div>
+        <% } %>
       </div>
+
     </header>
 
     <script>
+      $(".to-price").each(function(i, e) {
+        $(e).val(parseFloat($(e).val(), 10).toFixed(2))
+      })
       $("#add-row").click(function() {
         $("#parts > table > tbody").append(""
           + '<tr>'
@@ -141,6 +153,24 @@
           $(this).parent().parent().remove();
         });
       });
+      <% if (auth.loggedin && auth.level >= 2) { %>
+        $("#approve-purchase").click(function() {
+          $.post('/member/purchase/admin/approve/<%= purchase._id %>', function() {
+            window.location.href = "/member/purchase/admin"
+          }).fail(function(xhr) {
+            alert('Something went wrong.')
+            console.error(xhr)
+          })
+        })
+        $("#reject-purchase").click(function() {
+          $.post('/member/purchase/admin/reject/<%= purchase._id %>', function() {
+            window.location.href = "/member/purchase/admin"
+          }).fail(function(xhr) {
+            alert('Something went wrong.')
+            console.error(xhr)
+          })
+        })
+      <% } %>
     </script>
 
     <%- include(__base + 'views/partials/js-include.ejs') %>

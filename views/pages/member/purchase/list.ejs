@@ -17,6 +17,63 @@
 
     <%- include(__base + 'views/partials/js-include.ejs') %>
     <script>
+      function safeValue(str) {
+        return (str === "" || typeof str === "undefined" || str === null ? "N/A" : str)
+      }
+      function getApprovalStatus(num) {
+        switch(num) {
+          case -1:
+            return "Unfinished"
+            break
+          case 0:
+            return "Awaiting Admin Approval"
+            break
+          case 1:
+            return "Admin Rejected"
+            break
+          case 2:
+            return "Awaiting Mentor Approval"
+            break
+          case 3:
+            return "Mentor Rejected"
+            break
+          case 4:
+            return "Mentor Approved"
+            break
+          default:
+            return "N/A"
+            break
+        }
+      }
+
+      function getSubteam(num) {
+        switch(num) {
+          case 0:
+            return "Mechanical"
+            break
+          case 1:
+            return "Electrical"
+            break
+          case 2:
+            return "Programming"
+            break
+          case 3:
+            return "Operational"
+            break
+          default:
+            return "N/A"
+            break
+        }
+      }
+
+      function getTotalCost(arr1, arr2, num) {
+        var sum = 0
+        for (var i = 0; i < arr1.length; i++) {
+          console.log("arr1[i] =", arr1[i], "; arr2[i] =", arr2[i])
+          sum += (!isNaN(parseInt(arr1[i],10))&&!isNaN(parseInt(arr2[i],10)) ? arr1[i]*arr2[i] : 0)
+        }
+        return sum+(!isNaN(num)&&typeof num !== "undefined" ? num : 0)
+      }
       function addToList(purchases) {
         if (typeof purchases !== 'object') {
           console.log('error: addToList takes an object as a parameter')
@@ -26,9 +83,13 @@
           var purchase = purchases[purchase_id]
           $("#purchases").append(""
             + '<li class="list-group-item">'
-            +   purchase.vendor + " (" + purchase.submitted_by + ")"
-            +   '<a href="view/' + purchase_id + '" class="btn btn-default btn-xs float-right">View</a>'
-            +   (purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" ? '<a href="edit/' + purchase_id + '" class="btn btn-default btn-xs float-right">Edit</a>' : "")
+            +   "<h2><b>" + safeValue(purchase.vendor) + "</b></h2>"
+            +   '<a href="view/' + purchase_id + '" class="btn btn-default btn-lg float-right">View</a>'
+            +   (purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? '<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>' : "")
+            +   "<p><b>Submitted By:</b> " + safeValue(purchase.submitted_by) + "</p>"
+            +   "<p><b>Subteam:</b> " + getSubteam(purchase.subteam) + "</p>"
+            +   "<p><b>Approval Status:</b> " + getApprovalStatus(purchase.approval) + "</p>"
+            +   "<h4><b>Total:</b> $" + getTotalCost(purchase.price_per_unit, purchase.quantity).toFixed(2) + "</h4>"
             + '</li>'
           )
         }

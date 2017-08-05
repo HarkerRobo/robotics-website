@@ -46,8 +46,6 @@ app.use(logRequests)
 app.use(logErrors)
 app.use(clientErrorHandler)
 
-app.locals.admins = ["19djm@students.harker.org", "17andrewt@students.harker.org", "19annaw@students.harker.org"]
-
 
 //TODO: Route mobile
 

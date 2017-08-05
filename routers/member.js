@@ -11,6 +11,7 @@ const express = require('express'),
   MongoStore = require('connect-mongo')(session),
   Purchase = require('../models/purchase'),
   nodemailer = require('nodemailer'),
+  xss = require('xss'),
   smtpConfig = require('../config.json')["automail"],
   transporter = nodemailer.createTransport(smtpConfig)
 
@@ -93,14 +94,10 @@ router.post('/token', function (req, res) {
           data = JSON.parse(data)
           if (result.statusCode === 200) {
             if (data.aud === config.GoogleClientID) {
-              if (data.hd !== undefined && data.hd === "students.harker.org") {
-                if (req.app.locals.admins.includes(data.email.toLowerCase())){
-                  req.session.auth.level = 2
-                }
-                else {
-                  req.session.auth.level = 1
-                }
-              }
+              if (data.hd !== undefined && data.hd.endsWith(".harker.org")) req.session.auth.level = 1
+              if (config.users.admins.includes(data.email.toLowerCase())) req.session.auth.level = 2
+              else if (config.users.mentors.includes(data.email.toLowerCase())) req.session.auth.level = 3
+              if (config.users.superadmins.includes(data.email.toLowerCase())) req.session.auth.level = 4
               req.session.auth.loggedin = true
               req.session.auth.token = token
               req.session.auth.info = data
@@ -181,6 +178,32 @@ router.get('/purchase/view/:purchase_id', function (req, res) {
 router.get('/purchase/list_object/:filter', function (req, res) {
   if (req.params.filter === 'my') {
     Purchase.find({ submitted_by: req.session.auth.info.email }, (err, purchases) => {
+      if (err) {
+        res.status(500).json({ success: false, error: { message: err } })
+        return
+      }
+      let map = {}
+      purchases.forEach((e) => { map[e._id] = e })
+      res.send(map)
+    })
+  }
+  else if (req.params.filter === 'admin') {
+    Purchase.find({ approval: 0 }, (err, purchases) => {
+      if (err) {
+        res.status(500).json({ success: false, error: { message: err } })
+        return
+      }
+      let map = {}
+      purchases.forEach((e) => { map[e._id] = e })
+      res.send(map)
+    })
+  }
+  else if (req.params.filter === 'mentor') {
+    Purchase.find({ approval: 2 }, (err, purchases) => {
+      if (err) {
+        res.status(500).json({ success: false, error: { message: err } })
+        return
+      }
       let map = {}
       purchases.forEach((e) => { map[e._id] = e })
       res.send(map)
@@ -188,6 +211,10 @@ router.get('/purchase/list_object/:filter', function (req, res) {
   }
   else {
     Purchase.find({}, (err, purchases) => {
+      if (err) {
+        res.status(500).json({ success: false, error: { message: err } })
+        return
+      }
       let map = {}
       purchases.forEach((e) => { map[e._id] = e })
       res.send(map)
@@ -197,6 +224,10 @@ router.get('/purchase/list_object/:filter', function (req, res) {
 
 router.get('/purchase/list_object/', function (req, res) {
   Purchase.find({}, (err, purchases) => {
+    if (err) {
+      res.status(500).json({ success: false, error: { message: err } })
+      return
+    }
     let map = {}
     purchases.forEach((e) => { map[e._id] = e })
     res.send(map)
@@ -245,20 +276,20 @@ router.post('/purchase/create', function (req, res) {
     req.body.quantity.shift()
   }
   Purchase.create({
-    subteam: safeString(req.body.subteam),
-    vendor: safeString(req.body.vendor),
-    vendor_phone: safeString(req.body.vendor_phone),
-    vendor_email: safeString(req.body.vendor_email),
-    vendor_address: safeString(req.body.vendor_address),
-    reason_for_purchase: safeString(req.body.reason_for_purchase),
-    part_url: req.body.part_url,
-    part_number: req.body.part_number,
-    part_name: req.body.part_name,
-    subsystem: req.body.subsystem,
-    price_per_unit: mapToDollarAmount(req.body.price_per_unit, 0),
-    quantity: mapToNumber(req.body.quantity, 0),
-    shipping_and_handling: toDollarAmount(req.body.shipping_and_handling, 0),
-    submitted_by: safeString(req.session.auth.info.email),
+    subteam: xss(safeString(req.body.subteam)),
+    vendor: xss(safeString(req.body.vendor)),
+    vendor_phone: xss(safeString(req.body.vendor_phone)),
+    vendor_email: xss(safeString(req.body.vendor_email)),
+    vendor_address: xss(safeString(req.body.vendor_address)),
+    reason_for_purchase: xss(safeString(req.body.reason_for_purchase)),
+    part_url: xss(req.body.part_url),
+    part_number: xss(req.body.part_number),
+    part_name: xss(req.body.part_name),
+    subsystem: xss(req.body.subsystem),
+    price_per_unit: xss(mapToDollarAmount(req.body.price_per_unit, 0)),
+    quantity: xss(mapToNumber(req.body.quantity, 0)),
+    shipping_and_handling: xss(toDollarAmount(req.body.shipping_and_handling, 0)),
+    submitted_by: xss(safeString(req.session.auth.info.email)),
   }, (err, purchase) => {
     if (err) {
       console.error(err)
@@ -363,11 +394,56 @@ router.all('/*', function (req, res, next) {
 })
 
 router.get('/purchase/admin', function (req, res) {
-  res.render('pages/member/purchase/admin')
+  res.render('pages/member/purchase/list', { filter: 'admin' })
+})
+
+router.post('/purchase/admin/approve/:id', function (req, res) {
+  let approval_level = 2
+  if (req.session.auth.level >= 3) approval_level = 4
+  Purchase.findByIdAndUpdate(req.params.id, { approval: approval_level }, function(err, purchase) {
+    if (err){
+      res.status(500).json({ success: 'false', error: { message: err }})
+      return
+    }
+    if (purchase==null) {
+      res.status(404).json({ success: 'false', error: { message: 'Purchase not found' }})
+      return
+    }
+    res.status(200).send()
+  })
+})
+
+router.post('/purchase/admin/reject/:id', function (req, res) {
+  let approval_level = 1
+  if (req.session.auth.level >= 3) approval_level = 3
+  Purchase.findByIdAndUpdate(req.params.id, { approval: approval_level }, function(err, purchase) {
+    if (err){
+      res.status(500).json({ success: 'false', error: { message: err }})
+      return
+    }
+    if (purchase==null) {
+      res.status(404).json({ success: 'false', error: { message: 'Purchase not found' }})
+      return
+    }
+    res.status(200).send()
+  })
 })
 
 router.get('/photos', function (req, res) {
   res.render('pages/member/photos')
+})
+
+// must be an mentor to see below pages
+router.all('/*', function (req, res, next) {
+  if (req.session.auth.level >= 3) {
+    next()
+  } else {
+    res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
+  }
+})
+
+router.get('/purchase/mentor', function (req, res) {
+  res.render('pages/member/purchase/list', { filter: 'mentor' })
 })
 
 router.get('/*', function (req, res, next) {
