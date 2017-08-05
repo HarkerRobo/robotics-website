@@ -13,7 +13,9 @@ const express = require('express'),
   nodemailer = require('nodemailer'),
   xss = require('xss'),
   smtpConfig = require('../config.json')["automail"],
-  transporter = nodemailer.createTransport(smtpConfig)
+  transporter = nodemailer.createTransport(smtpConfig),
+  csrf = require('csurf'),
+  csrfProtection = csrf({ cookie: true })
 
 const safeString = (str) => {
   return (typeof str === 'undefined' ? "" : str)
@@ -140,13 +142,13 @@ router.all('/*', function (req, res, next) {
   }
 })
 
-router.get('/challenges', function (req, res) {
+/*router.get('/challenges', function (req, res) {
   res.render('pages/member/challenges')
 })
 
 router.get('/volunteer', function (req, res) {
   res.render('pages/member/volunteer')
-})
+})*/
 
 router.get('/', function (req, res) {
   res.render('pages/member/index')
@@ -165,9 +167,9 @@ router.get('/resources', function(req, res){
   res.render('pages/member/resources')
 })
 
-router.get('/wiki', function (req, res) {
+/*router.get('/wiki', function (req, res) {
   res.render('pages/member/wiki')
-})
+})*/
 
 router.get('/purchase', function (req, res) {
   res.redirect('purchase/list_my')
@@ -247,11 +249,11 @@ router.get('/purchase/list_my', function (req, res) {
   res.render('pages/member/purchase/list', { filter: 'my' })
 })
 
-router.get('/purchase/create', function (req, res) {
-  res.render('pages/member/purchase/create')
+router.get('/purchase/create', csrfProtection, function (req, res) {
+  res.render('pages/member/purchase/create', { csrfToken: req.csrfToken() })
 })
 
-router.post('/purchase/create', function (req, res) {
+router.post('/purchase/create', csrfProtection, function (req, res) {
   if (req.body.part_url === ""&&
       req.body.part_number === ""&&
       req.body.part_name === ""&&
@@ -385,7 +387,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
       else console.log("Email sent!")
     })
     res.redirect('../view/' + purchase._id)
-  });
+  })
 })
 
 

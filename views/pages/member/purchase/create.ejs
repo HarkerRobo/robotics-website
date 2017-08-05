@@ -10,6 +10,7 @@
     <header>
       <div class="container-fluid">
         <form class="form-horizontal" method="POST">
+          <input type="hidden" name="_csrf" value="<%= csrfToken %>">
           <h1 class="title"> CREATE PURCHASE </h1>
           <div class="form-group">
             <label class="col-sm-2 control-label" for="premade">Premade Vendor</label>
