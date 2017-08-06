@@ -147,7 +147,7 @@ if (config['httpsCapable']===true) {
     cb(null, { options: opts, certs: certs });
   }
 
-  const lex = require('greenlock-express').create({=
+  const lex = require('greenlock-express').create({
     server: config.httpsStaging ? 'staging' : 'https://acme-v01.api.letsencrypt.org/directory'
 
     // If you wish to replace the default plugins, you may do so here
