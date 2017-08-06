@@ -28,11 +28,12 @@
         var auth2 = gapi.auth2.getAuthInstance()
         auth2.signOut().then(function() {
           console.log('User signed out.')
+          var xhr = new XMLHttpRequest();
+          xhr.open('DELETE', location.protocol+'//'+location.hostname + '/member/token')
+          xhr.send()
+          location.reload()
         })
-        var xhr = new XMLHttpRequest();
-        xhr.open('DELETE', location.protocol+'//'+location.hostname + '/member/token')
-        xhr.send()
-        location.reload()
+
       }
     </script>
     <script src="https://apis.google.com/js/platform.js" onload="loadGAPI()" async defer></script>
@@ -47,32 +48,39 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-      <ul class="nav navbar-nav navbar-left">
+      <ul class="nav navbar-nav navbar-left deleteIfSignedOut">
         <li><a href="/member/">Home</a></li>
         <!--<li><a href="/member/wiki">Wiki</a></li>
         <li><a href="/member/challenges">Challenges</a></li>
         <li><a href="/member/volunteer">Volunteer</a></li>-->
         <li><a href="/member/resources">Resources</a></li>
-        <li><a href="/member/purchase" class="deleteIfSignedOut">Purchase</a></li>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Purchase <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="/member/purchase/create">Create</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="/member/purchase/list">View All</a></li>
+            <li><a href="/member/purchase/list_my">My Orders</a></li>
+            <li role="separator" class="divider"></li>
+            <% if (auth.loggedin && (auth.level == 2 || auth.level == 4)) { %>
+              <li><a href="/member/purchase/admin">Admin</a></li>
+            <% } %>
+            <% if (auth.loggedin && auth.level >= 3) { %>
+              <li><a href="/member/purchase/mentor">Mentor</a></li>
+            <% } %>
+          </ul>
+        </li>
         <!--<li><a href="/member/photos" class="deleteIfSignedOut">Photos</a></li>-->
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
-        <% if (auth.loggedin) { %>
-          <li class="deleteIfSignedOut" onclick="signOut()"><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
-        <% } %>
+        <li class="deleteIfSignedOut" onclick="signOut()"><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> LOGOUT</a></li>
       </ul>
 
-      <!--<script>
-        console.log(getCookie('loggedin'))
-        if (getCookie('loggedin') !== "true") {
-          var toHide = document.getElementsByClassName("deleteIfSignedOut")
-          for(var i = 0; i < toHide.length; i++){
-            toHide[i].style.display = "none"
-          }
-          console.log('should happen')
-        }
-      </script>-->
+      <script>
+        if (<%= auth.loggedin %>) $('.deleteIfSignedOut').show()
+        else $('.deleteIfSignedOut').hide()
+      </script>
 
     </div><!-- /.navbar-collapse -->
 

@@ -2,3 +2,7 @@ header, section, body {
   background: #337ab7;
   /*background: black;*/
 }
+
+.deleteIfSignedOut {
+  display: none;
+}
