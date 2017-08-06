@@ -69,6 +69,14 @@ h2.title {
   margin-bottom: -5%;
 }
 
+.info-text {
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  font-size: 40px;
+  margin: 5%;
+  color: white;
+  text-align: center;
+}
+
 @media (max-width:750px)
 {
   h1.title {
@@ -79,17 +87,29 @@ h2.title {
     font-size: 2em;
     margin-top: 10%;
   }
+  .info-text {
+    font-size: 25px;
+  }
 }
 
-@media (max-width:400px) {
+@media (max-width:450px) {
   h2.title {
     margin-bottom: -15%;
+  }
+  .info-text {
+    font-size: 20px;
   }
 }
 
 @media (max-height:400px) {
   h1.title, h2.title {
     margin-top: 0;
+  }
+
+  .info-text {
+    margin-top: 0;
+    margin-bottom: 3vh;
+
   }
 }
 
@@ -226,34 +246,6 @@ a.small-info-btn:hover {
   cursor: pointer;
 }
 
-.info-text {
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 40px;
-  margin: 5%;
-  color: white;
-  text-align: center;
-}
-
-@media (max-height: 600px), (max-width: 400px) {
-  .info-text {
-    margin-top: 10vh;
-    margin-bottom: 3vh;
-    font-size: 25px;
-  }
-}
-
-@media (max-height: 400px) {
-  .info-text {
-    margin-top: 0;
-  }
-}
-
-@media (max-width: 450px) {
-  .info-text {
-    font-size: 20px;
-  }
-}
-
 #player {
   position: absolute;
   top: -9999px;
@@ -380,18 +372,28 @@ div.landingtext {
   width: 90%;
   padding: 2%;
   margin-top: 50px;
-  font-size: 50px;
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 700;
   text-align: center;
   vertical-align: middle;
 }
 
-@media (max-width: 1050px), (max-height: 500px)
+#about-tile-container > h2 {
+  font-size: 40px;
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#about-tile-container > p {
+  font-size: 20px;
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  font-weight: 100;
+  text-transform: capitalize;
+}
+
+@media (max-height: 800px)
 {
   #about-tile-container {
     display: none;
-    font-size: 40px;
   }
 }
 
