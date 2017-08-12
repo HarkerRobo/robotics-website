@@ -121,9 +121,12 @@
           <div class="center">
             <input style="width: 60%; margin: auto;" type="text" id="approval-comments" class="form-control" placeholder="Comments" /></p>
             <div class="btn-group">
-
-              <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve</button>
-              <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject</button>
+              <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve<%= auth.level == 4 ? ' (Admin)' : '' %></button>
+              <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level == 4 ? ' (Admin)' : '' %></button>
+              <% if (auth.level == 4) %>
+                <button type="button" class="btn btn-success btn-lg" id="approve-purchase-mentor">Approve (Mentor)</button>
+                <button type="button" class="btn btn-danger btn-lg" id="reject-purchase-mentor">Reject (Mentor)</button>
+              <% } %>
             </div>
           </div>
         <% } %>
@@ -165,6 +168,24 @@
           })
         })
         $("#reject-purchase").click(function() {
+          $.post('/member/purchase/admin/reject/<%= purchase._id %>', { 'comments': $("#comments").val() }, function() {
+            window.location.href = "/member/purchase/admin"
+          }).fail(function(xhr) {
+            alert('Something went wrong.')
+            console.error(xhr)
+          })
+        })
+      <% } %>
+      <% if (auth.loggedin && auth.level >= 2) { %>
+        $("#approve-purchase-mentor").click(function() {
+          $.post('/member/purchase/admin/approve/<%= purchase._id %>', { 'comments': $("#comments").val() }, function() {
+            window.location.href = "/member/purchase/admin"
+          }).fail(function(xhr) {
+            alert('Something went wrong.')
+            console.error(xhr)
+          })
+        })
+        $("#reject-purchase-mentor").click(function() {
           $.post('/member/purchase/admin/reject/<%= purchase._id %>', { 'comments': $("#comments").val() }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
