@@ -328,7 +328,7 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
 router.get('/purchase/edit/:purchase_id', function (req, res) {
   Purchase.findById(req.params.purchase_id, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
-    else if (purchase.submitted_by === req.auth.info.email) res.render('pages/member/purchase/edit', { purchase: purchase })
+    else if (purchase.submitted_by.toLowerCase() === req.auth.info.email.toLowerCase() && purchase.approval <= 1) res.render('pages/member/purchase/edit', { purchase: purchase })
     else res.render('pages/member/purchase/view', { purchase: purchase })
   })
 })
@@ -378,6 +378,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     quantity: xss_array(mapToNumber(req.body.quantity, 0)),
     shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
     submitted_by: safeString(req.auth.info.email),
+    approval: 0,
   }, (err, purchase) => {
     if (err) {
       console.error(err)
