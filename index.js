@@ -51,7 +51,7 @@ app.use(clientErrorHandler)
 
 // use routers
 app.use(function(req, res, next) {
-  console.log("req.session =", req.session);
+  console.log("req.body =", req.body);
   next();
 })
 if (config.runInternal) app.use('/member', memberRouter)

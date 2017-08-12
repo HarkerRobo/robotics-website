@@ -117,9 +117,11 @@
             </table>
           </div>
         </form>
-        <% if (auth.loggedin && ((auth.level >= 2 && purchase.approval == 0) || (auth.level >=3 && purchase.approval == 2))) { %>
+        <% if (auth.loggedin && ((auth.level >= 2 && purchase.approval >= 0 && purchase.approval <= 2) || (auth.level >=3 && purchase.approval >= 2))) { %>
           <div class="center">
+            <input style="width: 60%; margin: auto;" type="text" id="approval-comments" class="form-control" placeholder="Comments" /></p>
             <div class="btn-group">
+
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve</button>
               <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject</button>
             </div>
@@ -155,7 +157,7 @@
       });
       <% if (auth.loggedin && auth.level >= 2) { %>
         $("#approve-purchase").click(function() {
-          $.post('/member/purchase/admin/approve/<%= purchase._id %>', function() {
+          $.post('/member/purchase/admin/approve/<%= purchase._id %>', { 'comments': $("#comments").val() }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
@@ -163,7 +165,7 @@
           })
         })
         $("#reject-purchase").click(function() {
-          $.post('/member/purchase/admin/reject/<%= purchase._id %>', function() {
+          $.post('/member/purchase/admin/reject/<%= purchase._id %>', { 'comments': $("#comments").val() }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')

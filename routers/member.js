@@ -23,11 +23,11 @@ const safeString = (str) => {
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
-  return isNaN(res) ? err : res
+  return isNaN(res) ? err.toString() : res
 }
 const toDollarAmount = (num, err) => {
   var res = parseFloat(num, 10).toFixed(2)
-  return res==="NaN" ? err : res
+  return res==="NaN" ? err.toString() : res
 }
 const mapToNumber = (arr, err) => {
   return Array.isArray(arr) ? arr.map((x) => {
@@ -253,22 +253,31 @@ router.get('/purchase/create', csrfProtection, function (req, res) {
   res.render('pages/member/purchase/create', { csrfToken: req.csrfToken() })
 })
 
+const xss_array = function(arr) {
+  let res = arr
+  if (typeof arr === 'string') {
+    res = [res]
+  }
+  for (let i = 0; i < res.length; i++) {
+    res[i] = xss(res[i])
+  }
+  return res
+}
+
 router.post('/purchase/create', csrfProtection, function (req, res) {
   if (req.body.part_url === ""&&
       req.body.part_number === ""&&
       req.body.part_name === ""&&
       req.body.subsystem === ""&&
-      req.body.part_url === ""&&
-      !req.body.price_per_unit&&
-      !req.body.quantity) {
+      req.body.price_per_unit === ""&&
+      req.body.quantity === "") {
     req.body.part_url =
       req.body.part_number =
       req.body.part_name =
       req.body.subsystem =
-      req.body.price_per_unit =
       req.body.quantity = []
   }
-  else if (req.body.part_url[0] === ""&&
+  if (req.body.part_url[0] === ""&&
           req.body.part_number[0] === ""&&
           req.body.part_name[0] === ""&&
           req.body.subsystem[0] === ""&&
@@ -289,14 +298,14 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
     vendor_email: xss(safeString(req.body.vendor_email)),
     vendor_address: xss(safeString(req.body.vendor_address)),
     reason_for_purchase: xss(safeString(req.body.reason_for_purchase)),
-    part_url: xss(req.body.part_url),
-    part_number: xss(req.body.part_number),
-    part_name: xss(req.body.part_name),
-    subsystem: xss(req.body.subsystem),
-    price_per_unit: xss(mapToDollarAmount(req.body.price_per_unit, 0)),
-    quantity: xss(mapToNumber(req.body.quantity, 0)),
-    shipping_and_handling: xss(toDollarAmount(req.body.shipping_and_handling, 0)),
-    submitted_by: xss(safeString(req.auth.info.email)),
+    part_url: xss_array(req.body.part_url),
+    part_number: xss_array(req.body.part_number),
+    part_name: xss_array(req.body.part_name),
+    subsystem: xss_array(req.body.subsystem),
+    price_per_unit: xss_array(mapToDollarAmount(req.body.price_per_unit, 0)),
+    quantity: xss_array(mapToNumber(req.body.quantity, 0)),
+    shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
+    submitted_by: safeString(req.auth.info.email),
   }, (err, purchase) => {
     if (err) {
       console.error(err)
@@ -325,7 +334,6 @@ router.get('/purchase/edit/:purchase_id', function (req, res) {
 })
 
 router.post('/purchase/edit/:purchase_id', function (req, res) {
-  console.log("req.body =", req.body)
   if (req.body.part_url === ""&&
       req.body.part_number === ""&&
       req.body.part_name === ""&&
@@ -333,7 +341,6 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
       req.body.part_url === ""&&
       !req.body.price_per_unit&&
       !req.body.quantity) {
-    console.log("price_per_unit = ", req.body.price_per_unit)
     req.body.part_url =
       req.body.part_number =
       req.body.part_name =
@@ -357,19 +364,19 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
   }
 
   Purchase.findByIdAndUpdate(req.params.purchase_id, {
-    subteam: safeString(req.body.subteam),
-    vendor: safeString(req.body.vendor),
-    vendor_phone: safeString(req.body.vendor_phone),
-    vendor_email: safeString(req.body.vendor_email),
-    vendor_address: safeString(req.body.vendor_address),
-    reason_for_purchase: safeString(req.body.reason_for_purchase),
-    part_url: req.body.part_url,
-    part_number: req.body.part_number,
-    part_name: req.body.part_name,
-    subsystem: req.body.subsystem,
-    price_per_unit: mapToDollarAmount(req.body.price_per_unit, 0),
-    quantity: mapToNumber(req.body.quantity, 0),
-    shipping_and_handling: toDollarAmount(req.body.shipping_and_handling, 0),
+    subteam: xss(safeString(req.body.subteam)),
+    vendor: xss(safeString(req.body.vendor)),
+    vendor_phone: xss(safeString(req.body.vendor_phone)),
+    vendor_email: xss(safeString(req.body.vendor_email)),
+    vendor_address: xss(safeString(req.body.vendor_address)),
+    reason_for_purchase: xss(safeString(req.body.reason_for_purchase)),
+    part_url: xss_array(req.body.part_url),
+    part_number: xss_array(req.body.part_number),
+    part_name: xss_array(req.body.part_name),
+    subsystem: xss_array(req.body.subsystem),
+    price_per_unit: xss_array(mapToDollarAmount(req.body.price_per_unit, 0)),
+    quantity: xss_array(mapToNumber(req.body.quantity, 0)),
+    shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
     submitted_by: safeString(req.auth.info.email),
   }, (err, purchase) => {
     if (err) {
@@ -405,9 +412,18 @@ router.get('/purchase/admin', function (req, res) {
 })
 
 router.post('/purchase/admin/approve/:id', function (req, res) {
-  let approval_level = 2
-  if (req.auth.level >= 3) approval_level = 4
-  Purchase.findByIdAndUpdate(req.params.id, { approval: approval_level }, function(err, purchase) {
+  let query = {}
+  // if mentor
+  if (req.auth.level >= 3) {
+    query.approval_level = 4
+    query.mentor_comments = safeString(req.body.comments)
+  }
+  // if admin
+  else {
+    query.approval_level = 2
+    query.admin_comments = safeString(req.body.comments)
+  }
+  Purchase.findByIdAndUpdate(req.params.id, query, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
       return
@@ -421,9 +437,22 @@ router.post('/purchase/admin/approve/:id', function (req, res) {
 })
 
 router.post('/purchase/admin/reject/:id', function (req, res) {
-  let approval_level = 1
-  if (req.auth.level >= 3) approval_level = 3
-  Purchase.findByIdAndUpdate(req.params.id, { approval: approval_level }, function(err, purchase) {
+  let query = {}
+  // if mentor
+  if (req.auth.level >= 3) {
+    query.approval_level = 3
+    query.mentor_comments = safeString(req.body.comments)
+    query.mentor_username = safeString(req.auth.info.email)
+    query.mentor_date_approved = new Date()
+  }
+  // if admin
+  else {
+    query.approval_level = 1
+    query.admin_comments = safeString(req.body.comments)
+    query.admin_username = safeString(req.auth.info.email)
+    query.admin_date_approved = new Date()
+  }
+  Purchase.findByIdAndUpdate(req.params.id, query, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
       return

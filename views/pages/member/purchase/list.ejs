@@ -84,11 +84,21 @@
           $("#purchases").append(""
             + '<li class="list-group-item">'
             +   "<h2><b>" + safeValue(purchase.vendor) + "</b></h2>"
-            +   '<a href="view/' + purchase_id + '" class="btn btn-default btn-lg float-right">View</a>'
+            +   '<div class="btn-group float-right">'
+            +     '<a href="view/' + purchase_id + '" class="btn btn-default btn-lg">View</a>'
+            +     (purchase.approval <= 1 ? ('<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>') : '')
+            +   '</div>'
             +   (purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? '<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>' : "")
             +   "<p><b>Submitted By:</b> " + safeValue(purchase.submitted_by) + "</p>"
             +   "<p><b>Subteam:</b> " + getSubteam(purchase.subteam) + "</p>"
             +   "<p><b>Approval Status:</b> " + getApprovalStatus(purchase.approval) + "</p>"
+            // if mentor approved/rejected, use their comments; otherwise use admin comments
+            // if there are no comments don't even print the line
+            +   ((purchase.admin_comments || purchase.mentor_comments) ?
+                  ("<p>" + (purchase.approval > 2 ?
+                    ('<b>Mentor Comments:</b> ' + purchase.mentor_comments) :
+                    ('<b>Admin Comments:</b> ' + purchase.admin_comments)
+                  ) + "</p>") : '')
             +   "<h4><b>Total:</b> $" + getTotalCost(purchase.price_per_unit, purchase.quantity).toFixed(2) + "</h4>"
             + '</li>'
           )

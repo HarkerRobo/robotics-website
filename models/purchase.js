@@ -35,10 +35,16 @@ const purchaseSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
-  admin_comments: String,
+  admin_comments: {
+    type: String,
+    default: '',
+  },
   admin_username: String,
   admin_date_approved: Date,
-  mentor_comments: String,
+  mentor_comments: {
+    type: String,
+    default: '',
+  },
   mentor_date_approved: Date,
   locked: {
     type: Boolean,
