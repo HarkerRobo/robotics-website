@@ -415,7 +415,7 @@ router.get('/purchase/admin', function (req, res) {
 router.post('/purchase/admin/approve/:id', function (req, res) {
   let query = {}
   // if mentor
-  if (req.auth.level == 3 || (req.auth.level == 4 && req.body.mentor == true)) {
+  if (req.auth.level == 3 || (req.auth.level == 4 && req.body.mentor === 'true')) {
     query.approval = 4
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
@@ -445,7 +445,7 @@ router.post('/purchase/admin/approve/:id', function (req, res) {
 router.post('/purchase/admin/reject/:id', function (req, res) {
   let query = {}
   // if mentor
-  if (req.auth.level == 3 || (req.auth.level == 4 && req.body.mentor == true)) {
+  if (req.auth.level == 3 || (req.auth.level == 4 && req.body.mentor === 'true')) {
     query.approval = 3
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
