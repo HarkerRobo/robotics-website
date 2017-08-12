@@ -195,7 +195,7 @@ router.get('/purchase/list_object/:filter', function (req, res) {
     })
   }
   else if (req.params.filter === 'admin') {
-    Purchase.find({ approval: 0 }, (err, purchases) => {
+    Purchase.find({ $or: [{approval: 0}, {approval: 3}] }, (err, purchases) => {
       if (err) {
         res.status(500).json({ success: false, error: { message: err } })
         return
@@ -416,15 +416,20 @@ router.post('/purchase/admin/approve/:id', function (req, res) {
   let query = {}
   // if mentor
   if (req.auth.level >= 3) {
-    query.approval_level = 4
+    query.approval = 4
     query.mentor_comments = safeString(req.body.comments)
+    query.mentor_username = safeString(req.auth.info.email)
+    query.mentor_date_approved = new Date()
   }
   // if admin
   else {
-    query.approval_level = 2
+    query.approval = 2
     query.admin_comments = safeString(req.body.comments)
+    query.admin_username = safeString(req.auth.info.email)
+    query.admin_date_approved = new Date()
   }
   Purchase.findByIdAndUpdate(req.params.id, query, function(err, purchase) {
+    console.log(purchase)
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
       return
@@ -441,14 +446,14 @@ router.post('/purchase/admin/reject/:id', function (req, res) {
   let query = {}
   // if mentor
   if (req.auth.level >= 3) {
-    query.approval_level = 3
+    query.approval = 3
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
     query.mentor_date_approved = new Date()
   }
   // if admin
   else {
-    query.approval_level = 1
+    query.approval = 1
     query.admin_comments = safeString(req.body.comments)
     query.admin_username = safeString(req.auth.info.email)
     query.admin_date_approved = new Date()

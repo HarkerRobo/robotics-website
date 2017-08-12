@@ -117,7 +117,7 @@
             </table>
           </div>
         </form>
-        <% if (auth.loggedin && ((auth.level >= 2 && purchase.approval >= 0 && purchase.approval <= 2) || (auth.level >=3 && purchase.approval >= 2))) { %>
+        <% if (auth.loggedin && ((auth.level >= 2 && purchase.approval >= 0 && purchase.approval <= 3) || (auth.level >=3 && purchase.approval >= 2))) { %>
           <div class="center">
             <input style="width: 60%; margin: auto;" type="text" id="approval-comments" class="form-control" placeholder="Comments" /></p>
             <div class="btn-group">
