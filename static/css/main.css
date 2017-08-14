@@ -29,6 +29,10 @@
   margin-bottom: 0 !important;
 }
 
+.title-text {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+}
+
 
 header, section {
   mix-blend-mode: normal;

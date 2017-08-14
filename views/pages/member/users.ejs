@@ -8,12 +8,87 @@
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
 
-    <header id="challanges">
+    <header id="uams">
       <div class="container-fluid">
-        <h1 class="title">USERS</h1>
-        <p>In the future you will be able to change the users who have different privileges.</p>
+        <h1 class="title">U.A.M.S.</h1>
+        <p class="info-text"><strong>U</strong>ser <strong>A</strong>uthorization <strong>M</strong>anagement <strong>S</strong>ystem.<br/>
+          In the future you will be able to change the users who have different privileges.
+        </p>
+        <div class="row">
+          <div class="col-xs-12 col-md-4">
+            <h1 class="center title-text"><b>MEMBERS</b></h1>
+            <ul class="list-group black-text" id="members">
+              <li class="list-group-item">
+                <form data-level="1"><div class="form-group"><div class="input-group">
+                  <input type="email" class="form-control" placeholder="Email" name="email" required />
+                  <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div></div></form>
+              </li>
+            </ul>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <h1 class="center title-text"><b>ADMINS</b></h1>
+            <ul class="list-group black-text" id="admins">
+              <li class="list-group-item">
+                <form data-level="2"><div class="form-group"><div class="input-group">
+                  <input type="email" class="form-control" placeholder="Email" name="email" required />
+                  <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div></div></form>
+              </li>
+            </ul>
+          </div>
+          <div class="col-xs-12 col-md-4">
+            <h1 class="center title-text"><b>MENTORS</b></h1>
+            <ul class="list-group black-text" id="mentors">
+              <li class="list-group-item">
+                <form data-level="3"><div class="form-group"><div class="input-group">
+                  <input type="email" class="form-control" placeholder="Email" name="email" required />
+                  <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
+                </div></div></form>
+              </li>
+            </ul>
+          </div>
+        </div>
       </div>
     </header>
+
+    <script>
+      xhr1 = xhr2 = xhr3 = null
+      function loadUsers() {
+        if (xhr1 !== null) xhr1.abort()
+        xhr1 = $.get('/member/userman/userswithauth/' + 1, function(emails) {
+          $('#members li:not(:first)').remove()
+          for (var email of emails) {
+            $('#members').append('<li class="list-group-item">' + email + '</li>')
+          }
+        })
+        if (xhr2 !== null) xhr2.abort()
+        xhr2 = $.get('/member/userman/userswithauth/' + 2, function(emails) {
+          $('#admins li:not(:first)').remove()
+          for (var email of emails) {
+            $('#admins').append('<li class="list-group-item">' + email + '</li>')
+          }
+        })
+        if (xhr3 !== null) xhr3.abort()
+        xhr3 = $.get('/member/userman/userswithauth/' + 3, function(emails) {
+          $('#mentors li:not(:first)').remove()
+          for (var email of emails) {
+            $('#mentors').append('<li class="list-group-item">' + email + '</li>')
+          }
+        })
+      }
+      loadUsers()
+      $('#uams form').submit(function(e) {
+        e.preventDefault()
+        var email = $(this).find('input[name="email"]').val()
+        $(this).find('input[name="email"]').val('')
+        $.post('/member/userman/setuserauth', {
+          email: email,
+          level: $(this).attr('data-level'),
+        }, loadUsers).fail(handleXHRError)
+      })
+
+    </script>
 
     <%- include(__base + 'views/partials/js-include.ejs') %>
 

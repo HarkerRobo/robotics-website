@@ -68,3 +68,17 @@ function waitForWebfonts(fonts, callback) {
         })(fonts[i]);
     }
 };
+
+
+function handleXHRError(xhr) {
+  console.error(xhr)
+  if (xhr && xhr.responseJSON && xhr.responseJSON.error) alert(xhr.responseJSON.error.message)
+  else if (xhr && xhr.responseJSON) {
+    alert('An error occured.')
+    console.error(xhr.responseJSON.error)
+  }
+  else if (xhr && xhr.responseText) {
+    alert('An error occured.')
+    console.error(xhr.responseText)
+  }
+}

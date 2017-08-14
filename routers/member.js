@@ -10,6 +10,7 @@ const express = require('express'),
   config = require(__base + 'config.json'),
   MongoStore = require('connect-mongo')(session),
   Purchase = require('../models/purchase'),
+  User = require('../models/user'),
   nodemailer = require('nodemailer'),
   xss = require('xss'),
   smtpConfig = require('../config.json')["automail"],
@@ -45,6 +46,11 @@ const deleteBlanks = (arr) => {
   }
 }
 
+const validateEmail = (email) => {
+    var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+}
+
 router.use(cookieParser())
 
 // DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
@@ -70,6 +76,7 @@ router.use(function (req, res, next) {
   next()
 })
 
+// https://developers.google.com/identity/sign-in/web/backend-auth
 router.post('/token', function (req, res) {
   let token = req.body.idtoken
   if (token !== undefined) {
@@ -85,30 +92,42 @@ router.post('/token', function (req, res) {
         path: '/oauth2/v3/tokeninfo?id_token='+token,
         method: 'GET'
       }, (result, err) => {
-        if (err) { return res.sendStatus(400); console.log('Error:', err) }
+        if (err) { console.log('Error:', err); return res.sendStatus(400);  }
         console.log()
         console.log('---API TOKEN REQUESTED---')
-        console.log('statusCode:', result.statusCode)
-        console.log('headers:', result.headers)
-        console.log()
 
         result.on('data', (d) => { data += d }).on('end', (d) => {
-          console.log('DATA:', data)
           data = JSON.parse(data)
           if (result.statusCode === 200) {
-            console.log(data.aud)
-            console.log(config.GoogleClientID)
             if (data.aud === config.GoogleClientID) {
-              req.session.auth = { loggedin: true }
-              if (data.hd !== undefined && data.hd.endsWith(".harker.org")) req.session.auth.level = 1
-              if (config.users.admins.includes(data.email.toLowerCase())) req.session.auth.level = 2
-              if (config.users.mentors.includes(data.email.toLowerCase())) req.session.auth.level = 3
-              if (config.users.superadmins.includes(data.email.toLowerCase())) req.session.auth.level = 4
-              req.session.auth.loggedin = true
-              req.session.auth.token = token
-              req.session.auth.info = data
-              console.log(req.session)
-              res.status(200).end()
+              req.session.auth = { loggedin: true, token: token, info: data }
+              console.log(data.name + ' (' + data.email + ')')
+
+              if (config.users.superadmins.includes(data.email.toLowerCase())) {
+                req.session.auth.level = 4
+                console.log('Superadmin status granted')
+                res.status(200).end()
+              }
+              else {
+                // find the user with the email
+                User.findOne({ email: data.email }, (err, user) => {
+                  if (err){
+                    req.session.auth.level = 0
+                    return
+                  }
+                  // if the user can't be found in db, put user in db w/ level 0
+                  if (user==null) {
+                    User.create({ email: data.email }, () => {
+                      req.session.auth.level = 0
+                      res.status(200).send()
+                    })
+                  }
+                  else {
+                    req.session.auth.level = user.authorization
+                    res.status(200).send()
+                  }
+                })
+              }
             } else {
               res.status(400).end('Token does match Google Client ID')
             }
@@ -123,6 +142,7 @@ router.post('/token', function (req, res) {
   } else {
     res.status(400).send('Bad Request: No token')
   }
+  console.log()
 })
 
 router.delete('/token', function (req, res) {
@@ -134,8 +154,9 @@ router.delete('/token', function (req, res) {
 
 // must be logged in to see below pages
 router.all('/*', function (req, res, next) {
-  console.log(req.auth)
   if (req.auth.loggedin) {
+    console.log('Auth: ' + req.auth.info.name + ' (' + req.auth.info.email + ')')
+    console.log('Auth level: ' + req.auth.level)
     next()
   } else {
     res.render('pages/member/login')
@@ -429,7 +450,6 @@ router.post('/purchase/admin/approve/:id', function (req, res) {
     query.admin_date_approved = new Date()
   }
   Purchase.findByIdAndUpdate(req.params.id, query, function(err, purchase) {
-    console.log(purchase)
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
       return
@@ -486,6 +506,58 @@ router.all('/*', function (req, res, next) {
 
 router.get('/purchase/mentor', function (req, res) {
   res.render('pages/member/purchase/list', { filter: 'mentor' })
+})
+
+// must be an superadmin to see below pages
+router.all('/*', function (req, res, next) {
+  if (req.auth.level >= 4) {
+    next()
+  } else {
+    res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
+  }
+})
+
+router.get('/userman', function (req, res) {
+  res.render('pages/member/users')
+})
+
+router.post('/userman/setuserauth', function (req, res) {
+  const email = xss(req.body.email)
+  const newlevel = toNumber(xss(req.body.level), 0)
+  if (!validateEmail(email)) {
+    res.status(400).json({ success: 'false', error: { message: 'Email not valid' }})
+    return
+  }
+  if (newlevel>=4) {
+    res.status(400).json({ success: 'false', error: { message: 'Authorization level too high' }})
+    return
+  }
+  // updates or inserts a user with given auth level and email
+  User.updateOne({ email: email }, { email: email, authorization: newlevel }, { upsert: true, setDefaultsOnInsert: true}, function(err, user) {
+    if (err){
+      res.status(500).json({ success: 'false', error: { message: err }})
+      return
+    }
+    if (user==null) {
+      res.status(404).json({ success: 'false', error: { message: 'User not found' }})
+      return
+    }
+    res.status(200).send()
+  })
+})
+
+router.get('/userman/userswithauth/:level', function (req, res) {
+  User.find({ authorization: req.params.level }, function(err, users) {
+    if (err){
+      res.status(500).json({ success: 'false', error: { message: err }})
+      return
+    }
+    let result = []
+    for (const user of users) {
+      result.push(user.email)
+    }
+    res.json(result)
+  })
 })
 
 router.get('/*', function (req, res, next) {
