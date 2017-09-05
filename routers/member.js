@@ -117,7 +117,7 @@ router.post('/token', function (req, res) {
                   }
                   // if the user can't be found in db, put user in db w/ level 0
                   if (user==null) {
-                    User.create({ email: data.email }, () => {
+                    User.create({ email: data.email.toLowerCase() }, () => {
                       req.session.auth.level = 0
                       res.status(200).send()
                     })
@@ -175,6 +175,10 @@ router.get('/', function (req, res) {
   res.render('pages/member/index')
 })
 
+router.get('/resources', function(req, res){
+  res.render('pages/member/resources')
+})
+
 // must be harker student to see below pages
 router.all('/*', function (req, res, next) {
   if (req.auth.level >= 1) {
@@ -182,10 +186,6 @@ router.all('/*', function (req, res, next) {
   } else {
     res.render('pages/member/error', { statusCode: 401, error: "Must be authenticated as harker student."})
   }
-})
-
-router.get('/resources', function(req, res){
-  res.render('pages/member/resources')
 })
 
 /*router.get('/wiki', function (req, res) {
