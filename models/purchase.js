@@ -1,6 +1,14 @@
 const mongoose = require('../db')
+const autoIncrement = require('mongoose-auto-increment');
+
+autoIncrement.initialize(mongoose.connection);
 
 const purchaseSchema = mongoose.Schema({
+  purchase_number: {
+    type: Number,
+    required: true,
+    default: -1,
+  },
   /*
     Subteam:
       undefined - N/A
@@ -51,6 +59,8 @@ const purchaseSchema = mongoose.Schema({
     default: true,
   },
 })
+
+purchaseSchema.plugin(autoIncrement.plugin, { model: 'Purchase', field: 'purchase_id' });
 
 const Purchase = mongoose.model('Purchase', purchaseSchema)
 

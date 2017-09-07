@@ -197,7 +197,7 @@ router.get('/purchase', function (req, res) {
 })
 
 router.get('/purchase/view/:purchase_id', function (req, res) {
-  Purchase.findById(req.params.purchase_id, (err, purchase) => {
+  Purchase.findOne({ purchase_id: req.params.purchase_id }, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
     else res.render('pages/member/purchase/view', { purchase: purchase })
   })
@@ -211,7 +211,7 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e._id] = e })
+      purchases.forEach((e) => { map[e.purchase_id] = e })
       res.send(map)
     })
   }
@@ -222,7 +222,7 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e._id] = e })
+      purchases.forEach((e) => { map[e.purchase_id] = e })
       res.send(map)
     })
   }
@@ -233,7 +233,7 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e._id] = e })
+      purchases.forEach((e) => { map[e.purchase_id] = e })
       res.send(map)
     })
   }
@@ -244,7 +244,7 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e._id] = e })
+      purchases.forEach((e) => { map[e.purchase_id] = e })
       res.send(map)
     })
   }
@@ -257,7 +257,7 @@ router.get('/purchase/list_object/', function (req, res) {
       return
     }
     let map = {}
-    purchases.forEach((e) => { map[e._id] = e })
+    purchases.forEach((e) => { map[e.purchase_id] = e })
     res.send(map)
   })
 })
@@ -342,12 +342,12 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
       if (err) console.error(err)
       else console.log("Email sent!")
     })
-    res.redirect('view/' + purchase._id)
+    res.redirect('view/' + purchase.purchase_id)
   });
 })
 
 router.get('/purchase/edit/:purchase_id', function (req, res) {
-  Purchase.findById(req.params.purchase_id, (err, purchase) => {
+  Purchase.findOne({ purchase_id: req.params.purchase_id }, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
     else if (purchase.submitted_by.toLowerCase() === req.auth.info.email.toLowerCase() && purchase.approval <= 1) res.render('pages/member/purchase/edit', { purchase: purchase })
     else res.render('pages/member/purchase/view', { purchase: purchase })
@@ -384,7 +384,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     req.body.quantity.shift()
   }
 
-  Purchase.findByIdAndUpdate(req.params.purchase_id, {
+  Purchase.findOneAndUpdate({ purchase_id: req.params.purchase_id }, {
     subteam: xss(safeString(req.body.subteam)),
     vendor: xss(safeString(req.body.vendor)),
     vendor_phone: xss(safeString(req.body.vendor_phone)),
@@ -415,7 +415,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
       if (err) console.error(err)
       else console.log("Email sent!")
     })
-    res.redirect('../view/' + purchase._id)
+    res.redirect('../view/' + purchase.purchase_id)
   })
 })
 
@@ -449,7 +449,7 @@ router.post('/purchase/admin/approve/:id', function (req, res) {
     query.admin_username = safeString(req.auth.info.email)
     query.admin_date_approved = new Date()
   }
-  Purchase.findByIdAndUpdate(req.params.id, query, function(err, purchase) {
+  Purchase.findOneAndUpdate({ purchase_id: req.params.id } , query, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
       return
@@ -478,7 +478,7 @@ router.post('/purchase/admin/reject/:id', function (req, res) {
     query.admin_username = safeString(req.auth.info.email)
     query.admin_date_approved = new Date()
   }
-  Purchase.findByIdAndUpdate(req.params.id, query, function(err, purchase) {
+  Purchase.findOneAndUpdate({ purchase_id: req.params.id }, query, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
       return

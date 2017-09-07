@@ -28,6 +28,7 @@
     "letsencrypt-express": "^2.0.6",
     "moment": "^2.14.1",
     "mongoose": "^4.7.7",
+    "mongoose-auto-increment": "^5.0.1",
     "multiparty": "^4.1.2",
     "nodemailer": "^2.7.0",
     "spdy": "^3.4.0",
