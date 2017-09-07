@@ -4,7 +4,7 @@ const autoIncrement = require('mongoose-auto-increment');
 autoIncrement.initialize(mongoose.connection);
 
 const purchaseSchema = mongoose.Schema({
-  purchase_number: {
+  purchase_id: {
     type: Number,
     required: true,
     default: -1,
