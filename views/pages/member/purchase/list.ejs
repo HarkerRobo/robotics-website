@@ -89,6 +89,7 @@
             +     ((purchase.approval <= 1 && purchase.submitted_by == '<%= auth.info.email %>') ? ('<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>') : '')
             +   '</div>'
             +   (purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? '<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>' : "")
+            +   "<p><b>Purchase ID:</b> " + safeValue(purchase.purchase_id) + "</p>"
             +   "<p><b>Submitted By:</b> " + safeValue(purchase.submitted_by) + "</p>"
             +   "<p><b>Subteam:</b> " + getSubteam(purchase.subteam) + "</p>"
             +   "<p><b>Approval Status:</b> " + getApprovalStatus(purchase.approval) + "</p>"
