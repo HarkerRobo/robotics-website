@@ -16,6 +16,14 @@
   color: black;
 }
 
+.default-font {
+  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+}
+
+.title-font {
+  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+}
+
 .center {
   text-align: center;
 }
@@ -28,11 +36,6 @@
   margin-top: 0 !important;
   margin-bottom: 0 !important;
 }
-
-.title-text {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
-}
-
 
 header, section {
   mix-blend-mode: normal;
@@ -254,6 +257,17 @@ a.small-info-btn:hover {
   position: absolute;
   top: -9999px;
   left: -9999px;
+}
+
+/* footer */
+footer {
+  position: fixed;
+  height: 30px;
+  bottom: 0;
+  width: 100%;
+  padding: 5px;
+  background-color: rgba(0,0,0,0.6);
+  color: white;
 }
 
 /* landing */

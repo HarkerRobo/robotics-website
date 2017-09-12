@@ -199,7 +199,7 @@ router.get('/purchase', function (req, res) {
 router.get('/purchase/view/:purchase_id', function (req, res) {
   Purchase.findOne({ purchase_id: req.params.purchase_id }, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
-    else res.render('pages/member/purchase/view', { purchase: purchase })
+    else res.render('pages/member/purchase/view', { purchase: purchase, creation: purchase._id.getTimestamp().toDateString() })
   })
 })
 
@@ -337,12 +337,12 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
       from: 'HarkerRobotics1072 Purchase System', // sender address
       to: 'harker1072@gmail.com', // list of receivers
       subject: 'Purchase Order has been created!', // Subject line
-      text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
+      text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + purchase.purchase_id, // plaintext body
     }, (err) => {
+      res.redirect('view/' + purchase.purchase_id)
       if (err) console.error(err)
       else console.log("Email sent!")
     })
-    res.redirect('view/' + purchase.purchase_id)
   });
 })
 
@@ -414,8 +414,8 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     }, (err) => {
       if (err) console.error(err)
       else console.log("Email sent!")
+      res.redirect('../view/' + purchase.purchase_id)
     })
-    res.redirect('../view/' + purchase.purchase_id)
   })
 })
 

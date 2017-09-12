@@ -7,6 +7,7 @@
 
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <% if (typeof creation === 'undefined' || creation === null || creation === "Invalid Date") creation = "No Date Data" %>
     <% if (typeof purchase === 'undefined' || purchase === null) purchase = { "_id": "blank","vendor":"","vendor_phone":"","vendor_email":"","reason_for_purchase":"","submitted_by":"N/A","__v":0,"approval":-1,"shipping_and_handling":[],"quantity":[],"price_per_unit":[],"subsystem":[],"part_name":[],"part_number":[],"part_url":[]} %>
     <header>
       <div class="container-fluid">
@@ -22,6 +23,12 @@
             <label for="vendor" class="col-sm-2 control-label">Purchase ID</label>
             <div class="col-sm-10 col-lg-8">
               <input type="text" class="form-control" name="vendor" id="vendor" value="<%- purchase.purchase_id %>" disabled />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="vendor" class="col-sm-2 control-label">Creation Date</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="text" class="form-control" name="vendor" id="vendor" value="<%- creation %>" disabled />
             </div>
           </div>
           <div class="form-group">
@@ -166,7 +173,7 @@
       });
       <% if (auth.loggedin && auth.level >= 2) { %>
         $("#approve-purchase").click(function() {
-          $.post('/member/purchase/admin/approve/<%= purchase._id %>', { 'comments': $("#approval-comments").val() }, function() {
+          $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', { 'comments': $("#approval-comments").val() }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
@@ -174,7 +181,7 @@
           })
         })
         $("#reject-purchase").click(function() {
-          $.post('/member/purchase/admin/reject/<%= purchase._id %>', { 'comments': $("#approval-comments").val() }, function() {
+          $.post('/member/purchase/admin/reject/<%= purchase.purchase_id %>', { 'comments': $("#approval-comments").val() }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
@@ -184,7 +191,7 @@
       <% } %>
       <% if (auth.loggedin && auth.level >= 2) { %>
         $("#approve-purchase-mentor").click(function() {
-          $.post('/member/purchase/admin/approve/<%= purchase._id %>', { 'comments': $("#approval-comments").val(), mentor: true }, function() {
+          $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', { 'comments': $("#approval-comments").val(), mentor: true }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
@@ -192,7 +199,7 @@
           })
         })
         $("#reject-purchase-mentor").click(function() {
-          $.post('/member/purchase/admin/reject/<%= purchase._id %>', { 'comments': $("#approval-comments").val(), mentor: true }, function() {
+          $.post('/member/purchase/admin/reject/<%= purchase.purchase_id %>', { 'comments': $("#approval-comments").val(), mentor: true }, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
