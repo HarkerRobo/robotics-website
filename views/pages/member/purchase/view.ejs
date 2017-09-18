@@ -2,17 +2,32 @@
 <html>
   <head>
     <%- include(__base + 'views/partials/head.ejs') %>
+    <style media="print">
+      #approval-buttons {
+        display: none;
+      }
+      .form-group, #parts {
+        page-break-inside: avoid;
+      }
+      #print-desc-block {
+        display: block !important;
+        width: 50%;
+        margin: auto;
+      }
+    </style>
   </head>
   <body>
 
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
     <% if (typeof creation === 'undefined' || creation === null || creation === "Invalid Date") creation = "No Date Data" %>
-    <% if (typeof purchase === 'undefined' || purchase === null) purchase = { "_id": "blank","vendor":"","vendor_phone":"","vendor_email":"","reason_for_purchase":"","submitted_by":"N/A","__v":0,"approval":-1,"shipping_and_handling":[],"quantity":[],"price_per_unit":[],"subsystem":[],"part_name":[],"part_number":[],"part_url":[]} %>
+    <% if (typeof total === 'undefined' || total === null || isNaN(total)) total = 0 %>
+    <% if (typeof purchase === 'undefined' || purchase === null) purchase = { "_id": "blank","vendor":"","vendor_phone":"","vendor_email":"","reason_for_purchase":"","submitted_by":"N/A","__v":0,"approval":-1,"shipping_and_handling":[],"quantity":[],"price_per_unit":[],"subsystem":[],"part_name":[],"part_number":[],"part_url":[],"tax":0} %>
+    <% if (typeof purchase.mentor_date_approved === 'undefined' || purchase.mentor_date_approved === null || purchase.mentor_date_approved === "Invalid Date") purchase.mentor_date_approved = "No Date Data" %>
     <header>
       <div class="container-fluid">
         <form class="form-horizontal" method="POST">
-          <h1 class="title"> VIEW PURCHASE </h1>
+          <h1 class="title"> VIEW PURCHASE (ID: <span id="purchase_id_title"><%- purchase.purchase_id %></span>)</h1>
           <div class="form-group">
             <label for="vendor" class="col-sm-2 control-label">Submitted By</label>
             <div class="col-sm-10 col-lg-8">
@@ -29,6 +44,12 @@
             <label for="vendor" class="col-sm-2 control-label">Creation Date</label>
             <div class="col-sm-10 col-lg-8">
               <input type="text" class="form-control" name="vendor" id="vendor" value="<%- creation %>" disabled />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="mentor_date_approved" class="col-sm-2 control-label">(Mentor) Approval Date</label>
+            <div class="col-sm-10 col-lg-8">
+              <input type="text" class="form-control" name="mentor_date_approved" id="mentor_date_approved" value="<%- purchase.mentor_date_approved %>" disabled />
             </div>
           </div>
           <div class="form-group">
@@ -89,7 +110,25 @@
             <div class="col-sm-10 col-lg-8">
               <div class="input-group">
                 <span class="input-group-addon">$</span>
-                <input type="text" class="form-control to-price" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling %>" pattern="^\d+(\.\d{0,2})?$" disabled />
+                <input type="text" class="form-control to-price" name="shipping_and_handling" id="shipping_and_handling" value="<%- purchase.shipping_and_handling[0] %>" pattern="^\d+(\.\d{0,2})?$" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="tax" class="col-sm-2 control-label">Tax</label>
+            <div class="col-sm-10 col-lg-8">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control to-price" name="tax" id="tax" value="<%- purchase.tax %>" pattern="^\d+(\.\d{0,2})?$" disabled />
+              </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="total" class="col-sm-2 control-label">Total</label>
+            <div class="col-sm-10 col-lg-8">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control to-price" name="total" id="total" value="<%- total %>" pattern="^\d+(\.\d{0,2})?$" disabled />
               </div>
             </div>
           </div>
@@ -130,8 +169,8 @@
             </table>
           </div>
         </form>
-        <% if (auth.loggedin && ((auth.level >= 2 && purchase.approval >= 0 && purchase.approval <= 3) || (auth.level >=3 && purchase.approval >= 2))) { %>
-          <div class="center">
+        <% if (purchase.approval < 4 && auth.loggedin && ((auth.level >= 2 && purchase.approval >= 0 && purchase.approval <= 3) || (auth.level >=3 && purchase.approval >= 2))) { %>
+          <div class="center" id="approval-buttons">
             <input style="width: 60%; margin: auto;" type="text" id="approval-comments" class="form-control" placeholder="Comments" /></p>
             <div class="btn-group">
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve<%= auth.level == 4 ? ' (Admin)' : '' %></button>
@@ -144,6 +183,7 @@
           </div>
         <% } %>
       </div>
+      <p class="hidden center" id="print-desc-block">This report was generated by the Harker Robotics 1072 Purchase Order system, originally created by David Melisso, Harker class of 2019. &copy; 2017, All Rights Reserved.</p>
 
     </header>
 

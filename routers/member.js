@@ -199,7 +199,7 @@ router.get('/purchase', function (req, res) {
 router.get('/purchase/view/:purchase_id', function (req, res) {
   Purchase.findOne({ purchase_id: req.params.purchase_id }, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
-    else res.render('pages/member/purchase/view', { purchase: purchase, creation: purchase._id.getTimestamp().toDateString() })
+    else res.render('pages/member/purchase/view', { purchase: purchase, creation: purchase._id.getTimestamp().toDateString(), total: purchase.totalCost() })
   })
 })
 
@@ -326,6 +326,7 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
     price_per_unit: xss_array(mapToDollarAmount(req.body.price_per_unit, 0)),
     quantity: xss_array(mapToNumber(req.body.quantity, 0)),
     shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
+    tax: xss(safeString(req.body.tax)),
     submitted_by: safeString(req.auth.info.email),
   }, (err, purchase) => {
     if (err) {
@@ -398,6 +399,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     price_per_unit: xss_array(mapToDollarAmount(req.body.price_per_unit, 0)),
     quantity: xss_array(mapToNumber(req.body.quantity, 0)),
     shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
+    tax: xss(safeString(req.body.tax)),
     submitted_by: safeString(req.auth.info.email),
     approval: 0,
   }, (err, purchase) => {

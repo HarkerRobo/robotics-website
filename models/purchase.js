@@ -30,6 +30,10 @@ const purchaseSchema = mongoose.Schema({
   price_per_unit: [Number],
   quantity: [Number],
   shipping_and_handling: [Number],
+  tax: {
+    type: Number,
+    default: 0,
+  },
   submitted_by: String,
   /*
     approval:
@@ -61,6 +65,14 @@ const purchaseSchema = mongoose.Schema({
 }, { timestamps: true })
 
 purchaseSchema.plugin(autoIncrement.plugin, { model: 'Purchase', field: 'purchase_id' });
+
+purchaseSchema.methods.totalCost = function totalCost() {
+  var sum = 0
+  for (var i = 0; i < Math.min(this.price_per_unit.length, this.quantity.length); i++) {
+    sum += this.price_per_unit[i] + this.quantity[i]
+  }
+  return sum+this.tax+this.shipping_and_handling[0]
+}
 
 const Purchase = mongoose.model('Purchase', purchaseSchema)
 
