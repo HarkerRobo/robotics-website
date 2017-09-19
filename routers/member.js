@@ -326,7 +326,7 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
     price_per_unit: xss_array(mapToDollarAmount(req.body.price_per_unit, 0)),
     quantity: xss_array(mapToNumber(req.body.quantity, 0)),
     shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
-    tax: xss(safeString(req.body.tax)),
+    tax: xss(toDollarAmount(req.body.tax, 0)),
     submitted_by: safeString(req.auth.info.email),
   }, (err, purchase) => {
     if (err) {
@@ -337,8 +337,8 @@ router.post('/purchase/create', csrfProtection, function (req, res) {
     transporter.sendMail({
       from: 'HarkerRobotics1072 Purchase System', // sender address
       to: 'harker1072@gmail.com', // list of receivers
-      subject: 'Purchase Order has been created!', // Subject line
-      text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + purchase.purchase_id, // plaintext body
+      subject: 'Purchase Request has been created!', // Subject line
+      text: 'Purchase Request can be found here: https://robodev.harker.org/member/purchase/view/' + purchase.purchase_id, // plaintext body
     }, (err) => {
       res.redirect('view/' + purchase.purchase_id)
       if (err) console.error(err)
@@ -399,7 +399,7 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     price_per_unit: xss_array(mapToDollarAmount(req.body.price_per_unit, 0)),
     quantity: xss_array(mapToNumber(req.body.quantity, 0)),
     shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
-    tax: xss(safeString(req.body.tax)),
+    tax: xss(toDollarAmount(req.body.tax,0)),
     submitted_by: safeString(req.auth.info.email),
     approval: 0,
   }, (err, purchase) => {
@@ -411,8 +411,8 @@ router.post('/purchase/edit/:purchase_id', function (req, res) {
     transporter.sendMail({
       from: 'HarkerRobotics1072 Purchase System', // sender address
       to: 'harker1072@gmail.com', // list of receivers
-      subject: 'Purchase Order has been edited!', // Subject line
-      text: 'Purchase Order can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
+      subject: 'Purchase Request has been edited!', // Subject line
+      text: 'Purchase Request can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
     }, (err) => {
       if (err) console.error(err)
       else console.log("Email sent!")
