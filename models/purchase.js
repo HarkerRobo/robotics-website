@@ -69,7 +69,7 @@ purchaseSchema.plugin(autoIncrement.plugin, { model: 'Purchase', field: 'purchas
 purchaseSchema.methods.totalCost = function totalCost() {
   var sum = 0
   for (var i = 0; i < Math.min(this.price_per_unit.length, this.quantity.length); i++) {
-    sum += this.price_per_unit[i] + this.quantity[i]
+    sum += this.price_per_unit[i] * this.quantity[i]
   }
   return sum+this.tax+this.shipping_and_handling[0]
 }

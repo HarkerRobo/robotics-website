@@ -211,7 +211,10 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e.purchase_id] = e })
+      purchases.forEach((e) => {
+        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
+        map[e.purchase_id].total_cost = e.totalCost()
+      })
       res.send(map)
     })
   }
@@ -222,7 +225,10 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e.purchase_id] = e })
+      purchases.forEach((e) => {
+        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
+        map[e.purchase_id].total_cost = e.totalCost()
+      })
       res.send(map)
     })
   }
@@ -233,7 +239,10 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e.purchase_id] = e })
+      purchases.forEach((e) => {
+        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
+        map[e.purchase_id].total_cost = e.totalCost()
+      })
       res.send(map)
     })
   }
@@ -244,7 +253,10 @@ router.get('/purchase/list_object/:filter', function (req, res) {
         return
       }
       let map = {}
-      purchases.forEach((e) => { map[e.purchase_id] = e })
+      purchases.forEach((e) => {
+        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
+        map[e.purchase_id].total_cost = e.totalCost()
+      })
       res.send(map)
     })
   }
@@ -257,7 +269,10 @@ router.get('/purchase/list_object/', function (req, res) {
       return
     }
     let map = {}
-    purchases.forEach((e) => { map[e.purchase_id] = e })
+    purchases.forEach((e) => {
+      map[e.purchase_id] = JSON.parse(JSON.stringify(e))
+      map[e.purchase_id].total_cost = e.totalCost()
+    })
     res.send(map)
   })
 })
