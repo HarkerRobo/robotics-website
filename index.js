@@ -39,6 +39,9 @@ mongoose.connect('mongodb://127.0.0.1/test', (err) => {
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('env', 'development')
+
+// http://cwe.mitre.org/data/definitions/693
+app.use(require('helmet'))
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(express.static('static'))
 app.use(compression())
