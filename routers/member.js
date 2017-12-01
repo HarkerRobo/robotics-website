@@ -110,7 +110,7 @@ router.post('/token', function (req, res) {
               }
               else {
                 // find the user with the email
-                User.findOne({ email: data.email }, (err, user) => {
+                User.findOne({ email: data.email.toLowerCase() }, (err, user) => {
                   if (err){
                     req.session.auth.level = 0
                     return
