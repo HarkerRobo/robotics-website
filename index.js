@@ -23,6 +23,7 @@ const express = require('express'),
   memberRouter = require('./routers/member'),
   hackathonRouter = require('./routers/hackathon'),
   photosRouter = require('./routers/photos'),
+  blogsRouter = require('./routers/blogs'),
 
   config = require('./config.json')
 
@@ -58,6 +59,7 @@ app.use(function(req, res, next) {
   next();
 })
 if (config.runInternal) app.use('/member', memberRouter)
+if (config.blog.runBlog) app.use('/blog', blogsRouter)
 app.locals.GoogleClientID = config.GoogleClientID
 app.use('/hackathon', hackathonRouter)
 //app.use('/photos', photosRouter)

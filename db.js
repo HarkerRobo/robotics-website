@@ -3,10 +3,11 @@ const config = require('./config.json');
 
 mongoose.Promise = global.Promise;
 
-mongoose.connect(`mongodb://${config.database.auth ? config.database.auth.username + ":"+config.database.auth.password + "@" : ""}localhost:${config.database.port}/${config.database.databaseName}`, {
+mongoose.createConnection(`mongodb://${config.database.auth ? config.database.auth.username + ":"+config.database.auth.password + "@" : ""}localhost:${config.database.port}/${config.database.databaseName}`, {
  config: {
    autoIndex: false,
  },
+ useMongoClient: true,
 });
 
 const db = mongoose.connection;

@@ -8,6 +8,11 @@
   "httpsCapable": false,
   "httpsStaging": true,
   "runInternal": true,
+  "blog": {
+    "runBlog": true,
+    "blogID": "123456789",
+    "apiKey": "some-key"
+  },
   "database": {
     "port": 27017,
     "databaseName": "robotics-website"
