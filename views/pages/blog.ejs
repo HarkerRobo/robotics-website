@@ -12,7 +12,7 @@
 
     <div class="list-group" style="margin-top: 74px">
       <% for (var post of posts) { %>
-        <a href="#" class="list-group-item">
+        <div class="list-group-item">
           <h3 class="list-group-item-heading"><%- post.title %></h3>
           <p style="color: lightgray; font-size: .9em; ">Updated
             <%-
@@ -21,8 +21,8 @@
               day: "numeric", hour: "2-digit", minute: "2-digit"
             })
             %></p>
-          <div class="list-group-item-text" style="font-size: 1.2em;"><%= post.content %></div>
-        </a>
+          <div class="list-group-item-text" style="font-size: 1.2em;"><%- post.content %></div>
+        </div>
       <% } %>
     </div>
 
