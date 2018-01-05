@@ -16,7 +16,7 @@ function updateBlogsInDatabase() {
   request(postsURL, (error, response, body) => {
     console.log()
     console.log('--- BLOG POSTS REQUEST ---')
-    if (!error && response.status >= 200 && response.status < 400) {
+    if (!error && response.statusCode >= 200 && response.statusCode < 400) {
       console.log('Status code: ', response.statusCode)
 
       let currentPosts = JSON.parse(body).items
