@@ -20,6 +20,7 @@ function updateBlogsInDatabase() {
       console.log('Status code: ', response.statusCode)
 
       const currentPosts = JSON.parse(body).items
+      if (!Array.isArray(currentPosts)) currentPosts = []
       console.log('Total posts: ', currentPosts.length)
 
       const promises = []
@@ -85,7 +86,7 @@ function updateBlogsInDatabase() {
   })
 }
 
-setInterval(updateBlogsInDatabase, 10*1000)
+if (!config.blog.runBlog) setInterval(updateBlogsInDatabase, 10*1000)
 
 router.get('/', (req, res) => {
   Blog.find({}).sort({ updated: 'desc' }).limit(20)

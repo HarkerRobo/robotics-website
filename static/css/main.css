@@ -158,8 +158,10 @@ h2.title {
 
 @media (max-width: 1000px) {
   .learn-more-button {
-    font-size: 40px;
-    width: 50vw;
+    font-size: 30px;
+    width: fit-content;
+    height: 10vh;
+    padding: 0 10px;
   }
 }
 
@@ -450,13 +452,15 @@ div.landingtext {
 #outreach-tile > div.container-fluid > div.sponsor-logo {
   display: table;
   margin: 0 auto;
+  text-align: center;
 }
 
 #outreach-tile > div.container-fluid > div.sponsor-logo > img.sponsor-logo {
-  max-height: 30vh;
+  max-height: 20vh;
   max-width: 40vw;
   background: rgba(255, 255, 255, 0.5);
   border-radius: 100px;
+  margin: 10px;
 }
 
 
