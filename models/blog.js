@@ -9,6 +9,7 @@ const blogSchema = mongoose.Schema({
     type: Date,
     required: true,
   },
+  author: String,
   updated: {
     type: Date,
     required: true,

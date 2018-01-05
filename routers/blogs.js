@@ -16,16 +16,30 @@ function updateBlogsInDatabase() {
   request(postsURL, (error, response, body) => {
     console.log()
     console.log('--- BLOG POSTS REQUEST ---')
-    if (!error) {
+    if (!error && response.status >= 200 && response.status < 400) {
       console.log('Status code: ', response.statusCode)
 
-      const currentPosts = JSON.parse(body).items
+      let currentPosts = JSON.parse(body).items
       if (!Array.isArray(currentPosts)) currentPosts = []
       console.log('Total posts: ', currentPosts.length)
 
       const promises = []
       let postsUpdated = 0,
-        postsCreated = 0
+        postsCreated = 0,
+        postsDeleted = 0
+
+      promises.push(new Promise((resolve, reject) => {
+        let curIDs = []
+        for (const curPost of currentPosts) {
+          curIDs.push(curPost.id)
+        }
+        Blog.remove({ blog_id: { $nin: curIDs }})
+        .then((a) => {
+          postsDeleted += a.result.n
+          resolve()
+        })
+        .catch(reject)
+      }))
 
       for (const curPost of currentPosts) {
         const p = new Promise((resolve, reject) => {
@@ -43,6 +57,7 @@ function updateBlogsInDatabase() {
                 updated: curPost.updated,
                 title: curPost.title,
                 content: curPost.content,
+                author: curPost.author.displayName,
               })
               .then(() => {
                 resolve()
@@ -57,6 +72,7 @@ function updateBlogsInDatabase() {
               post.updated = curPost.updated
               post.title = curPost.title
               post.content = curPost.content
+              post.author = curPost.author.displayName
               postsUpdated++
               post.save(resolve)
             }
@@ -76,6 +92,7 @@ function updateBlogsInDatabase() {
       .then(() => {
         console.log('Posts created:', postsCreated)
         console.log('Posts updated:', postsUpdated)
+        console.log('Posts deleted:', postsDeleted)
         console.log()
       })
       .catch(err => {
@@ -86,7 +103,9 @@ function updateBlogsInDatabase() {
   })
 }
 
-if (config.blog.runBlog) setInterval(updateBlogsInDatabase, 10*1000)
+let interval = (typeof config.blog.interval !== 'undefined' ? config.blog.interval : 10)
+
+if (config.blog.runBlog) setInterval(updateBlogsInDatabase, interval*1000)
 
 router.get('/', (req, res) => {
   Blog.find({}).sort({ updated: 'desc' }).limit(20)

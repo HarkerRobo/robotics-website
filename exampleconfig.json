@@ -9,6 +9,7 @@
   "httpsStaging": true,
   "runInternal": true,
   "blog": {
+    "interval": 10,
     "runBlog": true,
     "blogID": "123456789",
     "apiKey": "some-key"

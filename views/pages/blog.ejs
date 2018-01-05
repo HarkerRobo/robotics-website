@@ -2,7 +2,7 @@
 <html>
   <head>
     <%- include(__base + 'views/partials/head.ejs') %>
-    <style> header * { color: black !important} body, header { background-color: lightgray } </style>
+    <style> header *:not(a), h1.title { color: black } body, header { background-color: lightgray } </style>
     <link rel="stylesheet" type="text/css" href="/css/about.css">
   </head>
   <body>
@@ -10,21 +10,28 @@
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-main.ejs') %>
 
-    <div class="list-group" style="margin-top: 74px">
-      <% for (var post of posts) { %>
-        <div class="list-group-item">
-          <h3 class="list-group-item-heading"><%- post.title %></h3>
-          <p style="color: lightgray; font-size: .9em; ">Updated
-            <%-
-            post.updated.toLocaleDateString('en-US', {
-              weekday: "long", year: "numeric", month: "short",
-              day: "numeric", hour: "2-digit", minute: "2-digit"
-            })
-            %></p>
-          <div class="list-group-item-text" style="font-size: 1.2em;"><%- post.content %></div>
+    <header>
+      <div class="container-fluid">
+        <h1 class="title">BUILD LOG</h1>
+
+        <div class="list-group" style="margin-top: 74px">
+          <% for (var post of posts) { %>
+            <div class="list-group-item">
+              <h3 class="list-group-item-heading"><%- post.title %></h3>
+              <p style="color: lightgray; font-size: .9em; ">Last Updated
+                <%- post.author ? ' by ' + post.author + ' on ' : '' %>
+                <%- post.updated.toLocaleDateString('en-US', {
+                  weekday: "long", year: "numeric", month: "short",
+                  day: "numeric"
+                }) %>
+              </p>
+              <div class="list-group-item-text" style="font-size: 1.2em;"><%- post.content %></div>
+            </div>
+          <% } %>
         </div>
-      <% } %>
-    </div>
+      </div>
+    </header>
+
 
     <%- include(__base + 'views/partials/js-include.ejs') %>
 
