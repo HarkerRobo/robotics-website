@@ -86,7 +86,7 @@ function updateBlogsInDatabase() {
   })
 }
 
-if (!config.blog.runBlog) setInterval(updateBlogsInDatabase, 10*1000)
+if (config.blog.runBlog) setInterval(updateBlogsInDatabase, 10*1000)
 
 router.get('/', (req, res) => {
   Blog.find({}).sort({ updated: 'desc' }).limit(20)
