@@ -449,13 +449,13 @@ div.landingtext {
   background-size: cover;
 }
 
-#outreach-tile > div.container-fluid > div.sponsor-logo {
+#outreach-tile > div.container-fluid > div.sp-logo {
   display: table;
   margin: 0 auto;
   text-align: center;
 }
 
-#outreach-tile > div.container-fluid > div.sponsor-logo > img.sponsor-logo {
+#outreach-tile > div.container-fluid > div.sp-logo > img.sp-logo {
   max-height: 20vh;
   max-width: 40vw;
   background: rgba(255, 255, 255, 0.5);
