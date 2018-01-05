@@ -204,76 +204,45 @@ router.get('/purchase/view/:purchase_id', function (req, res) {
 })
 
 router.get('/purchase/list_object/:filter', function (req, res) {
+  let query = {}
   if (req.params.filter === 'my') {
-    Purchase.find({ submitted_by: req.auth.info.email }, (err, purchases) => {
-      if (err) {
-        res.status(500).json({ success: false, error: { message: err } })
-        return
-      }
-      let map = {}
-      purchases.forEach((e) => {
-        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
-        map[e.purchase_id].total_cost = e.totalCost()
-      })
-      res.send(map)
-    })
+    query = { submitted_by: req.auth.info.email }
   }
   else if (req.params.filter === 'admin') {
-    Purchase.find({ $or: [{approval: 0}, {approval: 3}] }, (err, purchases) => {
-      if (err) {
-        res.status(500).json({ success: false, error: { message: err } })
-        return
-      }
-      let map = {}
-      purchases.forEach((e) => {
-        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
-        map[e.purchase_id].total_cost = e.totalCost()
-      })
-      res.send(map)
-    })
+    query = { $or: [{approval: 0}, {approval: 3}] }
   }
   else if (req.params.filter === 'mentor') {
-    Purchase.find({ approval: 2 }, (err, purchases) => {
-      if (err) {
-        res.status(500).json({ success: false, error: { message: err } })
-        return
-      }
-      let map = {}
-      purchases.forEach((e) => {
-        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
-        map[e.purchase_id].total_cost = e.totalCost()
-      })
-      res.send(map)
-    })
+    query = { approval: 2 }
   }
-  else {
-    Purchase.find({}, (err, purchases) => {
-      if (err) {
-        res.status(500).json({ success: false, error: { message: err } })
-        return
-      }
-      let map = {}
-      purchases.forEach((e) => {
-        map[e.purchase_id] = JSON.parse(JSON.stringify(e))
-        map[e.purchase_id].total_cost = e.totalCost()
-      })
-      res.send(map)
+
+  Purchase.find(query).sort({ purchase_id: -1 })
+  .then(purchases => {
+    let map = []
+    purchases.forEach((e, i) => {
+      map[i] = JSON.parse(JSON.stringify(e))
+      map[i].total_cost = e.totalCost()
     })
-  }
+    res.send(map)
+  })
+  .catch(err => {
+    res.status(500).json({ success: false, error: { message: err } })
+    return
+  })
 })
 
 router.get('/purchase/list_object/', function (req, res) {
-  Purchase.find({}, (err, purchases) => {
-    if (err) {
-      res.status(500).json({ success: false, error: { message: err } })
-      return
-    }
-    let map = {}
-    purchases.forEach((e) => {
-      map[e.purchase_id] = JSON.parse(JSON.stringify(e))
-      map[e.purchase_id].total_cost = e.totalCost()
+  Purchase.find({}).sort({ purchase_id: -1 })
+  .then(purchases => {
+    let map = []
+    purchases.forEach((e, i) => {
+      map[i] = JSON.parse(JSON.stringify(e))
+      map[i].total_cost = e.totalCost()
     })
     res.send(map)
+  })
+  .catch(err => {
+    res.status(500).json({ success: false, error: { message: err } })
+    return
   })
 })
 

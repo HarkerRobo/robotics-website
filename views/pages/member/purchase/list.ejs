@@ -75,12 +75,14 @@
         return sum+(!isNaN(num)&&typeof num !== "undefined" ? num : 0)
       }
       function addToList(purchases) {
-        if (typeof purchases !== 'object') {
-          console.log('error: addToList takes an object as a parameter')
+        if (!Array.isArray(purchases)) {
+          console.error('error: addToList takes an array as a parameter')
           return
         }
-        for (var purchase_id in purchases) {
-          var purchase = purchases[purchase_id]
+        console.log(purchases)
+        for (var purchase of purchases) {
+          purchase_id = purchase.purchase_id
+          console.log(purchase)
           $("#purchases").append(""
             + '<li class="list-group-item">'
             +   "<h2><b>" + safeValue(purchase.vendor) + "</b></h2>"
@@ -111,7 +113,7 @@
       $.ajax({
         method: "GET",
         url: '/member/purchase/list_object/<%- (filter ? filter : "") %>',
-        success: function(data) { addToList(data) },
+        success: function(data) { console.log(data); addToList(data) },
         error: function(err1, err2, err3) { console.log(err1, err2, err3); error()  }
       })
     </script>
