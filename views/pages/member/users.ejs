@@ -16,7 +16,7 @@
         </p>
         <div class="row">
           <div class="col-xs-12 col-md-4">
-            <h1 class="center title-text"><b>MEMBERS</b></h1>
+            <h1 class="center title-text"><b>PR WHITELIST</b></h1>
             <ul class="list-group black-text" id="members">
               <li class="list-group-item">
                 <form data-level="1"><div class="form-group"><div class="input-group">
@@ -53,7 +53,9 @@
     </header>
 
     <script>
-      xhr1 = xhr2 = xhr3 = null
+      var xhr1 = null,
+        xhr2 = null,
+        xhr3 = null
       function removeHandler() {
         console.log($(this))
         $.post('/member/userman/setuserauth', {
@@ -93,7 +95,7 @@
           }
         })
 
-        $("#uams ul.list-group > li.list-group-item:not(:first) span.remove").click()
+        //$("#uams ul.list-group > li.list-group-item:not(:first) span.remove").click()
       }
       loadUsers()
       $('#uams form').submit(function(e) {

@@ -26,8 +26,6 @@
     }
   },
   "users": {
-    "admins": ["admin@example.org"],
-    "mentors": ["mentor@example.org"],
     "superadmins": ["webmaster@example.org"]
   }
 }

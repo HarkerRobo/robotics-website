@@ -184,7 +184,7 @@ router.all('/*', function (req, res, next) {
   if (req.auth.level >= 1) {
     next()
   } else {
-    res.render('pages/member/error', { statusCode: 401, error: "Must be authenticated as harker student."})
+    res.render('pages/member/error', { statusCode: 401, error: "Must be whitelisted to use the Purchase Request system."})
   }
 })
 
