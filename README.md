@@ -80,20 +80,16 @@ The config file should be stored as `config.json`. You can copy from the example
 | httpsCapable            | false                                           | Whether to use LE. Since LE is not working at the moment, this should always be set to false.
 | httpsStaging            | true                                            | Whether to use staging for LE. Since LE is not working at the moment, this is unnecessary.
 | runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
-
 | blog.runBlog            | false                                           | Whether to run the /blog path.
 | blog.interval           | 10                                              | The interval (in seconds) on which to pull the blog posts from Blogger.
 | blog.blogID             | "123456789"                                     | The ID number for the blog. Use [this](http://blogtimenow.com/blogging/find-blogger-blog-id-post-id-unique-id-number/) tutorial to find the ID number of the blog, or ask the webmaster.
 | blog.apiKey             | "some-key"                                      | The API key used to access the blog through API. Ask the webmaster if needed.
-
 | database.port           | 27017                                           | The port on which mongoDB runs.
 | database.databaseName   | "robotics-website"                              | The name of the database used for this program.
-
 | automail.service        | "gmail"                                         | The name of the service (gmail, exchange, etc.) which hosts the email address used in `automail.auth.user`.
 | automail.auth.user      | "email@example.org"                             | The username of said email.
 | automail.auth.pass      | "pass"                                          | The password of said email.
-
-| users.superadmins       | "webmaster@example.org"                         | The google email address of the webmaster of the project. Grants special access for testing purposes. 
+| users.superadmins       | "webmaster@example.org"                         | The google email address of the webmaster of the project. Grants special access for testing purposes.
 
 ## Desired Coding Standard
 (I'll also get back to this later, but make sure to comment the code which is written.)
