@@ -15,7 +15,7 @@
         1. [/views/pages](#viewspages)
         2. [/views/partials](#viewspartials)
 4. [Configuration Values](#configuration-values)
-5. [Desired Coding Standard] (#desired-coding-standard)
+5. [Desired Coding Standard](#desired-coding-standard)
 
 ## Context & About
 This repository was created in the summer of 2016 by David Melisso to replace the old Harker Robotics website which was made using Wordpress. Although there were multiple robotics websites before that, they were mostly for the Purchase Request system and wiki's. This repository created a combined location for an external website for outreach and an internal website for systems. 
