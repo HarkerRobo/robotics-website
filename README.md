@@ -1,5 +1,22 @@
 # robotics-website
 
+1. [Context & About](#context--about)
+2. [Setup](#setup)
+    1. [Install mongoDB](#install-mongodb)
+    2. [Install Node.js](#install-nodejs)
+    3. [Duplicate config.json](#duplicate-configjson)
+    4. [Install packages](#install-packages)
+    5. [Run the website](#run-the-website)
+3. [Folder Navigation](#folder-navigation)
+    1. [/models](#models)
+    2. [/routers](#routers)
+    3. [/static](#static)
+    4. [/views](#views)
+        1. [/views/pages](#viewspages)
+        2. [/views/partials](#viewspartials)
+4. [Configuration Values](#configuration-values)
+5. [Desired Coding Standard] (#desired-coding-standard)
+
 ## Context & About
 This repository was created in the summer of 2016 by David Melisso to replace the old Harker Robotics website which was made using Wordpress. Although there were multiple robotics websites before that, they were mostly for the Purchase Request system and wiki's. This repository created a combined location for an external website for outreach and an internal website for systems. 
 
