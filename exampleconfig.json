@@ -7,10 +7,10 @@
   "cookieName": "Harker1072Robotics",
   "httpsCapable": false,
   "httpsStaging": true,
-  "runInternal": true,
+  "runInternal": false,
   "blog": {
+    "runBlog": false,
     "interval": 10,
-    "runBlog": true,
     "blogID": "123456789",
     "apiKey": "some-key"
   },
