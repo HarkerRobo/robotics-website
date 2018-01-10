@@ -62,15 +62,15 @@
             <li><a href="/member/purchase/list">View All</a></li>
             <li><a href="/member/purchase/list_my">My Orders</a></li>
             <li role="separator" class="divider"></li>
-            <% if (auth.loggedin && (auth.level == 2 || auth.level == 4)) { %>
+            <% if (auth.loggedin && (auth.level == ranks.admin || auth.level == ranks.superadmin)) { %>
               <li><a href="/member/purchase/admin">Admin</a></li>
             <% } %>
-            <% if (auth.loggedin && auth.level >= 3) { %>
+            <% if (auth.loggedin && auth.level >= ranks.mentor) { %>
               <li><a href="/member/purchase/mentor">Mentor</a></li>
             <% } %>
           </ul>
         </li>
-        <% if (auth.loggedin && auth.level >= 3) { %>
+        <% if (auth.loggedin && auth.level >= ranks.superadmin) { %>
           <li><a href="/member/userman">UAMS</a></li>
         <% } %>
         <!--<li><a href="/member/photos" class="deleteIfSignedOut">Photos</a></li>-->

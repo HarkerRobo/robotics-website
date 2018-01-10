@@ -169,7 +169,7 @@
             </table>
           </div>
         </form>
-        <% const put_buttons = purchase.approval < 4 && auth.loggedin && ((auth.level >= 2 && purchase.approval >= 0 && purchase.approval <= 3) || (auth.level >=3 && purchase.approval >= 2)) %>
+        <% const put_buttons = purchase.approval < 4 && auth.loggedin && ((auth.level >= ranks.admin && purchase.approval >= 0 && purchase.approval <= 3) || (auth.level >= ranks.mentor && purchase.approval >= 2)) %>
         <div class="center" id="approval-buttons">
           <% if (put_buttons) { %>
             <input style="width: 60%; margin: auto;" type="text" id="approval-comments" class="form-control" placeholder="Comments" /></p>
@@ -177,9 +177,9 @@
           <div class="btn-group">
             <button type="button" class="btn btn-info btn-lg">Print</button>
             <% if (put_buttons) { %>
-              <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve<%= auth.level == 4 ? ' (Admin)' : '' %></button>
-              <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level == 4 ? ' (Admin)' : '' %></button>
-              <% if (auth.level == 4) { %>
+              <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
+              <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
+              <% if (auth.level >= ranks.superadmin) { %>
                 <button type="button" class="btn btn-success btn-lg" id="approve-purchase-mentor">Approve (Mentor)</button>
                 <button type="button" class="btn btn-danger btn-lg" id="reject-purchase-mentor">Reject (Mentor)</button>
               <% } %>
@@ -218,7 +218,7 @@
       $('#parts > table > tbody > tr > td textarea').each(function(i,e) {
         this.style.height = this.scrollHeight+'px';
       })
-      <% if (auth.loggedin && auth.level >= 2) { %>
+      <% if (auth.loggedin && auth.level >= ranks.admin) { %>
         $("#approve-purchase").click(function() {
           $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', { 'comments': $("#approval-comments").val() }, function() {
             window.location.href = "/member/purchase/admin"
@@ -236,7 +236,7 @@
           })
         })
       <% } %>
-      <% if (auth.loggedin && auth.level >= 2) { %>
+      <% if (auth.loggedin && auth.level >= ranks.mentor) { %>
         $("#approve-purchase-mentor").click(function() {
           $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', { 'comments': $("#approval-comments").val(), mentor: true }, function() {
             window.location.href = "/member/purchase/admin"
