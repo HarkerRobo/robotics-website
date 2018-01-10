@@ -3,7 +3,7 @@
 ## Context & About
 This repository was created in the summer of 2016 by David Melisso to replace the old Harker Robotics website which was made using Wordpress. Although there were multiple robotics websites before that, they were mostly for the Purchase Request system and wiki's. This repository created a combined location for an external website for outreach and an internal website for systems. 
 
-The website uses [Node.js](https://nodejs.org/en/) for backend and [Bootstrap 3.3](http://getbootstrap.com/docs/3.3/) + [JQuery](http://jquery.com/) for the frontend. More info can be found in [the Setup section of this README](#Setup).
+The website uses [Node.js](https://nodejs.org/en/) for backend and [Bootstrap 3.3](http://getbootstrap.com/docs/3.3/) + [JQuery](http://jquery.com/) for the frontend. More info can be found in [the Setup section](#setup).
 
 The current VP of Website Design (abbreviated to webmaster) is [David Melisso](https://github.com/DJMCoder). The website can be found at http://robotics.harker.org/.
 
@@ -17,7 +17,7 @@ First, go to [the Node.js download page](https://nodejs.org/en/download/). You w
 As of January 8, 2018, this program works successfully on versions 7.4.0 and 8.9.0 of Node.js. In the future, this program should be updated to work successfully on future verisons of Node.js. You can check the version of node you are running by entering the command `node -v` into your terminal or command prompt. 
 
 ### Duplicate config.json
-In your file browser (Finder in macOS, File Explorer in Windows), locate the folder of this repository. Within the folder, copy the file `exampleconfig.json` and paste it as `config.json`. In the new file, change the value next to `superadmins` from `webmaster@example.org` to your Harker gmail address. Also, if you wish to run the internal parts of the website (Blog, PR's, etc.), you will have to contact the webmaster for Google API information (specifically, googleClientID and googleSecretKey, and the blog API key if you wish to run the blog). The other values of the config file are explained in the [Config section](#Config).
+In your file browser (Finder in macOS, File Explorer in Windows), locate the folder of this repository. Within the folder, copy the file `exampleconfig.json` and paste it as `config.json`. In the new file, change the value next to `superadmins` from `webmaster@example.org` to your Harker gmail address. Also, if you wish to run the internal parts of the website (Blog, PR's, etc.), you will have to contact the webmaster for Google API information (specifically, googleClientID and googleSecretKey, and the blog API key if you wish to run the blog). The other values of the config file are explained in the [Config section](#config).
 
 ### Install packages
 In your terminal (or command prompt), [change your working directory (`cd`)](https://en.wikipedia.org/wiki/Cd_(command)) to the folder for this repository. Then, enter the command `npm install`. This uses the [node package manager](https://www.npmjs.com/) to install the packages required to run this program. 
