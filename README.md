@@ -89,7 +89,7 @@ The config file should be stored as `config.json`. You can copy from the example
 | automail.service        | "gmail"                                         | The name of the service (gmail, exchange, etc.) which hosts the email address used in `automail.auth.user`.
 | automail.auth.user      | "email@example.org"                             | The username of said email.
 | automail.auth.pass      | "pass"                                          | The password of said email.
-| users.superadmins       | "webmaster@example.org"                         | The google email address of the webmaster of the project. Grants special access for testing purposes.
+| users.superadmins       | ["webmaster@example.org"]                       | The array of google email addresses of the webmasters of the project. Grants special access for testing purposes.
 
 ## Desired Coding Standard
 (I'll also get back to this later, but make sure to comment the code which is written.)
