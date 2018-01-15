@@ -3,10 +3,236 @@
   <head>
     <title>Scouting | Harker Robotics 1072</title>
     <link rel="icon" type="image/png" href="/img/art/harker-robotics-logo.png" />
+    <meta name="viewport" content="width=device-width, user-scalable=0, minimal-ui">
+    <link rel="manifest" href="/manifest/scouting.json">
+
+    <style>
+      body {
+        background-color: #27a6cc;
+        margin: 0;
+      }
+
+      #scouting.active::before,
+      #field.active,
+      .work-area.active,
+      .loading-area.active,
+      .switch.active,
+      #scale.active {
+        display: block;
+      }
+
+      #scouting {
+        height: 80vh;
+        width: 80vw;
+        position: relative;
+        margin: 10vh 10vw;
+      }
+
+      #scouting::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-image:
+          linear-gradient(to right, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to right, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to left, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to left, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to bottom, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to bottom, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to top, #9ce5fb 3px, transparent 3px),
+          linear-gradient(to top, #9ce5fb 3px, transparent 3px);
+        background-position: 0 0, 0 100%, 100% 0, 100% 100%, 0 0, 100% 0, 0 100%, 100% 100%;
+        background-repeat: no-repeat;
+        background-size: 5vw 5vw;
+        display: none;
+      }
+
+      #field {
+        height: 80%;
+        width: 80%;
+        top: 10%;
+        left: 10%;
+        position: relative;
+        outline: black solid 1px;
+        display: none;
+      }
+
+      .work-area {
+        margin: 0;
+        height: 100%;
+        width: 10%;
+        display: none;
+      }
+
+      #red-area {
+        background-color: rgba(255,0,0,0.7);
+        float: left;
+      }
+
+      #blue-area {
+        background-color: rgba(0,0,255,0.7);
+        float: right;
+      }
+
+      .loading-area {
+        margin: 0;
+        height: 100%;
+        width: 5%;
+        display: none;
+      }
+
+      #red-loading-area {
+        background: repeating-linear-gradient(
+          45deg,
+          rgba(255,0,0,0.7),
+          rgba(255,0,0,0.7) 10px,
+          rgba(0,0,0,0) 10px,
+          rgba(0,0,0,0) 20px
+        );
+        position: absolute;
+        border-right: 1px black solid;
+        border-left: 2px black solid;
+        left: 10%;
+      }
+
+      #blue-loading-area {
+        background: repeating-linear-gradient(
+          45deg,
+          rgba(0,0,255,0.7),
+          rgba(0,0,255,0.7) 10px,
+          rgba(0,0,0,0) 10px,
+          rgba(0,0,0,0) 20px
+        );
+        position: absolute;
+        border-right: 2px black solid;
+        border-left: 1px black solid;
+        right: 10%;
+      }
+
+      .switch {
+        position: absolute;
+        top: 30%;
+        width: 5%;
+        height: 40%;
+        display: none;
+        border: solid 1px black;
+      }
+
+      #red-switch {
+        left: 30%;
+        background: repeating-linear-gradient(
+          45deg,
+          rgba(255,0,0,0.7),
+          rgba(255,0,0,0.7) 10px,
+          rgba(0,0,0,0) 10px,
+          rgba(0,0,0,0) 20px
+        );
+      }
+
+      #blue-switch {
+        right: 30%;
+        background: repeating-linear-gradient(
+          45deg,
+          rgba(0,0,255,0.7),
+          rgba(0,0,255,0.7) 10px,
+          rgba(0,0,0,0) 10px,
+          rgba(0,0,0,0) 20px
+        );
+      }
+
+      #scale {
+        left: 45%;
+        top: 20%;
+        width: 10%;
+        height: 60%;
+        position: absolute;
+        background: repeating-linear-gradient(
+          45deg,
+          rgba(128,0,128,0.7),
+          rgba(128,0,128,0.7) 10px,
+          rgba(0,0,0,0) 10px,
+          rgba(0,0,0,0) 20px
+        );
+        border: solid 1px black;
+        display: none;
+      }
+    </style>
   </head>
   <body>
-    <p>
-      Test
-    </p>
+    <div id="scouting">
+      <div id="field">
+        <div class="work-area" id="red-area"></div>
+        <div class="loading-area" id="red-loading-area"></div>
+        <div class="switch" id="red-switch"></div>
+        <div id="scale"></div>
+        <div class="loading-area" id="blue-loading-area"></div>
+        <div class="switch" id="blue-switch"></div>
+        <div class="work-area" id="blue-area"></div>
+      </div>
+    </div>
+    <script src="http://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script>
+      // https://stackoverflow.com/questions/44709114/javascript-screen-orientation-on-safari
+      var mql = window.matchMedia("(orientation: portrait)");
+      if(mql.matches) { /* Portrait orientation */ }
+      else { /* Landscape orientation */ }
+      mql.addListener(function(m) {
+        if(m.matches) { /* Changed to portrait */ }
+        else { /* Changed to landscape */ }
+      })
+
+      function sleep(duration) {
+        return function(...args){
+      		return new Promise(function(resolve, reject){
+      			setTimeout(function(){
+      				resolve(...args);
+      			}, duration)
+      		});
+      	};
+      };
+
+      function initiate(selector) {
+        return function(...args) {
+          return new Promise(function(resolve, reject) {
+            var time_to_start = 150
+            var time_online = 100
+            var time_offline = 70
+
+            Promise.resolve()
+            .then(function() {
+              $(selector).removeClass('active')
+            })
+            .then(sleep(time_to_start))
+            .then(function() {
+              $(selector).addClass('active')
+            })
+            .then(sleep(time_offline))
+            .then(function() {
+              $(selector).removeClass('active')
+            })
+            .then(sleep(time_online))
+            .then(function() {
+              $(selector).addClass('active')
+            })
+            .then(function() {
+              resolve(...args)
+            })
+          })
+        }
+      }
+
+      Promise.resolve()
+      .then(sleep(100))
+      .then(initiate('#scouting'))
+      .then(initiate('#field'))
+      .then(initiate('.work-area'))
+      .then(initiate('.loading-area'))
+      .then(initiate('.switch'))
+      .then(initiate('#scale'))
+    </script>
   </body>
 </html>
