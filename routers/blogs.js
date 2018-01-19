@@ -108,7 +108,7 @@ let interval = (typeof config.blog.interval !== 'undefined' ? config.blog.interv
 if (config.blog.runBlog) setInterval(updateBlogsInDatabase, interval*1000)
 
 router.get('/', (req, res) => {
-  Blog.find({}).sort({ updated: 'desc' }).limit(20)
+  Blog.find({}).sort({ created: 'desc' }).limit(20)
   .then(posts => {
     res.render('pages/blog', { posts: posts})
   })

@@ -18,9 +18,9 @@
           <% for (var post of posts) { %>
             <div class="list-group-item">
               <h3 class="list-group-item-heading"><%- post.title %></h3>
-              <p style="color: lightgray; font-size: .9em; ">Last Updated
+              <p style="color: lightgray; font-size: .9em; ">Posted
                 <%- post.author ? ' by ' + post.author + ' on ' : '' %>
-                <%- post.updated.toLocaleDateString('en-US', {
+                <%- post.created.toLocaleDateString('en-US', {
                   weekday: "long", year: "numeric", month: "short",
                   day: "numeric"
                 }) %>
