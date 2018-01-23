@@ -176,7 +176,7 @@ router.post('/userman/setuserauth', function (req, res) {
     res.status(400).json({ success: 'false', error: { message: 'Email not valid' }})
     return
   }
-  if (newlevel>=4) {
+  if (newlevel>=ranks.superadmin) {
     res.status(400).json({ success: 'false', error: { message: 'Authorization level too high' }})
     return
   }
