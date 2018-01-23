@@ -70,7 +70,7 @@ router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) =>
       specific_id: partid[2],
     })
     .then(testpart => {
-      if (testpart !== null) {
+      if (testpart.length > 0) {
         res.status(409).json({ success: false, error: { message: 'Part with the same specifications already exists.' } })
         return
       }
