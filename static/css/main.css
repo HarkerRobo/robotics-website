@@ -37,6 +37,22 @@
   margin-bottom: 0 !important;
 }
 
+.valign-wrapper {
+  display:  -webkit-box;
+  display:     -moz-box;
+  display:  -ms-flexbox;
+  display: -webkit-flex;
+  display:         flex;
+  -webkit-align-items: center;
+     -moz-align-items: center;
+      -ms-align-items: center;
+          align-items: center;
+}
+
+.full-width {
+  width: 100%;
+}
+
 header, section {
   mix-blend-mode: normal;
   height: 100vh;

@@ -96,7 +96,10 @@ router.post('/token', function (req, res) {
                   // if the user can't be found in db, put user in db w/ level 0
                   else if (user==null) {
                     User.create({ email: data.email.toLowerCase() }, () => {
-                      req.session.auth.level = ranks.none
+                      if (data.hd === 'students.harker.org' || data.hd === 'staff.harker.org') {
+                        req.session.auth.level = ranks.harker_student
+                      }
+                      else req.session.auth.level = ranks.none
                       res.status(200).send()
                     })
                   }
@@ -143,6 +146,7 @@ router.all('/*', function (req, res, next) {
 
 router.use('/purchase', require('./purchase'))
 router.use('/scouting', require('./scouting'))
+router.use('/parts', require('./parts'))
 
 router.get('/', function (req, res) {
   res.render('pages/member/index')

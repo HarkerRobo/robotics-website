@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/parts.css" />
+  </head>
+  <body>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <header>
+      <div class="container">
+        <aside id="search" class="section">
+
+          <div class="input-group add-on">
+            <input class="form-control" placeholder="Search Part ID" name="srch-term" id="srch-term" type="text">
+            <div class="input-group-btn">
+              <button class="btn btn-default" id="srch-button" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="robot_type" id="robot_type_1" value="0" checked>
+              Competition
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="robot_type" id="robot_type_2" value="1">
+              Practice
+            </label>
+          </div>
+          <div class="radio">
+            <label>
+              <input type="radio" name="robot_type" id="robot_type_3" value="2">
+              Offseason
+            </label>
+          </div>
+          <input class="form-control" type="number" name="year" id="datepicker" required />
+
+          <br/>
+          <p id="error-text" style="color:red; text-align: center; display: none;">
+            An error occurred. Please refresh the page and try again.
+          </p>
+
+
+        </aside>
+        <main id="result" class="section center">
+
+        </main>
+      </div>
+    </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+    <script>
+      /*$("#datepicker").val(' ' + (new Date()).getFullYear()).datepicker( {
+        format: " yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+      });*/
+      $("#datepicker").val(new Date().getFullYear())
+
+      /*
+        https://stackoverflow.com/questions/5499078/fastest-method-to-escape-html-tags-as-html-entities
+        Runs an HTML escape
+      */
+      var tagsToReplace = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;'
+      };
+
+      function replaceTag(tag) { return tagsToReplace[tag] || tag; }
+      function htmlEscape(str) { return str.replace(/[&<>]/g, replaceTag); }
+
+      /*
+        displays the part from a given part ID
+      */
+      function displayFromID() {
+        $('#error-text').hide()
+
+        var partID = $('#srch-term').val()
+        if (!partID) return
+
+        if (!/^(\d+)_(\d)(\d{2})$/.test(partID)) {
+          $('#error-text').text('Invalid Part ID').show()
+          $('#srch-term').parent().addClass('has-error')
+          $('main#result')
+          .empty()
+          return
+        }
+        else $('#srch-term').parent().removeClass('has-error')
+
+        $('main#result')
+        .empty()
+        .append(`
+          <p class="full-width center" style="font-size: 3em;">
+           Loading ...
+          </p>
+          `)
+
+        var data = {}
+        var year = parseInt($('#datepicker').val(),10)
+        if (!isNaN(year)) data.year = year
+        var robot_type = parseInt($('input[name=robot_type]:checked').val(),10)
+        console.log(robot_type)
+        if (!isNaN(robot_type)) data.robot_type = robot_type
+
+        $.ajax({
+          url: '/member/parts/id/' + partID,
+          method: 'GET'
+        })
+        .then(function(data) {
+          console.log(data)
+          $('main#result')
+          .empty()
+          .append(`
+            <img class="result-image" /><br/><br/><br/>
+            <p class="result-desc"></p>
+            <p><a class="result-cad" href="#" target="_blank">CAD Link</a> | <span class="result-author"></span></p>
+          `)
+
+          $('main#result img.result-image').attr('src', data.image)
+          $('main#result .result-desc').text(data.description)
+          $('main#result .result-author').attr('href', data.cadlink)
+          $('main#result .result-author').text(data.author)
+        })
+        .catch(function(err) {
+          console.error(err)
+          var text = 'An error occurred. Please refresh the page and try again.'
+          if (err.status == 404) {
+            text = 'Part with given ID not found'
+            $('#srch-term').parent().addClass('has-error')
+          }
+          $('#error-text').text(text).show()
+          $('main#result').empty()
+        })
+      }
+
+      /*
+        Resets error, result
+      */
+      function reset() {
+        $('#error-text').hide()
+        $('main#result').empty()
+        $('#srch-term').parent().removeClass('has-error')
+      }
+
+      $('#srch-button').click(displayFromID)
+      $('#srch-term').keyup(function(e) {
+        if (e.keyCode==13 ||
+          /^(\d+)_(\d)(\d{2})$/.test(
+            $(this).val()
+          )
+        ) displayFromID()
+        else reset()
+      })
+      $('input[name=robot_type]').click(reset)
+      $('#datepicker').change(reset)
+    </script>
+
+  </body>
+</html>

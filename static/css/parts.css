@@ -1,0 +1,44 @@
+header {
+  background-color: white;
+}
+
+.container {
+  width: 90%;
+  height: 95%;
+  margin-left: 5%;
+  padding: 0;
+}
+
+.section {
+  padding: 20px;
+  border-radius: 10px;
+  background-color: lightgray;
+}
+
+aside#search {
+  float: left;
+  width: 25%;
+  height: 100%;
+}
+
+main#result {
+  float: right;
+  width: 65%;
+  height: 100%;
+}
+
+main#result img.result-image { width: 100%; }
+main#result .result-desc { color: black; }
+main#result .result-author { color: #666; }
+
+@media (orientation: portrait) {
+  aside#search {
+    width: 100%;
+    height: 25%;
+    margin-bottom: 10%;
+  }
+  main#result {
+    width: 100%;
+    height: 65%;
+  }
+}

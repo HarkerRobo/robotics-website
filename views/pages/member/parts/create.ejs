@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/parts.css" />
+    <link rel="stylesheet" type="text/css" href="http://www.eyecon.ro/bootstrap-datepicker/css/datepicker.css" />
+  </head>
+  <body>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <header>
+      <div class="container section valign-wrapper full-width">
+
+        <form class="form-horizontal full-width" id="parts-form">
+
+          <p id="error-text" style="color:red; text-align: center; display: none;">
+            An error occurred. Please refresh the page and try again.
+          </p>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">Part ID</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="part-id" placeholder="X_YZZ" pattern="(\d+)_(\d)(\d{2})" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">Image Link</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" name="image" placeholder="https://i.imgur.com/AAAAAA.jpg">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">CAD Link</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" name="cadlink" placeholder="https://i.imgur.com/AAAAAA.jpg">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="description" rows="3"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Year</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" name="year" id="datepicker" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <label class="radio-inline">
+                <input type="radio" name="robot_type" id="robot_type_1" value="0" checked>
+                Competition
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="robot_type" id="robot_type_2" value="1">
+                Practice
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="robot_type" id="robot_type_3" value="2">
+                Offseason
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Create Part</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+    <script src="http://www.eyecon.ro/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script>
+      // https://stackoverflow.com/questions/1184624/convert-form-data-to-javascript-object-with-jquery
+      // converts form data into JSON object
+      function objectifyForm(formArray) {
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++){
+          returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+      }
+
+      // https://stackoverflow.com/questions/13128701/how-display-only-years-in-input-bootstrap-datepicker
+      $("#datepicker").val(' ' + (new Date()).getFullYear()).datepicker({
+        format: " yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+      });
+
+      $('form#parts-form').submit(function(e) {
+        e.preventDefault()
+        var formData = objectifyForm($(this).serializeArray())
+        $.ajax({
+          url: '/member/parts/id/' + $('#part-id').val(),
+          method: 'POST',
+          data: formData,
+        })
+        .then(function() {
+          window.location.href = '/member/parts/search'
+        })
+        .catch(function(err) {
+          console.error(err)
+          $('#error-text').show()
+        })
+      })
+    </script>
+
+  </body>
+</html>
