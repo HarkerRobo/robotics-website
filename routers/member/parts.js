@@ -62,20 +62,36 @@ router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
 router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
   verifyPartID(req.params.partid)
   .then(partid => {
-    Part.create({
+    Part.find({
       year: req.body.year,
       robot_type: req.body.robot_type,
       subassembly: partid[0],
       metal_type: partid[1],
       specific_id: partid[2],
-      description: req.body.description,
-      image: req.body.image,
-      cadlink: req.body.cadlink,
-      competition: req.body.competition,
-      author: req.auth.info.email,
     })
-    .then(part => {
-      res.json(part)
+    .then(testpart => {
+      if (testpart !== null) {
+        res.status(500).json({ success: false, error: { message: 'Part with the same specifications already exists.' } })
+        return
+      }
+      Part.create({
+        year: req.body.year,
+        robot_type: req.body.robot_type,
+        subassembly: partid[0],
+        metal_type: partid[1],
+        specific_id: partid[2],
+        description: req.body.description,
+        image: req.body.image,
+        cadlink: req.body.cadlink,
+        competition: req.body.competition,
+        author: req.auth.info.email,
+      })
+      .then(part => {
+        res.json(part)
+      })
+      .catch(err => {
+        res.status(500).json({ success: false, error: { message: err } })
+      })
     })
     .catch(err => {
       res.status(500).json({ success: false, error: { message: err } })
