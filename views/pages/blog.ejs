@@ -20,7 +20,7 @@
               <h3 class="list-group-item-heading"><%- post.title %></h3>
               <p style="color: lightgray; font-size: .9em; ">Posted
                 <%- post.author ? ' by ' + post.author + ' on ' : '' %>
-                <%- post.created.toLocaleDateString('en-US', {
+                <%- post.createdAt.toLocaleDateString('en-US', {
                   weekday: "long", year: "numeric", month: "short",
                   day: "numeric"
                 }) %>
