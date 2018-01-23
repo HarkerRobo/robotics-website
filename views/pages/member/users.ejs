@@ -19,7 +19,7 @@
             <h1 class="center title-text"><b>PR WHITELIST</b></h1>
             <ul class="list-group black-text" id="members">
               <li class="list-group-item">
-                <form data-level="1"><div class="form-group"><div class="input-group">
+                <form data-level="<%= ranks.pr_whitelist %>"><div class="form-group"><div class="input-group">
                   <input type="email" class="form-control" placeholder="Email" name="email" required />
                   <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div></div></form>
@@ -30,7 +30,7 @@
             <h1 class="center title-text"><b>ADMINS</b></h1>
             <ul class="list-group black-text" id="admins">
               <li class="list-group-item">
-                <form data-level="2"><div class="form-group"><div class="input-group">
+                <form data-level="<%= ranks.admin %>"><div class="form-group"><div class="input-group">
                   <input type="email" class="form-control" placeholder="Email" name="email" required />
                   <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div></div></form>
@@ -41,7 +41,7 @@
             <h1 class="center title-text"><b>MENTORS</b></h1>
             <ul class="list-group black-text" id="mentors">
               <li class="list-group-item">
-                <form data-level="3"><div class="form-group"><div class="input-group">
+                <form data-level="<%= ranks.mentor %>"><div class="form-group"><div class="input-group">
                   <input type="email" class="form-control" placeholder="Email" name="email" required />
                   <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div></div></form>
