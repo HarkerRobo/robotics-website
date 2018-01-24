@@ -61,6 +61,14 @@ router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
   })
 })
 
+function parseImgur(link) {
+  const regex = /^http(s)?:\/\/imgur\.com\/(a\/)?([^\/\.]+)$/
+  if (regex.test(link)) {
+    return 'https://imgur.com/' + regex.exec(link)[3] + '.png'
+  }
+  else return link
+}
+
 function createPart(req, partid, robot_type) {
   return new Promise((resolve, reject) => {
     Part.find({
@@ -82,7 +90,7 @@ function createPart(req, partid, robot_type) {
         metal_type: partid[1],
         specific_id: partid[2],
         description: req.body.description,
-        image: req.body.image,
+        image: parseImgur(req.body.image),
         cadlink: req.body.cadlink,
         competition: req.body.competition,
         author: req.auth.info.email,
