@@ -53,16 +53,16 @@
 
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-              <label class="radio-inline">
-                <input type="radio" name="robot_type" id="robot_type_1" value="0" checked>
+              <label class="checkbox-inline">
+                <input type="checkbox" name="robot_type" id="robot_type_1" value="0" checked>
                 Competition
               </label>
-              <label class="radio-inline">
-                <input type="radio" name="robot_type" id="robot_type_2" value="1">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="robot_type" id="robot_type_2" value="1">
                 Practice
               </label>
-              <label class="radio-inline">
-                <input type="radio" name="robot_type" id="robot_type_3" value="2">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="robot_type" id="robot_type_3" value="2">
                 Offseason
               </label>
             </div>
@@ -101,6 +101,16 @@
       $('form#parts-form').submit(function(e) {
         e.preventDefault()
         var formData = objectifyForm($(this).serializeArray())
+
+        // https://stackoverflow.com/questions/7335281/how-can-i-serializearray-for-unchecked-checkboxes
+        // convert checkbox output to array rather than single value
+        var robot_types = []
+        $('form#parts-form input[name=robot_type]:checkbox').each(function(i,e) {
+          if (this.checked) robot_types.push(this.value)
+        })
+
+        formData.robot_type = JSON.stringify(robot_types)
+
         $.ajax({
           url: '/member/parts/id/' + $('#part-id').val(),
           method: 'POST',
@@ -111,6 +121,8 @@
         })
         .catch(function(err) {
           console.error(err)
+          if (err.status == 409) $('#error-text').text('A part with that ID already exists.')
+          else $('#error-text').text('An error occurred. Please refresh the page and try again.')
           $('#error-text').show()
         })
       })

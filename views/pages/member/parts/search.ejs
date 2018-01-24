@@ -101,11 +101,10 @@
         var year = parseInt($('#datepicker').val(),10)
         if (!isNaN(year)) data.year = year
         var robot_type = parseInt($('input[name=robot_type]:checked').val(),10)
-        console.log(robot_type)
         if (!isNaN(robot_type)) data.robot_type = robot_type
 
         $.ajax({
-          url: '/member/parts/id/' + partID,
+          url: '/member/parts/id/' + partID + '?year=' + year + '&robot_type=' + robot_type,
           method: 'GET'
         })
         .then(function(data) {
@@ -127,7 +126,7 @@
           console.error(err)
           var text = 'An error occurred. Please refresh the page and try again.'
           if (err.status == 404) {
-            text = 'Part with given ID not found'
+            text = 'No part found meeting given specifications'
             $('#srch-term').parent().addClass('has-error')
           }
           $('#error-text').text(text).show()
@@ -144,6 +143,18 @@
         $('#srch-term').parent().removeClass('has-error')
       }
 
+      /*
+        Resets error and result, checks if data is valid before displaying
+        part
+      */
+      function resetAndRedo() {
+        reset()
+
+        if (/^(\d+)_(\d)(\d{2})$/.test($('#srch-term').val())) {
+          displayFromID()
+        }
+      }
+
       $('#srch-button').click(displayFromID)
       $('#srch-term').keyup(function(e) {
         if (e.keyCode==13 ||
@@ -153,8 +164,8 @@
         ) displayFromID()
         else reset()
       })
-      $('input[name=robot_type]').click(reset)
-      $('#datepicker').change(reset)
+      $('input[name=robot_type]').click(resetAndRedo)
+      $('#datepicker').change(resetAndRedo)
     </script>
 
   </body>

@@ -38,10 +38,12 @@ router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
       specific_id: partid[2],
     }
 
-    var year = parseInt(req.body.year, 10)
+    console.log(req.query)
+
+    var year = parseInt(req.query.year, 10)
     if (!isNaN(year)) query.year = year
 
-    var robot_type = parseInt(req.body.robot_type, 10)
+    var robot_type = parseInt(req.query.robot_type, 10)
     if (!isNaN(robot_type)) query.robot_type = robot_type
 
     Part.findOne(query)
@@ -59,24 +61,23 @@ router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
   })
 })
 
-router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
-  verifyPartID(req.params.partid)
-  .then(partid => {
+function createPart(req, partid, robot_type) {
+  return new Promise((resolve, reject) => {
     Part.find({
       year: req.body.year,
-      robot_type: req.body.robot_type,
+      robot_type: robot_type,
       subassembly: partid[0],
       metal_type: partid[1],
       specific_id: partid[2],
     })
     .then(testpart => {
       if (testpart.length > 0) {
-        res.status(409).json({ success: false, error: { message: 'Part with the same specifications already exists.' } })
+        reject({ status: 409, msg: 'Part with the same specifications already exists.' })
         return
       }
       Part.create({
         year: req.body.year,
-        robot_type: req.body.robot_type,
+        robot_type: robot_type,
         subassembly: partid[0],
         metal_type: partid[1],
         specific_id: partid[2],
@@ -86,15 +87,47 @@ router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) =>
         competition: req.body.competition,
         author: req.auth.info.email,
       })
-      .then(part => {
-        res.json(part)
-      })
-      .catch(err => {
-        res.status(500).json({ success: false, error: { message: err } })
-      })
+      .then(resolve)
+      .catch(reject)
     })
+    .catch(reject)
+  })
+}
+
+router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
+  verifyPartID(req.params.partid)
+  .then(partid => {
+    let promises = []
+    let robot_types
+
+    try {
+      robot_types = JSON.parse(req.body.robot_type)
+    }
+    catch(e) {
+      if (e instanceof SyntaxError) {
+        robot_types = [req.body.robot_type]
+      }
+      else {
+        res.status(500).json({ success: false, error: { message: e } })
+        return
+      }
+    }
+
+    try {
+      if (Array.isArray(robot_types)) {
+        for (const robot_type of robot_types) promises.push(createPart(req, partid, robot_type))
+      }
+      else promises.push(createPart(req, partid, req.body.robot_type))
+    }
+    catch (e) {
+      console.error(e)
+    }
+
+    Promise.all(promises)
+    .then(list => { res.send(list) })
     .catch(err => {
-      res.status(500).json({ success: false, error: { message: err } })
+      console.error(err)
+      res.status((err && err.status) ? err.status : 500).json({ success: false, error: { message: (err.msg || err) } })
     })
   })
   .catch(err => {
