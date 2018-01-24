@@ -120,7 +120,7 @@
 
           $('main#result img.result-image').attr('src', data.image)
           $('main#result .result-desc').text(data.description)
-          $('main#result .result-author').attr('href', data.cadlink)
+          $('main#result .result-cad').attr('href', data.cadlink)
           $('main#result .result-author').text(data.author)
         })
         .catch(function(err) {
