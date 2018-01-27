@@ -72,6 +72,15 @@ const partSchema = mongoose.Schema({
   description: String,
   image: String,
   cadlink: String,
+  quantity: {
+    type: Number,
+    default: 1,
+    min: 0,
+    validate : {
+      validator : Number.isInteger,
+      message   : '{VALUE} is not an integer value'
+    },
+  },
   author: {
     type: String,
     required: true,
