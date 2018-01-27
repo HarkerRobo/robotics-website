@@ -30,7 +30,7 @@ main#result {
 
 main#result img.result-image {
   max-width: 100%;
-  max-height: calc(100% - 110px);
+  max-height: calc(100% - 140px);
 }
 main#result .result-desc { color: black; }
 main#result .result-quality { color: #666; }
