@@ -28,7 +28,10 @@ main#result {
   overflow: scroll;
 }
 
-main#result img.result-image { max-width: 100%; }
+main#result img.result-image {
+  max-width: 100%;
+  max-height: calc(100% - 110px);
+}
 main#result .result-desc { color: black; }
 main#result .result-quality { color: #666; }
 main#result .result-author { color: #666; }
