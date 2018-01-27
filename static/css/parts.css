@@ -25,10 +25,12 @@ main#result {
   float: right;
   width: 65%;
   height: 100%;
+  overflow: scroll;
 }
 
 main#result img.result-image { width: 100%; }
 main#result .result-desc { color: black; }
+main#result .result-quality { color: #666; }
 main#result .result-author { color: #666; }
 
 @media (orientation: portrait) {

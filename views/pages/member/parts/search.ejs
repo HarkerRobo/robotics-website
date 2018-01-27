@@ -113,22 +113,25 @@
           .empty()
           .append(`
             <img class="result-image" /><br/><br/><br/>
-            <p class="result-desc"></p>
-            <p><a class="result-cad" href="#" target="_blank">CAD Link</a> | <span class="result-author"></span></p>
+            <p class="result-desc">${data.description}</p>
+            <p class="result-quality">Quantity: ${data.quantity}</p>
+            <p>
+              <a class="result-cad" href="#" target="_blank">CAD Link</a> |
+              <span class="result-author">${data.author}</span> |
+              <a class="result-edit" href="#">Edit</a>
+            </p>
+
           `)
 
           $('main#result img.result-image').attr('src', data.image)
-          $('main#result .result-desc').text(data.description)
           $('main#result .result-cad').attr('href', data.cadlink)
-          $('main#result .result-author').text(data.author)
+          $('main#result .result-edit').attr('href', `/member/parts/edit/${data.year}/${data.robot_type}/${partID}`)
         })
         .catch(function(err) {
           console.error(err)
           var text = 'An error occurred. Please refresh the page and try again.'
-          if (err.status == 404) {
-            text = 'No part found meeting given specifications'
-            $('#srch-term').parent().addClass('has-error')
-          }
+          if (err.status == 404) text = 'No part found meeting given specifications'
+          $('#srch-term').parent().addClass('has-error')
           $('#error-text').text(text).show()
           $('main#result').empty()
         })
@@ -144,8 +147,7 @@
       }
 
       /*
-        Resets error and result, checks if data is valid before displaying
-        part
+        Resets error and result, checks if data is valid before displaying part
       */
       function resetAndRedo() {
         reset()

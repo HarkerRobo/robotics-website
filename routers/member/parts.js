@@ -143,4 +143,74 @@ router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) =>
   })
 })
 
+router.get('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
+  verifyPartID(req.params.partid)
+  .then(partid => {
+    Part.findOne({
+      year: req.params.year,
+      robot_type: req.params.robot_type,
+      subassembly: partid[0],
+      metal_type: partid[1],
+      specific_id: partid[2],
+    })
+    .lean()
+    .then(part => {
+      if (part.author !== req.auth.info.email) res.render('pages/member/error', { statusCode: 401, error:  'Email does not match that of author.' } )
+      else if (part === null) res.render('pages/member/error', { statusCode: 500, error:  'Part not found' } )
+      else res.render('pages/member/parts/edit',  { part: part, partid: req.params.partid })
+    })
+    .catch(err => {
+      res.render('pages/member/error', { statusCode: 500, error: err })
+    })
+  })
+  .catch(err => {
+    res.render('pages/member/error', { statusCode: 500, error: err })
+  })
+})
+
+router.post('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
+  verifyPartID(req.params.partid)
+  .then(partid => {
+    console.log(partid)
+    Part.findOne({
+      year: req.params.year,
+      robot_type: req.params.robot_type,
+      subassembly: partid[0],
+      metal_type: partid[1],
+      specific_id: partid[2],
+    })
+    .then(part => {
+      if (part.author !== req.auth.info.email) res.render('pages/member/error', { statusCode: 401, error:  'Email does not match that of author.' } )
+      verifyPartID(req.body.partid)
+      .then(newpartid => {
+        part.year = req.body.year
+        part.subassembly = newpartid[0]
+        part.metal_type = newpartid[1]
+        part.specific_id = newpartid[2]
+        part.description = req.body.description
+        part.image = req.body.image
+        part.cadlink = req.body.cadlink
+        part.quantity = req.body.quantity
+
+        part.save()
+        .then(newpart => {
+          res.json(newpart)
+        })
+        .catch(err => {
+          res.status(500).json({ success: false, error: { message: err } })
+        })
+      })
+      .catch(err => {
+        res.status(500).json({ success: false, error: { message: err } })
+      })
+    })
+    .catch(err => {
+      res.status(500).json({ success: false, error: { message: err } })
+    })
+  })
+  .catch(err => {
+    res.status(500).json({ success: false, error: { message: err } })
+  })
+})
+
 module.exports = router

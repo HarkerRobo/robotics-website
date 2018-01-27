@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/parts.css" />
+    <link rel="stylesheet" type="text/css" href="/css/datepicker.css" />
+  </head>
+  <body>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <header>
+      <div class="container section valign-wrapper full-width">
+
+        <form class="form-horizontal full-width" id="parts-form">
+
+          <p id="error-text" style="color:red; text-align: center; display: none;">
+            An error occurred. Please refresh the page and try again.
+          </p>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">Part ID</label>
+            <div class="col-sm-10">
+              <input class="form-control" id="part-id" name="partid" placeholder="X_YZZ" pattern="(\d+)_(\d)(\d{2})"
+              value="<%= partid %>" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">Quantity</label>
+            <div class="col-sm-10">
+              <input type="number" class="form-control" name="quantity"
+              value="<%= part.quantity %>" placeholder="0">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">Image Link</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" name="image" placeholder="https://i.imgur.com/AAAAAA.jpg"
+              value="<%= part.image %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="part-id" class="col-sm-2 control-label">CAD Link</label>
+            <div class="col-sm-10">
+              <input type="url" class="form-control" name="cadlink" placeholder="https://i.imgur.com/AAAAAA.jpg"
+              value="<%= part.cadlink %>">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Description</label>
+            <div class="col-sm-10">
+              <textarea class="form-control" name="description" rows="3"
+              value="<%= part.description %>"></textarea>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="description" class="col-sm-2 control-label">Year</label>
+            <div class="col-sm-10">
+              <input class="form-control" type="text" name="year" id="datepicker"
+              value=" <%= part.year %>" required />
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="robot_type" id="robot_type_1" value="0" disabled <%= (part.robot_type === 0) ? 'checked' : '' %> />
+                Competition
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" name="robot_type" id="robot_type_2" value="1" disabled <%= (part.robot_type === 1) ? 'checked' : '' %> />
+                Practice
+              </label>
+              <label class="checkbox-inline">
+                <input type="checkbox" name="robot_type" id="robot_type_3" value="2" disabled <%= (part.robot_type === 2) ? 'checked' : '' %> />
+                Offseason
+              </label>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <button type="submit" class="btn btn-default">Update Part</button>
+            </div>
+          </div>
+
+        </form>
+      </div>
+    </header>
+
+    <%- include(__base + 'views/partials/js-include.ejs') %>
+    <script src="/js/bootstrap-datepicker.js"></script>
+    <script>
+      // https://stackoverflow.com/questions/1184624/convert-form-data-to-javascript-object-with-jquery
+      // converts form data into JSON object
+      function objectifyForm(formArray) {
+        var returnArray = {};
+        for (var i = 0; i < formArray.length; i++){
+          returnArray[formArray[i]['name']] = formArray[i]['value'];
+        }
+        return returnArray;
+      }
+
+      // https://stackoverflow.com/questions/13128701/how-display-only-years-in-input-bootstrap-datepicker
+      $("#datepicker").val(' ' + (new Date()).getFullYear()).datepicker({
+        format: " yyyy",
+        viewMode: "years",
+        minViewMode: "years"
+      });
+
+      $('form#parts-form').submit(function(e) {
+        e.preventDefault()
+        var formData = objectifyForm($(this).serializeArray())
+        console.log(formData)
+
+        $.ajax({
+          url: window.location.href,
+          method: 'POST',
+          data: formData,
+        })
+        .then(function() {
+          window.location.href = '/member/parts/search'
+        })
+        .catch(function(err) {
+          console.error(err)
+          if (err.status == 409) $('#error-text').text('A part with that ID already exists.')
+          else $('#error-text').text('An error occurred. Please refresh the page and try again.')
+          $('#error-text').show()
+        })
+      })
+    </script>
+
+  </body>
+</html>
