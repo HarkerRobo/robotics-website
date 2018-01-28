@@ -61,7 +61,7 @@ app.use(function(req, res, next) {
 if (config.runInternal) app.use('/member', memberRouter)
 if (config.blog.runBlog) app.use('/blog', blogsRouter)
 
-app.locals.GoogleClientID = config.GoogleClientID
+app.locals.GoogleClientID = config.GoogleClientIDs[config.GoogleClientIDDisplay]
 app.locals.ranks = require('./helpers/ranks.json')
 
 app.use('/hackathon', hackathonRouter)

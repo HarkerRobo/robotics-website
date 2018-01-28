@@ -1,5 +1,6 @@
 {
-  "GoogleClientID": "[GoogleClientID].apps.googleusercontent.com",
+  "GoogleClientIDs": ["[GoogleClientID].apps.googleusercontent.com"],
+  "GoogleClientIDDisplay": 0,
   "GoogleSecretKey": "secret",
   "domain": "localhost",
   "email": "harker1072@gmail.com",

@@ -77,7 +77,7 @@ router.post('/token', function (req, res) {
         result.on('data', (d) => { data += d }).on('end', (d) => {
           data = JSON.parse(data)
           if (result.statusCode === 200) {
-            if (data.aud === config.GoogleClientID) {
+            if (config.GoogleClientID.includes(data.aud)) {
               req.session.auth = { loggedin: true, token: token, info: data }
               console.log(data.name + ' (' + data.email + ')')
 

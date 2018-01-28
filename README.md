@@ -71,7 +71,8 @@ The config file should be stored as `config.json`. You can copy from the example
 
 | Field                   |  Value                                          | Description
 |-------------------------|-------------------------------------------------|-------------
-| GoogleClientID          | "[GoogleClientID]"   | The google client ID used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
+| GoogleClientIDs          | ["[GoogleClientID]"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
+| GoogleClientIDDisplay   | 0 | The client id in the array GoogleClientIDs which to use to display on the website
 | GoogleSecretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
 | domain                  | "localhost"                                     | The domain that the server is running on. If you are running this on your local machine, "localhost" will do.
 | email                   | "harker1072@gmail.com"                          | The email to use for Let's Encrypt (LE). Since LE is not working at the moment, this is unnecessary.
