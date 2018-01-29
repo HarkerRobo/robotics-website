@@ -179,10 +179,11 @@ if (config['httpsCapable']===true) {
     console.log()
   });
 } else {
-  app.listen(80, () => {
+  const port = config.port || 80
+  app.listen(port, () => {
     console.log()
     console.log("--- WEBSERVER ON ---")
-    console.log("Listening at http://" + config['domain'] + ':80')
+    console.log("Listening at http://" + config['domain'] + ':' + port)
     console.log()
   })
 }

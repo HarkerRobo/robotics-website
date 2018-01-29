@@ -8,6 +8,7 @@
   "cookieName": "Harker1072Robotics",
   "httpsCapable": false,
   "httpsStaging": true,
+  "port": 3000,
   "runInternal": false,
   "blog": {
     "runBlog": false,

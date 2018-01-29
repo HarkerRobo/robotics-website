@@ -71,6 +71,7 @@ The config file should be stored as `config.json`. You can copy from the example
 
 | Field                   |  Value                                          | Description
 |-------------------------|-------------------------------------------------|-------------
+| port                    | 3000  | the port to run the system on
 | GoogleClientIDs          | ["[GoogleClientID]"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
 | GoogleClientIDDisplay   | 0 | The client id in the array GoogleClientIDs which to use to display on the website
 | GoogleSecretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
