@@ -195,7 +195,7 @@ router.post('/create', csrfProtection, function (req, res) {
       from: 'HarkerRobotics1072 Purchase System', // sender address
       to: 'harker1072@gmail.com', // list of receivers
       subject: 'Purchase Request has been created!', // Subject line
-      text: 'Purchase Request can be found here: http://robotics.harker.org/member/purchase/view/' + purchase.purchase_id, // plaintext body
+      text: 'Purchase Request can be found here: https://robotics.harker.org/member/purchase/view/' + purchase.purchase_id, // plaintext body
     }, (err) => {
       res.redirect('view/' + purchase.purchase_id)
       if (err) console.error(err)
@@ -269,7 +269,7 @@ router.post('/edit/:purchase_id', function (req, res) {
       from: 'HarkerRobotics1072 Purchase System', // sender address
       to: 'harker1072@gmail.com', // list of receivers
       subject: 'Purchase Request has been edited!', // Subject line
-      text: 'Purchase Request can be found here: https://robodev.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
+      text: 'Purchase Request can be found here: https://robotics.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
     }, (err) => {
       if (err) console.error(err)
       else console.log("Email sent!")
