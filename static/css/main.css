@@ -465,18 +465,23 @@ div.landingtext {
   background-size: cover;
 }
 
-#outreach-tile > div.container-fluid > div.sp-logo {
-  display: table;
+#outreach-tile > div.container-fluid > div.sp-logos {
+  display: block;
   margin: 0 auto;
   text-align: center;
 }
 
-#outreach-tile > div.container-fluid > div.sp-logo > img.sp-logo {
-  max-height: 20vh;
-  max-width: 40vw;
-  background: rgba(255, 255, 255, 0.5);
-  border-radius: 100px;
+#outreach-tile > div.container-fluid > div.sp-logos > div.sp-logo {
+  max-width: 40%;
+  background: rgba(255, 255, 255, 0.7);
+  /*border-radius: 100px;*/
+  display: inline-block;
   margin: 10px;
+}
+
+#outreach-tile > div.container-fluid > div.sp-logos > div.sp-logo > a.sp-logo > img.sp-logo {
+  max-width: 100%;
+  max-height: 20vh;
 }
 
 
