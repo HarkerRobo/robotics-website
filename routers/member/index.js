@@ -111,12 +111,6 @@ router.post('/token', function (req, res) {
   verifyIdToken(token)
   .then(data => {
 
-    if (err) {
-      console.log('[ERROR] google token: ', err)
-      res.status(500).send(err.toString())
-      return
-    }
-
     req.session.auth = {
       loggedin: true,
       token: token,
