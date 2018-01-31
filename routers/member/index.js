@@ -83,7 +83,7 @@ const verifyIdToken = token => {
             return
           }
 
-          if (!config.GoogleClientIDs.includes(data.aud)) {
+          if (!config.google.clientIDs.includes(data.aud)) {
             reject('Token does match Google Client ID')
             return
           }
