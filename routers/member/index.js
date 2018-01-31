@@ -71,12 +71,14 @@ const verifyIdToken = token => {
           return
         }
 
-        console.log()
-        console.log('---API TOKEN REQUESTED---')
-        console.log('[API TOKEN]', data.name + ' (' + data.email + ')')
-
         result.on('data', (d) => { data += d }).on('end', (d) => {
+
           data = JSON.parse(data)
+          console.log('[DATA]', data)
+
+          console.log()
+          console.log('---API TOKEN REQUESTED---')
+          console.log('[API TOKEN]', data.name + ' (' + data.email + ')')
 
           if (result.statusCode !== 200) {
             reject('Invalid Token')
@@ -88,11 +90,9 @@ const verifyIdToken = token => {
             return
           }
 
-          resolve()
+          resolve(data)
       })
-    })
-
-    request.on('error', reject)
+    }).on('error', reject)
     request.end()
   })
 }
@@ -110,6 +110,7 @@ router.post('/token', function (req, res) {
   // send to google
   verifyIdToken(token)
   .then(data => {
+    console.log('[DATA]', data)
 
     req.session.auth = {
       loggedin: true,
@@ -165,8 +166,9 @@ router.post('/token', function (req, res) {
   })
   .catch(err => {
     console.error('[ERROR] validate token:', err)
-    res.status(500).send(err.toString())
-    req.session.destroy()
+    req.session.destroy(() => {
+      res.status(500).send(err.toString())
+    })
   })
 
   console.log()
