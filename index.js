@@ -133,7 +133,7 @@ function errorHandler(err, req, res, next) {
 }
 
 
-const port = config.port || 80
+const port = config.server.port || 80
 app.listen(port, () => {
   console.log()
   console.log("--- WEBSERVER ON ---")
