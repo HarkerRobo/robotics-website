@@ -1,23 +1,25 @@
 'use strict'
 
 const express = require('express'),
-  router = express.Router(),
-  moment = require('moment'),
-  compression = require('compression'),
+
   https = require('https'),
   session = require('express-session'),
   cookieParser = require('cookie-parser'),
-  config = require(__base + 'config.json'),
-  MongoStore = require('connect-mongo')(session),
-  Purchase = require('../../models/purchase'),
-  User = require('../../models/user'),
   nodemailer = require('nodemailer'),
   xss = require('xss'),
-  smtpConfig = config["automail"],
-  transporter = nodemailer.createTransport(smtpConfig),
   csrf = require('csurf'),
-  csrfProtection = csrf({ cookie: true }),
-  ranks = require('../../helpers/ranks.json')
+
+  MongoStore = require('connect-mongo')(session),
+
+  Purchase = require('../../models/purchase'),
+  User = require('../../models/user'),
+
+  config = require(__base + 'config.json'),
+  ranks = require('../../helpers/ranks.json'),
+  router = express.Router(),
+  smtpConfig = config.automail,
+  transporter = nodemailer.createTransport(smtpConfig),
+  csrfProtection = csrf({ cookie: true })
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
@@ -31,18 +33,19 @@ const validateEmail = (email) => {
 
 router.use(cookieParser())
 
+// initializes the session
 // DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
 // For more information, go to https://github.com/expressjs/session#compatible-session-stores
 router.use(session({
   store: new MongoStore({
     url: `mongodb://localhost/robotics-website`
   }),
-  secure: true,
-  secret: config['cookieSecret'],
-  name: config['cookieName'],
+  secure: config.server.production,
+  secret: config.cookie.secret,
+  name: config.cookie.name,
   resave: false,
   saveUninitialized: false,
-  httpOnly: false
+  httpOnly: true
 }))
 
 router.use(function (req, res, next) {
@@ -54,78 +57,129 @@ router.use(function (req, res, next) {
   next()
 })
 
-// https://developers.google.com/identity/sign-in/web/backend-auth
-router.post('/token', function (req, res) {
-  let token = req.body.idtoken
-  if (token !== undefined) {
-
-    // validate token
-
-    // send to google
+const verifyIdToken = token => {
+  return new Promise((resolve, reject) => {
     let data = ""
-    let request = https.request(
-      {
+    let request = https.request({
         hostname: 'www.googleapis.com',
         port: 443,
         path: '/oauth2/v3/tokeninfo?id_token='+token,
         method: 'GET'
       }, (result, err) => {
-        if (err) { console.log('Error:', err); return res.sendStatus(400);  }
+        if (err) {
+          reject(err)
+          return
+        }
+
         console.log()
         console.log('---API TOKEN REQUESTED---')
+        console.log('[API TOKEN]', data.name + ' (' + data.email + ')')
 
         result.on('data', (d) => { data += d }).on('end', (d) => {
           data = JSON.parse(data)
-          if (result.statusCode === 200) {
-            if (config.GoogleClientIDs.includes(data.aud)) {
-              req.session.auth = { loggedin: true, token: token, info: data }
-              console.log(data.name + ' (' + data.email + ')')
 
-              if (config.users.superadmins.includes(data.email.toLowerCase())) {
-                req.session.auth.level = ranks.superadmin
-                console.log('Superadmin status granted')
-                res.status(200).end()
-              }
-              else {
-                // find the user with the email
-                User.findOne({ email: data.email.toLowerCase() }, (err, user) => {
-                  if (err){
-                    console.error('An error occured while finding the user:', err)
-                    req.session.destroy()
-                  }
-                  // if the user can't be found in db, put user in db w/ level 0
-                  else if (user==null) {
-                    User.create({ email: data.email.toLowerCase() }, () => {
-                      if (data.hd === 'students.harker.org' || data.hd === 'staff.harker.org') {
-                        req.session.auth.level = ranks.harker_student
-                      }
-                      else req.session.auth.level = ranks.none
-                      res.status(200).send()
-                    })
-                  }
-                  else {
-                    req.session.auth.level = user.authorization
-                    res.status(200).send()
-                  }
-                })
-              }
-            } else {
-              res.status(400).end('Token does match Google Client ID')
-            }
-          } else {
-            res.status(400).end('Invalid Token')
+          if (result.statusCode !== 200) {
+            reject('Invalid Token')
+            return
           }
-        })
-      }).on('error', (e) => {
-        console.error(e);
+
+          if (!config.GoogleClientIDs.includes(data.aud)) {
+            reject('Token does match Google Client ID')
+            return
+          }
+
+          resolve()
       })
-      request.end()
-  } else {
-    res.status(400).send('Bad Request: No token')
+    })
+
+    request.on('error', reject)
+    request.end()
+  })
+}
+
+// https://developers.google.com/identity/sign-in/web/backend-auth
+// handles google sign-in tokens given from client
+router.post('/token', function (req, res) {
+
+  let token = req.body.idtoken
+  if (token === undefined) {
+    res.status(400).send('No token given (must be given in POST body as `idtoken`)')
+    return
   }
+
+  // send to google
+  verifyIdToken(token)
+  .then(data => {
+
+    if (err) {
+      console.log('[ERROR] google token: ', err)
+      res.status(500).send(err.toString())
+      return
+    }
+
+    req.session.auth = {
+      loggedin: true,
+      token: token,
+      info: data,
+    }
+
+    // if email is in superadmins list, grant superadmin access
+    if (config.users.superadmins.includes(data.email.toLowerCase())) {
+      console.log('Superadmin status granted for', data.email.toLowerCase())
+
+      req.session.auth.level = ranks.superadmin
+      res.status(200).end()
+      return
+    }
+
+    // find the user with the email
+    User.findOne({ email: data.email.toLowerCase() })
+    .then(user => {
+
+
+
+      // if the user can't be found in db, put user in db
+      if (user==null) {
+
+        // if the user has a harker email, allow them the rank of harker student
+        // otherwise give them default rank
+        let authorization = ranks.none
+        if (data.hd === 'students.harker.org' || data.hd === 'staff.harker.org')
+            req.session.auth.level = ranks.harker_student
+
+        User.create({ email: data.email.toLowerCase(), authorization })
+        .then(() => {
+          req.session.auth.level = authorization
+          res.status(200).send()
+        })
+
+      }
+
+      // if the user can be found, give appropriate authorization
+      else {
+        req.session.auth.level = user.authorization
+        res.status(200).send()
+      }
+    })
+
+    // if there is an error, report and destroy the session
+    .catch(err => {
+      console.error('[ERROR] find user with email (token):', err)
+      res.status(500).send(err.toString())
+      req.session.destroy()
+    })
+  })
+  .catch(err => {
+    console.error('[ERROR] validate token:', err)
+    res.status(500).send(err.toString())
+    req.session.destroy()
+  })
+
   console.log()
 })
 
+// logs the user out from the session on the backend
+// does not log the user out from the google auth session
 router.delete('/token', function (req, res) {
   req.session.destroy(function(err) {
     if (err) res.status(500).json({ success: false, error: { message: err } })
@@ -158,11 +212,11 @@ router.get('/resources', function(req, res){
 
 // must be an superadmin to see below pages
 router.all('/*', function (req, res, next) {
-  if (req.auth.level >= ranks.superadmin) {
-    next()
-  } else {
-    res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
-  }
+  if (req.auth.level >= ranks.superadmin) next()
+  else res.render('pages/member/error', {
+    statusCode: 401,
+    error: "You must have higher clearance to reach this page."
+  })
 })
 
 router.get('/userman', function (req, res) {

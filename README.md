@@ -34,7 +34,7 @@ First, go to [the Node.js download page](https://nodejs.org/en/download/). You w
 As of January 8, 2018, this program works successfully on versions 7.4.0 and 8.9.0 of Node.js. In the future, this program should be updated to work successfully on future verisons of Node.js. You can check the version of node you are running by entering the command `node -v` into your terminal or command prompt.
 
 ### Duplicate config.json
-In your file browser (Finder in macOS, File Explorer in Windows), locate the folder of this repository. Within the folder, copy the file `exampleconfig.json` and paste it as `config.json`. In the new file, change the value next to `superadmins` from `webmaster@example.org` to your Harker gmail address. Also, if you wish to run the internal parts of the website (Blog, PR's, etc.), you will have to contact the webmaster for Google API information (specifically, googleClientID and googleSecretKey, and the blog API key if you wish to run the blog). The other values of the config file are explained in the [Config section](#config).
+In your file browser (Finder in macOS, File Explorer in Windows), locate the folder of this repository. Within the folder, copy the file `exampleconfig.json` and paste it as `config.json`. In the new file, change the value next to `superadmins` from `webmaster@example.org` to your Harker gmail address. Also, if you wish to run the internal parts of the website (Blog, PR's, etc.), you will have to contact the webmaster for Google API information (specifically, google.clientID and google.secretKey, and the blog API key if you wish to run the blog). The other values of the config file are explained in the [Config section](#config).
 
 ### Install packages
 In your terminal (or command prompt), [change your working directory (`cd`)](https://en.wikipedia.org/wiki/Cd_(command)) to the folder for this repository. Then, enter the command `npm install`. This uses the [node package manager](https://www.npmjs.com/) to install the packages required to run this program.
@@ -71,17 +71,16 @@ The config file should be stored as `config.json`. You can copy from the example
 
 | Field                   |  Value                                          | Description
 |-------------------------|-------------------------------------------------|-------------
-| port                    | 3000  | the port to run the system on
-| GoogleClientIDs          | ["[GoogleClientID]"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
-| GoogleClientIDDisplay   | 0 | The client id in the array GoogleClientIDs which to use to display on the website
-| GoogleSecretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
-| domain                  | "localhost"                                     | The domain that the server is running on. If you are running this on your local machine, "localhost" will do.
-| email                   | "harker1072@gmail.com"                          | The email to use for Let's Encrypt (LE). Since LE is not working at the moment, this is unnecessary.
-| cookieSecret            | "secret"                                        | The secret to use in your cookies. Make sure it has high entropy (very long and random).
-| cookieName              | "Harker1072Robotics"                            | The name of the cookies.
-| httpsCapable            | false                                           | Whether to use LE. Since LE is not working at the moment, this should always be set to false.
-| httpsStaging            | true                                            | Whether to use staging for LE. Since LE is not working at the moment, this is unnecessary.
-| runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
+
+| google.clientIDs          | ["[GoogleClientID]"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
+| google.displayID   | 0 | The index of the client id in the array google.clientIDs which to use to display on the website
+| google.secretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
+| cookie.secret            | "secret"                                        | The secret to use in your cookies. Make sure it has high entropy (very long and random).
+| cookie.name              | "Harker1072Robotics"                            | The name of the cookies.
+| server.domain                  | "localhost"                                     | The domain that the server is running on. If you are running this on your local machine, "localhost" will do.
+| server.production            | false                                           | Whether the server is a production server, meaning it is behind a proxy and being used as the robotics website.
+| server.runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
+| server.port                    | 3000  | the port to run the system on
 | blog.runBlog            | false                                           | Whether to run the /blog path.
 | blog.interval           | 10                                              | The interval (in seconds) on which to pull the blog posts from Blogger.
 | blog.blogID             | "123456789"                                     | The ID number for the blog. Use [this](http://blogtimenow.com/blogging/find-blogger-blog-id-post-id-unique-id-number/) tutorial to find the ID number of the blog, or ask the webmaster.

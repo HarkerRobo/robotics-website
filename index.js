@@ -18,7 +18,6 @@ const express = require('express'),
   http = require('http'),
   https = require('https'),
   spdy = require('spdy'),
-  port = 80,
 
   memberRouter = require('./routers/member'),
   hackathonRouter = require('./routers/hackathon'),
@@ -31,15 +30,10 @@ function getTimeFormatted() {
   return moment().format('MMMM Do YYYY, h:mm:ss a') + ' (' + Date.now() + ')'
 }
 
-console.log('Constants made at:', getTimeFormatted())
-
-mongoose.connect('mongodb://127.0.0.1/test', (err) => {
-  console.log('Database live on port', port, 'at', getTimeFormatted())
-})
-
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
 app.set('env', 'development')
+if (config.server.production) app.set('trust proxy', 1)
 
 // http://cwe.mitre.org/data/definitions/693
 app.use(require('helmet')())
@@ -58,10 +52,10 @@ app.use(function(req, res, next) {
   console.log("req.body =", req.body);
   next();
 })
-if (config.runInternal) app.use('/member', memberRouter)
+if (config.server.runInternal) app.use('/member', memberRouter)
 if (config.blog.runBlog) app.use('/blog', blogsRouter)
 
-app.locals.GoogleClientID = config.GoogleClientIDs[config.GoogleClientIDDisplay]
+app.locals.GoogleClientID = config.google.clientIDs[config.google.displayID]
 app.locals.ranks = require('./helpers/ranks.json')
 
 app.use('/hackathon', hackathonRouter)
@@ -138,52 +132,11 @@ function errorHandler(err, req, res, next) {
   res.render('pages/error', { statusCode: res.errCode || err.status || 500, error: err })
 }
 
-// create server
-// https://medium.com/@bohou/secure-your-nodejs-server-with-letsencrypt-for-free-f8925742faa9
-if (config['httpsCapable']===true) {
-  // letsencrypt-express
-  function approveDomains(opts, certs, cb) {
-    if (certs) {
-      //opts.domains = certs.altnames;
-      opts.domains = [config.domain]
-      //opts.email = config['email'];
-    }
-    else {
-      opts.email = config['email'];
-      opts.agreeTos = true;
-    }
-    cb(null, { options: opts, certs: certs });
-  }
 
-  const lex = require('greenlock-express').create({
-    server: config.httpsStaging ? 'staging' : 'https://acme-v01.api.letsencrypt.org/directory'
-
-    // If you wish to replace the default plugins, you may do so here
-    /*, challenges: { 'http-01': require('le-challenge-fs').create({ webrootPath: '/tmp/acme-challenges' }) }
-    , store: require('le-store-certbot').create({ webrootPath: '/tmp/acme-challenges' })
-    , app: app*/
-    , approveDomains: approveDomains
-  });
-
-  // handles acme-challenge and redirects to https
-  require('http').createServer(require('redirect-https')()).listen(80, function () {
-    console.log()
-    console.log("--- HTTP REDIRECT ON ---")
-    console.log()
-  });
-
-  // handles your app
-  require('https').createServer(lex.httpsOptions, lex.middleware(app)).listen(443, function () {
-    console.log()
-    console.log("--- HTTPS SERVER ON ---")
-    console.log()
-  });
-} else {
-  const port = config.port || 80
-  app.listen(port, () => {
-    console.log()
-    console.log("--- WEBSERVER ON ---")
-    console.log("Listening at http://" + config['domain'] + ':' + port)
-    console.log()
-  })
-}
+const port = config.port || 80
+app.listen(port, () => {
+  console.log()
+  console.log("--- WEBSERVER ON ---")
+  console.log("Listening at http://" + config.server.domain + ':' + port)
+  console.log()
+})
