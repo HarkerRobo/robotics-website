@@ -484,6 +484,18 @@ div.landingtext {
   max-height: 20vh;
 }
 
+@media (max-height: 500px) {
+  #outreach-tile > div.container-fluid > div.sp-logos > div.sp-logo {
+    margin: 5px;
+    max-width: 30%;
+  }
+
+  #outreach-tile > div.container-fluid > div.sp-logos > div.sp-logo > a.sp-logo > img.sp-logo {
+    max-width: 100%;
+    max-height: 15vh;
+  }
+}
+
 
 /* wiki */
 
