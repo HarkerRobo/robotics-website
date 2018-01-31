@@ -20,11 +20,11 @@ const verifyPartID = partID => {
   })
 }
 
-router.get('/create', (req, res) => {
+router.get('/create', auth.verifyRank(ranks.harker_student), (req, res) => {
   res.render('pages/member/parts/create')
 })
 
-router.get('/search', (req, res) => {
+router.get('/search', auth.verifyRank(ranks.harker_student), (req, res) => {
   res.render('pages/member/parts/search')
 })
 
