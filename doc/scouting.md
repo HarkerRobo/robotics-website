@@ -7,8 +7,7 @@ Built for the 2018 First Power Up competition.
 
 | Rank     | Abbreviation | API Number |Description |
 |:----------:|:--------------:|:--------:|------------|
-| Sergeant | Sgt.         | 10      | The Sergeant (or Squad Leader) manages each match. They manage who is scouting, report when each part (auton and tele-op) of the round starts, and add comments to the round for more insight. (In the 2018 competition, they also report when the scales are tipped in which direction). |
-| Corporal | Cpl.         | 5      | The Corporals manages each alliance in a match. They report when each part (auton and tele-op) of the round starts, and add comments on each team for more insight. (In the 2018 competition, they also report when their team uses a power up). |
+| Sergeant | Sgt.         | 10      | The Sergeant (or Squad Leader) manages each match. They manage who is scouting, report when each part (auton and tele-op) of the round starts, and add comments to the round for more insight. (In the 2018 competition, they also report when the scales are tipped in which direction and when each team uses which powerup). |
 | Private  | Pvt.         | 0      | The Privates manages each team in a match. Their efforts are specific for each competition. (In the 2018 competition, they report when their robot puts blocks where, and where their robot starts). |
 
 ## Progression
@@ -27,12 +26,25 @@ Finally, each scout will "upload" their results to the server which they recorde
 ## Routes
 
 ### Login
-[I'll look into this]
+Note that all URL's are proceded by the domain of the current website (https://robotics.harker.org).
+#### Request
+Method: `POST`
+URL: `/member/token`
+
+#### Expected Response 
+Data type: text
+Status code: 200: 
+Data: `200 OK`
 
 ### Request Spot
-Request: `/member/scouting/request`
+#### Request: 
+Method: `GET`
+URL: `/member/scouting/request`
 
-Response: 
+#### Expected Response 
+Data type: JSON
+Status Code: 200
+Data: 
 ```json
 {
   "tournament": {
@@ -59,4 +71,33 @@ Explanation:
 | scouting.round  | The round for which the user is scouting | Integer | 55 |
 | scouting.rank   | The rank of the user ([based on API Number above](#ranks)) | Integer | 0 |
 | scouting.blue   | True if the user is scouting for the blue team; otherwise false (not given for Sgts) | Boolean | true |
-| scouting.team   | The team number of the team the user is scouting for (not given for Sgts and Cpls) | Integer | 1072 |
+| scouting.team   | The team number of the team the user is scouting for (not given for Sgts) | Integer | 1072 |
+
+### Upload Data
+#### Request
+Method: `POST`
+URL: `/member/scouting/upload`
+POST body:
+```json
+{
+  "email": "19johnd@students.harker.org",
+  "blue": true,
+  "team": 1072,
+  "data": [
+    {
+      "timestamp": 123456789,
+      "action": 6728
+    },
+    {
+      "timestamp": 123456790,
+      "action": 9345
+    }
+  ]
+}
+```
+
+#### Expected Response 
+Data type: text
+Status code: 200: 
+Data: `200 OK`
+
