@@ -2,12 +2,12 @@ config.json
 
 node_modules
 
-/static/img/media/*
-/static/img/media/*
-/static/img/media/*
-/static/img/media/*
-/static/img/media/*
-/static/img/media/*
+/static/img/media/2014
+/static/img/media/2015
+/static/img/media/2016
+/static/img/media/2017
+/static/img/media/2018
+/static/img/media/2013
 !/static/img/media/direc/*
 
 static/googlef3d505ccffd01f1b.html
