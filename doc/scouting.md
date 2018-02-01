@@ -83,6 +83,8 @@ POST body:
   "email": "19johnd@students.harker.org",
   "blue": true,
   "team": 1072,
+  "round": 55,
+  "tournament_id": "59b1",
   "data": [
     {
       "timestamp": 123456789,
