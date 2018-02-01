@@ -28,22 +28,22 @@ Finally, each scout will "upload" their results to the server which they recorde
 ### Login
 Note that all URL's are proceded by the domain of the current website (https://robotics.harker.org).
 #### Request
-Method: `POST`
-URL: `/member/token`
+Method: `POST`  
+URL: `/member/token`  
 
 #### Expected Response 
-Data type: text
-Status code: 200: 
+Data type: text  
+Status code: 200  
 Data: `200 OK`
 
 ### Request Spot
 #### Request: 
-Method: `GET`
-URL: `/member/scouting/request`
+Method: `GET`  
+URL: `/member/scouting/request`  
 
 #### Expected Response 
-Data type: JSON
-Status Code: 200
+Data type: JSON  
+Status Code: 200  
 Data: 
 ```json
 {
@@ -75,8 +75,8 @@ Explanation:
 
 ### Upload Data
 #### Request
-Method: `POST`
-URL: `/member/scouting/upload`
+Method: `POST`  
+URL: `/member/scouting/upload`  
 POST body:
 ```json
 {
