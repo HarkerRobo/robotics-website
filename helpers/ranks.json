@@ -1,9 +1,10 @@
 {
   "none": 0,
-  "harker_student": 1,
-  "pr_whitelist": 2,
-  "parts_whitelist": 3,
-  "admin": 4,
-  "mentor": 5,
-  "superadmin": 6
+  "harker_student": 10,
+  "pr_whitelist": 20,
+  "parts_whitelist": 30,
+  "scouting_sergeants": 40,
+  "admin": 50,
+  "mentor": 60,
+  "superadmin": 70
 }
