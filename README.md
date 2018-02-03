@@ -71,7 +71,6 @@ The config file should be stored as `config.json`. You can copy from the example
 
 | Field                   |  Value                                          | Description
 |-------------------------|-------------------------------------------------|-------------
-
 | google.clientIDs          | ["[GoogleClientID]"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
 | google.displayID   | 0 | The index of the client id in the array google.clientIDs which to use to display on the website
 | google.secretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
