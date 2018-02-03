@@ -100,6 +100,6 @@ POST body:
 
 #### Expected Response 
 Data type: text
-Status code: 200: 
+Status code: 200
 Data: `200 OK`
 
