@@ -111,8 +111,8 @@ Data: `200 OK`
 ## Websockets (Client => Server)
 ### Set Match
 Message: `set_match`  
-Data:
-`{ "match": 0 }` 
+Data:  
+`{ "match": 0 }`   
 Value of `match` sets the new round.
 
 ### Match Started
