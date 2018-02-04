@@ -1,6 +1,7 @@
 # Scouting API
 [main Github](https://github.com/HarkerRobo/robotics-website/) |
 [main README](https://github.com/HarkerRobo/robotics-website/README.md)
+
 Built for the 2018 First Power Up competition.
 
 ## Ranks
@@ -19,6 +20,10 @@ This way, the server can verify that the user is approved to scout and log the n
 ### Request Spot
 Then, the user must request a spot on the scouting team (per match). 
 The server will return the users rank, what team or alliance they are scouting, and information on the match. 
+
+### Sergeant Makes Websocket Connection
+If the server responds to the spot request saying that the user is a sergeant, the user is to then create a websocket connection with the server using [socket.io](https://socket.io/). Only one person will be able to have a connection to the server at a time. Note that if the sergeant disconnects, when another user with the ability to be sergeant requests a spot, they will be given sergeant rank, and the first sergeant will not be allowed to reconnect. In this scenario, if the previous sergeant started last match, the new sergeant will be set to the next match.  
+Sergeants have other websocket commands they can issue, specified in the [Websockets section](#websockets). 
 
 ### Upload
 Finally, each scout will "upload" their results to the server which they recorded during the match.
@@ -102,4 +107,15 @@ POST body:
 Data type: text
 Status code: 200
 Data: `200 OK`
+
+## Websockets (Client => Server)
+### Set Match
+Message: `set_match`  
+Data:
+`{ "match": 0 }` 
+Value of `match` sets the new round.
+
+### Match Started
+Message: `start_match`
+
 
