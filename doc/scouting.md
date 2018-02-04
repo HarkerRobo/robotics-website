@@ -104,9 +104,9 @@ POST body:
 ```
 
 #### Expected Response 
-Data type: text
-Status code: 200
-Data: `200 OK`
+Data type: text  
+Status code: 200  
+Data: `200 OK`  
 
 ## Websockets (Client => Server)
 ### Set Match
