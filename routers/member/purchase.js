@@ -292,7 +292,7 @@ router.get('/admin', function (req, res) {
   res.render('pages/member/purchase/list', { filter: 'admin' })
 })
 
-router.post('/admin/approve/:id', function (req, res) {
+router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, res) {
   let query = {}
   // if mentor
   if (req.auth.level == ranks.mentor || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
@@ -321,7 +321,7 @@ router.post('/admin/approve/:id', function (req, res) {
   })
 })
 
-router.post('/admin/reject/:id', function (req, res) {
+router.post('/admin/reject/:id', auth.verifyRank(ranks.admin), function (req, res) {
   let query = {}
   // if mentor
   if (req.auth.level == ranks.admin || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
