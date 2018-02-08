@@ -85,23 +85,49 @@ URL: `/member/scouting/upload`
 POST body:
 ```json
 {
-  "email": "19johnd@students.harker.org",
-  "blue": true,
-  "team": 1072,
-  "round": 55,
-  "tournament_id": "59b1",
-  "data": [
-    {
-      "timestamp": 123456789,
-      "action": 6728
-    },
-    {
-      "timestamp": 123456790,
-      "action": 9345
-    }
-  ]
+  "headers": {
+    "email": "19johnd@students.harker.org",
+    "rank": 0,
+    "blue": true,
+    "team": 1072,
+    "round": 55,
+    "tournament_id": "59b1",
+  },
+  "data": {
+    "start_position": 50,
+    "crossed_line": true,
+    "end_platform": false,
+    "lift": 2,
+    "actions": [
+      {
+        "timestamp": 123456789,
+        "action": "0_7_28"
+      },
+      {
+        "timestamp": 123456790,
+        "action": "0_2_345"
+      }
+    ]
+  }
 }
 ```
+
+Explanation:  
+
+| Field      | Description | Type | Example |
+|:------------:|-------------|------|---------|
+| headers.email | The scouter's email | String | "19johnd@students.harker.org" |
+| headers.rank | The API rank of the scouter | Number | 0 |
+| headers.blue | Whether the scouter is scouting for the blue team (Not given for Sgts.) | Boolean | true |
+| headers.team | The team the scouter is scouting | Number | 1072 |
+| headers.round | The round that the scouter is scouting for | Number | 55 | 
+| headers.tournament_id | The id of the tournament given by Request Spot | String | "59b1" |
+| data.start_postion | The starting position given as a number, where the middle is zero, all the way on the right is 100, and all the way left is -100 | Number | 50 |
+| data.crossed_line | Whether the robot crossed the line during autonomous | Boolean | true |
+| data.end_platform | Whether the robot ended the round on the platform | Boolean | false |
+| data.lift | 0 - Did not do anything for lifting. 1 - Deployed ramp. 2 - used ramp. 3 - Climbed onto bar | Number | 2 |
+| data.actions | An array of JSON Objects, each with a timestamp property (`timestamp`) and an action id property (`action`). Action IDs are given below | JSON Array | `[{ "timestamp": 123456789, "action": "0_7_28" }, { "timestamp": 123456790, "action": "0_2_345" } ]` |
+
 
 #### Expected Response 
 Data type: text  
