@@ -132,26 +132,26 @@ Action IDs:
 
 | ID | Rank | Type | Action |
 |:--:|-|-|-|
-| 0_0_0 | Pvt. | Place Block | Place block on Home switch |
-| 0_0_1 | Pvt. | Place Block | Place block on scale |
-| 0_0_2 | Pvt. | Place Block | Place block on Home switch |
-| 0_1_0 | Pvt. | Get Block | Get block from Home portal |
-| 0_1_1 | Pvt. | Get Block | Get block from Away portal |
-| 0_1_2 | Pvt. | Get Block | Get block from Power Cube Zone |
-| 0_1_3 | Pvt. | Get Block | Get block from Home Power Cube Line |
-| 0_1_4 | Pvt. | Get Block | Get block from Away Power Cube Line |
-| 10_0_0 | Sgt. | Tilt | The Red Switch is tilted in favor of the red team |
-| 10_0_1 | Sgt. | Tilt | The Red Switch is tilted in favor of the blue team |
-| 10_0_2 | Sgt. | Tilt | The Scale is tilted in favor of the red team |
-| 10_0_3 | Sgt. | Tilt | The Scale is tilted in favor of the blue team |
-| 10_0_4 | Sgt. | Tilt | The Blue Switch is tilted in favor of the red team |
-| 10_0_5 | Sgt. | Tilt | The Blue Switch is tilted in favor of the blue team |
-| 10_1_0 | Sgt. | Power Up | The red team used the force power up |
-| 10_1_1 | Sgt. | Power Up | The blue team used the force power up |
-| 10_1_2 | Sgt. | Power Up | The red team used the block power up |
-| 10_1_3 | Sgt. | Power Up | The blue team used the block power up |
-| 10_1_4 | Sgt. | Power Up | The red team used the levitate power up |
-| 10_1_5 | Sgt. | Power Up | The blue team used the levitate power up |
+| 0_0_0 | Pvt. | Place Block | Place block on **Home switch** |
+| 0_0_1 | Pvt. | Place Block | Place block on **scale** |
+| 0_0_2 | Pvt. | Place Block | Place block on **Away switch** |
+| 0_1_0 | Pvt. | Get Block | Get block from **Home portal** |
+| 0_1_1 | Pvt. | Get Block | Get block from **Away portal** |
+| 0_1_2 | Pvt. | Get Block | Get block from **Power Cube Zone** |
+| 0_1_3 | Pvt. | Get Block | Get block from **Home Power Cube Line** |
+| 0_1_4 | Pvt. | Get Block | Get block from **Away Power Cube Line** |
+| 10_0_0 | Sgt. | Tilt | The **Red Switch** is tilted in favor of the **red team** |
+| 10_0_1 | Sgt. | Tilt | The **Red Switch** is tilted in favor of the **blue team** |
+| 10_0_2 | Sgt. | Tilt | The **Scale** is tilted in favor of the **red team** |
+| 10_0_3 | Sgt. | Tilt | The **Scale** is tilted in favor of the **blue team** |
+| 10_0_4 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of the **red team** |
+| 10_0_5 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of the **blue team** |
+| 10_1_0 | Sgt. | Power Up | The **red** team used the **force** power up |
+| 10_1_1 | Sgt. | Power Up | The **blue** team used the **force** power up |
+| 10_1_2 | Sgt. | Power Up | The **red** team used the **block** power up |
+| 10_1_3 | Sgt. | Power Up | The **blue** team used the **block** power up |
+| 10_1_4 | Sgt. | Power Up | The **red** team used the **levitate** power up |
+| 10_1_5 | Sgt. | Power Up | The **blue** team used the **levitate** power up |
 
 
 #### Expected Response 
@@ -162,7 +162,7 @@ Data: `200 OK`
 ## Websockets (Client => Server)
 ### Set Match
 Message: `set_match`  
-Data:  
+Data:  **
 `{ "match": 0 }`   
 Value of `match` sets the new round.
 
