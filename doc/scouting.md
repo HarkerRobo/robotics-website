@@ -126,7 +126,7 @@ Explanation:
 | data.crossed_line | Whether the robot crossed the auto line during autonomous | Boolean | true |
 | data.end_platform | Whether the robot ended the round on the platform | Boolean | false |
 | data.lift | 0 - Did not do anything for lifting. 1 - Deployed ramp. 2 - used ramp. 3 - Climbed onto bar | Number | 2 |
-| data.actions | An array of JSON Objects, each with a timestamp property (`timestamp`) and an action id property (`action`). Action IDs are given [below](#actionids). | JSON Array | `[{ "timestamp": 123456789, "action": "0_7_28" }, { "timestamp": 123456790, "action": "0_2_345" } ]` |
+| data.actions | An array of JSON Objects, each with a timestamp property (`timestamp`) and an action id property (`action`). Action IDs are given below. | JSON Array | `[{ "timestamp": 123456789, "action": "0_7_28" }, { "timestamp": 123456790, "action": "0_2_345" } ]` |
 
 Action IDs:
 
