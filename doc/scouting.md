@@ -146,6 +146,13 @@ Action IDs:
 | 10_0_3 | Sgt. | Tilt | The Scale is tilted in favor of the blue team |
 | 10_0_4 | Sgt. | Tilt | The Blue Switch is tilted in favor of the red team |
 | 10_0_5 | Sgt. | Tilt | The Blue Switch is tilted in favor of the blue team |
+| 10_1_0 | Sgt. | Power Up | The red team used the force power up |
+| 10_1_1 | Sgt. | Power Up | The blue team used the force power up |
+| 10_1_2 | Sgt. | Power Up | The red team used the block power up |
+| 10_1_3 | Sgt. | Power Up | The blue team used the block power up |
+| 10_1_4 | Sgt. | Power Up | The red team used the levitate power up |
+| 10_1_5 | Sgt. | Power Up | The blue team used the levitate power up |
+
 
 #### Expected Response 
 Data type: text  
