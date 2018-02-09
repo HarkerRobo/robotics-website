@@ -128,6 +128,24 @@ Explanation:
 | data.lift | 0 - Did not do anything for lifting. 1 - Deployed ramp. 2 - used ramp. 3 - Climbed onto bar | Number | 2 |
 | data.actions | An array of JSON Objects, each with a timestamp property (`timestamp`) and an action id property (`action`). Action IDs are given below. | JSON Array | `[{ "timestamp": 123456789, "action": "0_7_28" }, { "timestamp": 123456790, "action": "0_2_345" } ]` |
 
+Action IDs:
+
+| ID | Rank | Type | Action |
+|:--:|-|-|-|
+| 0_0_0 | Pvt. | Place Block | Place block on Home switch |
+| 0_0_1 | Pvt. | Place Block | Place block on scale |
+| 0_0_2 | Pvt. | Place Block | Place block on Home switch |
+| 0_1_0 | Pvt. | Get Block | Get block from Home portal |
+| 0_1_1 | Pvt. | Get Block | Get block from Away portal |
+| 0_1_2 | Pvt. | Get Block | Get block from Power Cube Zone |
+| 0_1_3 | Pvt. | Get Block | Get block from Home Power Cube Line |
+| 0_1_4 | Pvt. | Get Block | Get block from Away Power Cube Line |
+| 10_0_0 | Sgt. | Tilt | The Red Switch is tilted in favor of the red team |
+| 10_0_1 | Sgt. | Tilt | The Red Switch is tilted in favor of the blue team |
+| 10_0_2 | Sgt. | Tilt | The Scale is tilted in favor of the red team |
+| 10_0_3 | Sgt. | Tilt | The Scale is tilted in favor of the blue team |
+| 10_0_4 | Sgt. | Tilt | The Blue Switch is tilted in favor of the red team |
+| 10_0_5 | Sgt. | Tilt | The Blue Switch is tilted in favor of the blue team |
 
 #### Expected Response 
 Data type: text  
