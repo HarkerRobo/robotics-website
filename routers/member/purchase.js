@@ -16,7 +16,8 @@ const express = require('express'),
   transporter = nodemailer.createTransport(smtpConfig),
   csrf = require('csurf'),
   csrfProtection = csrf({ cookie: true }),
-  ranks = require('../../helpers/ranks.json')
+  ranks = require('../../helpers/ranks.json'),
+  auth = require('../../helpers/auth')
 
 router.use(cookieParser())
 

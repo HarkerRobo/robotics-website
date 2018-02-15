@@ -3,19 +3,18 @@
 const express = require('express'),
 
   https = require('https'),
-  session = require('express-session'),
+  session = require('../../helpers/session'),
   cookieParser = require('cookie-parser'),
   nodemailer = require('nodemailer'),
   xss = require('xss'),
   csrf = require('csurf'),
-
-  MongoStore = require('connect-mongo')(session),
 
   Purchase = require('../../models/purchase'),
   User = require('../../models/user'),
 
   config = require(__base + 'config.json'),
   ranks = require('../../helpers/ranks.json'),
+  auth = require('../../helpers/auth'),
   router = express.Router(),
   smtpConfig = config.automail,
   transporter = nodemailer.createTransport(smtpConfig),
@@ -32,31 +31,11 @@ const validateEmail = (email) => {
 }
 
 router.use(cookieParser())
+router.use(session)
 
-// initializes the session
-// DO NOT USE WITHOUT STORE: CAUSES MEMORY LEAKS
-// For more information, go to https://github.com/expressjs/session#compatible-session-stores
-router.use(session({
-  store: new MongoStore({
-    url: `mongodb://localhost/robotics-website`
-  }),
-  secure: config.server.production,
-  secret: config.cookie.secret,
-  name: config.cookie.name,
-  resave: false,
-  saveUninitialized: false,
-  httpOnly: true
-}))
+router.use(auth.sessionAuth)
 
-router.use(function (req, res, next) {
-  req.auth = req.session.auth
-  if (!req.auth) {
-    req.auth = { loggedin: false }
-  }
-  res.locals.auth = req.auth
-  next()
-})
-
+// https://developers.google.com/identity/sign-in/web/backend-auth
 const verifyIdToken = token => {
   return new Promise((resolve, reject) => {
     let data = ""
