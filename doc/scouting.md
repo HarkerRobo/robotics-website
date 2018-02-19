@@ -44,11 +44,11 @@ Data: `200 OK`
 ### Request Spot
 #### Request: 
 Method: `GET`  
-URL: `/member/scouting/request`  
+URL: `/member/scouting/request/<round>` (replace `<round>` with the current round as an integer)
 
 #### Expected Response 
 Data type: JSON  
-Status Code: 200  
+Status code: 200  
 Data: 
 ```json
 {
@@ -77,6 +77,36 @@ Explanation:
 | scouting.rank   | The rank of the user ([based on API Number above](#ranks)) | Integer | 0 |
 | scouting.blue   | True if the user is scouting for the blue team; otherwise false (not given for Sgts) | Boolean | true |
 | scouting.team   | The team number of the team the user is scouting for (not given for Sgts) | Integer | 1072 |
+
+#### 404 Error Response
+Given if the param `<round>` does not exist in the tournament.
+
+Data type: JSON
+Status code: 404
+Data:
+```json
+{
+  "success": false,
+  "error": {
+    "message": "Round does not exist"
+  }
+}
+```
+
+#### 422 Error Response
+Given if the param `<round>` is not an integer.
+
+Data type: JSON
+Status code: 422
+Data:
+```json
+{
+  "success": false,
+  "error": {
+    "message": "Round must be an integer"
+  }
+}
+```
 
 ### Upload Data
 #### Request
@@ -125,7 +155,7 @@ Explanation:
 | data.start_postion | The starting position given as a number, where the middle is zero, all the way on the right is 100, and all the way left is -100 | Number | 50 |
 | data.crossed_line | Whether the robot crossed the auto line during autonomous | Boolean | true |
 | data.end_platform | Whether the robot ended the round on the platform | Boolean | false |
-| data.lift | 0 - Did not do anything for lifting. 1 - Deployed ramp. 2 - used ramp. 3 - Climbed onto bar | Number | 2 |
+| data.lift | 0 - Did not do anything for lifting. 1 - Deployed single ramp. 2 - deployed double ramp 3 - used ramp. 4 - Climbed onto bar 4 - Climbed onto bar with bar on bot  | Number | 2 |
 | data.actions | An array of JSON Objects, each with a timestamp property (`timestamp`) and an action id property (`action`). Action IDs are given below. | JSON Array | `[{ "timestamp": 123456789, "action": "0_7_28" }, { "timestamp": 123456790, "action": "0_2_345" } ]` |
 
 Action IDs:
@@ -141,11 +171,14 @@ Action IDs:
 | 0_1_3 | Pvt. | Get Block | Get block from **Home Power Cube Line** |
 | 0_1_4 | Pvt. | Get Block | Get block from **Away Power Cube Line** |
 | 10_0_0 | Sgt. | Tilt | The **Red Switch** is tilted in favor of the **red team** |
-| 10_0_1 | Sgt. | Tilt | The **Red Switch** is tilted in favor of the **blue team** |
-| 10_0_2 | Sgt. | Tilt | The **Scale** is tilted in favor of the **red team** |
-| 10_0_3 | Sgt. | Tilt | The **Scale** is tilted in favor of the **blue team** |
-| 10_0_4 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of the **red team** |
-| 10_0_5 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of the **blue team** |
+| 10_0_1 | Sgt. | Tilt | The **Red Switch** is tilted in favor of **neither team** |
+| 10_0_2 | Sgt. | Tilt | The **Red Switch** is tilted in favor of the **blue team** |
+| 10_0_3 | Sgt. | Tilt | The **Scale** is tilted in favor of the **red team** |
+| 10_0_4 | Sgt. | Tilt | The **Scale** is tilted in favor of **neither team** |
+| 10_0_5 | Sgt. | Tilt | The **Scale** is tilted in favor of the **blue team** |
+| 10_0_6 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of the **red team** |
+| 10_0_7 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of **neither team** |
+| 10_0_8 | Sgt. | Tilt | The **Blue Switch** is tilted in favor of the **blue team** |
 | 10_1_0 | Sgt. | Power Up | The **red** team used the **force** power up |
 | 10_1_1 | Sgt. | Power Up | The **blue** team used the **force** power up |
 | 10_1_2 | Sgt. | Power Up | The **red** team used the **block** power up |
