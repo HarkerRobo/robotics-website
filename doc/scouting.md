@@ -81,10 +81,10 @@ Explanation:
 #### 404 Error Response
 Given if the param `<round>` does not exist in the tournament.
 
-Data type: JSON
-Status code: 404
-Data:
-```json
+Data type: JSON  
+Status code: 404  
+Data:  
+```json 
 {
   "success": false,
   "error": {
@@ -96,9 +96,9 @@ Data:
 #### 422 Error Response
 Given if the param `<round>` is not an integer.
 
-Data type: JSON
-Status code: 422
-Data:
+Data type: JSON  
+Status code: 422  
+Data:  
 ```json
 {
   "success": false,
