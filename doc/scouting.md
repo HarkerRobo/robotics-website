@@ -128,7 +128,17 @@ POST body:
     "crossed_line": true,
     "end_platform": false,
     "lift": 2,
-    "actions": [
+    "auton-actions": [
+      {
+        "timestamp": 123456789,
+        "action": "0_7_28"
+      },
+      {
+        "timestamp": 123456790,
+        "action": "0_2_345"
+      }
+    ],
+    "teleop-actions": [
       {
         "timestamp": 123456789,
         "action": "0_7_28"
