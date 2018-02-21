@@ -12,7 +12,7 @@ const stages = {
 const roundSchema = mongoose.Schema({
   // the robotics tournament that the competition is in
   tournament: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: 'Tournament',
     required: true,
   },
@@ -23,7 +23,7 @@ const roundSchema = mongoose.Schema({
   },
   // the email of the squad leader for this round
   sergeant: String,
-  sergeant_data: Object
+  sergeant_data: Object,
   // number: the team number of the specific team
   // scout: the email of the person scouting said team
   // data: the data given by the scout for that team
@@ -87,7 +87,7 @@ const roundSchema = mongoose.Schema({
   */
   stage: {
     type: Number,
-    default: round.not_started,
+    default: stages.not_started,
   },
 }, { timestamps: true })
 

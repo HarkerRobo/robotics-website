@@ -13,7 +13,7 @@ const express = require('express'),
     private: 0,
   },
 
-  User = require('../../model/user'),
+  User = require('../../models/user'),
   Tournament = require('../../models/tournament'),
   Round = require('../../models/round')
 
@@ -59,7 +59,7 @@ router.get('/', (req, res) => {
 */
 router.get('/request/:round', (req, res) => {
   if (!Number.isInteger(req.params.round)) {
-    return (new ScoutingError(422, 'Round must be an integer' })).sendTo(res)
+    return (new ScoutingError(422, 'Round must be an integer' )).sendTo(res)
   }
   // Find current tournament
   Tournament.getCurrentTournament()
