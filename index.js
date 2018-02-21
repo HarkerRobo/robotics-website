@@ -134,9 +134,11 @@ function errorHandler(err, req, res, next) {
 
 
 const port = config.server.port || 80
-app.listen(port, () => {
+const server = app.listen(port, () => {
   console.log()
   console.log("--- WEBSERVER ON ---")
   console.log("Listening at http://" + config.server.domain + ':' + port)
   console.log()
+}).on('error', (err) => {
+  console.error('Connection error:', err);
 })
