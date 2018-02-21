@@ -58,7 +58,8 @@ router.get('/', (req, res) => {
   More documentation at Routes > Request Spot
 */
 router.get('/request/:round', (req, res) => {
-  if (!Number.isInteger(req.params.round)) {
+  const round = parseInt(req.params.round, 10)
+  if (isNaN(round)) {
     return (new ScoutingError(422, 'Round must be an integer' )).sendTo(res)
   }
   // Find current tournament
@@ -66,7 +67,7 @@ router.get('/request/:round', (req, res) => {
   .then(tournament => {
     return Round.findOne({
       tournament: tournament._id,
-      number: req.params.round
+      number: round
     })
   })
   .then(round => {
@@ -116,7 +117,7 @@ router.get('/request/:round', (req, res) => {
   Clients call this route for each round to upload the data they collected
   More documentation at Routes > Upload Data
 */
-router.post('/member/scouting/upload', (req, res) => {
+router.post('/upload', (req, res) => {
   // check if headers are set
   if (!req.body.headers) {
     return (new ScoutingError(422, 'POST body headers not set')).sendTo(res)
