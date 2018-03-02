@@ -87,7 +87,7 @@ const roundSchema = mongoose.Schema({
   */
   stage: {
     type: Number,
-    default: stages.not_started,
+    default: 0, //stages.not_started,
   },
 }, { timestamps: true })
 

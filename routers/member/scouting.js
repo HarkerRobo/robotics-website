@@ -34,17 +34,16 @@ class ScoutingError extends Error {
   }
 }
 
-const handleScoutingError = (req, res, status, context) => {
-  return error => {
-    if (error instanceof ScoutingError) error.sendTo(res)
-    else res.status(status || 500).json({
-      success: false,
-      error: {
-        message: error,
-        context: context || "",
-      },
-    })
-  }
+const handleScoutingError = (req, res, status, context) => error => {
+  console.log('[ERROR]', error)
+  if (error instanceof ScoutingError) error.sendTo(res)
+  else res.status(status || 500).json({
+    success: false,
+    error: {
+      message: error,
+      context: context || "",
+    },
+  })
 }
 
 router.get('/', (req, res) => {
@@ -65,25 +64,31 @@ router.get('/request/:round', (req, res) => {
   // Find current tournament
   Tournament.getCurrentTournament()
   .then(tournament => {
+    console.log('[DEBUG] checkpoint a')
     return Round.findOne({
       tournament: tournament._id,
       number: round
-    })
+    }).populate('tournament')
   })
   .then(round => {
+    console.log('[DEBUG] checkpoint b')
     if (round == null) {
+      console.log('[DEBUG] wtf')
       throw new ScoutingError(404, 'Round does not exist')
     }
+    console.log('[DEBUG] checkpoint c')
+    const tournament = round.tournament;
     const tournament_info = {
       year: tournament.year,
       name: tournament.name,
       id: tournament._id
     }
+    console.log('[DEBUG] checkpoint d')
     // if the user can be a sergeant and the sergeant hasn't been set yet
     if (req.auth.level >= ranks.scouting_sergeants && typeof round.sergeant !== undefined) {
       round.sergeant = req.auth.info.email
       return round.save()
-      .then(() => Round.setRoundAwatingScouts(tournament._id, round.number))
+      //.then(() => Round.setRoundAwatingScouts(tournament._id, round.number))
       .then(() => {
         res.send({
           tournament: tournament_info,
