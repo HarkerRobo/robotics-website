@@ -91,7 +91,60 @@ const roundSchema = mongoose.Schema({
   },
 }, { timestamps: true })
 
+// TODO: use toLowerCase
+roundSchema.methods.findEmail = (email) => {
+  if (this.red.team1.scout === email) {
+    this.red.team1.scout = email
+    return {
+      blue: false,
+      team: this.red.team1.number,
+    }
+  }
+  if (this.red.team2.scout === email) {
+    this.red.team2.scout = email
+    return {
+      blue: false,
+      team: this.red.team2.number,
+    }
+  }
+  if (this.red.team3.scout === email) {
+    this.red.team3.scout = email
+    return {
+      blue: false,
+      team: this.red.team3.number,
+    }
+  }
+
+  if (this.blue.team1.scout === email) {
+    this.blue.team1.scout = email
+    return {
+      blue: true,
+      team: this.blue.team1.number,
+    }
+  }
+  if (this.blue.team2.scout === email) {
+    this.blue.team2.scout = email
+    return {
+      blue: true,
+      team: this.blue.team2.number,
+    }
+  }
+  if (this.blue.team3.scout === email) {
+    this.blue.team3.scout = email
+    return {
+      blue: true,
+      team: this.blue.team3.number,
+    }
+  }
+
+  return false
+}
+
 roundSchema.methods.requestSpot = (email) => {
+  if (this.findEmail(email) !== false) {
+    return Promise.resolve(this.findEmail(email))
+  }
+
   if (typeof this.red.team1.scout === 'undefined') {
     this.red.team1.scout = email
     return this.save()
