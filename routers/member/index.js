@@ -78,10 +78,12 @@ const verifyIdToken = token => {
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // handles google sign-in tokens given from client
+//
+// req.body.idtoken - the given idtoken
 router.post('/token', function (req, res) {
 
   let token = req.body.idtoken
-  if (token === undefined) {
+  if (!token) {
     res.status(400).send('No token given (must be given in POST body as `idtoken`)')
     return
   }
