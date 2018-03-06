@@ -92,7 +92,7 @@ const roundSchema = mongoose.Schema({
 }, { timestamps: true })
 
 // TODO: use toLowerCase
-roundSchema.methods.findEmail = (email) => {
+roundSchema.methods.findEmail = function findEmail(email) {
   if (this.red.team1.scout === email) {
     this.red.team1.scout = email
     return {
@@ -140,9 +140,11 @@ roundSchema.methods.findEmail = (email) => {
   return false
 }
 
-roundSchema.methods.requestSpot = (email) => {
-  if (this.findEmail(email) !== false) {
-    return Promise.resolve(this.findEmail(email))
+roundSchema.methods.requestSpot = function requestSpot(email) {
+  const found = this.findEmail(email)
+
+  if (found !== false) {
+    return Promise.resolve(found)
   }
 
   if (typeof this.red.team1.scout === 'undefined') {
