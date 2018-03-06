@@ -35,11 +35,41 @@ Note that all URL's are proceded by the domain of the current website (https://r
 #### Request
 Method: `POST`  
 URL: `/member/token`  
+POST body:  
+```json
+{
+  "idtoken": "dsfjkljfksdfjsljdfkljdfkls"
+}
+```
+Explanation:
+
+You get the sign in token depending on the platform you are using. [This tutorial](https://developers.google.com/identity/) explains how to get it pretty well.
 
 #### Expected Response 
 Data type: text  
 Status code: 200  
 Data: `200 OK`
+
+#### 400 Error Response
+Error given when the token could not be validated by Google API.
+
+Data type: text  
+Status code: 400
+Data: `Some error occurred (ex. Token does not match Google Client ID)`
+
+#### 401 Error Response
+Error interfacing with the database while finding the user with email defined by `idtoken`.
+
+Data type: text  
+Status code: 401  
+Data: `Could not find user with email 19johnd@students.harker.org`
+
+#### 422 Error Response
+Error given when POST body is invalid
+
+Data type: text  
+Status code: 422  
+Data: `No token given (must be given in POST body as idtoken)`
 
 ### Request Spot
 #### Request: 
