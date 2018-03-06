@@ -84,7 +84,7 @@ router.post('/token', function (req, res) {
 
   let token = req.body.idtoken
   if (!token) {
-    res.status(400).send('No token given (must be given in POST body as `idtoken`)')
+    res.status(422).send('No token given (must be given in POST body as `idtoken`)')
     return
   }
 
@@ -141,14 +141,14 @@ router.post('/token', function (req, res) {
     // if there is an error, report and destroy the session
     .catch(err => {
       console.error('[ERROR] find user with email (token):', err)
-      res.status(500).send(err.toString())
+      res.status(401).send(err.toString())
       req.session.destroy()
     })
   })
   .catch(err => {
     console.error('[ERROR] validate token:', err)
     req.session.destroy(() => {
-      res.status(500).send(err.toString())
+      res.status(400).send(err.toString())
     })
   })
 
