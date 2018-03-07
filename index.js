@@ -48,10 +48,6 @@ app.use(clientErrorHandler)
 //TODO: Route mobile
 
 // use routers
-app.use(function(req, res, next) {
-  console.log("req.body =", req.body);
-  next();
-})
 if (config.server.runInternal) app.use('/member', memberRouter)
 if (config.blog.runBlog) app.use('/blog', blogsRouter)
 
@@ -97,15 +93,20 @@ app.get('*', function (req, res, next) {
   next('URL ' + req.originalUrl + ' Not Found')
 })
 
+let request_id = 0
 
 // functions
 function logRequests(req, res, next) {
   const ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+  req.request_id = request_id
+  request_id++
+
   console.log()
-  console.log('--- NEW REQUEST ---')
-  console.log('Time:', moment().format('MMMM Do YYYY, h:mm:ss a'), '(' + Date.now() + ')')
-  console.log('IP: ', ip)
-  console.log('Request:', req.originalUrl)
+  console.log(`--- NEW REQUEST: ${req.request_id} ---`)
+  console.log(`[REQ ${req.request_id}] Time: ${ moment().format('MMMM Do YYYY, h:mm:ss a')} (${Date.now()})`)
+  console.log(`[REQ ${req.request_id}] IP: ${ip}`)
+  console.log(`[REQ ${req.request_id}] Request: ${req.originalUrl}`)
+  console.log(`[REQ ${req.request_id}] req.body =`, req.body);
   next()
 }
 

@@ -8,8 +8,8 @@ const sessionAuth = (req, res, next) => {
 const verifyLogin = (req, res, next) => {
   sessionAuth(req, res, () => {
     if (req.auth.loggedin) {
-      console.log('Auth: ' + req.auth.info.name + ' (' + req.auth.info.email + ')')
-      console.log('Auth level: ' + req.auth.level)
+      console.log(`[REQ: ${req.request_id}] Authed as: ${req.auth.info.name} (${req.auth.info.email})`)
+      console.log(`[REQ: ${req.request_id}] Auth level: ${req.auth.level}`)
       next()
     } else {
       res.render('pages/member/login')
