@@ -133,19 +133,20 @@ router.get('/request/:round', (req, res) => {
 router.post('/upload', (req, res) => {
   // check if headers are set
   if (!req.body.headers) {
-    return (new ScoutingError(422, 'POST body headers not set')).sendTo(res)
+    console.log(`[REQ ${req.request_id}] [ERROR] /member/scouting/upload`, req.body.headers)
+    return (new ScoutingError(422, `POST body headers not set (req.body.headers = ${req.body.headers})`)).sendTo(res)
   }
   if (!req.body.headers.email) {
-    return (new ScoutingError(422, 'Email not set in POST body headers')).sendTo(res)
+    return (new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)).sendTo(res)
   }
   if (typeof req.body.headers.rank !== 'number') {
-    return (new ScoutingError(422, 'Rank not set in POST body headers')).sendTo(res)
+    return (new ScoutingError(422, `Rank not set in POST body headers (req.body.headers.rank = ${req.body.headers.rank})`)).sendTo(res)
   }
   if (typeof req.body.headers.round !== 'number') {
-    return (new ScoutingError(422, 'Round number not set in POST body headers')).sendTo(res)
+    return (new ScoutingError(422, `Round number not set in POST body headers (req.body.headers.round = ${req.body.headers.round})`)).sendTo(res)
   }
   if (typeof req.body.headers.tournament_id !== 'string') {
-    return (new ScoutingError(422, 'Tournament id not set in POST body headers')).sendTo(res)
+    return (new ScoutingError(422, `Tournament id not set in POST body headers (req.body.headers.tournament_id = ${req.body.headers.tournament_id})`)).sendTo(res)
   }
 
   if (!req.body.data) {
