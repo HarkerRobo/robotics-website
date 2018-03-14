@@ -167,8 +167,7 @@ router.delete('/token', function (req, res) {
 // must be logged in to see below pages
 router.all('/*', function (req, res, next) {
   if (req.auth.loggedin) {
-    console.log('Auth: ' + req.auth.info.name + ' (' + req.auth.info.email + ')')
-    console.log('Auth level: ' + req.auth.level)
+    console.log(`[REQ ${req.request_id}] Auth: \n\tName: ${req.auth.info.name} \n\tEmail: ${req.auth.info.email} \n\tLevel: ${req.auth.level}`)
     next()
   } else {
     res.render('pages/member/login')

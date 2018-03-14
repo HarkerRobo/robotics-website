@@ -37,7 +37,7 @@ if (config.server.production) app.set('trust proxy', 1)
 
 // http://cwe.mitre.org/data/definitions/693
 app.use(require('helmet')())
-app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('static'))
 app.use(compression())
 app.use(logRequests)
@@ -105,7 +105,7 @@ function logRequests(req, res, next) {
   console.log(`--- NEW REQUEST: ${req.request_id} ---`)
   console.log(`[REQ ${req.request_id}] Time: ${ moment().format('MMMM Do YYYY, h:mm:ss a')} (${Date.now()})`)
   console.log(`[REQ ${req.request_id}] IP: ${ip}`)
-  console.log(`[REQ ${req.request_id}] Request: ${req.originalUrl}`)
+  console.log(`[REQ ${req.request_id}] Request: ${req.method} ${req.originalUrl}`)
   console.log(`[REQ ${req.request_id}] req.body =`, req.body);
   next()
 }

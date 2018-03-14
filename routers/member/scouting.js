@@ -35,8 +35,8 @@ class ScoutingError extends Error {
 }
 
 const handleScoutingError = (req, res, status, context) => error => {
-  console.log('[ERROR]', error)
-  if (error instanceof ScoutingError) error.sendTo(res)
+  console.error(`[REQ ${req.request_id}] [ERROR] `, error instanceof Error ? error.stack : error)
+  if (error instanceof ScoutingError) error.sendTo(res, true)
   else res.status(status || 500).json({
     success: false,
     error: {
@@ -121,7 +121,7 @@ router.get('/request/:round', (req, res) => {
       })
     })
   })
-  .catch(handleScoutingError(req, res, 500, 'Finding current tournament'))
+  .catch(handleScoutingError(req, res, 500, `GET /member/request/${req.params.round}`))
 })
 
 
@@ -131,35 +131,36 @@ router.get('/request/:round', (req, res) => {
   More documentation at Routes > Upload Data
 */
 router.post('/upload', (req, res) => {
-  // check if headers are set
-  if (!req.body.headers) {
-    console.log(`[REQ ${req.request_id}] [ERROR] /member/scouting/upload`, req.body.headers)
-    return (new ScoutingError(422, `POST body headers not set (req.body.headers = ${req.body.headers})`)).sendTo(res)
-  }
-  if (!req.body.headers.email) {
-    return (new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)).sendTo(res)
-  }
-  if (typeof req.body.headers.rank !== 'number') {
-    return (new ScoutingError(422, `Rank not set in POST body headers (req.body.headers.rank = ${req.body.headers.rank})`)).sendTo(res)
-  }
-  if (typeof req.body.headers.round !== 'number') {
-    return (new ScoutingError(422, `Round number not set in POST body headers (req.body.headers.round = ${req.body.headers.round})`)).sendTo(res)
-  }
-  if (typeof req.body.headers.tournament_id !== 'string') {
-    return (new ScoutingError(422, `Tournament id not set in POST body headers (req.body.headers.tournament_id = ${req.body.headers.tournament_id})`)).sendTo(res)
-  }
+  Promise.resolve()
+  .then(() => {
+    // check if headers are set
+    if (!req.body.headers) {
+      throw new ScoutingError(422, `POST body headers not set (req.body.headers = ${req.body.headers})`)
+    }
+    if (!req.body.headers.email) {
+      throw new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)
+    }
+    if (typeof req.body.headers.rank !== 'number') {
+      throw new ScoutingError(422, `Rank not set in POST body headers (req.body.headers.rank = ${req.body.headers.rank})`)
+    }
+    if (typeof req.body.headers.round !== 'number') {
+      throw new ScoutingError(422, `Round number not set in POST body headers (req.body.headers.round = ${req.body.headers.round})`)
+    }
+    if (typeof req.body.headers.tournament_id !== 'string') {
+      throw new ScoutingError(422, `Tournament id not set in POST body headers (req.body.headers.tournament_id = ${req.body.headers.tournament_id})`)
+    }
 
-  if (!req.body.data) {
-    return (new ScoutingError(422, 'POST body data not set')).sendTo(res)
-  }
+    if (!req.body.data) {
+      throw new ScoutingError(422, 'POST body data not set')
+    }
 
-  // check if email in headers matches my email
-  if (req.body.headers.email.toLowerCase() !== req.auth.info.email.toLowerCase() && req.auth.info.level < ranks.scouting_sergeants) {
-    return (new ScoutingError(403, 'Email does not match login email')).sendTo(res)
-  }
-
+    // check if email in headers matches my email
+    if (req.body.headers.email.toLowerCase() !== req.auth.info.email.toLowerCase() && req.auth.info.level < ranks.scouting_sergeants) {
+      throw new ScoutingError(403, 'Email does not match login email')
+    }
+  })
   // find the user with said email
-  User.findOne({ email: req.body.headers.email.toLowerCase() })
+  .then(User.findOne({ email: req.body.headers.email.toLowerCase() }))
   .then(user => {
     if (user == null) {
       return new ScoutingError(422, `User with email ${req.body.headers.email} does not exist`)
@@ -168,16 +169,12 @@ router.post('/upload', (req, res) => {
       return new ScoutingError(401, `User is not authorized as a scouting sergeant`)
     }
   })
-  .catch(handleScoutingError(req, res, 500, `Finding user with email ${req.body.headers.email}`))
-
   // find the tournament and round
   .then(() => Tournament.findById(req.body.headers.tournament_id))
-  .catch(handleScoutingError(req, res, 404, `Finding tournament with id ${req.body.headers.tournament_id}`))
   .then(tournament => Round.findOne({
       tournament: tournament._id,
       number: req.body.headers.round,
   }))
-  .catch(handleScoutingError(req, res, 404, `Finding round with number ${req.body.headers.round} in tournament with id ${req.body.headers.tournament_id}`))
 
   // check if user requested this side and round
   .then(round => {
@@ -211,8 +208,7 @@ router.post('/upload', (req, res) => {
       return round.save()
     }
   })
-  .catch(handleScoutingError(req, res, 500, `Processing the data`))
-  .then(() => res.end())
+  .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
 })
 
 module.exports = router
