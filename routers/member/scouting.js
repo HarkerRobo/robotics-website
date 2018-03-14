@@ -140,10 +140,12 @@ router.post('/upload', (req, res) => {
     if (!req.body.headers.email) {
       throw new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)
     }
-    if (typeof req.body.headers.rank !== 'number') {
+    req.body.headers.rank = parseInt(req.body.headers.rank, 10)
+    if (isNaN(typeof req.body.headers.rank)) {
       throw new ScoutingError(422, `Rank not set in POST body headers (req.body.headers.rank = ${req.body.headers.rank})`)
     }
-    if (typeof req.body.headers.round !== 'number') {
+    req.body.headers.round = parseInt(req.body.headers.round, 10)
+    if (isNaN(req.body.headers.round)) {
       throw new ScoutingError(422, `Round number not set in POST body headers (req.body.headers.round = ${req.body.headers.round})`)
     }
     if (typeof req.body.headers.tournament_id !== 'string') {
