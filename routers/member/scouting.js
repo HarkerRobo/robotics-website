@@ -194,13 +194,13 @@ router.post('/upload', (req, res) => {
 
     // if the user is a private, check the spot
     else {
-      if (req.body.headers.blue) {
+      if (req.body.headers.blue === true || req.body.headers.blue === "true") {
         if      (round.blue.team1.number === req.body.headers.team) round.blue.team1.data = req.body.data
         else if (round.blue.team2.number === req.body.headers.team) round.blue.team2.data = req.body.data
         else if (round.blue.team3.number === req.body.headers.team) round.blue.team3.data = req.body.data
         else throw new ScoutingError(422, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
       }
-      else if (req.body.headers.red) {
+      else if (req.body.headers.blue === false || req.body.headers.blue === "false") {
         if      (round.red.team1.number === req.body.headers.team) round.red.team1.data = req.body.data
         else if (round.red.team2.number === req.body.headers.team) round.red.team2.data = req.body.data
         else if (round.red.team3.number === req.body.headers.team) round.red.team3.data = req.body.data
