@@ -15,21 +15,21 @@ for (var i = 0; i < 50; i++)
         number: 1000,
       },
       team2: {
-        number: 1000,
+        number: 1001,
       },
       team3: {
-        number: 1000,
+        number: 1002,
       },
     },
     red: {
       team1: {
-        number: 1000,
+        number: 1003,
       },
       team2: {
-        number: 1000,
+        number: 1004,
       },
       team3: {
-        number: 1000,
+        number: 1005,
       },
     },
   })
