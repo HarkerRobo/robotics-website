@@ -141,7 +141,7 @@ router.post('/upload', (req, res) => {
       throw new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)
     }
     req.body.headers.rank = parseInt(req.body.headers.rank, 10)
-    if (isNaN(typeof req.body.headers.rank)) {
+    if (isNaN(req.body.headers.rank)) {
       throw new ScoutingError(422, `Rank not set in POST body headers (req.body.headers.rank = ${req.body.headers.rank})`)
     }
     req.body.headers.round = parseInt(req.body.headers.round, 10)
