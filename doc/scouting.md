@@ -205,6 +205,7 @@ Action IDs:
 | 0_0_0 | Pvt. | Place Block | Place block on **Home switch** |
 | 0_0_1 | Pvt. | Place Block | Place block on **scale** |
 | 0_0_2 | Pvt. | Place Block | Place block on **Away switch** |
+| 0_0_3 | Pvt. | Place Block | Place block in **Vault** |
 | 0_1_0 | Pvt. | Get Block | Get block from **Home portal** |
 | 0_1_1 | Pvt. | Get Block | Get block from **Away portal** |
 | 0_1_2 | Pvt. | Get Block | Get block from **Power Cube Zone** |
