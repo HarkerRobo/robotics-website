@@ -133,6 +133,10 @@ function errorHandler(err, req, res, next) {
   res.render('pages/error', { statusCode: res.errCode || err.status || 500, error: err })
 }
 
+process.on('unhandledRejection', (reason, p) => {
+  console.log('[ERROR] Unhandled Rejection at:', p, '\nreason:', reason);
+})
+
 
 const port = config.server.port || 80
 const server = app.listen(port, () => {
