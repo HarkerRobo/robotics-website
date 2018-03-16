@@ -151,6 +151,10 @@ router.post('/upload', (req, res) => {
     if (typeof req.body.headers.tournament_id !== 'string') {
       throw new ScoutingError(422, `Tournament id not set in POST body headers (req.body.headers.tournament_id = ${req.body.headers.tournament_id})`)
     }
+    req.body.headers.team = parseInt(req.body.headers.team, 10)
+    if (isNaN(req.body.headers.team)) {
+      throw new ScoutingError(422, `Team number not set in POST body headers (req.body.headers.team = ${req.body.headers.team})`)
+    }
 
     if (!req.body.data) {
       throw new ScoutingError(422, 'POST body data not set')
