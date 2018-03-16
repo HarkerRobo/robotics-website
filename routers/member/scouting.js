@@ -214,6 +214,7 @@ router.post('/upload', (req, res) => {
       return round.save()
     }
   })
+  .then(() => res.end())
   .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
 })
 
