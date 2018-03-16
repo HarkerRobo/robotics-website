@@ -181,7 +181,6 @@ router.post('/upload', (req, res) => {
       tournament: tournament._id,
       number: req.body.headers.round,
   }))
-
   // check if user requested this side and round
   .then(round => {
     if (round == null) throw new ScoutingError(404, `Round number ${req.body.headers.round} does not exist in tournament with id ${req.body.headers.tournament_id}`)
