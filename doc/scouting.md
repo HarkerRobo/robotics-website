@@ -152,6 +152,7 @@ POST body:
     "team": 1072,
     "round": 55,
     "tournament_id": "59b1",
+    "forceUpload": false
   },
   "data": {
     "start_position": 50,
@@ -192,6 +193,7 @@ Explanation:
 | headers.team | The team the scouter is scouting | Number | 1072 |
 | headers.round | The round that the scouter is scouting for | Number | 55 | 
 | headers.tournament_id | The id of the tournament given by Request Spot | String | "59b1" |
+| headers.forceUpload | Optional. Whether to overwrite the data if it has already been saved | Boolean | false |
 | data.start_postion | The starting position given as a number, where the middle is zero, all the way on the right is 100, and all the way left is -100 | Number | 50 |
 | data.crossed_line | Whether the robot crossed the auto line during autonomous | Boolean | true |
 | data.end_platform | Whether the robot ended the round on the platform | Boolean | false |
