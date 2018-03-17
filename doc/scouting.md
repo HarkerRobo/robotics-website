@@ -235,15 +235,79 @@ Data type: text
 Status code: 200  
 Data: `200 OK`  
 
-## Websockets
-Client to Server
-### Set Match
-Message: `set_match`  
-Data:  
-`{ "match": 0 }`   
-Value of `match` sets the new round.
+#### 401 Error Response
+Given when the team member claims to be a sergeant (in the POST body headers) but is not authorized to be one.
 
-### Match Started
-Message: `start_match`
+Data type: JSON  
+Status code: 401  
+Data: 
+```json
+{ 
+  "success":false,
+  "error":{
+    "message": "User is not authorized as a scouting sergeant"
+  }
+}
+```
+
+#### 403 Error Response
+Given when the team member claims to be someone they are not (in the POST body headers), and they are not authorized as a sergeant.
+
+Data type: JSON  
+Status code: 403  
+Data: 
+```json
+{ 
+  "success":false,
+  "error":{
+    "message": "Email does not match login email"
+  }
+}
+```
+
+#### 404 Error Response
+Given when the team number, tournament, and round do not match in the database.
+
+Data type: JSON  
+Status code: 404  
+Data: 
+```json
+{ 
+  "success":false,
+  "error":{
+    "message": "Team with number 1000 not found in round 22 in tournament with id 5a98cdbf73054f6655a07c5c"
+  }
+}
+```
+
+#### 409 Error Response
+Given when the data has already been uploaded and `forceUpload` was not set to `true`.
+
+Data type: JSON  
+Status code: 409  
+Data: 
+```json
+{ 
+  "success":false,
+  "error":{
+    "message": "Data has already been uploaded for team 1000 on round 22 in tournament with id 5a98cdbf73054f6655a07c5c"
+  }
+}
+```
+
+#### 422 Error Response
+Given when the upload data is formatted incorrectly.
+
+Data type: JSON  
+Status code: 422  
+Data: 
+```json
+{ 
+  "success":false,
+  "error": {
+    "message": "Rank not set in POST body headers (req.body.headers.rank = undefined)"
+  }
+}
+ ```
 
 
