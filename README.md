@@ -22,7 +22,7 @@ This repository was created in the summer of 2016 by David Melisso to replace th
 
 The website uses [Node.js](https://nodejs.org/en/) for backend and [Bootstrap 3.3](http://getbootstrap.com/docs/3.3/) + [JQuery](http://jquery.com/) for the frontend. More info can be found in [the Setup section](#setup).
 
-The current VP of Website Design (abbreviated to webmaster) is [David Melisso](https://github.com/DJMCoder). The website can be found at http://robotics.harker.org/.
+The current VP of Website Design (abbreviated to webmaster) is [David Melisso](https://github.com/DJMCoder). The website can be found at https://robotics.harker.org/.
 
 ## Setup
 ### Install mongoDB
