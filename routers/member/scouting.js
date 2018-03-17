@@ -36,7 +36,7 @@ class ScoutingError extends Error {
 
 const handleScoutingError = (req, res, status, context) => error => {
   console.error(`[REQ ${req.request_id}] [ERROR] `, error instanceof Error ? error.stack : error)
-  if (error instanceof ScoutingError) error.sendTo(res, true)
+  if (error instanceof ScoutingError) error.sendTo(res)
   else res.status(status || 500).json({
     success: false,
     error: {
@@ -133,11 +133,13 @@ router.get('/request/:round', (req, res) => {
 router.post('/upload', (req, res) => {
   Promise.resolve()
   .then(() => {
+    console.log(typeof req.body.headers !== 'object')
+
     // check if headers are set
-    if (!req.body.headers) {
+    if (typeof req.body.headers !== 'object') {
       throw new ScoutingError(422, `POST body headers not set (req.body.headers = ${req.body.headers})`)
     }
-    if (!req.body.headers.email) {
+    if (typeof req.body.headers.email !== 'string') {
       throw new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)
     }
     req.body.headers.rank = parseInt(req.body.headers.rank, 10)
@@ -166,7 +168,7 @@ router.post('/upload', (req, res) => {
     }
   })
   // find the user with said email
-  .then(User.findOne({ email: req.body.headers.email.toLowerCase() }))
+  .then(() => User.findOne({ email: req.body.headers.email.toLowerCase() }))
   .then(user => {
     if (user == null) {
       return new ScoutingError(422, `User with email ${req.body.headers.email} does not exist`)
@@ -198,22 +200,30 @@ router.post('/upload', (req, res) => {
     // if the user is a private, check the spot
     else {
       if (req.body.headers.blue === true || req.body.headers.blue === "true") {
-        if      (round.blue.team1.number === req.body.headers.team) round.blue.team1.data = req.body.data
-        else if (round.blue.team2.number === req.body.headers.team) round.blue.team2.data = req.body.data
-        else if (round.blue.team3.number === req.body.headers.team) round.blue.team3.data = req.body.data
+        var team
+        if      (round.blue.team1.number === req.body.headers.team) team = "team1"
+        else if (round.blue.team2.number === req.body.headers.team) team = "team2"
+        else if (round.blue.team3.number === req.body.headers.team) team = "team3"
         else throw new ScoutingError(422, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
+
+        if (round.blue[team].data && !req.body.headers.forceUpload) throw new ScoutingError(409, `Data has already been uploaded for team ${req.body.headers.team} on round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
+        round.blue[team].data = req.body.data
       }
       else if (req.body.headers.blue === false || req.body.headers.blue === "false") {
-        if      (round.red.team1.number === req.body.headers.team) round.red.team1.data = req.body.data
-        else if (round.red.team2.number === req.body.headers.team) round.red.team2.data = req.body.data
-        else if (round.red.team3.number === req.body.headers.team) round.red.team3.data = req.body.data
+        var team
+        if      (round.red.team1.number === req.body.headers.team) team = "team1"
+        else if (round.red.team2.number === req.body.headers.team) team = "team2"
+        else if (round.red.team3.number === req.body.headers.team) team = "team3"
         else throw new ScoutingError(422, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
+
+        if (round.red[team].data && !req.body.headers.forceUpload) throw new ScoutingError(409, `Data has already been uploaded for team ${req.body.headers.team} on round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
+        round.red[team].data = req.body.data
       }
       else throw new ScoutingError(422, 'Blue not set in POST body headers')
       return round.save()
     }
   })
-  //.then(() => {res.end()})
+  .then(() => { res.end() })
   .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
 })
 

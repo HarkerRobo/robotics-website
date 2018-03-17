@@ -134,7 +134,7 @@ function errorHandler(err, req, res, next) {
 }
 
 process.on('unhandledRejection', (reason, p) => {
-  console.log('[ERROR] Unhandled Rejection at:', p, '\nreason:', reason);
+  console.log('[ERROR] Unhandled Rejection:', p);
 })
 
 
