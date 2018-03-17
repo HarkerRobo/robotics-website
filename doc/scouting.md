@@ -54,8 +54,8 @@ Data: `200 OK`
 Error given when the token could not be validated by Google API.
 
 Data type: text  
-Status code: 400
-Data: `Some error occurred (ex. Token does not match Google Client ID)`
+Status code: 400  
+Data: `Token does not match Google Client ID`
 
 #### 401 Error Response
 Error interfacing with the database while finding the user with email defined by `idtoken`.
