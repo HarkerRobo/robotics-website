@@ -133,7 +133,6 @@ router.get('/request/:round', (req, res) => {
 router.post('/upload', (req, res) => {
   Promise.resolve()
   .then(() => {
-    console.log(typeof req.body.headers !== 'object')
 
     // check if headers are set
     if (typeof req.body.headers !== 'object') {
@@ -204,7 +203,7 @@ router.post('/upload', (req, res) => {
         if      (round.blue.team1.number === req.body.headers.team) team = "team1"
         else if (round.blue.team2.number === req.body.headers.team) team = "team2"
         else if (round.blue.team3.number === req.body.headers.team) team = "team3"
-        else throw new ScoutingError(422, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
+        else throw new ScoutingError(409, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
 
         if (round.blue[team].data && !req.body.headers.forceUpload) throw new ScoutingError(409, `Data has already been uploaded for team ${req.body.headers.team} on round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
         round.blue[team].data = req.body.data
@@ -214,7 +213,7 @@ router.post('/upload', (req, res) => {
         if      (round.red.team1.number === req.body.headers.team) team = "team1"
         else if (round.red.team2.number === req.body.headers.team) team = "team2"
         else if (round.red.team3.number === req.body.headers.team) team = "team3"
-        else throw new ScoutingError(422, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
+        else throw new ScoutingError(409, `Team with number ${req.body.headers.team} not found in round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
 
         if (round.red[team].data && !req.body.headers.forceUpload) throw new ScoutingError(409, `Data has already been uploaded for team ${req.body.headers.team} on round ${round.number} in tournament with id ${req.body.headers.tournament_id}`)
         round.red[team].data = req.body.data
@@ -223,7 +222,7 @@ router.post('/upload', (req, res) => {
       return round.save()
     }
   })
-  .then(() => { res.end() })
+  .then(() => { res.send('200 OK') })
   .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
 })
 
