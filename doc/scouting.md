@@ -38,12 +38,15 @@ URL: `/member/token`
 POST body:  
 ```json
 {
-  "idtoken": "dsfjkljfksdfjsljdfkljdfkls"
+  "idtoken": "dsfjkljfksdfjsljdfkljdfkls",
+  "android": false,
 }
 ```
 Explanation:
 
 You get the sign in token depending on the platform you are using. [This tutorial](https://developers.google.com/identity/) explains how to get it pretty well.
+
+If you are logging in from an Android device, set the value of `"android"` to `true`.
 
 #### Expected Response 
 Data type: text  
