@@ -8,6 +8,7 @@ const express = require('express'),
   nodemailer = require('nodemailer'),
   xss = require('xss'),
   csrf = require('csurf'),
+  {OAuth2Client} = require('google-auth-library'),
 
   Purchase = require('../../models/purchase'),
   User = require('../../models/user'),
@@ -18,7 +19,8 @@ const express = require('express'),
   router = express.Router(),
   smtpConfig = config.automail,
   transporter = nodemailer.createTransport(smtpConfig),
-  csrfProtection = csrf({ cookie: true })
+  csrfProtection = csrf({ cookie: true }),
+  client = new OAuth2Client(config.google.clientIDs)
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
@@ -36,17 +38,16 @@ router.use(session)
 router.use(auth.sessionAuth)
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
-// android - true when the request came from an android
-const verifyIdToken = (token, android) => {
-  if (typeof android === 'undefined') android = false
-  else if (android === 'true') android = true
-  else if (android != true) android = false
+async function verifyIdToken(token) {
+  return (await client.verifyIdToken({
+      idToken: token,
+      audience: config.google.clientIDs,
+  })).getPayload();
 
-  if (android === true) console.log('[API TOKEN] ANDROID OVERRIDE')
+  /*return new Promise((resolve, reject) => {
 
-  return new Promise((resolve, reject) => {
     let data = ""
-    const req_path = `/oauth2/v3/tokeninfo?${android ? 'access_token' : 'id_token'}=${token}`
+    const req_path = `/oauth2/v3/tokeninfo?id_token=${token}`
     console.log('[API TOKEN] path: ', req_path)
     let request = https.request({
         hostname: 'www.googleapis.com',
@@ -83,6 +84,7 @@ const verifyIdToken = (token, android) => {
     }).on('error', reject)
     request.end()
   })
+  */
 }
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
@@ -99,9 +101,9 @@ router.post('/token', function (req, res) {
   }
 
   // send to google
-  verifyIdToken(token, req.body.android)
+  verifyIdToken(token)
   .then(data => {
-    console.log('[DATA]', data)
+
 
     req.session.auth = {
       loggedin: true,
@@ -119,7 +121,7 @@ router.post('/token', function (req, res) {
     }
 
     // find the user with the email
-    User.findOne({ email: data.email.toLowerCase() })
+    return User.findOne({ email: data.email.toLowerCase() })
     .then(user => {
 
 
