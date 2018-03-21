@@ -103,7 +103,7 @@ router.post('/token', function (req, res) {
   // send to google
   verifyIdToken(token)
   .then(data => {
-
+    console.log(`[REQ ${req.request_id}] [TOKEN] `, data)
 
     req.session.auth = {
       loggedin: true,
