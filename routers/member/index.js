@@ -103,7 +103,7 @@ router.post('/token', function (req, res) {
   // send to google
   verifyIdToken(token)
   .then(data => {
-    console.log(`[REQ ${req.request_id}] [TOKEN] `, data)
+    console.log(`[REQ ${req.request_id}] [TOKEN]`, data)
 
     req.session.auth = {
       loggedin: true,
@@ -152,13 +152,13 @@ router.post('/token', function (req, res) {
 
     // if there is an error, report and destroy the session
     .catch(err => {
-      console.error('[ERROR] find user with email (token):', err)
+      console.error(`[REQ ${req.request_id}] [ERROR] find user with email (token):`, err)
       res.status(401).send(err.toString())
       req.session.destroy()
     })
   })
   .catch(err => {
-    console.error('[ERROR] validate token:', err)
+    console.error(`[REQ ${req.request_id}] [ERROR] validate token:`, err)
     req.session.destroy(() => {
       res.status(400).send(err.toString())
     })
