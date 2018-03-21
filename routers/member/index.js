@@ -42,9 +42,12 @@ const verifyIdToken = (token, android) => {
   else if (android === 'true') android = true
   else if (android != true) android = false
 
+  if (android === true) console.log('[API TOKEN] ANDROID OVERRIDE')
+
   return new Promise((resolve, reject) => {
     let data = ""
     const req_path = `/oauth2/v3/tokeninfo?${android ? 'access_token' : 'id_token'}=${token}`
+    console.log('[API TOKEN] path: ', req_path)
     let request = https.request({
         hostname: 'www.googleapis.com',
         port: 443,
