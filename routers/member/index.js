@@ -38,7 +38,9 @@ router.use(auth.sessionAuth)
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // android - true when the request came from an android
 const verifyIdToken = (token, android) => {
-  if (typeof android === 'undefined' || android != true) android = false
+  if (typeof android === 'undefined') android = false
+  else if (android === 'true') android = true
+  else if (android != true) android = false
 
   return new Promise((resolve, reject) => {
     let data = ""
