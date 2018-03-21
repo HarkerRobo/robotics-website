@@ -36,13 +36,17 @@ router.use(session)
 router.use(auth.sessionAuth)
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
-const verifyIdToken = token => {
+// android - true when the request came from an android
+const verifyIdToken = (token, android) => {
+  if (typeof android === 'undefined' || android != true) android = false
+
   return new Promise((resolve, reject) => {
     let data = ""
+    const req_path = `/oauth2/v3/tokeninfo?${android ? 'access_token' : 'id_token'}=${token}`
     let request = https.request({
         hostname: 'www.googleapis.com',
         port: 443,
-        path: '/oauth2/v3/tokeninfo?id_token='+token,
+        path: req_path,
         method: 'GET'
       }, (result, err) => {
         if (err) {
@@ -80,6 +84,7 @@ const verifyIdToken = token => {
 // handles google sign-in tokens given from client
 //
 // req.body.idtoken - the given idtoken
+// req.body.android - (optional) whether the given phone is an android
 router.post('/token', function (req, res) {
 
   let token = req.body.idtoken
@@ -89,7 +94,7 @@ router.post('/token', function (req, res) {
   }
 
   // send to google
-  verifyIdToken(token)
+  verifyIdToken(token, req.body.android)
   .then(data => {
     console.log('[DATA]', data)
 
