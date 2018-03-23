@@ -32,6 +32,13 @@ const req = require('https').request(options, (res) => {
 
   res.on('end', () => {
     console.log(data)
+
+    if (res.statusCode !== 200) {
+      console.error('There was an error')
+      console.error(data);
+      process.exit(1)
+    }
+
     data = JSON.parse(data);
 
     let promises = [];
