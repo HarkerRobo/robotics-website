@@ -52,13 +52,16 @@ async function cfetch(url, options) {
 }
 
 (async () => {
-    const match = 1; //Number(prompt('Match number'));
+    const match = Number(prompt('Match number'));
     const json = await cfetch(`/member/scouting/request/${match}`);
     const TOURN_ID = json.tournament.id
     const RANK = json.scouting.rank
     const ROUND = json.scouting.round
     const BLUE = json.scouting.blue
     const TEAM = json.scouting.team
+
+    document.getElementById('match').innerHTML = 'Match ' + match
+    document.getElementById('team').innerHTML = 'Team ' + TEAM
 
     document.getElementById('autonslider').classList.add(BLUE ? 'blue' : 'red')
 
@@ -73,7 +76,7 @@ async function cfetch(url, options) {
     document.getElementById('go').addEventListener('click', () => {
         let start_position = document.getElementById('autonslider').value
         if (!BLUE) start_position *= -1
-        let time = 3;
+        let time = 15;
         let auton = true;
         document.getElementById('autonslider').style.display = 'none'
         setInterval(() => {
@@ -81,7 +84,7 @@ async function cfetch(url, options) {
             if (time == 0) {
                 if (auton) {
                     auton = false;
-                    time = 3;
+                    time = 135;
                 } else {
                     finalize({
                         headers: {
@@ -90,8 +93,9 @@ async function cfetch(url, options) {
                             team: TEAM,
                             round: ROUND,
                             tournament_id: TOURN_ID,
-                            forceUpload: true
+                            forceUpload: false
                         }, data: {
+                            web: true,
                             start_position: start_position,
                         }
                     });
@@ -101,35 +105,45 @@ async function cfetch(url, options) {
             document.getElementById('clock').innerHTML = `${Math.floor(time/60)}:${time%60}`
         }, 1000)
 
-        document.getElementById('scale').addEventListener('click', () => {
+        document.getElementById('scale').addEventListener('click', function() {
             (auton ? autonActions : teleopActions).push({
                 timestamp: Date.now(),
                 action: '0_0_1'
             })
+            this.querySelector('.counter').innerHTML =
+                Number(this.querySelector('.counter').innerHTML) + 1
         });
-        document.getElementById('red-switch').addEventListener('click', () => {
+        document.getElementById('red-switch').addEventListener('click', function() {
             (auton ? autonActions : teleopActions).push({
                 timestamp: Date.now(),
                 action: BLUE ? '0_0_2' : '0_0_0'
             })
+            this.querySelector('.counter').innerHTML =
+                Number(this.querySelector('.counter').innerHTML) + 1
         });
-        document.getElementById('blue-switch').addEventListener('click', () => {
+        document.getElementById('blue-switch').addEventListener('click', function() {
             (auton ? autonActions : teleopActions).push({
                 timestamp: Date.now(),
                 action: BLUE ? '0_0_0' : '0_0_2'
             })
+            this.querySelector('.counter').innerHTML =
+                Number(this.querySelector('.counter').innerHTML) + 1
         });
-        document.getElementById('red-loading-area').addEventListener('click', () => {
+        document.getElementById('red-loading-area').addEventListener('click', function() {
             (auton ? autonActions : teleopActions).push({
                 timestamp: Date.now(),
                 action: '0_0_3'
             })
+            this.querySelector('.counter').innerHTML =
+                Number(this.querySelector('.counter').innerHTML) + 1
         });
-        document.getElementById('blue-loading-area').addEventListener('click', () => {
+        document.getElementById('blue-loading-area').addEventListener('click', function() {
             (auton ? autonActions : teleopActions).push({
                 timestamp: Date.now(),
                 action: '0_0_3'
             })
+            this.querySelector('.counter').innerHTML =
+                Number(this.querySelector('.counter').innerHTML) + 1
         });
     })
 })().catch((e) => {

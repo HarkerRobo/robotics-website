@@ -90,8 +90,8 @@ border-right: 1px black solid;
 border-left: 2px black solid;
 left: 10%;
 outline: none;
+cursor: pointer;
 }
-
 #red-loading-area:active {
     background: rgba(255,0,0,0.7);
 }
@@ -108,6 +108,11 @@ position: absolute;
 border-right: 2px black solid;
 border-left: 1px black solid;
 right: 10%;
+outline: none;
+cursor: pointer;
+}
+#blue-loading-area:active {
+    backgorund: rgba(0,0,255,0.7);
 }
 
 .switch {
@@ -128,6 +133,11 @@ background: repeating-linear-gradient(
     rgba(0,0,0,0) 10px,
     rgba(0,0,0,0) 20px
 );
+outline: none;
+cursor: pointer;
+}
+#red-switch:active {
+    background: rgba(255,0,0,0.7);
 }
 
 #blue-switch {
@@ -139,6 +149,11 @@ background: repeating-linear-gradient(
     rgba(0,0,0,0) 10px,
     rgba(0,0,0,0) 20px
 );
+outline: none;
+cursor: pointer;
+}
+#blue-switch:active {
+    background: rgba(0,0,255,0.7);
 }
 
 #scale {
@@ -156,16 +171,33 @@ background: repeating-linear-gradient(
 );
 border: solid 1px black;
 display: none;
+outline: none;
+cursor: pointer;
+}
+#scale:active {
+    background: rgba(128,0,128,0.7);
 }
 
-#clock {
+#clock, #match, #team {
     position: absolute;
     top: 8px;
     left: 0;
     right: 0;
-    text-align: center;
     font-size: 1.5em;
     color: #FFF;
+    padding: 0 10px;
+}
+
+#clock {
+    text-align: center;
+}
+
+#match {
+    text-align: left;
+}
+
+#team {
+    text-align: right;
 }
 
 #go {
@@ -178,14 +210,16 @@ display: none;
 }
 
 #autonslider {
-    width: 20px;
-    margin-left: -10px;
-    margin-right: -10px;
+    width: 40px;
+    margin-left: -20px;
+    margin-right: -20px;
     position: absolute;
     top: 0;
     bottom: 0;
-    writing-mode: bt-lr; /* IE */
-    -webkit-appearance: slider-vertical; /* WebKit */
+    writing-mode: bt-lr;
+    -webkit-appearance: slider-vertical;
+    height: 100%;
+    outline: none;
 }
 
 #autonslider.red {
@@ -200,4 +234,11 @@ display: none;
     display: none;
 }
 
-
+.counter {
+    position: relative;
+    top: -26px;
+    display: block;
+    text-align: center;
+    color: #fff;
+    font-weight: 500;
+}

@@ -10,15 +10,17 @@
   </head>
   <body>
     <div id="main">
+      <div id="match"></div>
       <div id="clock">0:15</div>
+      <div id="team"></div>
       <div id="scouting">
         <div id="field">
           <div class="work-area" id="red-area"></div>
-          <div class="loading-area" id="red-loading-area" tabindex="-1"></div>
-          <div class="switch" id="red-switch" tabindex="-1"></div>
-          <div id="scale" tabindex="-1"></div>
-          <div class="loading-area" id="blue-loading-area" tabindex="-1"></div>
-          <div class="switch" id="blue-switch" tabindex="-1"></div>
+          <div class="loading-area" id="red-loading-area" tabindex="-1"><span class="counter">0</span></div>
+          <div class="switch" id="red-switch" tabindex="-1"><span class="counter">0</span></div>
+          <div id="scale" tabindex="-1"><span class="counter">0</span></div>
+          <div class="loading-area" id="blue-loading-area" tabindex="-1"><span class="counter">0</span></div>
+          <div class="switch" id="blue-switch" tabindex="-1"><span class="counter">0</span></div>
           <div class="work-area" id="blue-area" tabindex="-1"></div>
           <input id="autonslider" orient="vertical" type="range" value="0" min="-100" max="100"/>
         </div>
