@@ -200,7 +200,7 @@ cursor: pointer;
     text-align: right;
 }
 
-#go {
+#go, #undo {
     font-size: 1.5em;
     position: absolute;
     width: 100px;
@@ -208,6 +208,8 @@ cursor: pointer;
     left: 50%;
     bottom: 8px;
 }
+
+#undo { display: none; }
 
 #autonslider {
     width: 40px;

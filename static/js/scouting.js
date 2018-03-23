@@ -9,6 +9,7 @@ mql.addListener(function(m) {
 
 let autonActions = []
 let teleopActions = []
+let undoStack = []
 
 class NiceError extends Error {
     constructor(message) {
@@ -82,6 +83,7 @@ async function enter(match) {
         let auton = true;
         document.getElementById('autonslider').style.display = 'none'
         document.getElementById('go').style.display = 'none'
+        document.getElementById('undo').style.display = 'block'
         setInterval(() => {
             time -= 1;
             if (time == 0) {
@@ -110,48 +112,32 @@ async function enter(match) {
             document.getElementById('clock').innerHTML = `${Math.floor(time/60)}:${seconds}`
         }, 1000)
 
-        document.getElementById('scale').addEventListener('click', function() {
-            (auton ? autonActions : teleopActions).push({
-                timestamp: Date.now(),
-                action: '0_0_1'
+        function clicky(id, action) {
+            document.getElementById(id).addEventListener('click', function() {
+                const arr = (auton ? autonActions : teleopActions)
+                item = {
+                    timestamp: Date.now(), action
+                }
+                arr.push(item)
+                const counter = this.querySelector('.counter')
+                counter.innerHTML = Number(counter.innerHTML) + 1
+                undoStack.push({ arr, item, counter })
             })
-            this.querySelector('.counter').innerHTML =
-                Number(this.querySelector('.counter').innerHTML) + 1
-        });
-        document.getElementById('red-switch').addEventListener('click', function() {
-            (auton ? autonActions : teleopActions).push({
-                timestamp: Date.now(),
-                action: BLUE ? '0_0_2' : '0_0_0'
-            })
-            this.querySelector('.counter').innerHTML =
-                Number(this.querySelector('.counter').innerHTML) + 1
-        });
-        document.getElementById('blue-switch').addEventListener('click', function() {
-            (auton ? autonActions : teleopActions).push({
-                timestamp: Date.now(),
-                action: BLUE ? '0_0_0' : '0_0_2'
-            })
-            this.querySelector('.counter').innerHTML =
-                Number(this.querySelector('.counter').innerHTML) + 1
-        });
-        document.getElementById('red-loading-area').addEventListener('click', function() {
-            (auton ? autonActions : teleopActions).push({
-                timestamp: Date.now(),
-                action: '0_0_3'
-            })
-            this.querySelector('.counter').innerHTML =
-                Number(this.querySelector('.counter').innerHTML) + 1
-        });
-        document.getElementById('blue-loading-area').addEventListener('click', function() {
-            (auton ? autonActions : teleopActions).push({
-                timestamp: Date.now(),
-                action: '0_0_3'
-            })
-            this.querySelector('.counter').innerHTML =
-                Number(this.querySelector('.counter').innerHTML) + 1
-        });
+        }
+
+        clicky('scale', '0_0_1')
+        clicky('red-switch', BLUE ? '0_0_2' : '0_0_0')
+        clicky('blue-switch', BLUE ? '0_0_0' : '0_0_2')
+        clicky('red-loading-area', '0_0_3')
+        clicky('blue-loading-area', '0_0_3')
     })
 }
+
+document.getElementById('undo').addEventListener('click', () => {
+    const lastUndo = undoStack.pop()
+    lastUndo.arr.splice(lastUndo.arr.indexOf(lastUndo.item), 1)
+    lastUndo.counter.innerHTML = Number(lastUndo.counter.innerHTML) - 1
+})
 
 function finalize(data) {
     document.getElementById('main').style.display = 'none'
