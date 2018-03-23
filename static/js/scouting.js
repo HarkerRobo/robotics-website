@@ -102,7 +102,9 @@ async function cfetch(url, options) {
                     return;
                 }
             }
-            document.getElementById('clock').innerHTML = `${Math.floor(time/60)}:${time%60}`
+            let seconds = String(time%60);
+            if (seconds.length == 1) seconds = '0' + seconds;
+            document.getElementById('clock').innerHTML = `${Math.floor(time/60)}:${seconds}`
         }, 1000)
 
         document.getElementById('scale').addEventListener('click', function() {
