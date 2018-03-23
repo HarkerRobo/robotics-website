@@ -3,6 +3,7 @@
 // view documentation in /doc/scouting.md
 // https://github.com/HarkerRobo/robotics-website/blob/main/doc/scouting.md
 
+const bodyParser = require('body-parser')
 const express = require('express'),
   router = express.Router(),
   io = require('socket.io')(),
@@ -148,7 +149,7 @@ router.get('/request/:round', (req, res) => {
   Clients call this route for each round to upload the data they collected
   More documentation at Routes > Upload Data
 */
-router.post('/upload', (req, res) => {
+router.post('/upload', bodyParser.json(), (req, res) => {
   Promise.resolve()
   .then(() => {
 
@@ -157,7 +158,8 @@ router.post('/upload', (req, res) => {
       throw new ScoutingError(422, `POST body headers not set (req.body.headers = ${req.body.headers})`)
     }
     if (typeof req.body.headers.email !== 'string') {
-      throw new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)
+      req.body.headers.email = req.auth.info.email
+      // throw new ScoutingError(422, `Email not set in POST body headers (req.body.headers.email = ${req.body.headers.email})`)
     }
     req.body.headers.rank = parseInt(req.body.headers.rank, 10)
     if (isNaN(req.body.headers.rank)) {
