@@ -143,6 +143,299 @@ router.get('/request/:round', (req, res) => {
   .catch(handleScoutingError(req, res, 500, `GET /member/request/${req.params.round}`))
 })
 
+async function findTeamRounds(number, tournament_id) {
+  if (!tournament_id) {
+    tournament_id = await Tournament.getCurrentTournament()
+  }
+
+  let res = []
+  await Round.find({ 'red.team1.number':  number, tournament: tournament_id }).then(rounds => {
+    for (const round of rounds) {
+      res.push({
+        roundNumber: round.number,
+        blue: false,
+        teamPlacementNumber: 1,
+      })
+    }
+  })
+  await Round.find({ 'red.team2.number':  number, tournament: tournament_id }).then(rounds => {
+    for (const round of rounds) {
+      res.push({
+        roundNumber: round.number,
+        blue: false,
+        teamPlacementNumber: 2,
+      })
+    }
+  })
+  await Round.find({ 'red.team3.number':  number, tournament: tournament_id }).then(rounds => {
+    for (const round of rounds) {
+      res.push({
+        roundNumber: round.number,
+        blue: false,
+        teamPlacementNumber: 3,
+      })
+    }
+  })
+  await Round.find({ 'blue.team1.number': number, tournament: tournament_id }).then(rounds => {
+    for (const round of rounds) {
+      res.push({
+        roundNumber: round.number,
+        blue: true,
+        teamPlacementNumber: 1,
+      })
+    }
+  })
+  await Round.find({ 'blue.team2.number': number, tournament: tournament_id }).then(rounds => {
+    for (const round of rounds) {
+      res.push({
+        roundNumber: round.number,
+        blue: true,
+        teamPlacementNumber: 2,
+      })
+    }
+  })
+  await Round.find({ 'blue.team3.number': number, tournament: tournament_id }).then(rounds => {
+    for (const round of rounds) {
+      res.push({
+        roundNumber: round.number,
+        blue: true,
+        teamPlacementNumber: 3,
+      })
+    }
+  })
+  return res
+}
+
+async function getDataOnTeam(teamNumber, tournament) {
+  if (!tournament) {
+    tournament = await Tournament.getCurrentTournament()
+  }
+  console.log('teamNumber:', teamNumber)
+  const rounds = await findTeamRounds(teamNumber, tournament)
+  const totalRounds = rounds.length
+
+  const dataList = []
+  console.log(rounds)
+  for (const round of rounds) {
+    //console.log(round)
+    const roundFound = await Round.findOne({ tournament, number: round.roundNumber })
+    const toData = roundFound[(round.blue ? 'blue' : 'red')]['team' + round.teamPlacementNumber].data
+    if (typeof toData !== 'undefined') {
+      if (typeof toData === 'string') {
+        try {
+          dataList.push(JSON.parse(toData))
+        }
+        catch(e) {
+          // do nothing
+        }
+      }
+      else if (typeof toData === 'object') {
+        dataList.push(toData)
+      }
+    }
+  }
+
+  console.log('dataList:', dataList)
+
+  let res = {
+    team: teamNumber,
+    numberRounds: dataList.length,
+    scale: {
+      max: 0,
+      total: 0,
+    },
+    homeSwitch: {
+      max: 0,
+      total: 0,
+    },
+    awaySwitch: {
+      max: 0,
+      total: 0,
+    },
+    vault: {
+      max: 0,
+      total: 0,
+    },
+    startingPosition: {
+      left: 0,
+      right: 0,
+      middle: 0,
+    },
+    auton: {
+      crossedLine: 0,
+      scale: 0,
+      homeSwitch: 0,
+      awaySwitch: 0,
+      vault: 0,
+    },
+    finish: {
+      totalPlatform: 0,
+      climb: {
+        total: 0,
+        totalUsingRamp: 0,
+      },
+      hasRamp: false,
+      hasBar: false,
+    },
+    comments: []
+  }
+
+  for (let data of dataList) {
+    console.log('[DEBUG] checkpoint a')
+    if (typeof data == 'string') {
+      try {
+        data = JSON.parse(data)
+      }
+      catch(e) {
+        console.log('[WARN] could not parse data')
+        res.numberRounds--
+        continue
+      }
+    }
+    if (typeof data !== 'object') {
+      res.numberRounds--
+      continue
+    }
+
+    let teleop = data['teleop-actions']
+    if (typeof teleop === 'string') {
+      try {
+        teleop = JSON.parse(teleop)
+      }
+      catch(e) {
+        console.log('[WARN] could not parse teleop')
+        res.numberRounds--
+        continue
+      }
+    }
+
+    let auton = data['auton-actions']
+    if (typeof auton === 'string') {
+      try {
+        auton = JSON.parse(auton)
+      }
+      catch(e) {
+        console.log('[WARN] could not parse auton')
+        res.numberRounds--
+        continue
+      }
+    }
+
+    // place blocks
+    let homeSwitch = 0
+    let scale = 0
+    let awaySwitch = 0
+    let vault = 0
+
+    console.log(auton)
+    for (const auton_action of auton) {
+      const action = auton_action.action
+
+      if (action == "0_0_0") {
+        res.auton.homeSwitch++
+        homeSwitch++
+      }
+      else if (action == "0_0_1") {
+        res.auton.scale++
+        scale++
+      }
+      else if (action == "0_0_2") {
+        res.auton.awaySwitch++
+        awaySwitch++
+      }
+      else if (action == "0_0_3") {
+        res.auton.vault++
+        vault++
+      }
+    }
+
+    for (const teleop_action of auton) {
+      const action = teleop_action.action
+
+      if (action == "0_0_0") homeSwitch++
+      else if (action == "0_0_1") scale++
+      else if (action == "0_0_2") awaySwitch++
+      else if (action == "0_0_3") vault++
+    }
+
+    res.homeSwitch.total += homeSwitch
+    res.homeSwitch.max = Math.max(res.homeSwitch.max, homeSwitch)
+
+    res.scale.total += scale
+    res.scale.max = Math.max(res.homeSwitch.max, scale)
+
+    res.awaySwitch.total += awaySwitch
+    res.awaySwitch.max = Math.max(res.awaySwitch.max, awaySwitch)
+
+    res.vault.total += vault
+    res.vault.max = Math.max(res.vault.max, vault)
+
+    // crossed auton line and ended on platform
+    if (data.crossed_line == true || data.crossed_line == 'true') res.auton.crossedLine++
+    if (data.end_platform == true || data.end_platform == 'true') res.finish.totalPlatform++
+
+    // start position
+    data.start_position = parseInt(data.start_position)
+    if (isNaN(data.start_position)) {
+      // do nothing
+    }
+    else if (data.start_position < -33) {
+      res.startingPosition.left++
+    }
+    else if (data.start_position > 33) {
+      res.startingPosition.right++
+    }
+    else {
+      res.startingPosition.middle++
+    }
+
+    const lift = data.lift
+
+    // lift
+    if (lift == 1 || lift == 2) {
+      finish.hasRamp = true
+    }
+    else if (lift == 3) {
+      finish.climb.total++
+      finish.climb.totalUsingRamp++
+    }
+    else if (lift == 4) {
+      finish.climb.total++
+    }
+    else if (lift == 5) {
+      finish.hasBar++
+      finish.climb.total++
+    }
+
+    // comments
+    res.comments.push(data.comments)
+  }
+
+  // setting averages
+  if (res.numberRounds == 0) {
+    res.scale.average = res.homeSwitch.average = res.awaySwitch.average = res.vault.average = 0
+  }
+  else {
+    console.log('numberRounds', res.numberRounds)
+    res.scale.average = res.scale.total/res.numberRounds
+    res.homeSwitch.average = res.homeSwitch.total/res.numberRounds
+    res.awaySwitch.average = res.awaySwitch.total/res.numberRounds
+    res.vault.average = res.vault.total/res.numberRounds
+  }
+
+  // setting preferred starting position
+  if (res.startingPosition.left > res.startingPosition.right && res.startingPosition.left > res.startingPosition.middle)
+    res.startingPosition.preferred = 'left'
+  else if (res.startingPosition.right > res.startingPosition.left && res.startingPosition.right > res.startingPosition.middle)
+    res.startingPosition.preferred = 'right'
+  else if (res.startingPosition.middle > res.startingPosition.left && res.startingPosition.middle > res.startingPosition.right)
+    res.startingPosition.preferred = 'middle'
+  else
+    res.startingPosition.preferred = 'unclear'
+
+  return res
+}
+
 
 /*
   "Upload Data"
@@ -244,6 +537,10 @@ router.post('/upload', bodyParser.json(), (req, res) => {
   })
   .then(() => { res.send('200 OK') })
   .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
+})
+
+router.get('/data/:team', (req, res) => {
+  getDataOnTeam(req.params.team).then(data => { res.render('pages/member/scoutingReview', {data}) })
 })
 
 module.exports = router

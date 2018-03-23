@@ -39,8 +39,6 @@ const req = require('https').request(options, (res) => {
       process.exit(1)
     }
 
-    console.log(data)
-
     data = JSON.parse(data);
 
 
