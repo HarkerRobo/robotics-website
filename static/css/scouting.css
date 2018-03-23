@@ -230,7 +230,7 @@ cursor: pointer;
     right: 10%;
 }
 
-#final {
+#main, #final {
     display: none;
 }
 
@@ -243,13 +243,25 @@ cursor: pointer;
     font-weight: 500;
 }
 
-#final {
+#final, #prompt {
     color: #fff;
     padding: 10px;
     text-align: center;
 }
 
-#final span {
+#prompt input {
+    background: rgba(255, 255, 255, 0.7);
+    display: block;
+    margin: 40px auto;
+    font-size: 1.5em;
+    width: 200px;
+    outline: none;
+    border: none;
+    padding: 8px;
+    text-align: center;
+}
+
+#final span, #prompt span {
     display: block;
     font-size: 2em;
     margin-top: 20px;
@@ -299,4 +311,11 @@ button:active {
 
 #final button {
     margin-top: 36px;
+}
+
+textarea {
+    background: rgba(255, 255, 255, 0.7);
+    width: 80vw;
+    height: 150px;
+    font-size: 1.5em;
 }

@@ -9,6 +9,11 @@
     <link rel="stylesheet" href="/css/scouting.css"/>
   </head>
   <body>
+    <div id="prompt">
+      <span>Match number</span>
+      <input type="text" id="promptel">
+      <button id="promptsub">Submit</button>
+    </div>
     <div id="main">
       <div id="match"></div>
       <div id="clock">0:15</div>
@@ -51,6 +56,9 @@
       <label for="lift4">Used ramp</label>
       <input type="radio" id="lift5" name="lifted" value="4">
       <label for="lift5">Climbed onto bar ramp</label>
+
+      <span>Comments</span>
+      <textarea id="comments"></textarea>
       <br>
       <button type="submit" id="formsub">Submit</button>
     </div>

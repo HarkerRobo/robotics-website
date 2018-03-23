@@ -51,8 +51,10 @@ async function cfetch(url, options) {
     }
 }
 
-(async () => {
-    const match = Number(prompt('Match number'));
+async function enter(match) {
+    document.getElementById('prompt').style.display = 'none'
+    document.getElementById('main').style.display = 'block'
+    console.log(match)
     const json = await cfetch(`/member/scouting/request/${match}`);
     const TOURN_ID = json.tournament.id
     const RANK = json.scouting.rank
@@ -148,10 +150,7 @@ async function cfetch(url, options) {
                 Number(this.querySelector('.counter').innerHTML) + 1
         });
     })
-})().catch((e) => {
-    console.error(e)
-    alert((e instanceof NiceError) ? e.message : 'Scouting API Error! Yay!')
-});
+}
 
 function finalize(data) {
     document.getElementById('main').style.display = 'none'
@@ -168,6 +167,7 @@ function finalize(data) {
         data.data.lift = lifted
         data.data['auton-actions'] = autonActions
         data.data['teleop-actions'] = teleopActions
+        data.data.comments = document.getElementById('comments').value
         cfetch('/member/scouting/upload', {
             body: JSON.stringify(data),
             credentials: 'same-origin',
@@ -182,5 +182,12 @@ function finalize(data) {
             alert((e instanceof NiceError) ? e.message : 'Scouting API Error! Yay!')
         })
     })
-
 }
+
+document.getElementById('promptsub').addEventListener('click', () => {
+    enter(Number(document.getElementById('promptel').value))
+    .catch((e) => {
+        console.error(e)
+        alert((e instanceof NiceError) ? e.message : 'Scouting API Error! Yay!')
+    })
+})
