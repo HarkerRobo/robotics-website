@@ -26,9 +26,9 @@ function sleep(duration) {
 
 async function initiate(selector) {
     var el = document.querySelectorAll(selector);
-    var time_to_start = 150
-    var time_online = 100
-    var time_offline = 70
+    var time_to_start = 150/2
+    var time_online = 100/2
+    var time_offline = 70/2
     el.forEach(e => e.classList.remove('active'))
     await sleep(time_to_start)
     el.forEach(e => e.classList.add('active'))
@@ -81,6 +81,7 @@ async function enter(match) {
         let time = 15;
         let auton = true;
         document.getElementById('autonslider').style.display = 'none'
+        document.getElementById('go').style.display = 'none'
         setInterval(() => {
             time -= 1;
             if (time == 0) {
