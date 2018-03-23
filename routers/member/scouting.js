@@ -327,10 +327,10 @@ async function getDataOnTeam(teamNumber, tournament) {
     let awaySwitch = 0
     let vault = 0
 
-    console.log(auton)
+    console.log('auton', auton)
     for (const auton_action of auton) {
       const action = auton_action.action
-
+      console.log('action', action)
       if (action == "0_0_0") {
         res.auton.homeSwitch++
         homeSwitch++
@@ -349,14 +349,18 @@ async function getDataOnTeam(teamNumber, tournament) {
       }
     }
 
-    for (const teleop_action of auton) {
+    console.log('teleop', teleop)
+    for (const teleop_action of teleop) {
       const action = teleop_action.action
 
+      console.log('action', action)
       if (action == "0_0_0") homeSwitch++
       else if (action == "0_0_1") scale++
       else if (action == "0_0_2") awaySwitch++
       else if (action == "0_0_3") vault++
     }
+
+    console.log('homeSwitch', homeSwitch)
 
     res.homeSwitch.total += homeSwitch
     res.homeSwitch.max = Math.max(res.homeSwitch.max, homeSwitch)
