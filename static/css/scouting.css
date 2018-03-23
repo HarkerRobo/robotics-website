@@ -242,3 +242,61 @@ cursor: pointer;
     color: #fff;
     font-weight: 500;
 }
+
+#final {
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+#final span {
+    display: block;
+    font-size: 2em;
+    margin-top: 20px;
+    margin-bottom: 8px;
+}
+
+#final label {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 2px solid #fff;
+    font-size: 1.5em;
+    margin: 4px 8px;
+}
+
+#final input[type="radio"] {
+    display: none;
+}
+
+#final input[type="radio"]:checked + label {
+    background-color: white;
+    color: #27a6cc;
+    cursor: pointer;
+}
+
+button {
+    -webkit-appearance: none;
+    background: transparent;
+    outline: none;
+    padding: 8px 20px;
+    border: 2px solid #fff;
+    font-size: 1.5em;
+    margin: 4px 8px;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+}
+
+button:hover {
+    background: rgba(255, 255, 255, 0.7);
+    color: #27a6cc;;
+}
+
+button:active {
+    background: #fff;
+    color: #27a6cc;
+}
+
+#final button {
+    margin-top: 36px;
+}
