@@ -80,8 +80,8 @@ router.get('/request/:round', (req, res) => {
       id: tournament._id
     }
 
-    // TODO: this
-    if (round.sergeant === req.auth.info.email) {
+    // if is already sergeant
+    if (typeof round.sergeant === 'string' && round.sergeant.toLowerCase() === req.auth.info.email.toLowerCase()) {
       res.send({
         tournament: tournament_info,
         scouting: {
@@ -92,8 +92,25 @@ router.get('/request/:round', (req, res) => {
       return
     }
 
+    // if the user is already a set as a private
+    console.log('[DEBUG] foundEmail =', round.findEmail(req.auth.info.email))
+    if (round.findEmail(req.auth.info.email)) {
+      return round.requestSpot(req.auth.info.email)
+      .then(spot => {
+        res.send({
+          tournament: tournament_info,
+          scouting: {
+            round: round.number,
+            rank: scoutingRanks.private,
+            team: spot.team,
+            blue: spot.blue
+          }
+        })
+      })
+    }
+
     // if the user can be a sergeant and the sergeant hasn't been set yet
-    if (req.auth.level >= ranks.scouting_sergeants && typeof round.sergeant === undefined) {
+    if (req.auth.level >= ranks.scouting_sergeants && !round.sergeant) {
       round.sergeant = req.auth.info.email
       return round.save()
       //.then(() => Round.setRoundAwatingScouts(tournament._id, round.number))
@@ -107,7 +124,8 @@ router.get('/request/:round', (req, res) => {
         })
       })
     }
-    // if the user is a private
+
+    // if the user can't be a sergeant and sergeant hasn't been set yet
     return round.requestSpot(req.auth.info.email)
     .then(spot => {
       res.send({

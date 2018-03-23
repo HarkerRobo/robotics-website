@@ -93,21 +93,21 @@ const roundSchema = mongoose.Schema({
 
 // TODO: use toLowerCase
 roundSchema.methods.findEmail = function findEmail(email) {
-  if (this.red.team1.scout === email) {
+  if (typeof this.red.team1.scout === 'string' && this.red.team1.scout.toLowerCase() === email.toLowerCase()) {
     this.red.team1.scout = email
     return {
       blue: false,
       team: this.red.team1.number,
     }
   }
-  if (this.red.team2.scout === email) {
+  if (typeof this.red.team2.scout === 'string' && this.red.team2.scout.toLowerCase() === email.toLowerCase()) {
     this.red.team2.scout = email
     return {
       blue: false,
       team: this.red.team2.number,
     }
   }
-  if (this.red.team3.scout === email) {
+  if (typeof this.red.team3.scout === 'string' && this.red.team3.scout.toLowerCase() === email.toLowerCase()) {
     this.red.team3.scout = email
     return {
       blue: false,
@@ -115,21 +115,21 @@ roundSchema.methods.findEmail = function findEmail(email) {
     }
   }
 
-  if (this.blue.team1.scout === email) {
+  if (typeof this.blue.team1.scout === 'string' && this.blue.team1.scout.toLowerCase() === email.toLowerCase()) {
     this.blue.team1.scout = email
     return {
       blue: true,
       team: this.blue.team1.number,
     }
   }
-  if (this.blue.team2.scout === email) {
+  if (typeof this.blue.team2.scout === 'string' && this.blue.team2.scout.toLowerCase() === email.toLowerCase()) {
     this.blue.team2.scout = email
     return {
       blue: true,
       team: this.blue.team2.number,
     }
   }
-  if (this.blue.team3.scout === email) {
+  if (typeof this.blue.team3.scout === 'string' && this.blue.team3.scout.toLowerCase() === email.toLowerCase()) {
     this.blue.team3.scout = email
     return {
       blue: true,
