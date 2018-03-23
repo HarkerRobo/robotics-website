@@ -366,7 +366,7 @@ async function getDataOnTeam(teamNumber, tournament) {
     res.homeSwitch.max = Math.max(res.homeSwitch.max, homeSwitch)
 
     res.scale.total += scale
-    res.scale.max = Math.max(res.homeSwitch.max, scale)
+    res.scale.max = Math.max(res.scale.max, scale)
 
     res.awaySwitch.total += awaySwitch
     res.awaySwitch.max = Math.max(res.awaySwitch.max, awaySwitch)
