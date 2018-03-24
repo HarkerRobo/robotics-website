@@ -555,6 +555,30 @@ router.get('/data/all', (req, res) => {
   })
 })
 
+router.get('/data/tsv', (req, res) => {
+  (async() => {
+    const tournament = await Tournament.getCurrentTournament()
+
+    const rounds = await Round.find({ tournament }).exec()
+    res.write('team\tnumber\tscout\tstartpos\tcrossedline\tendplatform\tlift\tauton-actions\tteleop-actions')
+    for (let round of rounds) {
+      for (let k of ['red,team1', 'red,team2', 'red,team3', 'blue,team1', 'blue,team2', 'blue,team3']) {
+        const [color, team] = k.split(',')
+        const data = round[color][team]
+        if (!data.data) continue
+        const d = data.data
+        res.write(`\n${team}\t${data.number}\t${data.scout}\t${d.start_position}\t${d.crossed_line}`
+                + `\t${d.end_platform}\t${d.lift}\t"${JSON.stringify(d['auton-actions']).replace(/\t/g, '    ')}`
+                + `\t${JSON.stringify(d['teleop-actions']).replace(/\t/g, '    ')}`)
+      }
+    }
+    res.status(200).end()
+  })().catch(e => {
+    console.error(e)
+    res.status(500).send(e.toString())
+  })
+})
+
 router.get('/data/:team', (req, res) => {
   getDataOnTeam(req.params.team).then(data => { res.render('pages/member/scoutingReview', {data}) })
 })
