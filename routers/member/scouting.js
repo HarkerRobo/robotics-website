@@ -543,8 +543,21 @@ router.post('/upload', bodyParser.json(), (req, res) => {
   .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
 })
 
+router.get('/data/all', (req, res) => {
+  (async() => {
+    const tournament = await Tournament.getCurrentTournament()
+
+    const rounds = await Round.find({ tournament }).exec()
+    res.json(rounds);
+  })().catch(e => {
+    console.error(e)
+    res.status(500).send(e.toString())
+  })
+})
+
 router.get('/data/:team', (req, res) => {
   getDataOnTeam(req.params.team).then(data => { res.render('pages/member/scoutingReview', {data}) })
 })
+
 
 module.exports = router
