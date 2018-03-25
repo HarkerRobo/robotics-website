@@ -33,5 +33,9 @@
   },
   "users": {
     "superadmins": ["webmaster@example.org"]
+  },
+  "hauth": {
+    "appID": "INSERTAPPIDHERE",
+    "appSecret": "INSERTAPPSECRETHERE"
   }
 }

@@ -20,7 +20,9 @@ const express = require('express'),
   smtpConfig = config.automail,
   transporter = nodemailer.createTransport(smtpConfig),
   csrfProtection = csrf({ cookie: true }),
-  client = new OAuth2Client(config.google.clientIDs)
+  client = new OAuth2Client(config.google.clientIDs),
+  HAuthObj = require('hauth'),
+  hauth = new HAuthObj(config.hauth.appID, config.hauth.appSecret)
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
@@ -39,10 +41,29 @@ router.use(auth.sessionAuth)
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
 async function verifyIdToken(token) {
-  if (typeof token === 'string' && token.substring(0,5).toLowerCase() === 'hauth') {
+  if (typeof token === 'string' && token.substring(0,5) === 'hauth') {
     // A HAuth token
     // Probably from mobile - OK to redeem for a cookie.
-    
+    const hauthToken = token.replace('hauth', ''); // hauth must be lower case - don't see why it wouldn't
+    try {
+      const hauthUser = hauth.user(hauthToken);
+      // mimic a Google auth response
+      return {
+        email: hauthUser.email,
+        email_verified: true,
+        name: hauthUser.name,
+        given_name: hauthUser.givenName,
+        family_name: hauthUser.surName,
+        locale: 'en',
+        picture: 'https://cdn3-4.cdn.schoology.com/system/files/imagecache/profile_reg/sites/all/themes/schoology_theme/images/user-default.gif'
+      };
+       // HAuth currently does not issue signed URL for the self-maintained picture database yet. Also I doubt robotics website needs pic.
+       // putting the athena placeholder here
+    } catch (e) {
+      console.log(e);
+      throw 'Illegal HAuth token - try login again';
+    }
+
   }
   return (await client.verifyIdToken({
       idToken: token,
@@ -92,14 +113,24 @@ async function verifyIdToken(token) {
   */
 }
 
+router.get('/signin/hauth/mobile', (req, res) => {
+  res.status(200).send(hauth.login('scouting1072://login'));
+})
+
+router.get('/signin/hauth/web', (req, res) => {
+  // for debugging
+  // will not work without manually adding hauth prefix
+  res.status(200).send(hauth.login(req.protocol + '://' + req.get('host') + '/member/token/'));
+})
+
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // handles google sign-in tokens given from client
 //
 // req.body.idtoken - the given idtoken
 // req.body.android - (optional) whether the given phone is an android
-router.post('/token', function (req, res) {
+router.all('/token', function (req, res) {
 
-  let token = req.body.idtoken
+  let token = req.body.idtoken || req.query.token
   if (!token) {
     res.status(422).send('No token given (must be given in POST body as `idtoken`)')
     return
