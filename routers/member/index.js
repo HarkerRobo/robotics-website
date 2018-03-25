@@ -39,6 +39,11 @@ router.use(auth.sessionAuth)
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
 async function verifyIdToken(token) {
+  if (typeof token === 'string' && token.substring(0,5).toLowerCase() === 'hauth') {
+    // A HAuth token
+    // Probably from mobile - OK to redeem for a cookie.
+    
+  }
   return (await client.verifyIdToken({
       idToken: token,
       audience: config.google.clientIDs,
