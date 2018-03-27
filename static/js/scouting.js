@@ -25,18 +25,31 @@ function sleep(duration) {
     });
 };
 
-async function initiate(selector) {
+async function initiate(selector, time) {
     var el = document.querySelectorAll(selector);
-    var time_to_start = 150/2
-    var time_online = 100/2
-    var time_offline = 70/2
-    el.forEach(e => e.classList.remove('active'))
+    var time_to_start = time || 200
     await sleep(time_to_start)
+    /*var time_online = 80
+    var time_offline = 100
+    el.forEach(e => e.classList.remove('active'))
+
     el.forEach(e => e.classList.add('active'))
     await sleep(time_offline)
     el.forEach(e => e.classList.remove('active'))
-    await sleep(time_online)
+    await sleep(time_online)*/
     el.forEach(e => e.classList.add('active'))
+};
+
+async function initiateSlide(selector) {
+    var el = document.querySelectorAll(selector);
+    //el.forEach(e => e.classList.remove('active'))
+
+    el.forEach(e => e.classList.add('active'))
+    el.forEach(e => e.classList.remove('no-width'))
+    await sleep(500)
+    el.forEach(e => e.classList.remove('no-height'))
+    //el.forEach(e => e.classList.remove('slide-before'))
+    await sleep(500)
 };
 
 async function cfetch(url, options) {
@@ -69,10 +82,13 @@ async function enter(match) {
     document.getElementById('autonslider').classList.add(BLUE ? 'blue' : 'red')
 
     await sleep(100);
-    await initiate('#scouting');
-    await initiate('#field');
-    await initiate('.work-area');
-    await initiate('.loading-area');
+    //await initiate('#scouting')
+
+    await initiateSlide('#scouting');
+    //await initiate('#scouting', 0);
+    //await initiate('#field', 0);
+    await initiate('.work-area',0);
+    await initiate('.loading-area',0);
     await initiate('.switch');
     await initiate('#scale');
 

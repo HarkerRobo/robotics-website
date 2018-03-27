@@ -4,6 +4,17 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+#scouting,
+#field,
+.work-area,
+.loading-area,
+.switch,
+#scale {
+transition: height 0.5s cubic-bezier(.70,0,.30,1),
+  width 0.5s cubic-bezier(.57,.01,.4,.99),
+  opacity 0.2s ease-in-out;
+}
+
 #scouting.active::before,
 #field.active,
 .work-area.active,
@@ -11,6 +22,25 @@ body {
 .switch.active,
 #scale.active {
 display: block;
+opacity: 1;
+}
+
+#scouting.no-width,
+#field.no-width,
+.work-area.no-width,
+.loading-area.no-width,
+.switch.no-width,
+#scale.no-width {
+width: 1px;
+}
+
+#scouting.no-height,
+#field.no-height,
+.work-area.no-height,
+.loading-area.no-height,
+.switch.no-height,
+#scale.no-height {
+height: 1px;
 }
 
 #scouting {
@@ -40,7 +70,7 @@ background-image:
 background-position: 0 0, 0 100%, 100% 0, 100% 100%, 0 0, 100% 0, 0 100%, 100% 100%;
 background-repeat: no-repeat;
 background-size: 5vw 5vw;
-display: none;
+/* display: none */; opacity: 1;
 }
 
 #field {
@@ -50,14 +80,18 @@ top: 10%;
 left: 10%;
 position: relative;
 outline: black solid 1px;
-display: none;
+/* display: none */; opacity: 1;
+}
+
+#autonslider {
+  opacity: 0;
 }
 
 .work-area {
 margin: 0;
 height: 100%;
 width: 10%;
-display: none;
+/* display: none */; opacity: 0;
 }
 
 #red-area {
@@ -74,7 +108,7 @@ float: right;
 margin: 0;
 height: 100%;
 width: 5%;
-display: none;
+/* display: none */; opacity: 0;
 }
 
 #red-loading-area {
@@ -120,7 +154,7 @@ position: absolute;
 top: 30%;
 width: 5%;
 height: 40%;
-display: none;
+/* display: none */; opacity: 0;
 border: solid 1px black;
 }
 
@@ -170,7 +204,7 @@ background: repeating-linear-gradient(
     rgba(0,0,0,0) 20px
 );
 border: solid 1px black;
-display: none;
+/* display: none */; opacity: 0;
 outline: none;
 cursor: pointer;
 }
@@ -279,7 +313,7 @@ cursor: pointer;
 }
 
 #final input[type="radio"] {
-    display: none;
+    display: none; opacity: 0;
 }
 
 #final input[type="radio"]:checked + label {
