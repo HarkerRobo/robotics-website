@@ -250,12 +250,12 @@
       <p><strong>Preffered Starting Position:</strong> <%= data.startingPosition.preferred %></p>
       <br/>
 
-      <h2>Autonomous (chance of)</h2>
+      <h2>Autonomous (avg per round)</h2>
       <p><strong>Cross Line:</strong> <%= 100*data.auton.crossedLine/data.numberRounds %>%</p>
-      <p><strong>Vault:</strong> <%= 100*data.auton.vault/data.numberRounds %>%</p>
-      <p><strong>Scale:</strong> <%= 100*data.auton.scale/data.numberRounds %>%</p>
-      <p><strong>Home Switch:</strong> <%= 100*data.auton.homeSwitch/data.numberRounds %>%</p>
-      <p><strong>Away Switch:</strong> <%= 100*data.auton.awaySwitch/data.numberRounds %>%</p>
+      <p><strong>Vault:</strong> <%= data.auton.vault/data.numberRounds %></p>
+      <p><strong>Scale:</strong> <%= data.auton.scale/data.numberRounds %></p>
+      <p><strong>Home Switch:</strong> <%= data.auton.homeSwitch/data.numberRounds %></p>
+      <p><strong>Away Switch:</strong> <%= data.auton.awaySwitch/data.numberRounds %></p>
       <br/>
 
       <h2>Finishing Move</h2>
