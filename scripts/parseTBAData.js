@@ -45,6 +45,8 @@ const req = require('https').request(options, (res) => {
     let promises = [];
 
     for (const round of data) {
+      if (round.set_number != "1") continue
+      
       const round_number = round.match_number;
       const blues = round.alliances.blue.team_keys;
       const reds = round.alliances.red.team_keys;
