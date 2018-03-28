@@ -1,17 +1,10 @@
 const bodyParser = require('body-parser')
 const express = require('express'),
   router = express.Router(),
-  io = require('socket.io')(),
 
-  ranks = require('../../helpers/ranks.json'),
-  scoutingRanks = {
-    sergeant: 10,
-    private: 0,
-  },
-
-  User = require('../../models/user'),
-  Tournament = require('../../models/tournament'),
-  Round = require('../../models/round')
+  User = require('../models/user'),
+  Tournament = require('../models/tournament'),
+  Round = require('../models/round')
 
 router.get('/data/all', (req, res) => {
     (async() => {
