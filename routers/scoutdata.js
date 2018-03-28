@@ -42,6 +42,7 @@ router.get('/all', (req, res) => {
           const d = data.data
           if (typeof d['auton-actions'] === 'string') d['auton-actions'] = JSON.parse(d['auton-actions'])
           if (typeof d['teleop-actions'] === 'string') d['teleop-actions'] = JSON.parse(d['teleop-actions'])
+          d.comments = d.comments.replace(/\n/g, '\\n').replace(/\t/g, '\\t')
           try {
               d.comments = JSON.parse(d.comments)
           } catch (e) {
@@ -55,7 +56,7 @@ router.get('/all', (req, res) => {
                   + `\t${d['teleop-actions'].filter(a=>a.action=='0_0_0'||a.action=='0_0_2').length}`
                   + `\t${d['teleop-actions'].filter(a=>a.action=='0_0_1').length}`
                   + `\t${d['teleop-actions'].filter(a=>a.action=='0_0_3').length}`
-                  + `\t${(d.comments || '').replace(/\t/g, '    ')}`
+                  + `\t"${(d.comments || '').replace(/\t/g, '    ')}"`
           )
         }
       }
