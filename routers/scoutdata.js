@@ -28,7 +28,11 @@ router.get('/data/all', (req, res) => {
       const tournament = await Tournament.getCurrentTournament()
 
       const rounds = await Round.find({ tournament }).exec()
-      res.header('Content-Type', 'text; charset=utf-8')
+      if (req.query.tsv) {
+          res.header('Content-Type', 'text/tab-separated-values; charset=utf-8')
+      } else {
+        res.header('Content-Type', 'text; charset=utf-8')
+      }
       res.write('match\tteam\tcolor\tnumber\tscout\tstartpos\tcrossedline\tendplatform\tlift\tauton switch\tauton scale\tauton valut\tteleop switch\tteleop scale\tteleop vault\tcomments')
       for (let round of rounds) {
         for (let k of ['red,team1', 'red,team2', 'red,team3', 'blue,team1', 'blue,team2', 'blue,team3']) {
