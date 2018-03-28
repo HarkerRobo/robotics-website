@@ -6,7 +6,7 @@ const express = require('express'),
   Tournament = require('../models/tournament'),
   Round = require('../models/round')
 
-router.get('/data/all', (req, res) => {
+router.get('/all', (req, res) => {
     (async() => {
       const tournament = await Tournament.getCurrentTournament()
 
@@ -23,7 +23,7 @@ router.get('/data/all', (req, res) => {
     return json.replace(/\t/g, '    ')
   }
 
-  router.get('/data/tsv', (req, res) => {
+  router.get('/tsv', (req, res) => {
     (async() => {
       const tournament = await Tournament.getCurrentTournament()
 
@@ -33,7 +33,7 @@ router.get('/data/all', (req, res) => {
       } else {
         res.header('Content-Type', 'text; charset=utf-8')
       }
-      res.write('match\tteam\tcolor\tnumber\tscout\tstartpos\tcrossedline\tendplatform\tlift\tauton switch\tauton scale\tauton valut\tteleop switch\tteleop scale\tteleop vault\tcomments')
+      res.write('match\tteam\tcolor\tnumber\tscout\tstartpos\tcrossedline\tendplatform\tlift\tauton switch\tauton scale\tauton vault\tteleop switch\tteleop scale\tteleop vault\tcomments')
       for (let round of rounds) {
         for (let k of ['red,team1', 'red,team2', 'red,team3', 'blue,team1', 'blue,team2', 'blue,team3']) {
           const [color, team] = k.split(',')
@@ -42,6 +42,11 @@ router.get('/data/all', (req, res) => {
           const d = data.data
           if (typeof d['auton-actions'] === 'string') d['auton-actions'] = JSON.parse(d['auton-actions'])
           if (typeof d['teleop-actions'] === 'string') d['teleop-actions'] = JSON.parse(d['teleop-actions'])
+          try {
+              d.comments = JSON.parse(d.comments)
+          } catch (e) {
+              // ignore
+          }
           res.write(`\n${round.number}\t${team}\t${color}\t${data.number}\t${data.scout}\t${d.start_position}\t${d.crossed_line}`
                   + `\t${d.end_platform}\t${d.lift}`
                   + `\t${d['auton-actions'].filter(a=>a.action=='0_0_0'||a.action=='0_0_2').length}`
