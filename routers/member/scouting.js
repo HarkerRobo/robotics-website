@@ -566,7 +566,7 @@ router.get('/data/tsv', (req, res) => {
 
     const rounds = await Round.find({ tournament }).exec()
     res.header('Content-Type', 'text; charset=utf-8')
-    res.write('match\tteam\tcolor\tnumber\tscout\tstartpos\tcrossedline\tendplatform\tlift\tauton-actions\tteleop-actions\tcomments')
+    res.write('match\tteam\tcolor\tnumber\tscout\tstartpos\tcrossedline\tendplatform\tlift\tauton switch\tauton scale\tauton valut\tteleop switch\tteleop scale\tteleop vault\tcomments')
     for (let round of rounds) {
       for (let k of ['red,team1', 'red,team2', 'red,team3', 'blue,team1', 'blue,team2', 'blue,team3']) {
         const [color, team] = k.split(',')
@@ -574,8 +574,15 @@ router.get('/data/tsv', (req, res) => {
         if (!data.data) continue
         const d = data.data
         res.write(`\n${round.number}\t${team}\t${color}\t${data.number}\t${data.scout}\t${d.start_position}\t${d.crossed_line}`
-                + `\t${d.end_platform}\t${d.lift}\t${tsvfmt(d['auton-actions'])}`
-                + `\t${tsvfmt(d['teleop-actions'])}\t${(d.comments || '').replace(/\t/g, '    ')}`)
+                + `\t${d.end_platform}\t${d.lift}`
+                + `\t${d['auton-actions'].filter(a=>a.action=='0_0_0'||a.action=='0_0_2').length}`
+                + `\t${d['auton-actions'].filter(a=>a.action=='0_0_1').length}`
+                + `\t${d['auton-actions'].filter(a=>a.action=='0_0_3').length}`
+                + `\t${d['teleop-actions'].filter(a=>a.action=='0_0_0'||a.action=='0_0_2').length}`
+                + `\t${d['teleop-actions'].filter(a=>a.action=='0_0_1').length}`
+                + `\t${d['teleop-actions'].filter(a=>a.action=='0_0_3').length}`
+                + `\t${(d.comments || '').replace(/\t/g, '    ')}`
+        )
       }
     }
     res.status(200).end()
