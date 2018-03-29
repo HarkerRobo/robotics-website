@@ -200,7 +200,7 @@ Explanation:
 | data.start_postion | The starting position given as a number, where the middle is zero, all the way on the right is 100, and all the way left is -100 | Number | 50 |
 | data.crossed_line | Whether the robot crossed the auto line during autonomous | Boolean | true |
 | data.end_platform | Whether the robot ended the round on the platform | Boolean | false |
-| data.lift | 0 - Did not do anything for lifting. 1 - Deployed single ramp. 2 - deployed double ramp 3 - used ramp. 4 - Climbed onto bar 4 - Climbed onto bar with bar on bot  | Number | 2 |
+| data.lift | 0 - Did not do anything for lifting. 1 - Deployed single ramp. 2 - deployed double ramp 3 - used ramp or buddy lift. 4 - Climbed onto bar 5 - Climbed onto bar with bar on bot  | Number | 2 |
 | data.actions | An array of JSON Objects, each with a timestamp property (`timestamp`) and an action id property (`action`). Action IDs are given below. | JSON Array | `[{ "timestamp": 123456789, "action": "0_7_28" }, { "timestamp": 123456790, "action": "0_2_345" } ]` |
 
 Action IDs:
