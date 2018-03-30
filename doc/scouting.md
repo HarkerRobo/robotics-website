@@ -126,6 +126,21 @@ Data:
 }
 ```
 
+#### 409 Error Response
+Given if the given round is full.
+
+Data type: JSON  
+Status code: 409  
+Data:  
+```json 
+{
+  "success": false,
+  "error": {
+    "message": "Round 22 is full"
+  }
+}
+```
+
 #### 422 Error Response
 Given if the param `<round>` is not an integer.
 
