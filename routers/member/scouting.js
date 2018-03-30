@@ -88,8 +88,8 @@ router.get('/request/:round', (req, res) => {
         scouting: {
           round: round.number,
           rank: scoutingRanks.sergeant,
-          team: null,
-          blue: null,
+          team: 0,
+          blue: false,
         }
       })
       return
@@ -123,8 +123,8 @@ router.get('/request/:round', (req, res) => {
           scouting: {
             round: round.number,
             rank: scoutingRanks.sergeant,
-            team: null,
-            blue: null,
+            team: 0,
+            blue: false,
           }
         })
       })
