@@ -110,6 +110,7 @@ router.get('/request/:round', (req, res) => {
           }
         })
       })
+      .catch(() => (new ScoutingError(409, 'Scouting is full')))
     }
 
     // if the user can be a sergeant and the sergeant hasn't been set yet
