@@ -56,13 +56,16 @@ async function cfetch(url, options) {
     options = options || {}
     options.credentials = 'same-origin'
     const res = await fetch(url, options)
-    const text = await res.text()
     try {
-        return JSON.parse(text)
-    } catch (e) {
-        if (res.status == 200) return true;
-        if (res.status == 409) return "nospotsavailable";
-        throw new NiceError(text.match('<p>(.*?)</p>')[1].replace(/<\/?strong>/g, ''))
+        const text = await res.text()
+        try {
+            return JSON.parse(text)
+        } catch (e) {
+            if (res.status == 200) return true;
+            throw new NiceError(text.match('<p>(.*?)</p>')[1].replace(/<\/?strong>/g, ''))
+        }
+    } catch(e) {
+        throw new NiceError(res.status + ' ' + res.statusText)
     }
 }
 
