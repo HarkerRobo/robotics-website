@@ -61,6 +61,7 @@ async function cfetch(url, options) {
         return JSON.parse(text)
     } catch (e) {
         if (res.status == 200) return true;
+        if (res.status == 409) return "nospotsavailable";
         throw new NiceError(text.match('<p>(.*?)</p>')[1].replace(/<\/?strong>/g, ''))
     }
 }
@@ -70,6 +71,10 @@ async function enter(match) {
     document.getElementById('main').style.display = 'block'
     console.log(match)
     const json = await cfetch(`/member/scouting/request/${match}`);
+    if (json == "nospotsavailable") {
+      alert("No spots available")
+      return
+    }
     const TOURN_ID = json.tournament.id
     const RANK = json.scouting.rank
     const ROUND = json.scouting.round
