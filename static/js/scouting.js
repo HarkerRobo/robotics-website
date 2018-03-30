@@ -192,6 +192,10 @@ document.getElementById('promptsub').addEventListener('click', () => {
     enter(Number(document.getElementById('promptel').value))
     .catch((e) => {
         console.error(e)
+        if (e.status == 409) {
+          alert('Match is full. Yay, people are scouting!')
+          return
+        }
         alert((e instanceof NiceError) ? e.message : 'Scouting API Error! Yay!')
     })
 })
