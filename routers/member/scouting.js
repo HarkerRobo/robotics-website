@@ -87,7 +87,9 @@ router.get('/request/:round', (req, res) => {
         tournament: tournament_info,
         scouting: {
           round: round.number,
-          rank: scoutingRanks.sergeant
+          rank: scoutingRanks.sergeant,
+          team: null,
+          blue: null,
         }
       })
       return
@@ -120,7 +122,9 @@ router.get('/request/:round', (req, res) => {
           tournament: tournament_info,
           scouting: {
             round: round.number,
-            rank: scoutingRanks.sergeant
+            rank: scoutingRanks.sergeant,
+            team: null,
+            blue: null,
           }
         })
       })
