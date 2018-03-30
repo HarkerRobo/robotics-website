@@ -401,18 +401,18 @@ async function getDataOnTeam(teamNumber, tournament) {
 
     // lift
     if (lift == 1 || lift == 2) {
-      finish.hasRamp = true
+      res.finish.hasRamp = true
     }
     else if (lift == 3) {
-      finish.climb.total++
-      finish.climb.totalUsingRamp++
+      res.finish.climb.total++
+      res.finish.climb.totalUsingRamp++
     }
     else if (lift == 4) {
-      finish.climb.total++
+      res.finish.climb.total++
     }
     else if (lift == 5) {
-      finish.hasBar++
-      finish.climb.total++
+      res.finish.hasBar++
+      res.finish.climb.total++
     }
 
     // comments
