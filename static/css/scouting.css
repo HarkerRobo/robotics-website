@@ -85,6 +85,7 @@ outline: black solid 1px;
 
 #autonslider {
   opacity: 0;
+  transition: opacity 0.5s ease-in-out 1.8s;
 }
 
 .work-area {

@@ -80,6 +80,7 @@ async function enter(match) {
     document.getElementById('team').innerHTML = 'Team ' + TEAM
 
     document.getElementById('autonslider').classList.add(BLUE ? 'blue' : 'red')
+    document.getElementById('autonslider').style.opacity = '1'
 
     await sleep(100);
     //await initiate('#scouting')
