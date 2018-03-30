@@ -548,6 +548,12 @@ router.post('/upload', bodyParser.json(), (req, res) => {
   .catch(handleScoutingError(req, res, 500, `POST /member/scouting/upload`))
 })
 
+router.get('/data', (req, res) => {
+  if (req.query.team)
+    getDataOnTeam(req.query.team).then(data => { res.render('pages/member/scoutingReview', {data}) })
+  else res.render('pages/member/scoutingGetTeam')
+})
+
 router.get('/data/:team', (req, res) => {
   getDataOnTeam(req.params.team).then(data => { res.render('pages/member/scoutingReview', {data}) })
 })
