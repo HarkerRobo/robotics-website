@@ -41,13 +41,12 @@
                     <h1 class="title"> TOTAL SPENT </h1>
                     <div class="form-group">
                         <label class="col-sm-2 control-label">Subteam</label>
-                        <div class="checkbox-inline col-sm-2">
+                        <div class="checkbox-inline col-sm-1">
                             <label>
-                                &emsp;
                                 <input type="checkbox" name="subteam" value="0" checked /> Mech
                             </label>
                         </div>
-                        <div class="checkbox-inline col-sm-2">
+                        <div class="checkbox-inline col-sm-1">
                             <label>
                                 <input type="checkbox" name="subteam" value="1" checked /> E
                             </label>
@@ -57,9 +56,14 @@
                                 <input type="checkbox" name="subteam" value="2" checked /> Software
                             </label>
                         </div>
-                        <div class="checkbox-inline col-sm-2">
+                        <div class="checkbox-inline col-sm-1">
                             <label>
                                 <input type="checkbox" name="subteam" value="3" /> Ops
+                            </label>
+                        </div>
+                        <div class="checkbox-inline col-sm-1">
+                            <label>
+                                <input type="checkbox" name="subteam" value="null" checked /> N/A
                             </label>
                         </div>
                     </div>
@@ -111,7 +115,7 @@
                     data: {
                         from: $('#from').val(),
                         to: $('#to').val(),
-                        subteam: checked.join(' '),
+                        subteams: checked,
                         submitted_by: $('#submitted_by').val(),
                         vendor: $('#vendor').val()
                     },
@@ -128,6 +132,7 @@
             }
 
             $(searchAndDisplay);
+            $('input').change(searchAndDisplay);
             $('input').keyup(searchAndDisplay);
 
         </script>

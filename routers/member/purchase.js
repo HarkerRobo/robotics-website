@@ -285,7 +285,11 @@ router.get('/total', (req, res) => {
 
 
 router.get('/total_plain', (req, res) => {
-  const subteam       = req.query.subteams      ? req.query.subteams.split(' ').map(Number)                             : null;
+  const subteam       = req.query.subteams      ? req.query.subteams.map(num => { 
+    if (num == null || num == 'null') return null; 
+    return Number(num) 
+  })   : null;
+  console.log(subteam);
   const vendor        = req.query.vendor        ? req.query.vendor.split(',').map(str => str.trim() )       : null;
   const submitted_by  = req.query.submitted_by  ? req.query.submitted_by.split(',').map(str => str.trim() ) : null;
 
@@ -297,9 +301,11 @@ router.get('/total_plain', (req, res) => {
   if (startDate || endDate) query.createdAt = {};
   if (startDate) query.createdAt['$gt'] = startDate;
   if (endDate) query.createdAt['$lt'] = endDate;
-  if (subteam) query.subteam = { $in: subteam }
-  if (vendor) query.vendor = { $in : vendor }
+  if (subteam) query.subteam = { $in: subteam };
+  if (vendor) query.vendor = { $in : vendor };
   if (submitted_by) query.submitted_by = { $in : submitted_by }
+
+  console.log(query)
 
   Purchase.find(query)
   .then(purchases => {
