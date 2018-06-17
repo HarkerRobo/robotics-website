@@ -20,8 +20,8 @@ const MONTHS = {
     NOVEMBER: 10,
     DECEMBER: 11
 };
-const CUTOFF_MONTH = MONTHS.JUNE;
-const CUTOFF_DAY = 21;
+const CUTOFF_MONTH = MONTHS.JANUARY;
+const CUTOFF_DAY = 6;
 
 let query = {};
 
