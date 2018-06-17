@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <%- include(__base + 'views/partials/head.ejs') %>
+        <style>
+            .no-padding { padding: 0; } 
+            input.form-control.auto-width,
+            .auto-width { width: auto; } 
+
+            input { color: black }
+
+            
+        </style>
+        <style media="print">
+            #approval-buttons {
+                display: none;
+            }
+
+            .form-group,
+            #parts {
+                page-break-inside: avoid;
+            }
+
+            #print-desc-block {
+                display: block !important;
+                width: 50%;
+                margin: auto;
+            }
+
+            
+        </style>
+    </head>
+
+    <body>
+        <!-- Navbar -->
+        <%- include(__base + 'views/partials/navbar-login.ejs') %>
+        <header>
+            <div class="container-fluid">
+                <form class="form-horizontal" method="POST">
+                    <h1 class="title"> TOTAL SPENT </h1>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Subteam</label>
+                        <div class="checkbox-inline col-sm-2">
+                            <label>
+                                &emsp;
+                                <input type="checkbox" name="subteam" value="0" checked /> Mech
+                            </label>
+                        </div>
+                        <div class="checkbox-inline col-sm-2">
+                            <label>
+                                <input type="checkbox" name="subteam" value="1" checked /> E
+                            </label>
+                        </div>
+                        <div class="checkbox-inline col-sm-2">
+                            <label>
+                                <input type="checkbox" name="subteam" value="2" checked /> Software
+                            </label>
+                        </div>
+                        <div class="checkbox-inline col-sm-2">
+                            <label>
+                                <input type="checkbox" name="subteam" value="3" /> Ops
+                            </label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="vendor" class="col-sm-2 control-label">Vendor Names</label>
+                        <div class="col-sm-10 col-lg-8">
+                            <input type="text" class="form-control" name="vendor" id="vendor" placeholder="Andymark, Vex Pro" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="submitted_by" class="col-sm-2 control-label">Submitted By (Emails)</label>
+                        <div class="col-sm-10 col-lg-8">
+                            <input type="text" class="form-control" name="submitted_by" id="submitted_by" placeholder="19johnd@students.harker.org, 21maryj@students.harker.org" />
+                        </div>
+                    </div>
+                    <div class="container center">
+                        From: 
+                        <input type="text" name="from" id="from" placeholder="YYYY-MM-DD" maxlength="10" />
+                        &nbsp;&nbsp;&nbsp;&nbsp;
+                        To:
+                        <input type="text" name="to" id="to" placeholder="YYYY-MM-DD" maxlength="10" />
+                    </div>
+                </form>
+            </div>
+            <h2 class="center">Total: <span id="total">(Calculating...)</span></h2>
+        </header>
+
+        <script>
+            function twoDigits(num) {
+                return ("0" + num).slice(-2)
+            }
+            $('#from').val(`${new Date().getFullYear()}-01-06`);
+            $('#to').val(`${new Date().getFullYear()}-${twoDigits(new Date().getMonth() + 1)}-${twoDigits(new Date().getDate())}`);
+
+            // https://stackoverflow.com/questions/19244341/abort-previous-ajax-request-on-new-request
+            var curReq;
+
+            function searchAndDisplay() {
+                if (curReq && curReq.readyState != 4) curReq.abort();
+
+                var checked = [];
+                $('input[name=subteam]:checked').each(function (i,e) {
+                    checked.push($(e).val());
+                });
+
+                curReq = $.ajax({
+                    url: 'total_plain',
+                    method: 'GET',
+                    data: {
+                        from: $('#from').val(),
+                        to: $('#to').val(),
+                        subteam: checked.join(' '),
+                        submitted_by: $('#submitted_by').val(),
+                        vendor: $('#vendor').val()
+                    },
+                    success: function (data) {
+                        if (isNaN(parseInt(data))) {
+                            $("#total").text('[Invalid Input]');
+                            return;
+                        }
+
+                        $("#total").text(`$${data}`);
+                    },
+                    error: function() { $("#total").text('[Invalid Input]'); }
+                });
+            }
+
+            $(searchAndDisplay);
+            $('input').keyup(searchAndDisplay);
+
+        </script>
+
+        <%- include(__base + 'views/partials/js-include.ejs') %>
+        
+    </body>
+
+</html>

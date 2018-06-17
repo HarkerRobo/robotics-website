@@ -279,6 +279,40 @@ router.post('/edit/:purchase_id', function (req, res) {
   })
 })
 
+router.get('/total', (req, res) => {
+  res.render('pages/member/purchase/total');
+});
+
+
+router.get('/total_plain', (req, res) => {
+  const subteam       = req.query.subteams      ? req.query.subteams.split(' ').map(Number)                             : null;
+  const vendor        = req.query.vendor        ? req.query.vendor.split(',').map(str => str.trim() )       : null;
+  const submitted_by  = req.query.submitted_by  ? req.query.submitted_by.split(',').map(str => str.trim() ) : null;
+
+  const startDate     = req.query.from      ? moment(req.query.from, 'YYYY-MM-DD').startOf('day')                       : null;
+  const endDate       = req.query.to        ? moment(req.query.to  , 'YYYY-MM-DD').endOf('day')                         : null;
+
+  const query = { approval: 4 };
+
+  if (startDate || endDate) query.createdAt = {};
+  if (startDate) query.createdAt['$gt'] = startDate;
+  if (endDate) query.createdAt['$lt'] = endDate;
+  if (subteam) query.subteam = { $in: subteam }
+  if (vendor) query.vendor = { $in : vendor }
+  if (submitted_by) query.submitted_by = { $in : submitted_by }
+
+  Purchase.find(query)
+  .then(purchases => {
+    let total = 0;
+    for (const purchase of purchases) total += purchase.totalCost();
+    res.send(total.toFixed(2));
+  })
+  .catch(err => {
+    console.error('[ERROR]', err);
+    res.send("NaN");
+  });
+});
+
 
 // must be an admin to see below pages
 router.all('/*', function (req, res, next) {
