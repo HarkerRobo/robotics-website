@@ -289,7 +289,6 @@ router.get('/total_plain', (req, res) => {
     if (num == null || num == 'null') return null; 
     return Number(num) 
   })   : null;
-  console.log(subteam);
   const vendor        = req.query.vendor        ? req.query.vendor.split(',').map(str => str.trim() )       : null;
   const submitted_by  = req.query.submitted_by  ? req.query.submitted_by.split(',').map(str => str.trim() ) : null;
 
@@ -303,9 +302,7 @@ router.get('/total_plain', (req, res) => {
   if (endDate) query.createdAt['$lt'] = endDate;
   if (subteam) query.subteam = { $in: subteam };
   if (vendor) query.vendor = { $in : vendor };
-  if (submitted_by) query.submitted_by = { $in : submitted_by }
-
-  console.log(query)
+  if (submitted_by) query.submitted_by = new RegExp(submitted_by.join('|'), 'i');
 
   Purchase.find(query)
   .then(purchases => {
