@@ -84,6 +84,7 @@ main#folders #heading p {
 }
 
 main#folders #folder-display {
+  height: 90%;
   padding: 20px;
 }
 
