@@ -4,7 +4,10 @@ const express = require('express'),
   router = express.Router(),
   Part = require('../../models/part'),
   ranks = require('../../helpers/ranks.json'),
-  auth = require('../../helpers/auth')
+  auth = require('../../helpers/auth'),
+  Xray = require('x-ray'),
+  { promisify } = require('util'),
+  x = Xray()
 
 const verifyPartID = partID => {
   return new Promise((resolve, reject) => {
@@ -27,6 +30,48 @@ router.get('/create', auth.verifyRank(ranks.harker_student), (req, res) => {
 router.get('/search', auth.verifyRank(ranks.harker_student), (req, res) => {
   res.render('pages/member/parts/search')
 })
+
+// https://stackoverflow.com/questions/1960473/get-all-unique-values-in-an-array-remove-duplicates
+const onlyUnique = (value, index, self) => self.indexOf(value) === index;
+
+async function getPossibleFolders(query, sel) {
+  let select = { _id: 0 };
+  select[sel] = 1;
+  const parts_obj = await Part.find(query).select(select).lean();
+  let parts_arr = [];
+  for (const part of parts_obj) parts_arr.push(part[sel]);
+  return parts_arr.filter(onlyUnique);
+}
+
+router.get('/spec', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  res.json(await getPossibleFolders({}, 'year'));
+});
+
+router.get('/spec/:year', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  res.json(await getPossibleFolders({ year: req.params.year }, 'robot_type'));
+});
+
+router.get('/spec/:year/:robot_type', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  res.json(await getPossibleFolders(req.params, 'subassembly'));
+});
+
+router.get('/spec/:year/:robot_type/:subassembly', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  res.json(await getPossibleFolders(req.params, 'metal_type'));
+});
+
+router.get('/spec/:year/:robot_type/:subassembly/:metal_type', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  res.json(await getPossibleFolders(req.params, 'specific_id'));
+});
+
+router.get('/spec/:year/:robot_type/:subassembly/:metal_type/:specific_id', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  const possible = await Part.findOne(req.params).lean();
+  if (!possible) res.status(404).json({});
+  else res.json(possible);
+});
+
+router.get('/folders', auth.verifyRank(ranks.harker_student), async (req, res) => {
+  res.render('pages/member/parts/folders');
+});
 
 router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
   verifyPartID(req.params.partid)
@@ -61,45 +106,47 @@ router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
   })
 })
 
+// TODO: make this a scraper, this method is not always accurate
+// maybe use xray?
 function parseImgur(link) {
-  const regex = /^http(s)?:\/\/imgur\.com\/(a\/)?([^\/\.]+)$/
+  const regex = /^(http(s)?:)?\/\/imgur\.com\/(a\/)?([^\/\.]+)$/;
   if (regex.test(link)) {
-    return 'https://imgur.com/' + regex.exec(link)[3] + '.png'
+    console.log('hmm')
+    console.log(link);
+    return new Promise((resolve, reject) => {
+      x(link, '.post-images .post-image-container@id')(function (err, res) {
+        if (err || !res) resolve(link);
+        else resolve('https://imgur.com/' + res + '.jpeg');
+      })
+    });
   }
-  else return link
+  else return Promise.resolve(link);
 }
 
-function createPart(req, partid, robot_type) {
-  return new Promise((resolve, reject) => {
-    Part.find({
-      year: req.body.year,
-      robot_type: robot_type,
-      subassembly: partid[0],
-      metal_type: partid[1],
-      specific_id: partid[2],
-    })
-    .then(testpart => {
-      if (testpart.length > 0) {
-        reject({ status: 409, msg: 'Part with the same specifications already exists.' })
-        return
-      }
-      Part.create({
-        year: req.body.year,
-        robot_type: robot_type,
-        subassembly: partid[0],
-        metal_type: partid[1],
-        specific_id: partid[2],
-        description: req.body.description,
-        image: parseImgur(req.body.image),
-        cadlink: req.body.cadlink,
-        competition: req.body.competition,
-        author: req.auth.info.email,
-      })
-      .then(resolve)
-      .catch(reject)
-    })
-    .catch(reject)
-  })
+async function createPart(req, partid, robot_type) {
+  const testpart = await Part.find({
+    year: req.body.year,
+    robot_type: robot_type,
+    subassembly: partid[0],
+    metal_type: partid[1],
+    specific_id: partid[2],
+  });
+  
+  if (testpart.length > 0)
+    return await Promise.reject({ status: 409, msg: 'Part with the same specifications already exists.' });
+  
+  return await Part.create({
+    year: req.body.year,
+    robot_type: robot_type,
+    subassembly: partid[0],
+    metal_type: partid[1],
+    specific_id: partid[2],
+    description: req.body.description,
+    image: await parseImgur(req.body.image),
+    cadlink: req.body.cadlink,
+    competition: req.body.competition,
+    author: req.auth.info.email,
+  });
 }
 
 router.post('/id/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
@@ -168,49 +215,35 @@ router.get('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitel
   })
 })
 
-router.post('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitelist), (req, res) => {
-  verifyPartID(req.params.partid)
-  .then(partid => {
-    console.log(partid)
-    Part.findOne({
+router.post('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitelist), async (req, res) => {
+  try {
+    const partid = await verifyPartID(req.params.partid)
+    let part = await Part.findOne({
       year: req.params.year,
       robot_type: req.params.robot_type,
       subassembly: partid[0],
       metal_type: partid[1],
       specific_id: partid[2],
     })
-    .then(part => {
-      if (part.author !== req.auth.info.email) res.render('pages/member/error', { statusCode: 401, error:  'Email does not match that of author.' } )
-      verifyPartID(req.body.partid)
-      .then(newpartid => {
-        part.year = req.body.year
-        part.subassembly = newpartid[0]
-        part.metal_type = newpartid[1]
-        part.specific_id = newpartid[2]
-        part.description = req.body.description
-        part.image = req.body.image
-        part.cadlink = req.body.cadlink
-        part.quantity = req.body.quantity
+    if (part.author !== req.auth.info.email) throw new Error('Email does not match that of author.')
+    const newpartid = await verifyPartID(req.body.partid)
+    
+    part.year = req.body.year
+    part.subassembly = newpartid[0]
+    part.metal_type = newpartid[1]
+    part.specific_id = newpartid[2]
+    part.description = req.body.description
+    part.image = await parseImgur(req.body.image)
+    part.cadlink = req.body.cadlink
+    part.quantity = req.body.quantity
 
-        part.save()
-        .then(newpart => {
-          res.json(newpart)
-        })
-        .catch(err => {
-          res.status(500).json({ success: false, error: { message: err } })
-        })
-      })
-      .catch(err => {
-        res.status(500).json({ success: false, error: { message: err } })
-      })
-    })
-    .catch(err => {
-      res.status(500).json({ success: false, error: { message: err } })
-    })
-  })
-  .catch(err => {
-    res.status(500).json({ success: false, error: { message: err } })
-  })
+    res.json(await part.save())
+  }
+  catch(err) {
+    if (!err) err = ''
+    res.status(err.status || 500).json({ success: false, error: { message: err.message || err } })
+    console.error(`[REQ: ${req.request_id}] [ERROR] ${err}`)
+  }
 })
 
 module.exports = router

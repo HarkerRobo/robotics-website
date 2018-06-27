@@ -75,6 +75,7 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parts<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/member/parts/search">Search</a></li>
+            <li><a href="/member/parts/folders">Folders</a></li>
             <% if (auth.loggedin && auth.level >= ranks.parts_whitelist) { %>
               <li><a href="/member/parts/create">Create</a></li>
             <% } %>

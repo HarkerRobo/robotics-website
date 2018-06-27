@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/parts.css" />
+</head>
+
+<body>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <header>
+        <div class="container">
+            <main id="folders" class="section center">
+                <div id="heading"><p class="center"><a id="folders-back" href="#">[Back]</a> <span id="title">Loading...</span></p></div>
+                <div id="folder-display"><div id="results"></div></div>
+            </main>
+        </div>
+    </header>
+
+    <script>
+        var COMPONENTS = ['Year', 'Robot Type', 'Subassembly', 'Metal Type', 'Specific Id'];
+        var ROBOT_TYPES = ['Competition', 'Practice', 'Offseason'];
+        var currentPath = [new Date().getFullYear()];
+
+        function addResult(data) {
+            var toAdd = data;
+            if (currentPath.length == 1) toAdd = ROBOT_TYPES[data];
+            $('#results').append(`<div data="${data}" class="result">${toAdd}</div>`);
+        }
+
+        function twoDigits(num) {
+            return ("0" + num).slice(-2);
+        }
+
+        function showResult(data) {
+            var partID = '' + data.subassembly + '_' + data.metal_type + twoDigits(data.specific_id);
+            $('#heading #title').text(`Viewing Part ${partID}`);
+            $('#folder-display')
+            .empty()
+            .append(`
+                <img class="result-image" /><br/><br/><br/>
+                <p class="result-desc">${data.description}</p>
+                <p class="result-quality">Quantity: ${data.quantity}</p>
+                <p>
+                <a class="result-cad" href="#" target="_blank">CAD Link</a> |
+                <span class="result-author">${data.author}</span> |
+                <a class="result-edit" href="#">Edit</a>
+                </p>
+            `)
+
+            $('#folder-display img.result-image').attr('src', data.image)
+            $('#folder-display .result-cad').attr('href', data.cadlink)
+            if (!data.cadlink) $('#folder-display .result-cad').css({ 'text-decoration': 'line-through' }).attr({ 'href': '#', 'target': '_self' })
+            $('#folder-display .result-edit').attr('href', `/member/parts/edit/${data.year}/${data.robot_type}/${partID}`)
+        }
+
+        $('#folders-back').click(function() {
+            if (currentPath.length) currentPath.pop();
+            getResults();
+        })
+
+        function update() {
+            if (currentPath.length) {
+                $('#folders-back').show()
+                // $('#folders-back').text(`[Back to ${COMPONENTS[currentPath.length - 1]}]`);
+            }
+            else $('#folders-back').hide()
+            $('#results .result').click(function() {
+                currentPath.push($(this).attr('data'));
+                getResults();
+            });
+        }
+
+        function handleData(spec) {
+            return function(data) {
+                $('#folder-display').empty().append('<div id="results"></div>');
+                if (currentPath.length == COMPONENTS.length) showResult(data);
+                else {
+                    $('#heading #title').text(`Select ${spec}`);
+                    for (var datum of data) addResult(datum);
+                    update();
+                }
+                
+            }
+        }
+
+        function getResults() {
+            $.get('spec/' + currentPath.join('/'))
+            .then(handleData(COMPONENTS[currentPath.length]))
+        }
+
+        getResults()
+        
+    </script>
+</body>
+
+</html>
