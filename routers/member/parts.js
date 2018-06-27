@@ -37,7 +37,9 @@ const onlyUnique = (value, index, self) => self.indexOf(value) === index;
 async function getPossibleFolders(query, sel) {
   let select = { _id: 0 };
   select[sel] = 1;
-  const parts_obj = await Part.find(query).select(select).lean();
+  let sort = {};
+  sort[sel] = 1;
+  const parts_obj = await Part.find(query).select(select).sort(sort).lean();
   let parts_arr = [];
   for (const part of parts_obj) parts_arr.push(part[sel]);
   return parts_arr.filter(onlyUnique);
