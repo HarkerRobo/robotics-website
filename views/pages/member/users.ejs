@@ -110,7 +110,7 @@
       }
 
       $('#uams form').submit(handleAdd)
-      $('#uams a.submit').click(function(e) { handleAdd.call($(this).parent(), e) })
+      $('#uams a.submit').click(function(e) { $(this).parent().submit() })
     </script>
 
   </body>
