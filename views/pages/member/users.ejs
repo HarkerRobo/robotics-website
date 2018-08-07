@@ -98,21 +98,20 @@
         //$("#uams ul.list-group > li.list-group-item:not(:first) span.remove").click()
       }
       loadUsers()
-      $('#uams form').submit(function(e) {
+      function handleAdd(e) {
         e.preventDefault()
-        var email = $(this).find('input[name="email"]').val()
-        $(this).find('input[name="email"]').val('')
+        var input = $(this).parent().find('input[name="email"]')
+        var email = input.val()
+        input.val('')
         $.post('/member/userman/setuserauth', {
           email: email,
           level: $(this).attr('data-level'),
         }, loadUsers).fail(handleXHRError)
-      })
+      }
 
-
-
+      $('#uams form').submit(handleAdd)
+      $('#uams a.submit').click(handleAdd)
     </script>
-
-    
 
   </body>
 </html>
