@@ -100,7 +100,7 @@
       loadUsers()
       function handleAdd(e) {
         e.preventDefault()
-        var input = $(this).parent().find('input[name="email"]')
+        var input = $(this).find('input[name="email"]')
         var email = input.val()
         input.val('')
         $.post('/member/userman/setuserauth', {
@@ -110,7 +110,7 @@
       }
 
       $('#uams form').submit(handleAdd)
-      $('#uams a.submit').click(handleAdd)
+      $('#uams a.submit').click(function(e) { handleAdd.call($(this).parent(), e) })
     </script>
 
   </body>
