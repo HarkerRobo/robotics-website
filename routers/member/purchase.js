@@ -362,7 +362,7 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
 router.post('/admin/reject/:id', auth.verifyRank(ranks.admin), function (req, res) {
   let query = {}
   // if mentor
-  if (req.auth.level == ranks.admin || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
+  if (req.auth.level == ranks.mentor || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
     query.approval = 3
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
