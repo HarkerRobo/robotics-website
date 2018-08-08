@@ -274,7 +274,7 @@ router.post('/edit/:purchase_id', function (req, res) {
     }, (err) => {
       if (err) console.error(err)
       else console.log("Email sent!")
-      res.redirect('../../view/' + purchase.purchase_id)
+      res.redirect('../list')
     })
   })
 })
