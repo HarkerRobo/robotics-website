@@ -50,9 +50,10 @@ app.use(clientErrorHandler)
 // use routers
 if (config.server.runInternal) app.use('/member', memberRouter)
 if (config.server.runInternal) app.use('/scoutdata', require('./routers/scoutdata'))
-if (config.blog.runBlog) app.use('/blog', blogsRouter)
+app.use('/blog', blogsRouter)
 
 app.locals.GoogleClientID = config.google.clientIDs[config.google.displayID]
+app.locals.config = config
 app.locals.ranks = require('./helpers/ranks.json')
 
 app.use('/hackathon', hackathonRouter)

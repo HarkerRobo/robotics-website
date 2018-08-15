@@ -80,7 +80,7 @@ The config file should be stored as `config.json`. You can copy from the example
 | server.production            | false                                           | Whether the server is a production server, meaning it is behind a proxy and being used as the robotics website.
 | server.runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
 | server.port                    | 3000  | the port to run the system on
-| blog.runBlog            | false                                           | Whether to run the /blog path.
+| blog.runBlog            | false                                           | Whether to run the blogs with the API or the iframe
 | blog.interval           | 10                                              | The interval (in seconds) on which to pull the blog posts from Blogger.
 | blog.blogID             | "123456789"                                     | The ID number for the blog. Use [this](http://blogtimenow.com/blogging/find-blogger-blog-id-post-id-unique-id-number/) tutorial to find the ID number of the blog, or ask the webmaster.
 | blog.apiKey             | "some-key"                                      | The API key used to access the blog through API. Ask the webmaster if needed.

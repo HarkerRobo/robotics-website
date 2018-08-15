@@ -14,8 +14,7 @@
 
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-main.ejs') %>
-
-    <!--
+    <% if (config.blog.runBlog) { %>
     <header>
 
       <div class="container-fluid">
@@ -39,12 +38,12 @@
         </div>
       </div>
     </header>
-    -->
-
+    <% } else { %>
+  
     <header>
       <iframe src="https://harkerrobotics.blogspot.com/" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
     </header>
-
+    <% } %>
 
     
 

@@ -12,7 +12,7 @@
     "domain": "localhost",
     "production": false,
     "port": 3000,
-    "runInternal": false,
+    "runInternal": false
   },
   "blog": {
     "runBlog": false,
