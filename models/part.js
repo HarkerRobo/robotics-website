@@ -1,5 +1,7 @@
 const mongoose = require('../db')
 
+const STATUSES = [0, 10, 20, 30]
+
 const partSchema = mongoose.Schema({
   year: {
     required: true,
@@ -55,15 +57,15 @@ const partSchema = mongoose.Schema({
     },
   },
   /*
-    0 - not started
-    5 - part completed
-    10 - part on robot
+    0 - in design
+    10 - released
+    20 - machined
+    30 - installed
   */
   part_status: {
     type: Number,
     default: 0,
-    min: 0,
-    max: 10,
+    enum: STATUSES,
     validate : {
       validator : Number.isInteger,
       message   : '{VALUE} is not an integer value'
