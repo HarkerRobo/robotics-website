@@ -515,11 +515,11 @@ div.landingtext {
 /* photos */
 
 #photos-tile {
-  background: url('/img/media/direc/Photos_Background_New2.JPG') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/Photos_Background_New2.JPG') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/Photos_Background_New2.JPG') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/Photos_Background_New2.JPG') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),url('/img/media/direc/Photos_Background_New2.JPG') no-repeat center center; /* Standard syntax (must be last) */
+  background: url('/img/media/direc/Photos_Background_New2.jpg') no-repeat center center; /* For browsers that do not support gradients */
+  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/Photos_Background_New2.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
+  background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/Photos_Background_New2.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
+  background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/Photos_Background_New2.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
+  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),url('/img/media/direc/Photos_Background_New2.jpg') no-repeat center center; /* Standard syntax (must be last) */
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
