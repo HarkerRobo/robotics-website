@@ -376,7 +376,7 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
     </a>`
 
     transporter.sendMail({
-      from: `"Harker Robotics PR" <${config.automail.email}>`,
+      from: config.automail.email,
       to: MENTOR_EMAIL, // list of receivers
       subject: 'A purchase request is awaiting your approval.', // Subject line
       text, // plaintext body
