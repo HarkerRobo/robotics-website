@@ -19,6 +19,8 @@ const express = require('express'),
   ranks = require('../../helpers/ranks.json'),
   auth = require('../../helpers/auth')
 
+const MENTOR_EMAIL = config.users.mentor;
+
 router.use(cookieParser())
 
 const safeString = (str) => {
@@ -192,16 +194,16 @@ router.post('/create', csrfProtection, function (req, res) {
       res.render('pages/member/error', { statusCode: 500, error: err })
       return
     }
-    transporter.sendMail({
+    /*transporter.sendMail({
       from: 'HarkerRobotics1072 Purchase System', // sender address
       to: 'harker1072@gmail.com', // list of receivers
       subject: 'Purchase Request has been created!', // Subject line
       text: 'Purchase Request can be found here: https://robotics.harker.org/member/purchase/view/' + purchase.purchase_id, // plaintext body
     }, (err) => {
-      res.redirect('view/' + purchase.purchase_id)
       if (err) console.error(err)
-      else console.log("Email sent!")
-    })
+      else console.log("Email sent!")*/
+      res.redirect('view/' + purchase.purchase_id)
+    /*})*/
   });
 })
 
@@ -266,16 +268,17 @@ router.post('/edit/:purchase_id', function (req, res) {
       res.render('pages/member/error', { statusCode: 500, error: err })
       return
     }
-    transporter.sendMail({
-      from: 'HarkerRobotics1072 Purchase System', // sender address
+    /*transporter.sendMail({
+      from: 'Harker Robotics PR', // sender address
       to: 'harker1072@gmail.com', // list of receivers
+      replyTo: 'no-reply@harker.org',
       subject: 'Purchase Request has been edited!', // Subject line
       text: 'Purchase Request can be found here: https://robotics.harker.org/member/purchase/view/' + req.params.purchase_id, // plaintext body
     }, (err) => {
       if (err) console.error(err)
-      else console.log("Email sent!")
+      else console.log("Email sent!")*/
       res.redirect('../list')
-    })
+    /*})*/
   })
 })
 
@@ -331,6 +334,7 @@ router.get('/admin', function (req, res) {
 })
 
 router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, res) {
+  let sendToMentor = false
   let query = {}
   // if mentor
   if (req.auth.level == ranks.mentor || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
@@ -338,6 +342,7 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
     query.mentor_date_approved = new Date()
+    sendToMentor = true
   }
   // if admin
   else {
@@ -355,7 +360,33 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
       res.status(404).json({ success: 'false', error: { message: 'Purchase not found' }})
       return
     }
-    res.status(200).send()
+    const text = `A purchase request is awaiting your approval! The purchase request can be found here: 
+    https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
+    
+    You can see all pending requests here:
+    http://${config.server.domain}/member/purchase/mentor`
+    const html = `A purchase request is awaiting your approval! The purchase request can be found here: 
+    <br/>
+    <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
+      https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
+    </a><br/><br/>
+    You can see all pending requests here:<br/>
+    <a href="http://${config.server.domain}/member/purchase/mentor">
+      http://${config.server.domain}/member/purchase/mentor
+    </a>`
+
+    transporter.sendMail({
+      from: `"Harker Robotics PR" <${config.automail.email}>`,
+      to: MENTOR_EMAIL, // list of receivers
+      subject: 'A purchase request is awaiting your approval.', // Subject line
+      text, // plaintext body
+      html,
+    }, (err) => {
+      if (err) console.error(err)
+      else console.log("Email sent!")
+      res.status(200).send()
+    })
+    
   })
 })
 
