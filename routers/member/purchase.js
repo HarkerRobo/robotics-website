@@ -210,7 +210,9 @@ router.post('/create', csrfProtection, function (req, res) {
 router.get('/edit/:purchase_id', function (req, res) {
   Purchase.findOne({ purchase_id: req.params.purchase_id }, (err, purchase) => {
     if (err || purchase==null) res.render('pages/member/error', { statusCode: 404, error: ( err ? err : "Purchase not found" ) })
-    else if (purchase.submitted_by.toLowerCase() === req.auth.info.email.toLowerCase() && purchase.approval <= 1) res.render('pages/member/purchase/edit', { purchase: purchase })
+    // if the purchase is awaiting approval, admin rejected, or mentor rejected
+    else if (purchase.submitted_by.toLowerCase() === req.auth.info.email.toLowerCase() && (purchase.approval <= 1 || purchase.approval == 3)) 
+      res.render('pages/member/purchase/edit', { purchase: purchase })
     else res.render('pages/member/purchase/view', { purchase: purchase })
   })
 })
@@ -334,7 +336,7 @@ router.get('/admin', function (req, res) {
 })
 
 router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, res) {
-  let sendToMentor = false
+  let mentorApproval = false
   let query = {}
   // if mentor
   if (req.auth.level == ranks.mentor || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
@@ -342,7 +344,7 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
     query.mentor_date_approved = new Date()
-    sendToMentor = true
+    mentorApproval = true
   }
   // if admin
   else {
@@ -351,6 +353,8 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
     query.admin_username = safeString(req.auth.info.email)
     query.admin_date_approved = new Date()
   }
+
+  
   Purchase.findOneAndUpdate({ purchase_id: req.params.id } , query, function(err, purchase) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
@@ -360,25 +364,49 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), function (req, r
       res.status(404).json({ success: 'false', error: { message: 'Purchase not found' }})
       return
     }
-    const text = `A purchase request is awaiting your approval! The purchase request can be found here: 
-    https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
-    
-    You can see all pending requests here:
-    http://${config.server.domain}/member/purchase/mentor`
-    const html = `A purchase request is awaiting your approval! The purchase request can be found here: 
-    <br/>
-    <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
+
+    if (mentorApproval) {
+      const subject = 'Your purchase request has been approved.';
+      const to = MENTOR_EMAIL;
+      const text = 
+      `Your purchase has been approved! The purchase request can be found here: 
+      https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}`
+
+      const html = 
+      `Your purchase has been approved! The purchase request can be found here: 
+      <br/>
+      <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
+        https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
+      </a>`
+    }
+
+    else {
+      const subject = 'A purchase request is awaiting your approval.';
+      const to = [].join()
+      const text =
+      `A purchase request is awaiting your approval! The purchase request can be found here: 
       https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
-    </a><br/><br/>
-    You can see all pending requests here:<br/>
-    <a href="http://${config.server.domain}/member/purchase/mentor">
-      http://${config.server.domain}/member/purchase/mentor
-    </a>`
+      
+      You can see all pending requests here:
+      http://${config.server.domain}/member/purchase/mentor`
+
+      const html =
+      `A purchase request is awaiting your approval! The purchase request can be found here: 
+      <br/>
+      <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
+        https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
+      </a><br/><br/>
+      You can see all pending requests here:<br/>
+      <a href="http://${config.server.domain}/member/purchase/mentor">
+        http://${config.server.domain}/member/purchase/mentor
+      </a>`
+    }
+    
 
     transporter.sendMail({
       from: config.automail.email,
-      to: MENTOR_EMAIL, // list of receivers
-      subject: 'A purchase request is awaiting your approval.', // Subject line
+      to: to, // list of receivers
+      subject, // Subject line
       text, // plaintext body
       html,
     }, (err) => {
