@@ -336,6 +336,8 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res)
   let query = {}
   // if mentor
   if (req.auth.level == ranks.mentor || (req.auth.level >= ranks.superadmin && req.body.mentor === 'true')) {
+    console.log(req.body.mentor)
+    console.log('mentor')
     query.approval = 4
     query.mentor_comments = safeString(req.body.comments)
     query.mentor_username = safeString(req.auth.info.email)
@@ -344,6 +346,7 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res)
   }
   // if admin
   else {
+    console.log('admin')
     query.approval = 2
     query.admin_comments = safeString(req.body.comments)
     query.admin_username = safeString(req.auth.info.email)
@@ -351,20 +354,24 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res)
   }
   try {
     const purchase = await Purchase.findOneAndUpdate({ purchase_id: req.params.id }, query)
-    if (req.body.updatedAt != purchase.updatedAt.getTime())
-      throw new Error('The purchase request has been updated elsewhere, not approved.')
+    if (req.body.updatedAt != purchase.updatedAt.getTime()) {
+      res.status(409).send('The purchase request has been updated elsewhere, not approved.')
+      return
+    }
 
-    if (purchase==null)
-      throw new Error('Purchase not found')
-
+    if (purchase==null) {
+      res.status(404).send('Purchase not found')
+      return;
+    }
+    let subject, to, text, html;
     if (mentorApproval) {
-      const subject = 'Your purchase request has been approved.';
-      const to = purchase.submitted_by;
-      const text = 
+      subject = 'Your purchase request has been approved.';
+      to = purchase.submitted_by;
+      text = 
       `Your purchase has been approved! The purchase request can be found here: 
       https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}`
 
-      const html = 
+      html = 
       `Your purchase has been approved! The purchase request can be found here: 
       <br/>
       <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
@@ -373,16 +380,16 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res)
     }
 
     else {
-      const subject = 'A purchase request is awaiting your approval.';
-      const to = MENTOR_EMAIL;
-      const text =
+      subject = 'A purchase request is awaiting your approval.';
+      to = MENTOR_EMAIL;
+      text =
       `A purchase request is awaiting your approval! The purchase request can be found here: 
       https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}
       
       You can see all pending requests here:
       http://${config.server.domain}/member/purchase/mentor`
 
-      const html =
+      html =
       `A purchase request is awaiting your approval! The purchase request can be found here: 
       <br/>
       <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
@@ -407,7 +414,8 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res)
     })
   }
   catch (err) {
-    res.status(500).json({ success: 'false', error: { message: err } })
+    console.error(err)
+    res.status(500).json({ success: 'false', error: { message: err.toString() } })
   }
 })
 

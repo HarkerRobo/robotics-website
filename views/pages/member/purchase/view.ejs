@@ -220,32 +220,32 @@
       })
       console.log(<%- auth.loggedin && auth.level >= ranks.admin %>)
       <% if (auth.loggedin && auth.level >= ranks.admin) { %>
-        var data = { 'comments': $("#approval-comments").val(), updatedAt: <%= purchase.updatedAt.getTime() %> }
+        var data_admin = { 'comments': $("#approval-comments").val(), updatedAt: <%= purchase.updatedAt.getTime() %> }
         $("#approve-purchase").click(function() {
-          $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', data, function() {
+          $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', data_admin, function() {
             window.location.href = "/member/purchase/"
           }).fail(function(xhr) {
             console.error(xhr)
             
-            if (xhr.statusCode == 409) alert('This request has been editted somewhere else; it was not approved')
+            if (xhr.status == 409) alert('This request has been editted somewhere else; it was not approved')
             else alert('Something went wrong.')
           })
         })
         $("#reject-purchase").click(function() {
-          $.post('/member/purchase/admin/reject/<%= purchase.purchase_id %>', data, function() {
+          $.post('/member/purchase/admin/reject/<%= purchase.purchase_id %>', data_admin, function() {
             window.location.href = "/member/purchase/"
           }).fail(function(xhr) {
             console.error(xhr)
             
-            if (xhr.statusCode == 409) alert('This request has been editted somewhere else; it was not approved')
+            if (xhr.status == 409) alert('This request has been editted somewhere else; it was not approved')
             else alert('Something went wrong.')
           })
         })
       <% } %>
       <% if (auth.loggedin && auth.level >= ranks.mentor) { %>
-        var data = { 'comments': $("#approval-comments").val(), updatedAt: <%= purchase.updatedAt.getTime() %>, mentor: true }
+        var data_mentor = { 'comments': $("#approval-comments").val(), updatedAt: <%= purchase.updatedAt.getTime() %>, mentor: true }
         $("#approve-purchase-mentor").click(function() {
-          $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', data, function() {
+          $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', data_mentor, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
@@ -253,7 +253,7 @@
           })
         })
         $("#reject-purchase-mentor").click(function() {
-          $.post('/member/purchase/admin/reject/<%= purchase.purchase_id %>', data, function() {
+          $.post('/member/purchase/admin/reject/<%= purchase.purchase_id %>', data_mentor, function() {
             window.location.href = "/member/purchase/admin"
           }).fail(function(xhr) {
             alert('Something went wrong.')
