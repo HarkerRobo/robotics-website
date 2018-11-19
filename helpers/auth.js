@@ -27,7 +27,7 @@ const verifyRank = rank => {
 }
 
 module.exports = {
-  sessionAuth: sessionAuth,
-  verifyLogin: verifyLogin,
-  verifyRank: verifyRank,
+  sessionAuth,
+  verifyLogin,
+  verifyRank,
 }
