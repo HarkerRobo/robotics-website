@@ -220,16 +220,24 @@
         var reader = new FileReader();
         reader.onload = function(e) {
           var text = reader.result;
-          var arr = text.split('\n').map(row => row.split(','));
+          var arr = text.replace(/\r|\"/g,'').split('\n').map(row => row.split(','));
           
-          var input_row = $('#input-row > td');
+          var input_row = $('#input-row > td input');
 
           for (var i = 0; i < arr.length; i++) {
+            console.log('-----')
+            console.log(row)
             var row = arr[i];
-            // for each column in the table
-            for (var j = 0; j <= 5; j++) {
+            // for each text column in the table
+            for (var j = 0; j <= 3; j++) {
               // fill in the input row with values from the CSV
-              $(input_row[j]).find('input').val(row[j])
+              $(input_row[j]).val(row[j])
+            }
+            // for each number column
+            for (var j = 4; j <= 5; j++) {
+              console.log(j,row[j])
+              // fill in the input row with values from the CSV
+              $(input_row[j]).val(row[j].replace('\r','').replace('\"',''))
             }
             $('#add-row').click();
           }
