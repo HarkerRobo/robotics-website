@@ -6,3 +6,21 @@ header, section, body {
 .deleteIfSignedOut {
   display: none;
 }
+
+#parts-drop-area {
+  border: white 2px dashed;
+  background-color: darkcyan;
+  border-radius: 10px;
+  width: 50%;
+  margin: 20px auto;
+  padding: 10px;
+  transition: background 0.5s,
+}
+
+#parts-drop-area #fileElem {
+  display: inline;
+}
+
+#parts-drop-area.highlight {
+  background-color: rgb(0, 179, 60);
+}
