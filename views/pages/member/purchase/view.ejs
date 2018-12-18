@@ -176,6 +176,7 @@
           <% } %>
           <div class="btn-group">
             <button type="button" class="btn btn-info btn-lg">Print</button>
+            <button type="button" class="btn btn-info btn-lg" id="vex-list-button">Vex List</button>
             <% if (put_buttons) { %>
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
               <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
@@ -192,6 +193,31 @@
     </header>
 
     <script>
+      function generateVexListFromPage() {
+        let res = "";
+        $('#parts tbody tr').each(function(index, element) {
+          const part_num = $(element).find('textarea[name=part_number]').val();
+          const quantity = $(element).find('input[name=quantity]').val();
+          res += `${part_num} ${quantity}\n`;
+        })
+        return res;
+      }
+
+      // creates vex list for part number and quantity
+      // https://stackoverflow.com/questions/3665115/create-a-file-in-memory-for-user-to-download-not-through-server
+      $('#vex-list-button').click(function() {
+        var href = `data:text;charset=utf-8,${encodeURI(generateVexListFromPage())}`;
+        var element = document.createElement('a');
+        element.setAttribute('href', href);
+        element.setAttribute('download', 'vex_list.txt');
+        element.style.display = 'none';
+        document.body.appendChild(element);
+
+        element.click();
+
+        document.body.removeChild(element);
+      })
+
       $(".to-price").each(function(i, e) {
         $(e).val(parseFloat($(e).val(), 10).toFixed(2))
       })
