@@ -139,13 +139,31 @@
     </header>
 
     <script>
+
+      var entityMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '/': '&#x2F;',
+        '`': '&#x60;',
+        '=': '&#x3D;'
+        };
+
+      function escapeHtml (string) {
+        return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+          return entityMap[s];
+        });
+      }
+
       $("#add-row").click(function() {
         $("#parts > table > tbody").append(""
           + '<tr>'
-          +   '<td><input type="text" name="part_url" class="form-control" value="' + $("#part_url").val() + '" /></td>'
-          +   '<td><input type="text" name="part_number" class="form-control" value="' + $("#part_number").val() + '" /></td>'
-          +   '<td><input type="text" name="part_name" class="form-control" value="' + $("#part_name").val() + '" /></td>'
-          +   '<td><input type="text" name="subsystem" class="form-control" value="' + $("#subsystem").val() + '" /></td>'
+          +   '<td><input type="text" name="part_url" class="form-control" value="' + escapeHtml($("#part_url").val()) + '" /></td>'
+          +   '<td><input type="text" name="part_number" class="form-control" value="' + escapeHtml($("#part_number").val()) + '" /></td>'
+          +   '<td><input type="text" name="part_name" class="form-control" value="' + escapeHtml($("#part_name").val()) + '" /></td>'
+          +   '<td><input type="text" name="subsystem" class="form-control" value="' + escapeHtml($("#subsystem").val()) + '" /></td>'
           +   '<td><div class="input-group">'
           +     '<span class="input-group-addon">$</span>'
           +     '<input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" />'
