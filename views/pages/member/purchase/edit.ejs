@@ -111,15 +111,15 @@
                 </tr>
                 <% for(var i = 0; i < purchase.part_url.length; i++) { %>
                   <tr>
-                    <td><input type="text" name="part_url" class="form-control" value="<%- purchase.part_url[i] %>" /></td>
-                    <td><input type="text" name="part_number" class="form-control" value="<%- purchase.part_number[i] %>" /></td>
-                    <td><input type="text" name="part_name" class="form-control" value="<%- purchase.part_name[i] %>" /></td>
-                    <td><input type="text" name="subsystem" class="form-control" value="<%- purchase.subsystem[i] %>" /></td>
+                    <td><input type="text" name="part_url" class="form-control" value="<%= purchase.part_url[i] %>" /></td>
+                    <td><input type="text" name="part_number" class="form-control" value="<%= purchase.part_number[i] %>" /></td>
+                    <td><input type="text" name="part_name" class="form-control" value="<%= purchase.part_name[i] %>" /></td>
+                    <td><input type="text" name="subsystem" class="form-control" value="<%= purchase.subsystem[i] %>" /></td>
                     <td><div class="input-group">
                      <span class="input-group-addon">$</span>
-                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%- purchase.price_per_unit[i] %>" pattern="^\d+(\.\d{0,2})?$" />
+                     <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%= purchase.price_per_unit[i] %>" pattern="^\d+(\.\d{0,2})?$" />
                     </div></td>
-                    <td><input type="number" name="quantity" class="form-control" value="<%- purchase.quantity[i] %>" /></td>
+                    <td><input type="number" name="quantity" class="form-control" value="<%= purchase.quantity[i] %>" /></td>
                     <td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>
                   </tr>
                 <% } %>
@@ -132,21 +132,40 @@
     </header>
 
     <script>
+
+      var entityMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;',
+        '/': '&#x2F;',
+        '`': '&#x60;',
+        '=': '&#x3D;'
+        };
+
+      function escapeHtml (string) {
+        return String(string).replace(/[&<>"'`=\/]/g, function (s) {
+          return entityMap[s];
+        });
+      }
+
       $(".to-price").each(function(i, e) {
         $(e).val(parseFloat($(e).val(), 10).toFixed(2))
       })
+
       $("#add-row").click(function() {
         $("#parts > table > tbody").append(""
           + '<tr>'
-          +   '<td><input type="text" name="part_url" class="form-control" value="' + $("#part_url").val() + '" /></td>'
-          +   '<td><input type="text" name="part_number" class="form-control" value="' + $("#part_number").val() + '" /></td>'
-          +   '<td><input type="text" name="part_name" class="form-control" value="' + $("#part_name").val() + '" /></td>'
-          +   '<td><input type="text" name="subsystem" class="form-control" value="' + $("#subsystem").val() + '" /></td>'
+          +   '<td><input type="text" name="part_url" class="form-control" value="' + escapeHtml($("#part_url").val()) + '" /></td>'
+          +   '<td><input type="text" name="part_number" class="form-control" value="' + escapeHtml($("#part_number").val()) + '" /></td>'
+          +   '<td><input type="text" name="part_name" class="form-control" value="' + escapeHtml($("#part_name").val()) + '" /></td>'
+          +   '<td><input type="text" name="subsystem" class="form-control" value="' + escapeHtml($("#subsystem").val()) + '" /></td>'
           +   '<td><div class="input-group">'
           +     '<span class="input-group-addon">$</span>'
-          +     '<input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" />'
+          +     '<input type="text" name="price_per_unit" class="form-control" value="' + escapeHtml($("#price_per_unit").val()) + '" />'
           +   '</div></td>'
-          +   '<td><input type="text" name="quantity" class="form-control" value="' + $("#quantity").val() + '" /></td>'
+          +   '<td><input type="text" name="quantity" class="form-control" value="' + escapeHtml($("#quantity").val()) + '" /></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'
         );
