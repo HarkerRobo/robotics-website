@@ -144,6 +144,7 @@ async function createPart(req, partid, robot_type) {
     metal_type: partid[1],
     specific_id: partid[2],
     description: req.body.description,
+    quantity: req.body.quantity,
     image: await parseImgur(req.body.image),
     cadlink: req.body.cadlink,
     competition: req.body.competition,
