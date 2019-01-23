@@ -20,7 +20,14 @@
     <script>
         var COMPONENTS = ['Year', 'Robot Type', 'Subassembly', 'Metal Type', 'Specific Id'];
         var ROBOT_TYPES = ['Competition', 'Practice', 'Offseason'];
-        var currentPath = [new Date().getFullYear()];
+        var currentPathFromURL = document.location.hash.substring(1);
+        if (currentPathFromURL) {
+            var currentPath = decodeURIComponent(currentPathFromURL).split(',');
+        }
+        else {
+            var currentPath = [new Date().getFullYear()];
+        }
+        
 
         function addResult(data) {
             var toAdd = data;
@@ -65,6 +72,7 @@
                 // $('#folders-back').text(`[Back to ${COMPONENTS[currentPath.length - 1]}]`);
             }
             else $('#folders-back').hide()
+            var parsedUrl = new URL(window.location.href);
             $('#results .result').click(function() {
                 currentPath.push($(this).attr('data'));
                 getResults();
@@ -87,6 +95,9 @@
         function getResults() {
             $.get('spec/' + currentPath.join('/'))
             .then(handleData(COMPONENTS[currentPath.length]))
+            .then(function() {
+                document.location.hash = currentPath.join(',')
+            })
         }
 
         getResults()
