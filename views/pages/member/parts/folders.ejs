@@ -19,6 +19,11 @@
 
     <script>
         var COMPONENTS = ['Year', 'Robot Type', 'Subassembly', 'Metal Type', 'Specific Id'];
+        var COMPONENTS_OBJ = {};
+        for (var component_number in COMPONENTS) {
+            COMPONENTS_OBJ[COMPONENTS[component_number]] = parseInt(component_number);
+        }
+        var METAL_TYPES_2019 = ['Error','Tubing','Plate','Shaft','Prints'];
         var ROBOT_TYPES = ['Competition', 'Practice', 'Offseason'];
         var currentPathFromURL = document.location.hash.substring(1);
         if (currentPathFromURL) {
@@ -31,7 +36,17 @@
 
         function addResult(data) {
             var toAdd = data;
-            if (currentPath.length == 1) toAdd = ROBOT_TYPES[data];
+            if (currentPath.length == COMPONENTS_OBJ['Year'] + 1) {
+                toAdd = ROBOT_TYPES[data];
+            }
+            else if (currentPath.length == COMPONENTS_OBJ['Subassembly'] + 1) {
+                const year = currentPath[COMPONENTS_OBJ['Year']];
+                toAdd = currentPath[COMPONENTS_OBJ['Subassembly']] + '_' + data;
+                if (year == 2019) toAdd += ` (${METAL_TYPES_2019[data]})`;
+            }
+            else if (currentPath.length == COMPONENTS_OBJ['Metal Type'] + 1) {
+                toAdd = currentPath[COMPONENTS_OBJ['Subassembly']] + '_' + currentPath[COMPONENTS_OBJ['Metal Type']] + ("0" + data).slice(-2);
+            }
             $('#results').append(`<div data="${data}" class="result">${toAdd}</div>`);
         }
 
