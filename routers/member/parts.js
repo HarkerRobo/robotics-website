@@ -143,6 +143,7 @@ async function createPart(req, partid, robot_type) {
     subassembly: partid[0],
     metal_type: partid[1],
     specific_id: partid[2],
+    part_status: req.body.part_status,
     description: req.body.description,
     quantity: req.body.quantity,
     image: await parseImgur(req.body.image),
@@ -239,6 +240,7 @@ router.post('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_white
     part.image = await parseImgur(req.body.image)
     part.cadlink = req.body.cadlink
     part.quantity = req.body.quantity
+    part.part_status = req.body.part_status
 
     res.json(await part.save())
   }

@@ -57,7 +57,7 @@ const partSchema = mongoose.Schema({
     },
   },
   /*
-    0 - in design
+    0 - designed
     10 - released
     20 - machined
     30 - installed
