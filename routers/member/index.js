@@ -133,7 +133,7 @@ router.post('/token', function (req, res) {
         // otherwise give them default rank
         let authorization = ranks.none
         if (data.hd === 'students.harker.org' || data.hd === 'staff.harker.org')
-            req.session.auth.level = ranks.harker_student
+            authorization = ranks.harker_student
 
         User.create({ email: data.email.toLowerCase(), authorization })
         .then(() => {
