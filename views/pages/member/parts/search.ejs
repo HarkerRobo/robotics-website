@@ -58,6 +58,8 @@
       });*/
       $("#datepicker").val(new Date().getFullYear())
 
+      var edit_status_xhr
+
       /*
         https://stackoverflow.com/questions/5499078/fastest-method-to-escape-html-tags-as-html-entities
         Runs an HTML escape
@@ -120,8 +122,38 @@
               <span class="result-author">${data.author}</span> |
               <a class="result-edit" href="#">Edit</a>
             </p>
+            <div class="form-group result-status">
+                    <div class="col-sm-offset-2 col-sm-10" style="margin:0; width:100%;">
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="0" ${data.part_status === 0 ? 'checked' : ''}>
+                        Designed
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="10" ${data.part_status === 10 ? 'checked' : ''}>
+                        Released
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="20" ${data.part_status === 20 ? 'checked' : ''}>
+                        Machined
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="30" ${data.part_status === 30 ? 'checked' : ''}>
+                        Installed
+                    </label>
+                    </div>
+                </div>
           `)
-
+          
+          $('main#result .result-status [name=part_status]').click(function() {
+            if (edit_status_xhr) edit_status_xhr.abort()
+            edit_status_xhr = $.ajax({
+              url: `/member/parts/edit_status/${year}/${robot_type}/${partID}`,
+              method: 'POST',
+              data: {
+                part_status: $('[name=part_status]:checked').val()
+              }
+            })
+          })
           $('main#result img.result-image').attr('src', data.image)
           $('main#result .result-cad').attr('href', data.cadlink)
           if (!data.cadlink) $('main#result .result-cad').css({ 'text-decoration': 'line-through' }).attr({ 'href': '#', 'target': '_self' })

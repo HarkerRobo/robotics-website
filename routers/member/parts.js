@@ -219,6 +219,28 @@ router.get('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitel
   })
 })
 
+router.post('/edit_status/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitelist), async (req, res) => {
+  try { 
+    const partid = await verifyPartID(req.params.partid)
+    let part = await Part.findOne({
+      year: req.params.year,
+      robot_type: req.params.robot_type,
+      subassembly: partid[0],
+      metal_type: partid[1],
+      specific_id: partid[2],
+    })
+    if (part.author !== req.auth.info.email) throw new Error('Email does not match that of author.')
+    part.part_status = req.body.part_status;
+    res.json(await part.save());
+
+  }
+  catch (err) {
+    if (!err) err = ''
+    res.status(err.status || 500).json({ success: false, error: { message: err.message || err } })
+    console.error(`[REQ: ${req.request_id}] [ERROR] ${err}`)
+  }
+})
+
 router.post('/edit/:year/:robot_type/:partid', auth.verifyRank(ranks.parts_whitelist), async (req, res) => {
   try {
     const partid = await verifyPartID(req.params.partid)

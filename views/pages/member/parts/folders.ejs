@@ -20,6 +20,7 @@
     <script>
         var COMPONENTS = ['Year', 'Robot Type', 'Subassembly', 'Metal Type', 'Specific Id'];
         var COMPONENTS_OBJ = {};
+        var edit_status_xhr;
         for (var component_number in COMPONENTS) {
             COMPONENTS_OBJ[COMPONENTS[component_number]] = parseInt(component_number);
         }
@@ -55,6 +56,7 @@
         }
 
         function showResult(data) {
+            console.log(data)
             var partID = '' + data.subassembly + '_' + data.metal_type + twoDigits(data.specific_id);
             $('#heading #title').text(`Viewing Part ${partID}`);
             $('#folder-display')
@@ -68,7 +70,38 @@
                 <span class="result-author">${data.author}</span> |
                 <a class="result-edit" href="#">Edit</a>
                 </p>
+                <div class="form-group result-status">
+                    <div class="col-sm-offset-2 col-sm-10" style="margin:0; width:100%;">
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="0" ${data.part_status === 0 ? 'checked' : ''}>
+                        Designed
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="10" ${data.part_status === 10 ? 'checked' : ''}>
+                        Released
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="20" ${data.part_status === 20 ? 'checked' : ''}>
+                        Machined
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" name="part_status" value="30" ${data.part_status === 30 ? 'checked' : ''}>
+                        Installed
+                    </label>
+                    </div>
+                </div>
             `)
+            
+            $('#folder-display .result-status [name=part_status]').click(function() {
+                if (edit_status_xhr) edit_status_xhr.abort()
+                edit_status_xhr = $.ajax({
+                    url: `/member/parts/edit_status/${data.year}/${data.robot_type}/${partID}`,
+                    method: 'POST',
+                    data: {
+                        part_status: $('[name=part_status]:checked').val()
+                    },
+                })
+            })
 
             $('#folder-display img.result-image').attr('src', data.image)
             $('#folder-display .result-cad').attr('href', data.cadlink)
