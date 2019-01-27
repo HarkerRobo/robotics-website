@@ -105,8 +105,12 @@
 
             $('#folder-display img.result-image').attr('src', data.image)
             $('#folder-display .result-cad').attr('href', data.cadlink)
-            if (!data.cadlink) $('#folder-display .result-cad').css({ 'text-decoration': 'line-through' }).attr({ 'href': '#', 'target': '_self' })
             $('#folder-display .result-edit').attr('href', `/member/parts/edit/${data.year}/${data.robot_type}/${partID}`)
+            if (!data.cadlink) $('#folder-display .result-cad').css({ 'text-decoration': 'line-through' }).attr({ 'href': '#', 'target': '_self' })
+            if (!data.isAuthor) {
+                $('#folder-display [name=part_status]').prop('disabled',true);
+                $('#folder-display .result-edit').css({ 'text-decoration': 'line-through' }).attr({ 'href': '#', 'target': '_self' })
+            }
         }
 
         $('#folders-back').click(function() {

@@ -66,9 +66,10 @@ router.get('/spec/:year/:robot_type/:subassembly/:metal_type', auth.verifyRank(r
 });
 
 router.get('/spec/:year/:robot_type/:subassembly/:metal_type/:specific_id', auth.verifyRank(ranks.harker_student), async (req, res) => {
-  const possible = await Part.findOne(req.params).lean();
-  if (!possible) res.status(404).json({});
-  else res.json(possible);
+  const part = await Part.findOne(req.params).lean();
+  part.isAuthor = part.author === req.auth.info.email;
+  if (!part) res.status(404).json({});
+  else res.json(part);
 });
 
 router.get('/folders', auth.verifyRank(ranks.harker_student), async (req, res) => {
@@ -97,7 +98,10 @@ router.get('/id/:partid', auth.verifyRank(ranks.harker_student), (req, res) => {
     .lean()
     .then(part => {
       if (part === null) res.status(404).json({ success: false, error: { message: 'Part not found' } })
-      else res.json(part)
+      else {
+        part.isAuthor = part.author === req.auth.info.email;
+        res.json(part)
+      }
     })
     .catch(err => {
       res.status(500).json({ success: false, error: { message: err } })
