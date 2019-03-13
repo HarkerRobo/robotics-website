@@ -65,6 +65,11 @@ app.get('/about', function (req, res) {
   res.render('pages/about')
 })
 
+// '/privacy' router
+app.get('/privacy', function (req, res) {
+  res.render('pages/privacy')
+})
+
 /*app.get('/photos', function (req, res) {
   res.render('pages/photos')
 })*/
