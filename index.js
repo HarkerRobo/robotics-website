@@ -74,6 +74,10 @@ app.get('/privacy', function (req, res) {
   res.render('pages/photos')
 })*/
 
+app.get('/summersignup', function (req, res) {
+  res.redirect('https://forms.gle/71KHFhL8ppf9g6J4A');
+});
+
 app.get('/contact', function(req, res) {
   res.render('pages/contact')
 })
