@@ -75,7 +75,7 @@ app.get('/privacy', function (req, res) {
 })*/
 
 app.get('/summersignup', function (req, res) {
-  res.redirect('https://forms.gle/71KHFhL8ppf9g6J4A');
+  res.redirect('https://forms.gle/hUUqJxHaUHzd8UrD6');
 });
 
 app.get('/contact', function(req, res) {
