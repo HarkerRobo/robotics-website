@@ -59,13 +59,10 @@ app.locals.ranks = require('./helpers/ranks.json')
 app.use('/hackathon', hackathonRouter)
 //app.use('/photos', photosRouter)
 
-
-// '/' router
-app.get('/about', function (req, res) {
-  res.render('pages/about')
+app.get("/", (req, res) => {
+  res.render("new/pages/index.ejs");
 })
 
-// '/privacy' router
 app.get('/privacy', function (req, res) {
   res.render('pages/privacy')
 })
@@ -77,26 +74,6 @@ app.get('/privacy', function (req, res) {
 app.get('/summersignup', function (req, res) {
   res.redirect('https://forms.gle/hUUqJxHaUHzd8UrD6');
 });
-
-app.get('/contact', function(req, res) {
-  res.render('pages/contact')
-})
-
-app.get('/sponsorship', function(req, res) {
-  res.render('pages/sponsorship')
-})
-
-app.get('/contact/map', function (req, res) {
-  res.render('pages/map')
-})
-
-app.get('/contact/message', function (req, res) {
-  res.render('pages/contactform')
-})
-
-app.get('/', function (req, res) {
-  res.render('pages/index')
-})
 
 app.get('*', function (req, res, next) {
   res.status(404)

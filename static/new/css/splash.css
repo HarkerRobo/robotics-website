@@ -1,0 +1,85 @@
+@keyframes splash-loading {
+    from {
+        height: 100vh;
+    }
+    to {
+        height: 0vh;
+    }
+}
+
+@keyframes disappear {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes spinny {
+    0% {
+        transform: rotate(0deg);
+    }
+    75% {
+        transform: rotate(360deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.spin {
+    animation-duration: 1s;
+    animation-timing-function: cubic-bezier(.9,.01,.23,.99);
+    animation-iteration-count: infinite;
+    animation-name: spinny;
+    animation-fill-mode: forwards;
+}
+
+.disappear {
+    animation-name: disappear;
+    animation-duration: 0.7s;
+    animation-iteration-count: 1;
+    animation-fill-mode: forwards;
+    animation-timing-function: cubic-bezier(.9,.01,.23,.99);
+}
+
+.curtain {
+    animation-name: splash-loading;
+    animation-duration: 1.5s;
+    animation-timing-function: cubic-bezier(.46,.27,.28,.98);
+    animation-fill-mode: forwards;
+}
+
+body {
+    padding: 0px;
+    margin: 0px;
+    overflow: hidden;
+}
+
+#splash-loading-overlay {
+    position: relative;
+    left: 0px;
+    top: 0px;
+    width: 100vw;
+    height: 100vh;
+    background-color:#1D3252;
+    z-index: 10000;
+    padding: 0px;
+}
+
+#splash-robotics-logo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-top: -15vh ;
+    margin-left: -15vh;
+    height: 30vh;
+    opacity: 1;
+} 
+
+#content {
+    position: absolute;
+    top: 0px;
+}
+

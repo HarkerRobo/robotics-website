@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Test</title>
+        
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Site Styles -->
+        <link rel="stylesheet" href="new/css/theme.css" />
+        <link rel="stylesheet" href="new/css/header.css" />
+        <link rel="stylesheet" href="new/css/splash.css" />
+        
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="new/css/index.css" />
+
+        <!-- Site Scripts -->
+        <script src="new/js/splash.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/splash.ejs') %>
+        <div id="content">
+            <%- include(__base + 'views/new/partials/header.ejs') %>
+            <div id="body">
+                <div id="landing-banner">
+                    <div id="landing-text-container">
+                        <p id="landing-text">WE ARE INVENTORS</p>
+                    </div>
+                </div>
+                <!-- <svg id="landing-transition" viewBox="0 0 100 100">
+                    <path fill="#1e3155" d="M0 0 L20 100L100 0 Z"></path>
+                </svg> -->
+            </div>
+        </div>
+    </body>
+</html>

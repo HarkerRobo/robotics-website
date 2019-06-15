@@ -1,0 +1,90 @@
+@keyframes header-expand {
+    from {
+        width: 85vw;
+    }
+    to {
+        width: 100vw;
+    }
+}
+
+#content, #header {
+    width: 100%;
+}
+
+#header-logo-wrapper {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+
+    padding-top: 2vh;
+
+    width: 100vw;
+    max-width: 700px;
+    height: 18vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    z-index: -10000;
+}
+
+#header-logo-image {
+    width: 18vh;
+}
+
+#header-logo-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#header-logo-text > h1, #header-logo-text > h3 {
+    margin: auto 0;
+}
+
+#header-navigation-wrapper {
+    position: sticky;
+    top: 0;
+
+    margin: 22vh auto 0vh auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    height: 6vh;
+
+    animation-name: header-expand;
+    animation-duration: 1s;
+    animation-play-state: paused;
+    animation-timing-function: linear;
+    animation-fill-mode: forwards;
+
+    z-index: 5;
+}
+
+.header-navigation {
+    background-color: var(--color-primary);
+    text-align: center;
+    vertical-align: middle;
+    
+    flex-grow: 1;
+    
+    line-height: 6vh;
+    height: 6vh;
+
+    outline: 1px solid var(--color-light);
+}
+
+.header-navigation > a > h4 {
+    margin: 0 auto;
+}
+
+.header-break {
+    height: 0px;
+    width: 100%;
+    display: none;
+}

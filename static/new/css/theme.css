@@ -1,0 +1,41 @@
+:root {
+    --color-primary: #1e3155;
+    --color-primary-light: #4b5a82;
+    --color-primary-dark: #001057;
+
+    --color-secondary: #42577d;
+
+    --color-light: #c8cacd;
+    --color-background: #f1f3ff;
+}
+
+body {
+    background-color: var(--color-background);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Roboto', sans-serif;
+}
+
+h1 {
+    color: var(--color-primary);
+    font-size: calc(2.4vw + 24pt);
+    font-weight: normal;
+}
+
+h3 {
+    color: var(--color-secondary);
+    font-size: calc(1.8vw + 6pt);
+    font-weight: normal;
+}
+
+h4 {
+    color: var(--color-light);
+    font-size: 2.6vw;
+    font-weight: normal;
+}
+
+.no-style-a {
+    color: inherit; 
+    text-decoration: inherit; 
+}
