@@ -6,6 +6,11 @@
     background-color: var(--color-background);
 }
 
+/*--------------
+|               |
+|    Landing    |
+|               |
+|---------------*/
 #landing-banner {
     width: 100vw; 
     line-height: 59.4vw;
@@ -47,4 +52,58 @@
     width: 100vw;
     height: 8vh;
     filter: drop-shadow(0, 10vh, 1px);
+}
+
+
+/*--------------
+|               |
+|   Team Info   |
+|               |
+|---------------*/
+
+#team-info {
+    text-align: center;
+}
+
+#team-background-text {
+    margin: 20vh auto;
+    font-size: 4vw;
+}
+
+#team-statistics-wrapper {
+    width: 85vw;
+    margin: 0 auto;
+    
+    display: flex;
+    flex-direction: horizontal;
+    justify-content: center;
+    align-items: center;
+}
+
+.team-statistic {
+    flex-grow: 1;
+}
+
+.team-stat-value {
+    margin: 0;
+
+    font-size: 6vw;
+    color: var(--color-primary);
+}
+
+.team-stat-label {
+    margin: 0;
+
+    font-size: 2.2vw;
+    color: black;
+}
+
+#about-buttons-wrapper {
+    display: flex;
+    flex-direction: horizontal;
+    justify-content: space-evenly;
+    align-items: center;
+
+    margin: 20vh auto;
+    width: 100vw;
 }

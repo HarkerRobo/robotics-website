@@ -58,7 +58,7 @@ body {
 }
 
 #splash-loading-overlay {
-    position: relative;
+    position: fixed;
     left: 0px;
     top: 0px;
     width: 100vw;
@@ -72,9 +72,9 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -15vh ;
-    margin-left: -15vh;
-    height: 30vh;
+    margin-top: -10vh ;
+    margin-left: -10vh;
+    height: 20vh;
     opacity: 1;
 } 
 

@@ -6,7 +6,7 @@
     --color-secondary: #42577d;
 
     --color-light: #c8cacd;
-    --color-background: #f1f3ff;
+    --color-background: #F0F0F0;
 }
 
 body {
@@ -15,6 +15,7 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
     font-family: 'Roboto', sans-serif;
+    font-weight: normal;
 }
 
 h1 {
@@ -38,4 +39,30 @@ h4 {
 .no-style-a {
     color: inherit; 
     text-decoration: inherit; 
+}
+
+button {
+    transition-duration: 0.4s;
+
+    background-color: var(--color-primary);
+    border: 1px solid var(--color-light);
+    border: none;
+
+    font-size: 2.8vw;
+    color: var(--color-light);
+    text-align: center;
+
+    width: 15vw;
+    height: 5vw;
+
+    border-radius: 3px;
+}
+
+button:hover {
+    background-color: var(--color-primary-light);
+    box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+}
+
+button:focus {
+    outline: none;
 }
