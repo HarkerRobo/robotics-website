@@ -4,7 +4,7 @@
         <title>Test</title>
         
         <!-- External Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+        <!-- <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet"> -->
 
         <!-- Site Styles -->
         <link rel="stylesheet" href="new/css/theme.css" />
@@ -23,13 +23,12 @@
             <%- include(__base + 'views/new/partials/header.ejs') %>
             <div id="body">
                 <div id="landing-banner">
-                    <div id="landing-text-container">
-                        <p id="landing-text">WE ARE INVENTORS</p>
+                    <div id="landing-banner-image-wrapper">
+                        <img id="landing-banner-image" src="/new/img/media/index/landing-background.png" />
                     </div>
+                    <h1 id="landing-banner-text">Bye Chris!</h1>
                 </div>
-                <!-- <svg id="landing-transition" viewBox="0 0 100 100">
-                    <path fill="#1e3155" d="M0 0 L20 100L100 0 Z"></path>
-                </svg> -->
+                <img id="landing-transition-svg" src="/new/img/svg/landing-transition.svg" />
             </div>
         </div>
     </body>

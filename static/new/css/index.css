@@ -1,24 +1,50 @@
+:root {
+    --banner-width:
+}
+
 #body {
     background-color: var(--color-background);
 }
 
 #landing-banner {
-    width: 100%;
-    height: 72vh;
-}
-
-
-#landing-text-container {
-    width: 100%;
-    height: 100%;
-    line-height: 100%;
+    width: 100vw; 
+    line-height: 59.4vw;
     text-align: center;
     vertical-align: middle;
 
-    background: url(../img/media/index/landing-background.png) no-repeat center center fixed; 
+    overflow: hidden;
 }
 
-#landing-text {
+#landing-banner-image-wrapper {
+    width: 100vw;
+}
+
+#landing-banner-image {
+    width: 100vw;
+}
+
+#landing-banner-image-wrapper::after {
+    display: block;
+    position: relative;
+    background-image: linear-gradient(to bottom, rgba(66, 87, 125, 0.3), #1E3155 95%);
+    padding: 0;
+    margin-top: -88.6vw;
+    height: 59.4vw;
+    content: "";
+}
+
+#landing-banner-text {
     color: var(--color-light);
     font-size: 5vw;
+    
+    position: relative;
+    margin-top: -59.4vw;
+    margin-bottom: 0;
+    transform: translateY(-2.5vw);
+}
+
+#landing-transition-svg {
+    width: 100vw;
+    height: 8vh;
+    filter: drop-shadow(0, 10vh, 1px);
 }
