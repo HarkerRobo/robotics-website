@@ -64,7 +64,7 @@ body {
     width: 100vw;
     height: 100vh;
     background-color:#1D3252;
-    z-index: 10000;
+    z-index: 10;
     padding: 0px;
 }
 

@@ -4,6 +4,9 @@
 
 #body {
     background-color: var(--color-background);
+    /* margin-top: 28vh; */
+    
+    z-index: -1;
 }
 
 /*--------------
@@ -12,7 +15,8 @@
 |               |
 |---------------*/
 #landing-banner {
-    width: 100vw; 
+    min-width: 100vw; 
+    min-height: 100vh;
     line-height: 59.4vw;
     text-align: center;
     vertical-align: middle;
@@ -48,7 +52,7 @@
     transform: translateY(-2.5vw);
 }
 
-#landing-transition-svg {
+.transition-svg {
     width: 100vw;
     height: 8vh;
     filter: drop-shadow(0, 10vh, 1px);
@@ -106,4 +110,96 @@
 
     margin: 20vh auto;
     width: 100vw;
+}
+
+
+/*--------------
+|               |
+|    Outreach   |
+|               |
+|---------------*/
+
+#outreach-transition {
+    vertical-align:bottom;
+}
+
+#outreach {
+    width: 100vw;
+    height: 74.8vw;
+
+    background-image: url("/new/img/media/index/outreach-banner.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#outreach-gradient {
+    width: 100%;
+    height: calc(100% - 17.4vw);
+
+    background: linear-gradient(180deg, #1E3155 2.6%, rgba(233, 20, 32, 0.2) 76.56%, rgba(229, 40, 50, 0.8) 92.71%, rgba(229, 40, 50, 1) 100%);
+    padding-top: 17.4vw;
+}
+
+#outreach-info {
+    background-color: rgba(240, 240, 240, 0.4);
+
+    width: 40vw;
+    height: 40vw;
+
+    margin-left: auto;
+    
+    margin-bottom: 17.4vw;
+    text-align: center;
+}
+
+#outreach-title {
+    margin: 2vw auto;
+}
+
+/*--------------
+|               |
+|     Media     |
+|               |
+|---------------*/
+
+#media-transition {
+    vertical-align:bottom;
+    margin-bottom: 0.1vw;
+}
+
+#media {
+    width: 100vw;
+    height: 74.8vw;
+
+    background-image: url("/new/img/media/index/media-banner.png");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+#media-gradient {
+    width: 100%;
+    height: calc(100% - 17.4vw);
+
+    background: linear-gradient(180deg, rgba(229, 40, 50, 1) 1.56%, rgba(233, 20, 32, 0.37) 8.85%, rgba(233, 20, 32, 0.2) 23.44%, rgba(66, 87, 125, 0.5) 54.17%, #1E3155 92.71%);
+    padding-top: 17.4vw;
+}
+
+#media-info {
+    background-color: rgba(240, 240, 240, 0.4);
+
+    width: 40vw;
+    height: 40vw;
+
+    margin-right: auto;
+    
+    margin-bottom: 17.4vw;
+    text-align: center;
+}
+
+#media-title {
+    margin: 2vw auto;
 }

@@ -16,6 +16,12 @@
 
         <!-- Site Scripts -->
         <script src="new/js/splash.js" type="text/javascript" defer></script>
+
+        <!-- Page Library Scripts -->
+        <script src="new/js/vendored/in-view.min.js" type="text/javascript" defer></script>
+
+        <!-- Page Scripts -->
+        <script src="new/js/index.js" type="text/javascript" defer></script>
     </head>
     <body>
         <%- include(__base + 'views/new/partials/splash.ejs') %>
@@ -28,26 +34,41 @@
                     </div>
                     <h1 id="landing-banner-text">Harker Robotics?</h1>
                 </div>
-                <img id="landing-transition-svg" src="/new/img/svg/landing-transition.svg" />
+                <img class="transition-svg" src="/new/img/svg/landing-transition.svg" />
                 <div id="team-info">
                     <h1 id="team-background-text">We are an FRC Team located at The Harker School.</h1>
                     <div id="team-statistics-wrapper">
                         <div class="team-statistic">
-                            <h3 class="team-stat-value">100</h2>
+                            <h3 class="team-stat-value" id="in-view-0">37</h2>
                             <h4 class="team-stat-label">Members</h3>
                         </div>
                         <div class="team-statistic">
-                            <h3 class="team-stat-value">0</h2>
-                            <h4 class="team-stat-label">Championships</h3>
+                            <h3 class="team-stat-value" id="in-view-2">45</h2>
+                            <h4 class="team-stat-label">Competitions</h3>
                         </div>
                         <div class="team-statistic">
-                            <h3 class="team-stat-value">17</h2>
+                            <h3 class="team-stat-value" id="in-view-1">17</h2>
                             <h4 class="team-stat-label">Years</h3>
                         </div>
                     </div>
                     <div id="about-buttons-wrapper">
                         <button>About</button>
                         <button>Members</button>
+                    </div>
+                </div>
+                <img id="outreach-transition" class="transition-svg" style="margin:0;padding:0;"src="new/img/svg/outreach-transition.svg" />
+                <div id="outreach">
+                    <div id="outreach-gradient">
+                        <div id="outreach-info">
+                            <h1 id="outreach-title">Outreach</h1>
+                        </div>
+                    </div>
+                </div>
+                <div id="media">
+                    <div id="media-gradient">
+                        <div id="media-info">
+                            <h1 id="media-title">Media</h1>
+                        </div>
                     </div>
                 </div>
             </div>

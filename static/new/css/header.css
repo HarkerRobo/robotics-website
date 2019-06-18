@@ -7,7 +7,7 @@
     }
 }
 
-#content, #header {
+#content {
     width: 100%;
 }
 
@@ -28,7 +28,8 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    z-index: -10000;
+
+    z-index: -1;
 }
 
 #header-logo-image {
@@ -63,7 +64,7 @@
     animation-timing-function: linear;
     animation-fill-mode: forwards;
 
-    z-index: 5;
+    z-index: 1
 }
 
 .header-navigation {
@@ -77,6 +78,14 @@
     height: 6vh;
 
     outline: 1px solid var(--color-light);
+    
+
+    transition-duration: 0.4s;
+}
+
+.header-navigation:hover {
+    background-color: var(--color-primary-light);
+    box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
 }
 
 .header-navigation > a > h4 {
