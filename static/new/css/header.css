@@ -64,7 +64,7 @@
     animation-timing-function: linear;
     animation-fill-mode: forwards;
 
-    z-index: 1
+    z-index: 1;
 }
 
 .header-navigation {
