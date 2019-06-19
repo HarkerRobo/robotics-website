@@ -15,26 +15,26 @@ body {
 
 h1, h2, h3, h4, h5, h6, p {
     font-family: 'Roboto', sans-serif;
-    font-weight: normal;
+    font-weight: 400;
     margin: 0;
 }
 
 h1 {
     color: var(--color-primary);
     font-size: calc(2.4vw + 24pt);
-    font-weight: normal;
+    font-weight: 400;
 }
 
 h3 {
     color: var(--color-secondary);
     font-size: calc(1.8vw + 6pt);
-    font-weight: normal;
+    font-weight: 400;
 }
 
 h4 {
     color: var(--color-light);
     font-size: 2.6vw;
-    font-weight: normal;
+    font-weight: 400;
 }
 
 .no-style-a {
@@ -53,11 +53,14 @@ button {
     color: var(--color-light);
     text-align: center;
 
-    width: 15vw;
+    /* width: 15vw; */
     height: 5vw;
+    padding: 1.5vw;
+    vertical-align: middle;
+    line-height: 2vw;
 
     border-radius: 3px;
-    cursor:pointer;
+    cursor: pointer;
 }
 
 button:hover {

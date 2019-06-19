@@ -1,5 +1,5 @@
 :root {
-    --banner-width:
+    --banner-width: 3;
 }
 
 #body {
@@ -16,7 +16,6 @@
 |---------------*/
 #landing-banner {
     min-width: 100vw; 
-    min-height: 100vh;
     line-height: 59.4vw;
     text-align: center;
     vertical-align: middle;
@@ -44,7 +43,7 @@
 
 #landing-banner-text {
     color: var(--color-light);
-    font-size: 5vw;
+    font-size: 7vw;
     
     position: relative;
     margin-top: -59.4vw;
@@ -52,10 +51,13 @@
     transform: translateY(-2.5vw);
 }
 
-.transition-svg {
+#landing-transition {
     width: 100vw;
-    height: 8vh;
+    height: 4vw;
+    transform: translateY(-1%);
     filter: drop-shadow(0, 10vh, 1px);
+    background-color: var(--color-primary);
+    clip-path: polygon(26% 100%, 0 0, 100% 0);
 }
 
 
@@ -70,7 +72,7 @@
 }
 
 #team-background-text {
-    margin: 20vh auto;
+    margin: 10vw auto;
     font-size: 4vw;
 }
 
@@ -108,7 +110,7 @@
     justify-content: space-evenly;
     align-items: center;
 
-    margin: 20vh auto;
+    margin: 10vw auto;
     width: 100vw;
 }
 
@@ -120,7 +122,11 @@
 |---------------*/
 
 #outreach-transition {
-    vertical-align:bottom;
+    width: 100vw;
+    height: 4vw;
+    transform: translateY(1%);
+    background-color: var(--color-primary);
+    clip-path: polygon(76% 0, 0 100%, 100% 100%);
 }
 
 #outreach {
@@ -128,15 +134,20 @@
     height: 74.8vw;
 
     background-image: url("/new/img/media/index/outreach-banner.png");
-    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
+@media screen and (min-width: 800px) {
+    #outreach {
+        background-attachment: fixed;
+    }
+  }
+
 #outreach-gradient {
     width: 100%;
-    height: calc(100% - 17.4vw);
+    height: calc(100% - 17.35vw);
 
     background: linear-gradient(180deg, #1E3155 2.6%, rgba(233, 20, 32, 0.2) 76.56%, rgba(229, 40, 50, 0.8) 92.71%, rgba(229, 40, 50, 1) 100%);
     padding-top: 17.4vw;
@@ -149,13 +160,26 @@
     height: 40vw;
 
     margin-left: auto;
-    
     margin-bottom: 17.4vw;
     text-align: center;
 }
 
 #outreach-title {
-    margin: 2vw auto;
+    padding-top: 4vw;
+    margin-bottom: 3vw;
+}
+
+#outreach-description {
+    font-size: 3.2vw;
+    line-height: 5vw;
+    margin: 0 auto 2vw auto;
+    width: 90%;
+}
+
+#outreach-media-spacer {
+    width: 100vw;
+    height: 1vw;
+    background-color: rgba(229, 40, 50, 1);
 }
 
 /*--------------
@@ -164,21 +188,22 @@
 |               |
 |---------------*/
 
-#media-transition {
-    vertical-align:bottom;
-    margin-bottom: 0.1vw;
-}
-
 #media {
     width: 100vw;
     height: 74.8vw;
 
     background-image: url("/new/img/media/index/media-banner.png");
-    background-attachment: fixed;
+    
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
+
+@media screen and (min-width: 800px) {
+    #media {
+        background-attachment: fixed;
+    }
+  }
 
 #media-gradient {
     width: 100%;
@@ -201,5 +226,71 @@
 }
 
 #media-title {
-    margin: 2vw auto;
+    padding-top: 4vw;
+    margin-bottom: 3vw;
+}
+
+#media-description {
+    font-size: 3.2vw;
+    line-height: 5vw;
+
+    width: 90%;
+    margin: 0 auto 2vw auto;
+}
+
+
+#media-transition {
+    width: 100vw;
+    height: 4vw;
+    transform: translateY(-1%);
+    filter: drop-shadow(0, 10vh, 1px);
+    background-color: var(--color-primary);
+    clip-path: polygon(18% 100%, 0 0, 100% 0);    
+}
+
+/*--------------
+|              |
+|   Sponsors   |
+|              |
+|---------------*/
+
+#sponsors {
+    width: 100vw;
+    text-align: center;
+
+    margin-bottom: 10vw;
+}
+
+#sponsors-title {
+    margin-top: 8vw;
+    margin-bottom: 2vw;
+
+    font-size: 6vw;
+}
+
+#sponsors-description {
+    margin: auto auto;
+    width: 75%;
+    color: black;
+
+    font-size: 4vw;
+    margin-bottom: 6vw;
+}
+
+#sponsor-images {
+    margin: auto auto;
+    margin-bottom: 5vw;
+    width: 80vw;
+
+    display: flex;
+    flex-flow: row wrap;
+
+    justify-content: center;
+    align-items: center;
+}
+
+.sponsor-image {
+    height: 5vw;
+
+    margin: 2vw;
 }

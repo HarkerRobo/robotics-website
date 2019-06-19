@@ -77,7 +77,8 @@
     line-height: 6vh;
     height: 6vh;
 
-    outline: 1px solid var(--color-light);
+    border: 1px solid var(--color-light);
+    box-sizing: border-box;
     
 
     transition-duration: 0.4s;

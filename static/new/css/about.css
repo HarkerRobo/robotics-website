@@ -1,0 +1,115 @@
+#body h1 {
+    color: var(--color-primary);
+    margin-top: 3vw;
+    margin-bottom: 1.5vw;
+    font-size: 6vw;
+
+    font-weight: bold;
+}
+
+#body h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5vh;
+    font-size: 4vw;
+}
+
+#body h3 {
+    font-weight: 900;
+    color: black;
+    margin-top: 4vw;
+    font-size: 3vw;
+}
+
+#body h4 {
+    color: black;
+    font-weight: bolder;
+    font-size: 2.5vw;
+    margin-top: 4vw;
+    margin-bottom: 1.5vw;
+}
+
+#body h5 {
+    font-size: 1.5vw;
+    white-space: nowrap;
+    color: var(--color-primary);
+}  
+
+#body p {
+    font-size: 3vw;
+}
+
+#content {
+    width: 100%;
+}
+
+#body {
+    width: 100%;
+    text-align: center;
+    margin-top: -3vw;
+    padding-top: 3vw;
+    background-color: var(--color-background);
+}
+
+#about, #members, #leaders {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#team-picture {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.individual-title {
+    white-space: nowrap;
+}
+
+#triumvirate, #tech-directors {
+    width: 70%;
+    margin: 0 auto 4vw auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#e-directors, #reeeeeeeee {
+    width: 40%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#opsgang {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 4vw;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.leader {
+    width: 10vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.leader-image {
+    width: 100%;
+}
+
+@media screen and (max-width: 800px) {
+    #triumvirate, #tech-directors, #e-directors, #reeeeeeeee, #opsgang {
+        width: 10%;
+    }
+  }

@@ -5,14 +5,14 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djmcoder/robotics-website.git"
+    "url": "git+https://github.com/HarkerRobo/robotics-website.git"
   },
   "author": "David Melisso",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djmcoder/robotics-website/issues/"
+    "url": "https://github.com/HarkerRobo/robotics-website/issues/"
   },
-  "homepage": "https://github.com/djmcoder/robotics-website#readme",
+  "homepage": "https://github.com/HarkerRobo/robotics-website#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",

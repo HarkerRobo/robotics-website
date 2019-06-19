@@ -8,8 +8,9 @@
 
         <!-- Site Styles -->
         <link rel="stylesheet" href="new/css/theme.css" />
-        <link rel="stylesheet" href="new/css/header.css" />
         <link rel="stylesheet" href="new/css/splash.css" />
+        <link rel="stylesheet" href="new/css/header.css" />
+        <link rel="stylesheet" href="new/css/footer.css" />
         
         <!-- Page Styles -->
         <link rel="stylesheet" href="new/css/index.css" />
@@ -34,7 +35,7 @@
                     </div>
                     <h1 id="landing-banner-text">Harker Robotics?</h1>
                 </div>
-                <img class="transition-svg" src="/new/img/svg/landing-transition.svg" />
+                <div id="landing-transition"></div>
                 <div id="team-info">
                     <h1 id="team-background-text">We are an FRC Team located at The Harker School.</h1>
                     <div id="team-statistics-wrapper">
@@ -46,30 +47,53 @@
                             <h3 class="team-stat-value" id="in-view-2">45</h2>
                             <h4 class="team-stat-label">Competitions</h3>
                         </div>
-                        <div class="team-statistic">
+                        <div class="team-statistic" style="margin-right: 2vw;">
                             <h3 class="team-stat-value" id="in-view-1">17</h2>
                             <h4 class="team-stat-label">Years</h3>
                         </div>
                     </div>
                     <div id="about-buttons-wrapper">
-                        <button>About</button>
+                        <a href="/about"><button>About</button></a>
                     </div>
                 </div>
-                <img id="outreach-transition" class="transition-svg" style="margin:0;padding:0;"src="new/img/svg/outreach-transition.svg" />
+                <div id="outreach-transition"></div>
                 <div id="outreach">
                     <div id="outreach-gradient">
                         <div id="outreach-info">
                             <h1 id="outreach-title">Outreach</h1>
+                            <h3 id="outreach-description">We strive to develop FIRST&reg; and STEM in our local community.</h3>
+                            <button>Learn More</button>
                         </div>
                     </div>
                 </div>
-                <div id="media">
+                <div id="outreach-media-spacer">
+
+                </div><div id="media">
                     <div id="media-gradient">
                         <div id="media-info">
                             <h1 id="media-title">Media</h1>
+                            <h3 id="media-description">We document our team's progress over the course of the season.</h3>
+                            <button>Learn More</button>
                         </div>
                     </div>
                 </div>
+                <div id="media-transition"></div>
+                <div id="sponsors">
+                    <h1 id="sponsors-title">Sponsors</h1>
+                    <h4 id="sponsors-description">We thank our sponsors for supporting our team and helping us achieve our mission.</h4>
+                    <div id="sponsor-images">
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/AlanSteel.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/AutomationDirect.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/DestinyTool.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/Google.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/KeyShot.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/OzzyBoards.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/RightQuestion.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/Thinbit.png" />
+                    </div>
+                    <button>Sponsor Us</button>
+                </div>
+                <%- include(__base + 'views/new/partials/footer.ejs') %>
             </div>
         </div>
     </body>
