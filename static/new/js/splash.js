@@ -18,6 +18,9 @@ document.getElementById("splash-robotics-logo").addEventListener("animationitera
     }
 });
 
+const marginTop = Number(getComputedStyle(document.getElementById("header-navigation-wrapper")).marginTop.slice(0, -2));
+
 document.addEventListener("scroll", function() {
-    document.getElementById("header-navigation-wrapper").style.animationDelay = window.scrollY / -(window.innerHeight * 0.22) + "s"; 
+    console.log(marginTop)
+    document.getElementById("header-navigation-wrapper").style.animationDelay = window.scrollY / -marginTop + "s"; 
 });

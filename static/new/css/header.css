@@ -33,7 +33,7 @@
 }
 
 #header-logo-image {
-    width: 18vh;
+    width: 10vw;
 }
 
 #header-logo-text {
@@ -98,3 +98,26 @@
     width: 100%;
     display: none;
 }
+
+@media (max-width: 800px) {
+    #header-logo-wrapper {
+        height: 9vh;
+    }
+    #header-navigation-wrapper {
+        margin-top: 13vh;
+        height: 4vh;
+    }
+    #header-logo-image {
+        width: 15vw;
+    }
+    .no-style-a>h4 {
+        font-size: 3.5vw;
+    }
+    .header-navigation {
+        padding: 0;
+        line-height: 4vh;
+        height: 4vh;
+    
+    }
+}
+

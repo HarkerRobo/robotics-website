@@ -137,13 +137,8 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    background-attachment: fixed;
 }
-
-@media screen and (min-width: 800px) {
-    #outreach {
-        background-attachment: fixed;
-    }
-  }
 
 #outreach-gradient {
     width: 100%;
@@ -194,16 +189,21 @@
 
     background-image: url("/new/img/media/index/media-banner.png");
     
+    background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-@media screen and (min-width: 800px) {
-    #media {
-        background-attachment: fixed;
+@media only screen and (max-width: 800px) {
+    #outreach, #media {
+        background-attachment: scroll;
     }
   }
+
+#outreach-title, #media-title {
+    font-size: 8vw;
+}
 
 #media-gradient {
     width: 100%;

@@ -108,7 +108,7 @@
     width: 100%;
 }
 
-@media screen and (max-width: 800px) {
+@media (max-width: 800px) {
     #triumvirate, #tech-directors, #e-directors, #reeeeeeeee, #opsgang {
         width: 10%;
     }
