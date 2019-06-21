@@ -1,0 +1,117 @@
+.primary-outreach-wrapper > h3 {
+    font-weight: normal;
+    color: var(--color-primary);
+    font-size: 3vw;
+
+    margin-bottom: 0.5vw;
+}
+
+.primary-outreach-wrapper > p {
+    font-size: 2vw;
+    margin-top: 0;
+    width: 80%;
+    margin: 0 auto;
+}
+
+#body > h2 {
+    color: var(--color-primary);
+    font-weight: bold;
+    margin-top: 4vw;
+    margin-bottom: 2vw;
+    font-size: 2.8vw;
+}
+
+#body {
+    width: 100%;
+    text-align: center;
+
+    background-color: var(--color-background);
+    padding-top: 3vw;
+}
+
+#outreach-title {
+    font-size: 4vw;
+    font-weight: bold;
+
+    margin-bottom: 2vw;
+}
+
+#outreach-info {
+    font-size: 2.6vw;
+    width: 90%;
+
+    margin: 0 auto;
+}
+
+#primary-outreach {
+    margin-top: 4vw;
+    width: 66%;
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    flex-flow: row wrap;
+
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
+
+    /* cursor: pointer; */
+}
+
+.primary-outreach-image {
+    width: 50%;
+    height: 33vw;
+}
+
+.primary-outreach-wrapper {
+    background-color: var(--color-background);
+
+    width: 50%;
+    height: 33vw;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#other-events {
+    width: 100%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+    align-items: center;
+
+    margin-bottom: 4vw;
+}
+
+.other-event {
+    width: 30%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
+    text-align: center;
+}
+
+.other-event-image {
+    width: 100%;
+    display: block;
+}
+
+.other-event-description {
+    background-color: var(--color-background);
+    font-size: 1.6vw;
+    padding: .5vw 0;
+}
+
+@media screen and (max-width: 800px) {
+    /* .primary-outreach-image, .primary-outreach-wrapper { 
+        width: 100%;
+        height: 66vw;
+    } */
+
+    .other-event {
+        width: 80%;
+        margin-bottom: 8vw;
+
+    }
+}

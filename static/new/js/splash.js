@@ -18,7 +18,10 @@ document.getElementById("splash-robotics-logo").addEventListener("animationitera
     }
 });
 
-const marginTop = Number(getComputedStyle(document.getElementById("header-navigation-wrapper")).marginTop.slice(0, -2));
+let marginTop; 
+setTimeout(function() {
+    marginTop = Number(getComputedStyle(document.getElementById("header-navigation-wrapper")).marginTop.slice(0, -2));
+}, 1000);
 
 document.addEventListener("scroll", function() {
     console.log(marginTop)

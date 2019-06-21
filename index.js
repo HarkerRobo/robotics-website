@@ -63,11 +63,13 @@ app.get("/", (req, res) => {
   res.render("new/pages/index.ejs");
 })
 
-
 app.get("/about", (req, res) => {
   res.render("new/pages/about.ejs");
 })
 
+app.get("/outreach", (req, res) => {
+  res.render("new/pages/outreach.ejs");
+})
 
 app.get('/privacy', function (req, res) {
   res.render('pages/privacy')
