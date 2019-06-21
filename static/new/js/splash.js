@@ -21,6 +21,7 @@ document.getElementById("splash-robotics-logo").addEventListener("animationitera
 let marginTop; 
 setTimeout(function() {
     marginTop = Number(getComputedStyle(document.getElementById("header-navigation-wrapper")).marginTop.slice(0, -2));
+    document.getElementById("header-navigation-wrapper").style.animationDelay = window.scrollY / -marginTop + "s"; 
 }, 1000);
 
 document.addEventListener("scroll", function() {

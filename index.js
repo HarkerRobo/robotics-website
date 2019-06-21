@@ -69,6 +69,10 @@ app.get("/about", (req, res) => {
 
 app.get("/outreach", (req, res) => {
   res.render("new/pages/outreach.ejs");
+});
+
+app.get("/media", (req, res) => {
+  res.render("new/pages/media.ejs");
 })
 
 app.get('/privacy', function (req, res) {

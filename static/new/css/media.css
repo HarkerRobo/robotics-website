@@ -1,0 +1,69 @@
+#body {
+    width: 100%;
+    text-align: center;
+    background-color: var(--color-background);
+    padding-top: 3vw;
+}
+
+#media-title {
+    font-weight: bold;
+    font-size: 6vw;
+    margin-bottom: 1vw;
+}
+
+#team-videos-title, #team-pictures-title {
+    font-size: 4vw;
+    color: var(--color-primary-light);
+    margin-bottom: 2vw;
+}
+
+#team-videos {
+    width: 80%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.media-card {
+    /* box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29); */
+
+    text-align: left;
+    margin-bottom: 3vw;
+}
+
+.media-title {
+    color: black;
+    /* margin-left: 1vw; */
+    margin-bottom: 1vw;
+}
+
+.media-video {
+    width: 35vw;
+    height: 19.6875vw;
+    display: block;
+}
+
+#team-pictures {
+    width: 80%;
+    margin: 0 auto;
+
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-between;
+    align-content: space-between;
+}
+
+.media-picture {
+    width: 35vw;
+    height: 23.375vw;
+    display: block;
+
+    transition-duration: 0.4s;
+}
+
+.media-picture:hover {
+    filter: brightness(120%);
+}
