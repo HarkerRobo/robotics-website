@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Contact - Harker Robotics</title>    
+
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="new/css/theme.css" />
+         <link rel="stylesheet" href="new/css/splash.css" />
+         <link rel="stylesheet" href="new/css/header.css" />
+         <link rel="stylesheet" href="new/css/footer.css" />
+
+         <!-- Page Styles -->
+        <link rel="stylesheet" href="new/css/contact.css" />
+
+        <!-- Site Scripts -->
+        <script src="new/js/splash.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/splash.ejs') %>
+        <div id="content">
+            <%- include(__base + 'views/new/partials/header.ejs') %>
+            <div id="body">
+                <h1 id="contact-title">Contact</h1>
+                <p id="contact-description">We would love to hear from you! If you are interested in contacting us, you can send us a message or visit us.</p>
+                <h2>Visit Us</h2>
+                <iframe id="google-maps" src="https://maps.google.com/maps?q=harker%20upper&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no">Loading map...</iframe>
+                <h2>Message Us</h2>
+                <iframe id="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSfkAgd1gmIrPYBmxqP14uYr2LBUg_l7mIf1qwof2gGFzA6tvQ/viewform?embedded=true" frameborder="0">Loading form...</iframe>
+            </div>
+            <%- include(__base + 'views/new/partials/footer.ejs') %>
+        </div>
+    </body>
+</html>

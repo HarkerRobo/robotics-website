@@ -31,6 +31,7 @@
         <div id="content">
             <%- include(__base + 'views/new/partials/header.ejs') %>
             <div id="body">
+                <a id="member-link" href="/member"><img id="member-image" src="/new/img/media/index/member.png" /></a>
                 <div id="landing-banner">
                     <div id="landing-banner-image-wrapper">
                         <img id="landing-banner-image" src="/new/img/media/index/landing-background.png" />
@@ -64,7 +65,7 @@
                         <div id="outreach-info">
                             <h1 id="outreach-title">Outreach</h1>
                             <h3 id="outreach-description">We strive to develop FIRST&reg; and STEM in our local community.</h3>
-                            <button>Learn More</button>
+                            <a href="/outreach"><button>Learn More</button></a>
                         </div>
                     </div>
                 </div>
@@ -75,7 +76,7 @@
                         <div id="media-info">
                             <h1 id="media-title">Media</h1>
                             <h3 id="media-description">We document our team's progress over the course of the season.</h3>
-                            <button>Learn More</button>
+                            <a href="/media"><button>Learn More</button></a>
                         </div>
                     </div>
                 </div>
@@ -93,7 +94,7 @@
                         <img class="sponsor-image" src="/new/img/logo/sponsor/RightQuestion.png" />
                         <img class="sponsor-image" src="/new/img/logo/sponsor/Thinbit.png" />
                     </div>
-                    <button>Sponsor Us</button>
+                    <a href="/sponsor"><button>Sponsor Us</button></a>
                 </div>
                 <%- include(__base + 'views/new/partials/footer.ejs') %>
             </div>

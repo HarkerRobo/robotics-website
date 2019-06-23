@@ -1,0 +1,51 @@
+#body {
+    width: 100%;
+    margin: 0 auto;
+    padding-top: 3vw;
+    background-color: var(--color-background);
+    text-align: center;
+}
+
+#sponsor-description {
+    width: 80%;
+    font-size: 3.5vw;
+    margin: 2.2vw auto;
+}
+
+#sponsor-us-please {
+    font-size: 4vw;
+}
+
+#sponsors-title {
+    color: var(--color-primary);
+    font-size: 4vw;
+    margin: 2.5vw auto;
+    margin-top: 5vw;
+}
+
+#sponsor-images {
+    margin: auto auto;
+    margin-bottom: 5vw;
+    width: 80vw;
+
+    display: flex;
+    flex-flow: row wrap;
+
+    justify-content: center;
+    align-items: center;
+}
+
+#contact-link {
+    color:black;
+    transition-duration: 0.4s;
+}
+
+#contact-link:hover {
+    color: var(--color-primary);
+}
+
+.sponsor-image {
+    height: 5vw;
+
+    margin: 2vw;
+}

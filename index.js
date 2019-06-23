@@ -73,6 +73,14 @@ app.get("/outreach", (req, res) => {
 
 app.get("/media", (req, res) => {
   res.render("new/pages/media.ejs");
+});
+
+app.get("/contact", (req, res) => {
+  res.render("new/pages/contact.ejs");
+})
+
+app.get("/sponsor", (req, res) => {
+  res.render("new/pages/sponsor.ejs");
 })
 
 app.get('/privacy', function (req, res) {

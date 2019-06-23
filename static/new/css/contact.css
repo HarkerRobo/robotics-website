@@ -1,0 +1,37 @@
+#body {
+    background-color: var(--color-background);
+    padding-top: 2vw;
+    text-align: center;
+    width: 100%;
+}
+
+#contact-title {
+    font-size: 6vw;
+    font-weight: bold;
+}
+
+#contact-description {
+    font-size: 3.2vw;
+    width: 90%;
+    margin: 2.5vw auto;
+    margin-top: 1vw;
+}
+
+#body > h2 {
+    color: var(--color-primary);
+    font-size: 4vw;
+    margin-bottom: 2vw;
+}
+
+#google-maps {
+    width: 70vw;
+    height: 45vw;
+    margin: 0 auto;
+    margin-bottom: 2vw;
+}
+
+#google-form {
+    width: 70%;
+    height: 150vh;
+    margin: 0 auto;
+}

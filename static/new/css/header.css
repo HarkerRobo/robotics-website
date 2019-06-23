@@ -18,7 +18,7 @@
     left: 50%;
     transform: translateX(-50%);
 
-    padding-top: 2vh;
+    padding-top: 3vh;
 
     width: 100vw;
     max-width: 700px;
@@ -51,12 +51,12 @@
     position: sticky;
     top: 0;
 
-    margin: 22vh auto 0vh auto;
+    margin: 23vh auto 0vh auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    height: 6vh;
+    height: 8vh;
 
     animation-name: header-expand;
     animation-duration: 1s;
@@ -74,8 +74,8 @@
     
     flex-grow: 1;
     
-    line-height: 6vh;
-    height: 6vh;
+    line-height: 8vh;
+    height: 8vh;
 
     border: 1px solid var(--color-light);
     box-sizing: border-box;

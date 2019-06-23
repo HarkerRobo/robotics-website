@@ -37,6 +37,7 @@
 .media-title {
     color: black;
     /* margin-left: 1vw; */
+    font-size: 2.2vw;
     margin-bottom: 1vw;
 }
 
@@ -65,5 +66,25 @@
 }
 
 .media-picture:hover {
-    filter: brightness(120%);
+    filter: brightness(140%);
+}
+
+@media only screen and (max-width: 800px) {
+    .media-video {
+        width: 70vw;
+        height: 39.375vw;
+    }
+    .media-picture {
+        width: 70vw;
+        height: 46.75vw;
+    }
+    .media-title {
+        font-size: 4vw;
+    }
+    .media-card {
+        text-align: center;
+    }
+    #team-videos, #team-pictures {
+        justify-content: center;
+    }
 }
