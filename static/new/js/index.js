@@ -26,3 +26,12 @@ function animateNumber(className) {
 }
 
 animateNumber("team-stat-value");
+
+setInterval(function() {
+    if(document.documentElement.clientHeight * 0.22 < window.scrollY) {
+        console.log("ree");
+        document.getElementById("member-link").style.visibility = "hidden";
+    } else {
+        //document.getElementById("member-link").style.visibility = "visible";
+    }
+}, 1000);
