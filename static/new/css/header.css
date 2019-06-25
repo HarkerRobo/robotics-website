@@ -83,6 +83,8 @@
             align-items: center;
 
     z-index: -1;
+
+    margin-bottom: 3vh;
 }
 
 #header-logo-image {
@@ -199,7 +201,8 @@
     line-height: 8vh;
     height: 8vh;
 
-    border: 0.75px solid var(--color-background);
+    /* border: 0.75px solid var(--color-background); */
+    margin: 0.75px;
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
