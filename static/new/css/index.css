@@ -15,8 +15,17 @@
     right: 0.5vw;
     z-index: -2;
 
-    width: 3vw;
-    height: 3vw;
+    opacity: 0.8;
+
+    width: 2.5vw;
+    height: 2.5vw;
+    margin: 0.5vw;
+
+    transition: opacity 0.75s;
+}
+
+#member-image:hover {
+    opacity: 1;
 }
 
 #member-link {
@@ -38,14 +47,17 @@
 }
 
 #landing-banner-image-wrapper {
-    width: 100vw;
+    margin: auto;
+    margin-top: 30px;
+    width: 90vw;
 }
 
 #landing-banner-image {
-    width: 100vw;
+    width: 90vw;
+    opacity: 0.9;
 }
 
-#landing-banner-image-wrapper::after {
+/* #landing-banner-image-wrapper::after {
     display: block;
     position: relative;
     background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(66, 87, 125, 0.3)), color-stop(95%, #1E3155));
@@ -54,17 +66,17 @@
     background-image: -o-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
     background-image: linear-gradient(to bottom, rgba(66, 87, 125, 0.3), #1E3155 95%);
     padding: 0;
-    margin-top: -88.6vw;
+    margin-top: -80vw;
     height: 59.4vw;
     content: "";
-}
+} */
 
 #landing-banner-text {
     color: var(--color-light);
     font-size: 7vw;
     
     position: relative;
-    margin-top: -59.4vw;
+    margin-top: -90.4vw;
     margin-bottom: 0;
     -webkit-transform: translateY(-2.5vw);
        -moz-transform: translateY(-2.5vw);
@@ -74,7 +86,8 @@
 }
 
 #landing-transition {
-    width: 100vw;
+    margin: auto;
+    width: 89vw;
     height: 4vw;
     -webkit-transform: translateY(-1%);
        -moz-transform: translateY(-1%);
@@ -429,3 +442,4 @@
 
     margin: 2vw;
 }
+// test

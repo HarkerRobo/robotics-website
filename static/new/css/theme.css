@@ -20,6 +20,10 @@ h1, h2, h3, h4, h5, h6, p {
 }
 
 h1 {
+    font-family: 'Chivo', sans-serif;
+}
+
+h1 {
     color: var(--color-primary);
     font-size: -webkit-calc(2.4vw + 24pt);
     font-size: -moz-calc(2.4vw + 24pt);

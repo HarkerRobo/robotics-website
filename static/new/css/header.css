@@ -95,6 +95,7 @@
     display: -moz-box;
     display: -ms-flexbox;
     display: flex;
+    margin-left: 10px;
     -webkit-box-orient: vertical;
     -webkit-box-direction: normal;
     -webkit-flex-direction: column;
@@ -117,6 +118,11 @@
 #header-logo-text > h1, #header-logo-text > h3 {
     margin: auto 0;
 }
+
+#header-logo-text > h3 {
+    margin-left: 10px;
+}
+
 
 #header-navigation-wrapper {
     position: -webkit-sticky;
@@ -193,7 +199,7 @@
     line-height: 8vh;
     height: 8vh;
 
-    border: 1px solid var(--color-light);
+    border: 0.75px solid var(--color-background);
     -webkit-box-sizing: border-box;
        -moz-box-sizing: border-box;
             box-sizing: border-box;
@@ -209,6 +215,8 @@
     
 
             transition-duration: 0.4s;
+
+    border-radius: 3px;
 }
 
 .header-navigation:hover {
@@ -219,6 +227,7 @@
 }
 
 .header-navigation > a > h4 {
+    color: var(--color-background);
     margin: 0 auto;
 }
 
