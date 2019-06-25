@@ -21,10 +21,30 @@
     width: 80%;
     margin: 0 auto;
 
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: -moz-box;
+
+    display: -ms-flexbox;
+
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row wrap;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-align-content: space-between;
+        -ms-flex-line-pack: justify;
+            align-content: space-between;
 }
 
 .media-card {
@@ -51,10 +71,30 @@
     width: 80%;
     margin: 0 auto;
 
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: -moz-box;
+
+    display: -ms-flexbox;
+
     display: flex;
-    flex-flow: row wrap;
-    justify-content: space-between;
-    align-content: space-between;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row wrap;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-align-content: space-between;
+        -ms-flex-line-pack: justify;
+            align-content: space-between;
 }
 
 .media-picture {
@@ -62,11 +102,18 @@
     height: 23.375vw;
     display: block;
 
-    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+
+       -moz-transition-duration: 0.4s;
+
+         -o-transition-duration: 0.4s;
+
+            transition-duration: 0.4s;
 }
 
 .media-picture:hover {
-    filter: brightness(140%);
+    -webkit-filter: brightness(140%);
+            filter: brightness(140%);
 }
 
 @media only screen and (max-width: 800px) {
@@ -85,6 +132,10 @@
         text-align: center;
     }
     #team-videos, #team-pictures {
-        justify-content: center;
+        -webkit-box-pack: center;
+        -webkit-justify-content: center;
+           -moz-box-pack: center;
+            -ms-flex-pack: center;
+                justify-content: center;
     }
 }

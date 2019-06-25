@@ -25,6 +25,5 @@ setTimeout(function() {
 }, 1000);
 
 document.addEventListener("scroll", function() {
-    console.log(marginTop)
-    document.getElementById("header-navigation-wrapper").style.animationDelay = window.scrollY / -marginTop + "s"; 
+    document.getElementById("header-navigation-wrapper").style.animationDelay = Math.min(window.scrollY / -marginTop, 0) + "s"; 
 });

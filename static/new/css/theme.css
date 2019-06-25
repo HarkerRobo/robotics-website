@@ -21,12 +21,16 @@ h1, h2, h3, h4, h5, h6, p {
 
 h1 {
     color: var(--color-primary);
+    font-size: -webkit-calc(2.4vw + 24pt);
+    font-size: -moz-calc(2.4vw + 24pt);
     font-size: calc(2.4vw + 24pt);
     font-weight: 400;
 }
 
 h3 {
     color: var(--color-secondary);
+    font-size: -webkit-calc(1.8vw + 6pt);
+    font-size: -moz-calc(1.8vw + 6pt);
     font-size: calc(1.8vw + 6pt);
     font-weight: 400;
 }
@@ -43,7 +47,10 @@ h4 {
 }
 
 button {
-    transition-duration: 0.4s;
+    -webkit-transition-duration: 0.4s;
+       -moz-transition-duration: 0.4s;
+         -o-transition-duration: 0.4s;
+            transition-duration: 0.4s;
 
     background-color: var(--color-primary);
     border: 1px solid var(--color-light);
@@ -59,7 +66,11 @@ button {
     vertical-align: middle;
     line-height: 2vw;
 
-    border-radius: 3px;
+    -webkit-border-radius: 3px;
+
+       -moz-border-radius: 3px;
+
+            border-radius: 3px;
     cursor: pointer;
 }
 
@@ -69,7 +80,9 @@ button {
  
 button:hover {
     background-color: var(--color-primary-light);
-    box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+       -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+            box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
 }
 
 button:focus {
