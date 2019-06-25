@@ -20,9 +20,11 @@
 ## Context & About
 This repository was created in the summer of 2016 by David Melisso to replace the old Harker Robotics website which was made using Wordpress. Although there were multiple robotics websites before that, they were mostly for the Purchase Request system and wiki's. This repository created a combined location for an external website for outreach and an internal website for systems.
 
-The website uses [Node.js](https://nodejs.org/en/) for backend and [Bootstrap 3.3](http://getbootstrap.com/docs/3.3/) + [JQuery](http://jquery.com/) for the frontend. More info can be found in [the Setup section](#setup).
+The website was updated in the summer of 2019 by Chirag Kaushik with a new design for the external facing website and a member attendence system. 
 
-The current VP of Website Design (abbreviated to webmaster) is [David Melisso](https://github.com/DJMCoder). The website can be found at https://robotics.harker.org/.
+The website uses [Node.js](https://nodejs.org/en/) for backend and [Bootstrap 3.3](http://getbootstrap.com/docs/3.3/) + [JQuery](http://jquery.com/) for the frontend. More info can be found in [the Setup section](#setup). The new external facing website uses vanilla Javascript and CSS.
+
+The current Director of Application Design (and webmaster) is [Chirag Kaushik](https://github.com/chiragzq). The website can be found at https://robotics.harker.org/.
 
 ## Setup
 ### Install mongoDB
