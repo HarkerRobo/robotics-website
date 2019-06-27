@@ -56,7 +56,7 @@ button {
     border: 1px solid var(--color-light);
     border: none;
 
-    font-size: 2.8vw;
+    font-size: 2.7vw;
     color: var(--color-light);
     text-align: center;
 
@@ -66,11 +66,11 @@ button {
     vertical-align: middle;
     line-height: 2vw;
 
-    -webkit-border-radius: 3px;
+    -webkit-border-radius: 7px;
 
-       -moz-border-radius: 3px;
+       -moz-border-radius: 7px;
 
-            border-radius: 3px;
+            border-radius: 7px;
     cursor: pointer;
 }
 

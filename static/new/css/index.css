@@ -48,11 +48,11 @@
 #landing-banner-image-wrapper::after {
     display: block;
     position: relative;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(66, 87, 125, 0.3)), color-stop(95%, #1E3155));
-    background-image: -webkit-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
-    background-image: -moz-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
-    background-image: -o-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
-    background-image: linear-gradient(to bottom, rgba(66, 87, 125, 0.3), #1E3155 95%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(66, 87, 125, 0.4)), color-stop(95%, #1E3155));
+    background-image: -webkit-linear-gradient(top, rgba(66, 87, 125, 0.4), #1E3155 95%);
+    background-image: -moz-linear-gradient(top, rgba(66, 87, 125, 0.4), #1E3155 95%);
+    background-image: -o-linear-gradient(top, rgba(66, 87, 125, 0.4), #1E3155 95%);
+    background-image: linear-gradient(to bottom, rgba(66, 87, 125, 0.4), #1E3155 95%);
     padding: 0;
     margin-top: -88.6vw;
     height: 59.4vw;
@@ -61,10 +61,9 @@
 
 #landing-banner-text {
     color: var(--color-light);
-    font-size: 7vw;
-    
+    font-size: 8vw;
     position: relative;
-    margin-top: -59.4vw;
+    margin-top: -61.4vw;
     margin-bottom: 0;
     -webkit-transform: translateY(-2.5vw);
        -moz-transform: translateY(-2.5vw);
@@ -72,6 +71,17 @@
          -o-transform: translateY(-2.5vw);
             transform: translateY(-2.5vw);
 }
+
+/* #landing-banner-title-text, #landing-banner-secondary-text {
+    color: var(--color-light);
+    font-size: 7vw;
+}
+
+#landing-banner-secondary-text {
+    margin-top: -27vw;
+    margin-bottom: 20.5vw;
+    line-height: normal;
+} */
 
 #landing-transition {
     width: 100vw;
@@ -239,7 +249,7 @@
 }
 
 #outreach-info {
-    background-color: rgba(240, 240, 240, 0.4);
+    background-color: rgba(240, 240, 240, 0.5);
 
     width: 40vw;
     height: 40vw;
@@ -259,6 +269,8 @@
     line-height: 5vw;
     margin: 0 auto 2vw auto;
     width: 90%;
+
+    color: #355797;
 }
 
 #outreach-media-spacer {
@@ -317,7 +329,7 @@
 }
 
 #media-info {
-    background-color: rgba(240, 240, 240, 0.4);
+    background-color: rgba(240, 240, 240, 0.5);
 
     width: 40vw;
     height: 40vw;
@@ -339,6 +351,8 @@
 
     width: 90%;
     margin: 0 auto 2vw auto;
+
+    color: #355797;
 }
 
 
