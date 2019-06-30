@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Attendance</title>
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Page Scripts-->
+        <script src="/new/js/vendored/qrcode.min.js" type="text/javascript" defer></script>
+        <script src="/new/js/qr.js" type="text/javascript" defer></script>
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="/new/css/theme.css" />
+    </head>
+    <body>
+        <canvas id="qr-canvas" width="500" height="500"></canvas>
+    </body>
+</html>

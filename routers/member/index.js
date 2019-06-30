@@ -189,6 +189,7 @@ router.all('/*', function (req, res, next) {
 router.use('/purchase', require('./purchase'))
 router.use('/scouting', require('./scouting'))
 router.use('/parts', require('./parts'))
+router.use("/attendance", require("./attendance"))
 
 router.get('/', function (req, res) {
   res.render('pages/member/index')
