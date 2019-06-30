@@ -26,6 +26,8 @@ router.use(session)
 
 router.use(auth.sessionAuth)
 
+router.use(express.json({extended: true}));
+
 router.all('/*', function (req, res, next) {
     if (req.auth.level >= ranks.harker_student) {
       next()
@@ -35,8 +37,12 @@ router.all('/*', function (req, res, next) {
 });
 
 router.get("/", (req, res) => {
-    console.log(req.auth);
     res.render("attendance/pages/member.ejs");
+});
+
+
+router.get("/scanner", (req, res) => {
+    res.render("attendance/pages/scanner.ejs")
 });
 
 
@@ -47,7 +53,7 @@ router.get("/qrcode", (req, res) => {
         if(i % 2) {
             newUserName += username[parseInt(i / 2)];
         } else {
-            newUserName += crypto.randomBytes(5).toString("hex");
+            newUserName += crypto.randomBytes(2).toString("hex");
         }
     }
     const usernameBase64 = Buffer.from(newUserName).toString("base64");
@@ -57,6 +63,19 @@ router.get("/qrcode", (req, res) => {
     res.json({
         data: qrData
     });
+});
+
+router.post("/qrcode", (req, res) => {
+    try {
+        const decodedQrData = Buffer.from(req.body.qr, "base64").toString("ascii");
+        const usernameWithoutRandom = decodedQrData.slice(0, -16);
+        const decodedUsername = Buffer.from(usernameWithoutRandom, "base64").toString("ascii");
+        const username = decodedUsername.split("").filter((char, index) => index % 5 == 4).join("");
+        console.log(username);
+        res.json({success: true});
+    } catch(e) {
+        res.json({success: false});
+    }
 });
 
 module.exports = router;

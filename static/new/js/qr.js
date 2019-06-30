@@ -3,7 +3,12 @@ function resetQR() {
     xhr.open("GET", "attendance/qrcode", true);
     xhr.onload = () => {
         const data = JSON.parse(xhr.responseText);
-        QRCode.toCanvas(document.getElementById("qr-canvas"), data.data);
+        QRCode.toCanvas(document.getElementById("qr-canvas"), data.data, {
+            color: {
+                dark: "#000",
+                light: "#F0F0F0"
+            }
+        });
     };
     xhr.send();
 }

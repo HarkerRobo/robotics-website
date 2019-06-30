@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Scanner</title>
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Page Scripts-->
+        <script src="/new/js/vendored/instascan.min.js" type="text/javascript" defer></script>
+        <script src="/new/js/scanner.js" type="text/javascript" defer></script>
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="/new/css/theme.css" />
+    </head>
+    <body>
+        <video id="camera"></video>
+        <button id="check-in-button">Check in</button><button id="check-out-button">Check out</button>
+    </body>
+</html>
