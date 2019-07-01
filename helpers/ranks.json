@@ -2,9 +2,11 @@
   "none": 0,
   "harker_student": 10,
   "pr_whitelist": 20,
-  "parts_whitelist": 30,
-  "scouting_sergeants": 40,
-  "admin": 50,
-  "mentor": 60,
-  "superadmin": 70
+  "director": 30,
+  "parts_whitelist": 50,
+  "scouting_sergeants": 60,
+  "admin": 70,
+  "triumvirate": 80,
+  "mentor": 90,
+  "superadmin": 100
 }

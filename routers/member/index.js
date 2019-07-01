@@ -114,9 +114,12 @@ router.post('/token', function (req, res) {
     // if email is in superadmins list, grant superadmin access
     if (config.users.superadmins.includes(data.email.toLowerCase())) {
       console.log('Superadmin status granted for', data.email.toLowerCase())
+      
+      User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin}).then(() => {
+        req.session.auth.level = ranks.superadmin
+        res.status(200).end()
+      });
 
-      req.session.auth.level = ranks.superadmin
-      res.status(200).end()
       return
     }
 
