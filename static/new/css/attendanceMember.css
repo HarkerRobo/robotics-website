@@ -1,0 +1,8 @@
+#canvas-wrapper {
+    width: 100%;
+    height: calc(100vh - 20vh - 4vw);
+}
+
+#qr-canvas {
+    margin: auto;
+}

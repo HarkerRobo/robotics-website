@@ -2,7 +2,7 @@ let lastFetchedDate;
 
 function fetchEntries(lastFetchedDate) {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `attendanceEntries?count=50&date=${(lastFetchedDate ? lastFetchedDate : new Date(Date.now() + 1000000)).toISOString().split("T")[0]}`, true);
+    xhr.open("GET", `attendanceEntries?count=50&date=${(lastFetchedDate ? lastFetchedDate : new Date(Date.now() + 10000000000)).toISOString().split("T")[0]}`, true);
     xhr.onload = function() {
         const entries = JSON.parse(xhr.responseText);
         if(entries.error) {
@@ -19,9 +19,11 @@ function fetchEntries(lastFetchedDate) {
             const dayDiv = document.createElement("div");
             dayDiv.classList.add("attendance-day-wrapper");
             
-            let html = `<h1>${key}</h1>`;
+            const dayDay = new Date(Date.parse(key));
+            let html = `<h1>${dayDay.getMonth() + 1}/${dayDay.getDate()}</h1>`;
             entries[key].forEach((entry) => {
-                html += `<b>${entry.email}</b> checked in at <b>${entry.checkIn}</b><br />`;
+                const checkIn = new Date(Date.parse(entry.checkIn));
+                html += `<b>${entry.email}</b> checked in at <b>${checkIn.getHours()}:${checkIn.getMinutes()}</b><br />`;
             });
             dayDiv.innerHTML = html;
             document.body.appendChild(dayDiv);

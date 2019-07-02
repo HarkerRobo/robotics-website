@@ -13,8 +13,13 @@
 
          <!-- Site Styles -->
          <link rel="stylesheet" href="/new/css/theme.css" />
+         <link rel="stylesheet" href="/new/css/attendanceHeader.css" />
+         <link rel="stylesheet" href="/new/css/attendanceMember.css" />
     </head>
     <body>
-        <canvas id="qr-canvas" width="500" height="500"></canvas>
+        <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
+        <div id="canvas-wrapper">
+            <canvas id="qr-canvas" width="185" height="185"></canvas>
+        </div>
     </body>
 </html>
