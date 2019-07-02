@@ -2,14 +2,16 @@ const mongoose = require("../db")
 
 const ReviewSchema = new mongoose.Schema({
     email: {
-        type: String
+        type: String,
+        index: true
     },
     rating: {
         type: Number
     },
     entryId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Entry"
+        ref: "Entry",
+        index: true
     }
 });
 

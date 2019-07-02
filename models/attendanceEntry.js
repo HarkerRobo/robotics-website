@@ -3,12 +3,14 @@ const mongoose = require("../db");
 const EntrySchema = new mongoose.Schema({
     email: {
         type: String,
+        index: true
     },
     checkIn: {
-        type: Date
+        type: Number,
+        index: true
     },
     checkOut: {
-        type: Date
+        type: Number
     }
 });
 
