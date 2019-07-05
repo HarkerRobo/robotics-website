@@ -105,7 +105,7 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
                 checkOut: null
             });
         } else {
-            if(!todayCheckIns) {
+            if(!todayCheckIns.length) {
                 throw new Error("You are not checked in.");
             }
             console.log("Ending Attendence Entry");
@@ -154,8 +154,8 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.triumvirate), async (req,
         if(!dateMap[dateStamp]) {
             dateMap[dateStamp] = [];
         }
-        console.log(dateStamp);
-        console.log(entry.checkIn);
+        // console.log(dateStamp);
+        // console.log(entry.checkIn);
         dateMap[dateStamp].push({
             email: entry.email,
             checkIn: new Date(entry.checkIn),

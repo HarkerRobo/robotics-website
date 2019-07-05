@@ -1,0 +1,67 @@
+:root {
+    --color-background: #fff;
+}
+
+p {
+    font-family: 'Roboto', sans-serif;
+}
+
+#big-wrapper {
+    width: 80vw;
+    margin: 0 auto;
+}
+
+.attendance-day-title-text {
+    width: 100%;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 3vw;
+
+    color: var(--color-primary);
+    font-size: 1.4vw;
+    font-weight: bold;
+}
+
+.attendance-entries {
+    background-color: var(--color-background);
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.5);
+}
+
+.attendance-entry {
+    padding: 0.8vw 1vw;
+    border: 1px solid rgb(230, 230, 230);
+    display: flex;
+    flex-direction: row;
+    /* box-shadow: 0px 1px 4px rgba(0, 0, 0, 0.5); */
+}
+
+.attendance-name {
+    min-width: 42%;
+    font-size: 1.8vw;
+}
+
+.attendance-hours {
+    min-width: 46%;
+    color: #6F6F6F;
+    font-size: 1.8vw;
+}
+
+.attendance-rating {
+    min-width: 12%;
+    text-align: right;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.rating-icon {
+    height: 2.0vw;
+}
+
+.red {
+    color: red;
+}

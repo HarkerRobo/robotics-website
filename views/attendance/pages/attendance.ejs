@@ -11,9 +11,39 @@
         <script src="/new/js/attendanceManager.js" type="text/javascript" defer></script>
 
          <!-- Site Styles -->
+         <style>
+                :root {
+                    --color-background: #fff !important;
+                }
+            </style>
          <link rel="stylesheet" href="/new/css/theme.css" />
+         <link rel="stylesheet" href="/new/css/attendanceHeader.css" />
+         <link rel="stylesheet" href="/new/css/attendanceManager.css" />
     </head>
     <body>
-        
+        <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
+        <div id="big-wrapper">
+            <div class="attendance-day-wrapper">
+                <div class="attendance-day-title-text">
+                    <p class="attendance-day-date-text">Monday, July 4</p>
+                    <p class="attendance-day-members-text">Members: 100</p>
+                </div>
+                <div class="attendance-entries">
+                    <div class="attendance-entry">
+                        <div class="attendance-name">
+                            <p>22ChiragK</p>
+                        </div>
+                        <div class="attendance-hours">
+                            <p>14 Hours (3:10 - 6:45)</p>
+                        </div>
+                        <div class="attendance-rating">
+                            <img class="rating-icon" src="/new/img/svg/outline-thumb_up-24px.svg" />
+                            <img class="rating-icon" src="/new/img/svg/outline-change_history-24px.svg" />
+                            <img class="rating-icon" src="/new/img/svg/outline-thumb_down-24px.svg" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </body>
 </html>

@@ -11,11 +11,18 @@
         <script src="/new/js/vendored/instascan.min.js" type="text/javascript" defer></script>
         <script src="/new/js/scanner.js" type="text/javascript" defer></script>
 
-         <!-- Site Styles -->
-         <link rel="stylesheet" href="/new/css/theme.css" />
+        <!-- Site Styles -->
+        <link rel="stylesheet" href="/new/css/theme.css" />
+        <link rel="stylesheet" href="/new/css/attendanceHeader.css" />
+        <link rel="stylesheet" href="/new/css/attendanceScanner.css" />
+
     </head>
     <body>
-        <video id="camera"></video>
-        <button id="check-in-button">Check in</button><button id="check-out-button">Check out</button>
+        <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
+        <div id="buttons-wrapper">
+            <button id="check-in-button">Check in</button><button id="check-out-button">Check out</button><br />
+            <video id="camera"></video>
+            <h1 id="scanner-message"></h1>
+        </div>
     </body>
 </html>

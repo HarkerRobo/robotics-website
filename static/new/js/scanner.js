@@ -18,10 +18,12 @@ Instascan.Camera.getCameras().then(function (cameras) {
         document.getElementById("check-in-button").addEventListener("click", function() {
             scanMode = true;
             scanner.start(camera);
+            document.getElementById("scanner-message").style.display = "none";
         });
         document.getElementById("check-out-button").addEventListener("click", function() {
             scanMode = false;
             scanner.start(camera);
+            document.getElementById("scanner-message").style.display = "none";
         });
     } else {
       console.error('No cameras found.');
@@ -39,9 +41,16 @@ scanner.addListener("scan", function(content) {
         const resp = JSON.parse(xhr.responseText);
         if(resp.success) {
             console.log("Successfully scanned");
+            document.getElementById("scanner-message").style.color = "green";
+            document.getElementById("scanner-message").style.display = "inline";
+            document.getElementById("scanner-message").innerHTML = "Successfully scanned."
             scanner.stop();
         } else {
             console.log("Scanning error");
+            document.getElementById("scanner-message").style.color = "red";
+            document.getElementById("scanner-message").style.display = "inline";
+            document.getElementById("scanner-message").innerHTML = resp.error;
+            scanner.stop();
             console.error(resp.error);
         }
     }
