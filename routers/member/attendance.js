@@ -120,7 +120,7 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
     }
 });
 
-router.get("/attendanceEntries", auth.verifyRank(ranks.triumvirate), async (req, res) => {
+router.get("/attendanceEntries", async (req, res) => {
     if(!req.query.count || !Number.isInteger(+req.query.count) || (req.query.date && Number.isNaN(Date.parse(req.query.date)))) {
         res.json({"error": "Invalid query"});
         return;
