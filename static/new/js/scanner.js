@@ -42,13 +42,13 @@ scanner.addListener("scan", function(content) {
         if(resp.success) {
             console.log("Successfully scanned");
             document.getElementById("scanner-message").style.color = "green";
-            document.getElementById("scanner-message").style.display = "inline";
+            document.getElementById("scanner-message").style.display = "block";
             document.getElementById("scanner-message").innerHTML = "Successfully scanned."
             scanner.stop();
         } else {
             console.log("Scanning error");
             document.getElementById("scanner-message").style.color = "red";
-            document.getElementById("scanner-message").style.display = "inline";
+            document.getElementById("scanner-message").style.display = "block";
             document.getElementById("scanner-message").innerHTML = resp.error;
             scanner.stop();
             console.error(resp.error);

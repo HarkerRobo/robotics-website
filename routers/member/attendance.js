@@ -149,6 +149,7 @@ router.get("/attendanceEntries", async (req, res) => {
 
     const dateMap = {};
     realEntries.forEach((entry) => {
+        console.log(entry);
         const dateStamp = convertTimeToDate(new Date(entry.checkIn)).toISOString();
 
         if(!dateMap[dateStamp]) {
@@ -157,6 +158,7 @@ router.get("/attendanceEntries", async (req, res) => {
         // console.log(dateStamp);
         // console.log(entry.checkIn);
         dateMap[dateStamp].push({
+            id: entry._id,
             email: entry.email,
             checkIn: new Date(entry.checkIn),
             checkOut: entry.checkOut ? new Date(entry.checkOut) : null

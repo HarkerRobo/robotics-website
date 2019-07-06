@@ -9,3 +9,7 @@ button {
     margin-bottom: 2vh;
 }
 
+#scanner-message {
+    font-size: 3vw;
+}
+
