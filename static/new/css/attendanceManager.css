@@ -65,3 +65,12 @@ p {
 .red {
     color: red;
 }
+
+.thumbsUp, .meh, .thumbsDown {
+    all: unset;
+}
+
+.thumbsUp:hover, .meh:hover, .thumbsDown:hover {
+    all: unset;
+    cursor: pointer;
+}

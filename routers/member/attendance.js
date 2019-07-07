@@ -65,7 +65,7 @@ router.get("/qrcode", (req, res) => {
     });
 });
 
-router.get("/attendance", (req, res) => {
+router.get("/attendance", auth.verifyRank(ranks.director), (req, res) => {
     res.render("attendance/pages/attendance.ejs");
 });
 
@@ -77,12 +77,15 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
             const usernameWithoutRandom = decodedQrData.slice(0, -16);
             const decodedUsername = Buffer.from(usernameWithoutRandom, "base64").toString("ascii");
             const username = decodedUsername.split("").filter((char, index) => index % 5 == 4).join("");
+            console.log(username);
             dbUser = await User.findOne({email: username.toLowerCase() + "@students.harker.org"}).exec();
             console.log("Attendnace scan from " + dbUser.email);
             if(!dbUser) //check null
                 throw new Error();
         } catch(e) {
+            console.error(e);
             res.json({error: "Invalid QR data."});
+            return;
         }
 
         const todayCheckIns = await Entry.find({
@@ -120,7 +123,7 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
     }
 });
 
-router.get("/attendanceEntries", async (req, res) => {
+router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, res) => {
     if(!req.query.count || !Number.isInteger(+req.query.count) || (req.query.date && Number.isNaN(Date.parse(req.query.date)))) {
         res.json({"error": "Invalid query"});
         return;
@@ -148,8 +151,7 @@ router.get("/attendanceEntries", async (req, res) => {
     .sort({checkIn: -1, email: 1});
 
     const dateMap = {};
-    realEntries.forEach((entry) => {
-        console.log(entry);
+    for(entry of realEntries) {
         const dateStamp = convertTimeToDate(new Date(entry.checkIn)).toISOString();
 
         if(!dateMap[dateStamp]) {
@@ -157,15 +159,54 @@ router.get("/attendanceEntries", async (req, res) => {
         }
         // console.log(dateStamp);
         // console.log(entry.checkIn);
+        const review = await Review.findOne({
+            email: req.auth.info.email,
+            entryId: entry._id 
+        });
+
         dateMap[dateStamp].push({
             id: entry._id,
             email: entry.email,
             checkIn: new Date(entry.checkIn),
-            checkOut: entry.checkOut ? new Date(entry.checkOut) : null
+            checkOut: entry.checkOut ? new Date(entry.checkOut) : null,
+            review: review ? review.rating : null
         });
-    });
+    }
     res.json(dateMap);
-})
+});
+
+router.post("/review", auth.verifyRank(ranks.director), async (req, res) => {
+    if(!req.body.id || !(req.body.rating || req.body.rating === 0)  || Number.isNaN(Number(req.body.rating))) {
+        res.json({"error": "invalid query"});
+        return;
+    }
+    const entry = await Entry.findById(req.body.id);
+    if(entry == null) {
+        res.json({"error": "invalid query"});
+    }
+    const existingReview = await Review.findOne({
+        email: req.auth.info.email,
+        entryId: req.body.id
+    });
+    if(existingReview) {
+        if(existingReview.rating == req.body.rating) {
+            await Review.remove({_id: existingReview._id})
+            res.json({"success": "unreviewed"});
+            return;
+        } else {
+            existingReview.rating = req.body.rating
+            await existingReview.save();
+        }
+    }
+    else {
+        const rating = await Review.create({
+            email: req.auth.info.email,
+            rating: req.body.rating,
+            entryId: req.body.id
+        });
+    }
+    res.json({"success": "reviewed"});
+});
 
 function convertTimeToDate(time) {
     return new Date(time.getFullYear(), time.getMonth(), time.getDate()); 
