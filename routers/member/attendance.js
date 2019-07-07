@@ -58,7 +58,7 @@ router.get("/qrcode", (req, res) => {
         }
     }
     const usernameBase64 = Buffer.from(newUserName).toString("base64");
-    const usernameWithRandom = usernameBase64 + crypto.randomBytes(8).toString("hex");
+    const usernameWithRandom = usernameBase64 + "%" + Date.now();
     const qrData = Buffer.from(usernameWithRandom).toString("base64");
     res.json({
         data: qrData
@@ -72,14 +72,17 @@ router.get("/attendance", auth.verifyRank(ranks.director), (req, res) => {
 router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
     try {
         let dbUser;
+        let scanTime
         try {
             const decodedQrData = Buffer.from(req.body.qr, "base64").toString("ascii");
-            const usernameWithoutRandom = decodedQrData.slice(0, -16);
+            scanTime = Number(decodedQrData.split("%")[1]);
+            const usernameWithoutRandom = decodedQrData.split("%")[0];
             const decodedUsername = Buffer.from(usernameWithoutRandom, "base64").toString("ascii");
             const username = decodedUsername.split("").filter((char, index) => index % 5 == 4).join("");
-            console.log(username);
             dbUser = await User.findOne({email: username.toLowerCase() + "@students.harker.org"}).exec();
             console.log("Attendnace scan from " + dbUser.email);
+            console.log(scanTime);
+            
             if(!dbUser) //check null
                 throw new Error();
         } catch(e) {
@@ -87,6 +90,12 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
             res.json({error: "Invalid QR data."});
             return;
         }
+
+        if(dbUser.authorization > req.auth.level)
+                throw new Error("You are not authorized to scan this user.");
+
+        if(new Date() - scanTime > 1000 * 60 * 60 * 24 * 365) // 1 year expiry
+            throw new Error("Expired QR Code.")
 
         const todayCheckIns = await Entry.find({
             email: dbUser.email,
