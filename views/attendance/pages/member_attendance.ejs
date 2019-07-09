@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%= username %></title>
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Page Scripts-->
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="/new/css/theme.css" />
+         <link rel="stylesheet" href="/new/css/attendanceHeader.css" />
+         <link rel="stylesheet" href="/new/css/attendanceMemberAttendance.css" />
+         <link rel="stylesheet" href="/new/css/attendanceManager.css" />
+        <script>
+            var username = "<%= username %>";
+        </script>
+
+         <script src="/new/js/attendanceManager.js" type="text/javascript" defer></script>
+        </head>
+    <body>
+        <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
+        <h1 id="member-username"><%= username %></h1>
+        <div id="rating-icons">
+            <div class="rating-icon-a">
+                <img class="rating-icon-image" src="/new/img/svg/outline-thumb_up-24px.svg" />
+                <p class="rating-value green"><%= positiveRatings %></p>
+            </div>
+            <div class="rating-icon-a">
+                <img class="rating-icon-image" src="/new/img/svg/outline-change_history-24px.svg" />
+                <p class="rating-value gray"><%= neutralRatings %></p>
+            </div>
+            <div class="rating-icon-a">
+                <img class="rating-icon-image" src="/new/img/svg/outline-thumb_down-24px.svg" />
+                <p class="rating-value red"><%= negativeRatings %></p>
+            </div>
+        </div>
+        <div id="big-wrapper">
+        </div>
+    </body>
+</html>

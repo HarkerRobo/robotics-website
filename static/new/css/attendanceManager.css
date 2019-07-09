@@ -6,6 +6,10 @@ p {
     font-family: 'Roboto', sans-serif;
 }
 
+body {
+    padding-bottom: 5vw;
+}
+
 #big-wrapper {
     width: 80vw;
     margin: 0 auto;
@@ -40,12 +44,14 @@ p {
 .attendance-name {
     min-width: 42%;
     font-size: 1.8vw;
+    text-align: left;
 }
 
 .attendance-hours {
     min-width: 46%;
     color: #6F6F6F;
     font-size: 1.8vw;
+    text-align: left;
 }
 
 .attendance-rating {

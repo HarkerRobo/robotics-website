@@ -1,8 +1,9 @@
 let lastFetchedDate;
+let fetched = false;
 
-function fetchEntries(lastFetchedDate) {
+function fetchEntries() {
     const xhr = new XMLHttpRequest();
-    xhr.open("GET", `attendanceEntries?count=50&date=${(lastFetchedDate ? lastFetchedDate : new Date(Date.now() + 10000000000)).toISOString().split("T")[0]}`, true);
+    xhr.open("GET", `/member/attendance/attendanceEntries?${typeof username !== "undefined" ? `username=${username}&` : ""}count=50&date=${(lastFetchedDate != undefined ? lastFetchedDate : new Date(Date.now() + 10000000000)).toISOString().split("T")[0]}`, true);
     xhr.onload = function() {
         const entries = JSON.parse(xhr.responseText);
         if(entries.error) {
@@ -13,8 +14,11 @@ function fetchEntries(lastFetchedDate) {
 
         const keys = Object.keys(entries);
         keys.forEach((key, index) => {
+            console.log(key);
+            console.log(new Date(key));
             if(index == keys.length - 1) 
                 lastFetchedDate = new Date(key);
+            console.log(lastFetchedDate);
             
             const dayDiv = document.createElement("div");
             dayDiv.classList.add("attendance-day-wrapper");
@@ -31,7 +35,7 @@ function fetchEntries(lastFetchedDate) {
                 html += '<div class="attendance-entries">'+
 '    <div class="attendance-entry" id="' + entry.id + '">'+
 '        <div class="attendance-name">'+
-'            <p>' + entry.email.slice(0, -20) + '</p>'+
+'            <a class="no-style-a" href="attendance/' + entry.email.slice(0, -20) + '"><p>' + entry.email.slice(0, -20) + '</p></a>'+
 '        </div>'+
 '        <div class="attendance-hours">'+
 '            <p>' + convertHours(checkIn, checkOut) + ' (' + convertDateToTime(checkIn) + ' - ' + convertDateToTime(checkOut) + ')</p>'+
@@ -48,9 +52,12 @@ function fetchEntries(lastFetchedDate) {
             document.getElementById("big-wrapper").appendChild(dayDiv);
         });
         setTimeout(initializeRatingEventListeners, 0);
+        fetched = keys.length > 0;
     }
     xhr.send();
 }
+
+fetchEntries();
 
 function initializeRatingEventListeners() {
     Array.from(document.getElementsByClassName("thumbsUp")).forEach(function(button) {
@@ -121,8 +128,6 @@ function initializeRatingEventListeners() {
     });
 }
 
-fetchEntries();
-
 function disableAll(button) {
     Array.from(button.parentElement.children).forEach(function(button) {
         setUnclicked(button.firstChild);
@@ -172,3 +177,13 @@ function convertHours(checkIn, checkOut) {
     else
         return hours + " Hours";
 }
+
+
+document.addEventListener("scroll", function() {
+    if(fetched && (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) { //https://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
+        setTimeout(function() {
+            fetched = false;
+            fetchEntries(lastFetchedDate);
+        }, 1000); //throttle entry fetching to prevent rapid scrolling
+    }
+});

@@ -8,9 +8,12 @@ const ReviewSchema = new mongoose.Schema({
     rating: {
         type: Number
     },
+    attendanceEmail: {
+        type: String,
+    },
     entryId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Entry",
+        ref: "entry",
         index: true
     }
 });

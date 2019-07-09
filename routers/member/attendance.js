@@ -20,6 +20,8 @@ const express = require('express'),
   transporter = nodemailer.createTransport(smtpConfig),
   csrfProtection = csrf({ cookie: true })
 
+
+
 const crypto = require("crypto");
 
 router.use(cookieParser())
@@ -142,7 +144,7 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, re
     const maxDate = new Date(Date.parse(req.query.date));
     const count = +req.query.count;
 
-    const testEntries = await Entry.find({checkIn: {$lte: maxDate.getTime()}})
+    const testEntries = await (req.query.username ? Entry.find({checkIn: {$lte: maxDate.getTime()}, email: req.query.username + "@students.harker.org"}) : Entry.find({checkIn: {$lte: maxDate.getTime()}}))
                                    .sort({checkIn: -1})
                                    .limit(count)
                                    .exec();
@@ -151,12 +153,18 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, re
         return;
     }
     const lastDate = convertTimeToDate(new Date(testEntries[testEntries.length - 1].checkIn));
-    const realEntries = await Entry.find({
+    const realEntries = await (req.query.username ? Entry.find({
+        checkIn: {
+            $lte: maxDate.getTime(),
+            $gte: lastDate.getTime()
+        },
+        email: req.query.username + "@students.harker.org"
+    }) : Entry.find({
         checkIn: {
             $lte: maxDate.getTime(),
             $gte: lastDate.getTime()
         }
-    })
+    }))
     .sort({checkIn: -1, email: 1});
 
     const dateMap = {};
@@ -210,11 +218,33 @@ router.post("/review", auth.verifyRank(ranks.director), async (req, res) => {
     else {
         const rating = await Review.create({
             email: req.auth.info.email,
+            attendanceEmail: entry.email,
             rating: req.body.rating,
             entryId: req.body.id
         });
     }
     res.json({"success": "reviewed"});
+});
+
+router.get("/attendance/:username", auth.verifyRank(ranks.director), async (req, res) => {
+    const positiveRatings = await Review.find({
+        attendanceEmail: req.params.username.toLowerCase() + "@students.harker.org",
+        rating: 1
+    }).count()
+    const neutralRatings = await Review.find({
+        attendanceEmail: req.params.username.toLowerCase() + "@students.harker.org",
+        rating: 0
+    }).count()
+    const negativeRatings = await Review.find({
+        attendanceEmail: req.params.username.toLowerCase() + "@students.harker.org",
+        rating: -1
+    }).count()
+    res.render("attendance/pages/member_attendance.ejs", {
+        username: req.params.username.toLowerCase(),
+        positiveRatings: positiveRatings,
+        neutralRatings: neutralRatings,
+        negativeRatings: negativeRatings
+    });
 });
 
 function convertTimeToDate(time) {
