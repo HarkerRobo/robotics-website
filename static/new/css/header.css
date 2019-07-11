@@ -204,6 +204,7 @@
     height: 100%;
     line-height: 8vh;
     background-color: var(--color-primary);
+    padding-right: 1.8vw;
 }
 
 

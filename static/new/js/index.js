@@ -36,7 +36,7 @@ setInterval(function() {
     }
 }, 1000);
 
-const landingText = document.getElementById("landing-banner-text");
+const landingText = document.getElementById("landing-banner-secondary-text");
 const texts = ["Engineers", "Inventors", "Problem Solvers", "Family", "Harker Robotics"];
 let textIndex = 0;
 let text = texts[textIndex];
@@ -49,7 +49,7 @@ function addLetter() {
     if(index == text.length) {
         setTimeout(removeLetter, 2000);
     } else {
-        setTimeout(addLetter, 150);
+        setTimeout(addLetter, 100);
     }
 }
 
@@ -60,23 +60,23 @@ function removeLetter() {
         //landingText.innerHTML = "We are" + (typing ? "|" : "");
     }
     if(index + 1) {
-        setTimeout(removeLetter, 150);
+        setTimeout(removeLetter, 100);
     } else {
         textIndex++;
         text = texts[textIndex % texts.length];
-        setTimeout(addLetter, 150);
+        setTimeout(addLetter, 200);
     }
 }
 
 setInterval(function() {
     typing = typing == false;
-    landingText.style.marginLeft = typing ? "1.94vw" : "0";
+    landingText.style.marginLeft = typing ? "1.23vw" : "0";
     if(typing && !landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML += "|";
     } else if(!typing && landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML = landingText.innerHTML.slice(0, -1);
     }
-}, 800)
+}, 700)
 
 window.addEventListener("load", function() {
     setTimeout(function() {
