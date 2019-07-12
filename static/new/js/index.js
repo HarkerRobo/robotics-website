@@ -1,5 +1,9 @@
 /** requires in-view.js */
 
+/**
+ * Animated stats counter
+ */
+
 inView.offset(0);
 
 function step(elem, value, total) {
@@ -27,14 +31,19 @@ function animateNumber(className) {
 
 animateNumber("team-stat-value");
 
-setInterval(function() {
-    if(document.documentElement.clientHeight * 0.22 < window.scrollY) {
-        console.log("ree");
-        document.getElementById("member-link").style.visibility = "hidden";
-    } else {
-        //document.getElementById("member-link").style.visibility = "visible";
-    }
-}, 1000);
+// setInterval(function() {
+//     if(document.documentElement.clientHeight * 0.22 < window.scrollY) {
+//         document.getElementById("member-link").style.visibility = "hidden";
+//     } else {
+//         //document.getElementById("member-link").style.visibility = "visible";
+//     }
+// }, 1000);
+
+
+/**
+ * WE ARE INVENTORS
+ */
+
 
 const landingText = document.getElementById("landing-banner-secondary-text");
 const texts = ["Engineers", "Inventors", "Problem Solvers", "Family", "Harker Robotics"];
@@ -70,7 +79,7 @@ function removeLetter() {
 
 setInterval(function() {
     typing = typing == false;
-    landingText.style.marginLeft = typing ? "1.23vw" : "0";
+    landingText.style.marginLeft = typing ? "1.0vw" : "0";
     if(typing && !landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML += "|";
     } else if(!typing && landingText.innerHTML.endsWith("|")) {
@@ -83,3 +92,38 @@ window.addEventListener("load", function() {
         addLetter();
     }, 1100);
 });
+
+
+/**
+ * SLIDESHOW
+ */
+
+const hrefs = [];
+const bottom = document.getElementById("landing-banner-image");
+const _top = document.getElementById("landing-banner-image-top");
+for(let i = 1;i <= 3;i ++) {
+    hrefs.push("/new/img/media/index/landing-background" + (!(i - 1) ? "" : i) + ".png")
+}
+bottom.src = hrefs[0];
+_top.src = hrefs[1];
+let img = 1;
+
+function startSwitch() {
+    bottom.classList.add("fade-out");
+    _top.classList.add("fade-in");
+    setTimeout(nextSwitch, 1500);
+}
+
+function nextSwitch() {
+    bottom.classList.remove("fade-out");
+    _top.classList.remove("fade-in");
+
+    bottom.src = hrefs[img];
+    img = ++img % hrefs.length;
+    _top.src = hrefs[img]
+
+    setTimeout(startSwitch, 3000);
+}
+
+setTimeout(startSwitch, 4000);
+

@@ -85,10 +85,6 @@
     z-index: -1;
 }
 
-#header-logo-image {
-    width: 10vw;
-}
-
 #header-logo-text {
     display: -webkit-box;
     display: -webkit-flex;
@@ -182,17 +178,18 @@
 
 #header-logo-image-wrapper {
     background-color: var(--color-primary);
-    padding-top: 1vh;
-    height: calc(100% - 1vh);
-    line-height: calc(100% - 1vh);
+    /* padding-top: 1vh; */
+    height: calc(100%);
+    line-height: calc(100%);
     /* padding-bottom: 1vh; */
 }
 
 #header-logo-image {
-    height: 6vh;
-    width: 6vh;
+    height: 5vh;
+    /* width: 6vh; */
     margin-left: 1vw;
-    margin-right: .5vw;
+    margin-right: 2vw;
+    margin-top: 1.5vh;
 }
 
 #header-harker-robotics {

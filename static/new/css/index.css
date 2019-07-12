@@ -2,6 +2,24 @@
     --banner-width: 3;
 }
 
+@keyframes fade-in {
+    from {
+        filter: opacity(0%);
+    }
+    to {
+        filter: opacity(100%);
+    }
+}
+
+@keyframes fade-out {
+    from {
+        filter: opacity(100%);
+    }
+    to {
+        filter: opacity(0%);
+    }
+}
+
 #body {
     background-color: var(--color-background);
     /* margin-top: 28vh; */
@@ -43,19 +61,27 @@
 
 #landing-banner-image {
     width: 100vw;
+    filter: opacity(100%);
+}
+
+#landing-banner-image-top {
+    display: block;
+    width: 100vw;
+    margin-top: -88.6vw;
+    filter: opacity(0%);
 }
 
 #landing-banner-image-wrapper::after {
     display: block;
     position: relative;
-    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(66, 87, 125, 0.4)), color-stop(95%, #1E3155));
-    background-image: -webkit-linear-gradient(top, rgba(66, 87, 125, 0.4), #1E3155 95%);
-    background-image: -moz-linear-gradient(top, rgba(66, 87, 125, 0.4), #1E3155 95%);
-    background-image: -o-linear-gradient(top, rgba(66, 87, 125, 0.4), #1E3155 95%);
-    background-image: linear-gradient(to bottom, rgba(66, 87, 125, 0.4), #1E3155 95%);
+    background-image: -webkit-gradient(linear, left top, left bottom, from(rgba(66, 87, 125, 0.3)), color-stop(95%, #1E3155));
+    background-image: -webkit-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
+    background-image: -moz-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
+    background-image: -o-linear-gradient(top, rgba(66, 87, 125, 0.3), #1E3155 95%);
+    background-image: linear-gradient(to bottom, rgba(66, 87, 125, 0.3), #1E3155 95%);
     padding: 0;
     margin-top: -88.6vw;
-    height: 59.4vw;
+    height: 88.6vw;
     content: "";
 }
 
@@ -65,6 +91,7 @@
     position: relative;
     margin-top: -61.4vw;
     margin-bottom: 0;
+    font-weight: 500;
     -webkit-transform: translateY(-2.5vw);
        -moz-transform: translateY(-2.5vw);
         -ms-transform: translateY(-2.5vw);
@@ -84,8 +111,8 @@
     line-height: normal;
     z-index: 1000;
     filter: brightness(100%);
-    font-size: 5vw;
-
+    font-size: 4vw;
+    font-weight: 300;
 }
 
 #landing-transition {
@@ -103,6 +130,21 @@
             clip-path: polygon(26% 100%, 0 0, 100% 0);
 }
 
+.fade-in {
+    animation-name: fade-in;
+    animation-duration: 1.5s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
+
+.fade-out {
+    animation-name: fade-out;
+    animation-duration: 1.5s;
+    animation-delay: 0s;
+    animation-fill-mode: forwards;
+    animation-timing-function: linear;
+}
 
 /*--------------
 |               |
