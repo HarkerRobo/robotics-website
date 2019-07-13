@@ -88,9 +88,10 @@ app.get('/privacy', function (req, res) {
 })
 
 app.post("/contact", (req, res) => {
-  console.log(req);
-  res.json(req.body);
-  res.end();
+  console.log(req.body);
+  res.render("new/pages/contact.ejs", {
+    message: "Thank you for contacting us!"
+  })
 });
 
 /*app.get('/photos', function (req, res) {

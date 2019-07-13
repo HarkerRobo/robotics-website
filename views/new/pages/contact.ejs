@@ -32,6 +32,9 @@
                 <iframe id="google-maps" src="https://maps.google.com/maps?q=harker%20upper&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no">Loading map...</iframe>
                 <h2>Message Us</h2>
                 <form action="/contact" method="POST" id="form">
+                    <% if(locals.message) { %>
+                        <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center"><%= message %></p>
+                    <% } %>
                     <p class="form-text">Email Adress</p>
                     <input class="form-input" type="email" name="email" minlength="1" required /> <br />
                     <p class="form-text">Name</p>
