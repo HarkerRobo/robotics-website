@@ -87,6 +87,12 @@ app.get('/privacy', function (req, res) {
   res.render('pages/privacy')
 })
 
+app.post("/contact", (req, res) => {
+  console.log(req);
+  res.json(req.body);
+  res.end();
+});
+
 /*app.get('/photos', function (req, res) {
   res.render('pages/photos')
 })*/

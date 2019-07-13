@@ -46,7 +46,7 @@ h4 {
     text-decoration: inherit; 
 }
 
-button {
+button, .submit-button {
     -webkit-transition-duration: 0.4s;
        -moz-transition-duration: 0.4s;
          -o-transition-duration: 0.4s;
@@ -78,13 +78,13 @@ button {
     box-shadow: 0 12px 14px 0 rgba(0,0,0,0.80), 0 20px 100px 0 rgba(0,0,0,0.80);
 } */
  
-button:hover {
+button:hover, .submit-button:hover {
     background-color: var(--color-primary-light);
     -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
        -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
             box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
 }
 
-button:focus {
+button:focus, .submit-button:hover {
     outline: none;
 }
