@@ -4,6 +4,8 @@
     padding-top: 3vw;
     background-color: var(--color-background);
     text-align: center;
+
+    margin-bottom: 7vw;
 }
 
 #sponsor-description {
@@ -18,9 +20,9 @@
 
 #sponsors-title {
     color: var(--color-primary);
-    font-size: 4vw;
-    margin: 2.5vw auto;
-    margin-top: 5vw;
+    font-size: 3.5vw;
+    margin: 1vw auto;
+    font-weight: bolder;
 }
 
 #sponsor-images {
