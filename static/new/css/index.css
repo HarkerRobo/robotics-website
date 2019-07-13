@@ -4,10 +4,10 @@
 
 @keyframes fade-in {
     from {
-        filter: opacity(0%);
+        filter: opacity(0%) brightness(20%);
     }
     to {
-        filter: opacity(100%);
+        filter: opacity(100%) brightness(100%);
     }
 }
 

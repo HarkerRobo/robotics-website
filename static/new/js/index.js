@@ -109,13 +109,13 @@ _top.src = hrefs[1];
 let img = 1;
 
 function startSwitch() {
-    bottom.classList.add("fade-out");
+    // bottom.classList.add("fade-out");
     _top.classList.add("fade-in");
     setTimeout(nextSwitch, 1500);
 }
 
 function nextSwitch() {
-    bottom.classList.remove("fade-out");
+    // bottom.classList.remove("fade-out");
     _top.classList.remove("fade-in");
 
     bottom.src = hrefs[img];
