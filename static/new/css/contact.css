@@ -8,6 +8,7 @@
 #contact-title {
     font-size: 6vw;
     font-weight: bold;
+    margin-bottom: 2vw;
 }
 
 #contact-description {
@@ -37,32 +38,46 @@
 }
 
 #form {
-    width: 75%;
+    width: 50%;
     margin: 0 auto;
     padding-left: 10%;
     padding-right: 10%;
+    padding-top: 5vw;
+    padding-bottom: 8vw;
+    border-radius: 30px;
+
     text-align: left;
     margin-bottom: 7vw;
+
+    background-color: var(--color-light);
 }
 
 .form-text {
-    font-size: 2.4vw;
+    font-size: 2.0vw;
+    color: var(--color-primary);
 }
 
 .form-input {
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-bottom: 1px solid var(--color-light);
+    border: none;
     transition-duration: 0.4s;
 
     box-sizing: border-box;
 
-    margin-top: 2vw;
+    margin-top: .8vw;
     margin-bottom: 2vw;
     height: 3vw;
-    font-size: 2.4vw;
+    font-size: 1.45vw;
     width: 100%;
+
+    color: #3f3f3f;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    border-radius: 8px;
+}
+
+#textarea {
+    height: 12vw;
+    padding-top: .5vw;
 }
 
 .form-input:focus {

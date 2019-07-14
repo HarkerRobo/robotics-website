@@ -8,6 +8,7 @@
 #media-title {
     font-weight: bold;
     font-size: 6vw;
+
     margin-bottom: 1vw;
 }
 
@@ -65,6 +66,11 @@
     width: 35vw;
     height: 19.6875vw;
     display: block;
+}
+
+#team-pictures-title {
+    margin-top: 5vw;
+    /* font-stretch: ultra-condensed; */
 }
 
 #team-pictures {

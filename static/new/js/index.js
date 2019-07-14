@@ -46,7 +46,7 @@ animateNumber("team-stat-value");
 
 
 const landingText = document.getElementById("landing-banner-secondary-text");
-const texts = ["Engineers", "Inventors", "Problem Solvers", "Family", "Harker Robotics"];
+const texts = ["Inventors", "Engineers", "Problem Solvers", "Family", "1072"];
 let textIndex = 0;
 let text = texts[textIndex];
 let index = 0;
@@ -55,7 +55,7 @@ let typing = false;
 function addLetter() {
     index += 1;
     landingText.innerHTML = "We are " + text.substring(0, index) + (typing ? "|" : "");
-    if(index == text.length) {
+    if(index == text.length && textIndex != texts.length - 1) {
         setTimeout(removeLetter, 2000);
     } else {
         setTimeout(addLetter, 100);

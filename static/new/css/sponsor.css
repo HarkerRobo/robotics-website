@@ -20,14 +20,14 @@
 
 #sponsors-title {
     color: var(--color-primary);
-    font-size: 3.5vw;
+    font-size: 6vw;
     margin: 1vw auto;
-    font-weight: bolder;
+    font-weight: 900;
 }
 
 #sponsor-images {
     margin: auto auto;
-    margin-bottom: 5vw;
+    margin-bottom: 3vw;
     width: 80vw;
 
     display: -webkit-box;
@@ -79,4 +79,9 @@
     height: 5vw;
 
     margin: 2vw;
+}
+
+#sponsor-button {
+    font-size: 1.8vw;
+    font-weight: 100;
 }

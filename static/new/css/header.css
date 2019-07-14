@@ -168,9 +168,9 @@
          -o-animation-fill-mode: forwards;
             animation-fill-mode: forwards;
 
-    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.30), 0 15px 48px 0 rgba(0,0,0,0.40);
-    -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.30), 0 15px 48px 0 rgba(0,0,0,0.40);
-         box-shadow: 0 12px 14px 0 rgba(0,0,0,0.30), 0 15px 48px 0 rgba(0,0,0,0.40);
+    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+    -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+         box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
      
 
     z-index: 1;
@@ -185,11 +185,11 @@
 }
 
 #header-logo-image {
-    height: 5vh;
+    height: 3.5vh;
     /* width: 6vh; */
     margin-left: 1vw;
-    margin-right: 2vw;
-    margin-top: 1.5vh;
+    margin-right: 3vw;
+    margin-top: 2.25vh;
 }
 
 #header-harker-robotics {
@@ -287,6 +287,17 @@
     color: var(--color-light);
     height: 100%;
     background-color: var(--color-primary);
+}
+
+#header-member-icon {
+    width: 5vh;
+    height: 5vh;
+    margin: auto auto;
+    margin-top: 1.5vh;
+}
+
+#header-member-icon:hover {
+    cursor: pointer;
 }
 
 /* 

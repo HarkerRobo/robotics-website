@@ -113,6 +113,7 @@
     filter: brightness(100%);
     font-size: 4vw;
     font-weight: 300;
+    user-select: none;
 }
 
 #landing-transition {
@@ -158,7 +159,7 @@
 
 #team-background-text {
     margin: 10vw auto;
-    font-size: 4vw;
+    font-size: 3.8vw;
 }
 
 #team-statistics-wrapper {
