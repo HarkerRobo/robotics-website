@@ -55,7 +55,7 @@ let typing = false;
 function addLetter() {
     index += 1;
     landingText.innerHTML = "We are " + text.substring(0, index) + (typing ? "|" : "");
-    if(index == text.length && textIndex != texts.length - 1) {
+    if(index == text.length) {
         setTimeout(removeLetter, 2000);
     } else {
         setTimeout(addLetter, 100);
@@ -63,6 +63,7 @@ function addLetter() {
 }
 
 function removeLetter() {
+    if(textIndex == texts.length - 1) return;
     index -= 1;
     landingText.innerHTML = "We are " + text.substring(0, index) + (typing ? "|" : "");
     if(!index) {
@@ -79,7 +80,7 @@ function removeLetter() {
 
 setInterval(function() {
     typing = typing == false;
-    landingText.style.marginLeft = typing ? "1.0vw" : "0";
+    landingText.style.marginLeft = typing ? "0.5vw" : "0";
     if(typing && !landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML += "|";
     } else if(!typing && landingText.innerHTML.endsWith("|")) {
@@ -90,7 +91,7 @@ setInterval(function() {
 window.addEventListener("load", function() {
     setTimeout(function() {
         addLetter();
-    }, 1100);
+    }, 1500);
 });
 
 

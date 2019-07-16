@@ -24,7 +24,8 @@ const express = require('express'),
   photosRouter = require('./routers/photos'),
   blogsRouter = require('./routers/blogs'),
 
-  config = require('./config.json')
+  config = require('./config.json'),
+  request = require("request");
 
 function getTimeFormatted() {
   return moment().format('MMMM Do YYYY, h:mm:ss a') + ' (' + Date.now() + ')'
@@ -88,12 +89,20 @@ app.get('/privacy', function (req, res) {
 })
 
 app.post("/contact", (req, res) => {
-  console.log(req.body);
+  request({
+    url: "https://hooks.slack.com/services/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",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    json: {
+      text: `*Email*: ${req.body.email}\n*Name*: ${req.body.name}\n*Organization*: ${req.body.organization}\n*Topic*: ${req.body.topic}\n*Message:* ${req.body.message}`
+    }
+  });
   res.render("new/pages/contact.ejs", {
     message: "Thank you for contacting us!"
   })
 });
-
 /*app.get('/photos', function (req, res) {
   res.render('pages/photos')
 })*/
