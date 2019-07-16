@@ -90,7 +90,7 @@ app.get('/privacy', function (req, res) {
 
 app.post("/contact", (req, res) => {
   request({
-    url: "https://hooks.slack.com/services/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",
+    url: "https://hooks.slack.com/services/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",
     method: "POST",
     headers: {
       "Content-Type": "application/json"
