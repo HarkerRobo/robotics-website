@@ -1,0 +1,203 @@
+#body h1 {
+    color: var(--color-primary);
+    margin-top: 3vw;
+    margin-bottom: 1.5vw;
+    font-size: 6vw;
+
+    font-weight: bold;
+}
+
+#body h2 {
+    color: var(--color-primary);
+    margin-bottom: 1.5vh;
+    font-size: 4vw;
+}
+
+#body h3 {
+    font-weight: 900;
+    color: black;
+    margin-top: 4vw;
+    font-size: 3vw;
+}
+
+#body h4 {
+    color: black;
+    font-weight: bolder;
+    font-size: 2.5vw;
+    margin-top: 4vw;
+    margin-bottom: 1.5vw;
+}
+
+#body h5 {
+    font-size: 1.5vw;
+    white-space: nowrap;
+    color: var(--color-primary);
+}  
+
+#body p {
+    font-size: 3vw;
+}
+
+#content {
+    width: 100%;
+}
+
+#body {
+    width: 100%;
+    text-align: center;
+    margin-top: -3vw;
+    padding-top: 3vw;
+    background-color: var(--color-background);
+}
+
+#about, #members, #leaders {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+#missionstatement {
+    font-weight: 100;
+}
+
+#team-picture {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.individual-title {
+    white-space: nowrap;
+}
+
+#triumvirate, #tech-directors {
+    width: 70%;
+    margin: 0 auto 4vw auto;
+
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: -moz-box;
+
+    display: -ms-flexbox;
+
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row wrap;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+#e-directors, #reeeeeeeee {
+    width: 40%;
+    margin: 0 auto;
+
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: -moz-box;
+
+    display: -ms-flexbox;
+
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row wrap;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+#opsgang {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 4vw;
+
+    display: -webkit-box;
+
+    display: -webkit-flex;
+
+    display: -moz-box;
+
+    display: -ms-flexbox;
+
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-flow: row wrap;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-flow: row wrap;
+            flex-flow: row wrap;
+    -webkit-box-pack: justify;
+    -webkit-justify-content: space-between;
+       -moz-box-pack: justify;
+        -ms-flex-pack: justify;
+            justify-content: space-between;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.leader {
+    width: 10vw;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+       -moz-box-orient: vertical;
+       -moz-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+       -moz-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.leader-image {
+    width: 100%;
+}
+
+@media (max-width: 800px) {
+    #triumvirate, #tech-directors, #e-directors, #reeeeeeeee, #opsgang {
+        width: 10%;
+    }
+  }

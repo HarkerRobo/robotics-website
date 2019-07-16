@@ -49,10 +49,10 @@ h4 {
 }
 
 button, .submit-button {
-    -webkit-transition-duration: 0.1s;
-       -moz-transition-duration: 0.1s;
-         -o-transition-duration: 0.1s;
-            transition-duration: 0.1s;
+    -webkit-transition-duration: 0.15s;
+       -moz-transition-duration: 0.15s;
+         -o-transition-duration: 0.15s;
+            transition-duration: 0.15s;
 
     background-color: var(--color-primary);
     border: 2px solid var(--color-primary);

@@ -68,6 +68,10 @@ app.get("/about", (req, res) => {
   res.render("new/pages/about.ejs");
 })
 
+app.get("/members", (req, res) => {
+  res.render("new/pages/member.ejs");
+})
+
 app.get("/outreach", (req, res) => {
   res.render("new/pages/outreach.ejs");
 });
