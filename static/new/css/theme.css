@@ -75,6 +75,7 @@ button, .submit-button {
             border-radius: 7px;
     cursor: pointer;
 }
+
 /* 
  * { 
     box-shadow: 0 12px 14px 0 rgba(0,0,0,0.80), 0 20px 100px 0 rgba(0,0,0,0.80);
@@ -82,7 +83,8 @@ button, .submit-button {
  
 button:hover, .submit-button:hover {
     /* background-color: var(--color-secondary-light); */
-    background: var(--color-background);
+    /* background: var(--color-background); */
+    background: none;
     border: 2px solid var(--color-primary);
     color: var(--color-primary);
     /* -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
