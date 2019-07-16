@@ -49,10 +49,10 @@ h4 {
 }
 
 button, .submit-button {
-    /* -webkit-transition-duration: 0.4s;
-       -moz-transition-duration: 0.4s;
-         -o-transition-duration: 0.4s;
-            transition-duration: 0.4s; */
+    -webkit-transition-duration: 0.1s;
+       -moz-transition-duration: 0.1s;
+         -o-transition-duration: 0.1s;
+            transition-duration: 0.1s;
 
     background-color: var(--color-primary);
     border: 2px solid var(--color-primary);
@@ -64,9 +64,11 @@ button, .submit-button {
 
     /* width: 15vw; */
     height: 5vw;
-    padding: 1.5vw;
+    display: table-cell;
+    /* padding: 1.5vw; */
     vertical-align: middle;
-    line-height: 2vw;
+    /* line-height: 5vw; */
+    text-decoration: none;
 
     -webkit-border-radius: 7px;
 
