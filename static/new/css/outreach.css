@@ -44,139 +44,66 @@
     margin: 0 auto;
 }
 
-#primary-outreach {
-    margin-top: 4vw;
-    width: 66%;
-    margin-left: auto;
-    margin-right: auto;
-
-    display: -webkit-box;
-
-    display: -webkit-flex;
-
-    display: -moz-box;
-
-    display: -ms-flexbox;
-
+#outreach-cards {
     display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-flow: row wrap;
-       -moz-box-orient: horizontal;
-       -moz-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-
-       -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-
-    /* cursor: pointer; */
+    flex-flow: row wrap;
+    justify-content: space-between;
+    width: 75vw;
+    margin: 5vw auto 7vw auto;
 }
 
-.primary-outreach-image {
-    width: 50%;
-    height: 33vw;
+.outreach-card {
+    border-radius: 1000px;
+    position: relative;
+    overflow: hidden;
+    width: 20vw;
+    height: 20vw;
+
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 6vw;
+
 }
 
-.primary-outreach-wrapper {
-    background-color: var(--color-background);
-
-    width: 50%;
-    height: 33vw;
-
-    display: -webkit-box;
-
-    display: -webkit-flex;
-
-    display: -moz-box;
-
-    display: -ms-flexbox;
-
-    display: flex;
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -webkit-flex-direction: column;
-       -moz-box-orient: vertical;
-       -moz-box-direction: normal;
-        -ms-flex-direction: column;
-            flex-direction: column;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-       -moz-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-    -webkit-box-pack: center;
-    -webkit-justify-content: center;
-       -moz-box-pack: center;
-        -ms-flex-pack: center;
-            justify-content: center;
+.outreach-image {
+    width: 20vw;
+    height: 20vw;
+    position: relative;
+    border-radius: 10%;
 }
 
-#other-events {
-    width: 100%;
-    margin: 0 auto;
+.outreach-text-wrapper {
+    position: absolute;
+    top: 20vw;
+    /* bottom: -20vw; */
+    height: 20vw;
+    line-height: 20vw;
 
-    display: -webkit-box;
+    left: 0;
+    right: 0;
 
-    display: -webkit-flex;
-
-    display: -moz-box;
-
-    display: -ms-flexbox;
-
-    display: flex;
-    -webkit-box-orient: horizontal;
-    -webkit-box-direction: normal;
-    -webkit-flex-flow: row wrap;
-       -moz-box-orient: horizontal;
-       -moz-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
-    -webkit-justify-content: space-around;
-        -ms-flex-pack: distribute;
-            justify-content: space-around;
-    -webkit-box-align: center;
-    -webkit-align-items: center;
-       -moz-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
-
-    margin-bottom: 4vw;
-}
-
-.other-event {
-    width: 30%;
-    -webkit-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-       -moz-box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
-            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.3), 0 6px 20px 0 rgba(0, 0, 0, 0.29);
+    overflow: hidden;
     text-align: center;
-    clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
 
+    background-color: rgba(240, 240, 240, 0.7);
+    transition: 0.7s ease;
+    padding-left: 2vw;
+    padding-right: 2vw;
 }
 
-.other-event-image {
-    width: 100%;
-    display: block;
+.outreach-card:hover .outreach-text-wrapper {
+    top: 0;
 }
 
-.other-event-description {
-    background-color: var(--color-background);
-    font-size: 1.6vw;
-    padding: .5vw 0;
-}
 
-@media screen and (max-width: 800px) {
-    /* .primary-outreach-image, .primary-outreach-wrapper { 
-        width: 100%;
-        height: 66vw;
-    } */
 
-    .other-event {
-        width: 80%;
-        margin-bottom: 8vw;
+.outreach-text {
+    overflow: hidden;
+    margin: 0;
 
-    }
+    line-height: 1.5;
+    display: inline-block;
+    vertical-align: middle;
+    font-weight: 100;
+    user-select: none;
 }
