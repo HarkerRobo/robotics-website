@@ -27,11 +27,12 @@
             <%- include(__base + 'views/new/partials/header.ejs') %>
             <div id="body">
                 <h1 id="contact-title">Contact</h1>
-                <!-- <p id="contact-description">We would love to hear from you! If you are interested in contacting us, you can send us a message or visit us.</p>
-                <h2>Visit Us</h2> -->
-                <!-- <iframe id="google-maps" src="https://maps.google.com/maps?q=harker%20upper&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no">Loading map...</iframe> -->
+                <p id="contact-description">We would love to hear from you! If you are interested in contacting us, you can send us a message or visit us.</p>
+                <h2>Visit Us</h2>
+                <iframe id="google-maps" src="https://maps.google.com/maps?q=harker%20upper&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no">Loading map...</iframe>
+                <p style="margin-bottom: 4vw;">500 Saratoga Ave, San Jose, CA 95129</p>
+                <h2>Message Us</h2>
                 <form action="/contact" method="POST" id="form">
-                    <!-- <h2>Message Us</h2> -->
                     <% if(locals.message) { %>
                         <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center"><%= message %></p>
                     <% } %>

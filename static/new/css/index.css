@@ -302,23 +302,16 @@
     height: -moz-calc(100% - 17.35vw);
     height: calc(100% - 17.35vw);
 
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(2.6%, #1E3155), color-stop(76.56%, rgba(233, 20, 32, 0.2)), color-stop(92.71%, rgba(229, 40, 50, 0.8)), to(rgba(229, 40, 50, 1)));
-
-    background: -webkit-linear-gradient(top, #1E3155 2.6%, rgba(233, 20, 32, 0.2) 76.56%, rgba(229, 40, 50, 0.8) 92.71%, rgba(229, 40, 50, 1) 100%);
-
-    background: -moz-linear-gradient(top, #1E3155 2.6%, rgba(233, 20, 32, 0.2) 76.56%, rgba(229, 40, 50, 0.8) 92.71%, rgba(229, 40, 50, 1) 100%);
-
-    background: -o-linear-gradient(top, #1E3155 2.6%, rgba(233, 20, 32, 0.2) 76.56%, rgba(229, 40, 50, 0.8) 92.71%, rgba(229, 40, 50, 1) 100%);
-
-    background: linear-gradient(180deg, #1E3155 2.6%, rgba(233, 20, 32, 0.2) 76.56%, rgba(229, 40, 50, 0.8) 92.71%, rgba(229, 40, 50, 1) 100%);
+    background: linear-gradient(180deg, #1E3155 2.6%, rgba(30, 49, 85, 0.2) 76.56%, rgba(30, 49, 85, 0.8) 92.71%, rgba(30, 49, 85, 1) 100%);
     padding-top: 17.4vw;
 }
 
 #outreach-info {
+    font-family: "Lato", sans-serif;
     background-color: rgba(240, 240, 240, 0.5);
 
     width: 40vw;
-    height: 40vw;
+    height: 37vw;
 
     margin-left: auto;
     margin-bottom: 17.4vw;
@@ -331,8 +324,10 @@
 }
 
 #outreach-description {
+    font-family: "Lato", sans-serif;
+    font-weight: 300;
     font-size: 3.2vw;
-    line-height: 5vw;
+    line-height: 4vw;
     margin: 0 auto 2vw auto;
     width: 90%;
 
@@ -341,8 +336,8 @@
 
 #outreach-media-spacer {
     width: 100vw;
-    height: 1vw;
-    background-color: rgba(229, 40, 50, 1);
+    height: 0.1vw;
+    background-color: var(--color-primary)
 }
 
 /*--------------
@@ -382,15 +377,7 @@
     height: -moz-calc(100% - 17.4vw);
     height: calc(100% - 17.4vw);
 
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(1.56%, rgba(229, 40, 50, 1)), color-stop(8.85%, rgba(233, 20, 32, 0.37)), color-stop(23.44%, rgba(233, 20, 32, 0.2)), color-stop(54.17%, rgba(66, 87, 125, 0.5)), color-stop(92.71%, #1E3155));
-
-    background: -webkit-linear-gradient(top, rgba(229, 40, 50, 1) 1.56%, rgba(233, 20, 32, 0.37) 8.85%, rgba(233, 20, 32, 0.2) 23.44%, rgba(66, 87, 125, 0.5) 54.17%, #1E3155 92.71%);
-
-    background: -moz-linear-gradient(top, rgba(229, 40, 50, 1) 1.56%, rgba(233, 20, 32, 0.37) 8.85%, rgba(233, 20, 32, 0.2) 23.44%, rgba(66, 87, 125, 0.5) 54.17%, #1E3155 92.71%);
-
-    background: -o-linear-gradient(top, rgba(229, 40, 50, 1) 1.56%, rgba(233, 20, 32, 0.37) 8.85%, rgba(233, 20, 32, 0.2) 23.44%, rgba(66, 87, 125, 0.5) 54.17%, #1E3155 92.71%);
-
-    background: linear-gradient(180deg, rgba(229, 40, 50, 1) 1.56%, rgba(233, 20, 32, 0.37) 8.85%, rgba(233, 20, 32, 0.2) 23.44%, rgba(66, 87, 125, 0.5) 54.17%, #1E3155 92.71%);
+    background: linear-gradient(180deg, rgba(30, 49, 85, 1) 1.56%, rgba(30, 49, 85, 0.37) 8.85%, rgba(30, 49, 85, 0.2) 23.44%, rgba(66, 87, 125, 0.5) 54.17%, #1E3155 92.71%);
     padding-top: 17.4vw;
 }
 
@@ -398,7 +385,7 @@
     background-color: rgba(240, 240, 240, 0.5);
 
     width: 40vw;
-    height: 40vw;
+    height: 35vw;
 
     margin-right: auto;
     
@@ -412,8 +399,10 @@
 }
 
 #media-description {
-    font-size: 3.2vw;
-    line-height: 5vw;
+    font-family: "Lato", sans-serif;
+    font-weight: 100;
+    font-size: 3.4vw;
+    line-height: 4vw;
 
     width: 95%;
     margin: 0 auto 2vw auto;
@@ -464,6 +453,7 @@
 
     font-size: 4vw;
     margin-bottom: 6vw;
+    font-weight: 100;
 }
 
 #sponsor-images {

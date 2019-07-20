@@ -1,5 +1,9 @@
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Lato', sans-serif;
+}
+
 .primary-outreach-wrapper > h3 {
-    font-weight: normal;
+    font-weight: light;
     color: var(--color-primary);
     font-size: 3vw;
 
@@ -42,12 +46,13 @@
     width: 71%;
 
     margin: 0 auto;
+    font-weight: 100;
 }
 
 #outreach-cards {
     display: flex;
     flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: center;
     width: 75vw;
     margin: 5vw auto 7vw auto;
 }
@@ -74,10 +79,9 @@
 
 .outreach-text-wrapper {
     position: absolute;
-    top: 20vw;
+    top: 14vw;
     /* bottom: -20vw; */
     height: 20vw;
-    line-height: 20vw;
 
     left: 0;
     right: 0;
@@ -86,7 +90,7 @@
     text-align: center;
 
     background-color: rgba(240, 240, 240, 0.7);
-    transition: 0.7s ease;
+    transition: 0.7s ease-out;
     padding-left: 2vw;
     padding-right: 2vw;
 }
@@ -95,15 +99,31 @@
     top: 0;
 }
 
+.outreach-card:hover .outreach-text-title {
+    top: 3.5vw;
+}
 
+.outreach-text-title {
+    position: absolute;
+    top: 3vw;
+    left: 10vw;
+    transform: translate(-50%, -50%);
+
+    font-size: 2vw;
+    font-weight: normal;
+
+    transition: 0.7s ease-out;
+
+    user-select: none;
+}
 
 .outreach-text {
     overflow: hidden;
-    margin: 0;
+    position: absolute;
+    top: 10vw;
+    left: 10vw;
+    transform: translate(-50%, -50%);
 
-    line-height: 1.5;
-    display: inline-block;
-    vertical-align: middle;
     font-weight: 100;
     user-select: none;
 }
