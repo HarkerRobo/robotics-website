@@ -54,6 +54,7 @@
 
     text-align: left;
     margin-bottom: 3vw;
+    position: relative;
 }
 
 .media-title {
@@ -116,21 +117,22 @@
          -o-transition-duration: 0.4s;
 
             transition-duration: 0.4s;
+    
+    position: relative;
 }
 
 .media-picture:hover {
     -webkit-filter: brightness(140%);
             filter: brightness(140%);
-    z-index: -100;
 }
-
 
 .media-new-link-icon {
-    float: right; 
-    width: 2.5vw;
-    height: 2.5vw; 
-    transform: translate(-25%, 175%); 
+    width: 3vw;
+    height: 3vw;
+    position: absolute;
+    transform: translate(31.5vw, -23vw);
 }
+
 
 @media only screen and (max-width: 800px) {
     .media-video {
@@ -153,5 +155,12 @@
            -moz-box-pack: center;
             -ms-flex-pack: center;
                 justify-content: center;
+    }
+
+    .media-new-link-icon {
+        width: 5vw;
+        height: 5vw;
+        position: absolute;
+        transform: translate(28vw, -45vw);
     }
 }

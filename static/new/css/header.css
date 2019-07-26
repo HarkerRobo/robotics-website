@@ -144,12 +144,12 @@
     z-index: 100;
 
     line-height: 15vw;
-    padding-left: 6vw;
 }
 
 #header-mobile-expand > a > h1 {
     color: var(--color-light);
     font-size: 7vw;
+    padding-left: 6vw;
 }
 
 #header-mobile-expand:first-child {
