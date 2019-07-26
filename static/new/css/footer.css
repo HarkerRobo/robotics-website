@@ -4,7 +4,7 @@
         width: 100vw;
         height: 40vh;
         overflow: hidden;
-
+        background-color: var(--color-background);
     }
 
     #footer-slant {
@@ -144,8 +144,8 @@
         -webkit-border-radius: 50%;
            -moz-border-radius: 50%;
                 border-radius: 50%;
-        width: 5vw;
-        height: 5vw;
+        width: 8vw;
+        height: 8vw;
         margin-right: 2vw;
         display: inline-block;
 
@@ -171,10 +171,10 @@
     .footer-media-icon-image {
         -webkit-filter: brightness(2);
                 filter: brightness(2);
-        width: 3.5vw;
-        height: 3.5vw;
+        width: 5vw;
+        height: 5vw;
 
-        margin: 0.75vw auto;
+        margin: 1.5vw auto;
     }
 }
 

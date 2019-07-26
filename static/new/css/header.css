@@ -136,7 +136,7 @@
 }
 
 #header-mobile-expand {
-    background-color: var(--color-primary);
+    background-color: rgba(30,49,85, 0.8);
     height: 0;
     overflow: hidden;
     position: fixed;
