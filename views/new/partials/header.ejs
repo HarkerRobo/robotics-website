@@ -1,45 +1,56 @@
 <!-- requires static/new/css/header.css -->
 
-<!-- <div id="header-logo-wrapper">
-    
-    <div id="header-logo-text">
-        <h1>Harker Robotics</h1>
-        <h3>San Jose, CA</h3>
-    </div>
-</div> -->
 <div id="header-navigation-wrapper">
     <div id="header-logo-image-wrapper">
         <a class="no-style-a" href="/">
-            <img id="header-logo-image" src="new/img/media/index/sap.png" />
+            <img id="header-logo-image" src="new/img/svg/textlogo-thiqwhiteoutline.svg" />
         </a>
     </div>
-    <!-- <div id="header-1072-wrapper"><a class="no-style-a" href="/"><p id="header-1072">1072</p></a></div> -->
-    <div class="header-navigation">
-        <a class="no-style-a" href="/"><h4>Home</h4></a>
-    </div>
-    <div class="header-navigation">
-        <a class="no-style-a" href="/about"><h4>About</h4></a>
-    </div>
-    <div class="header-navigation">
-        <a class="no-style-a" href="/members"><h4>Members</h4></a>
-    </div>
-    <div class="header-break">
-
-    </div>
-    <div class="header-navigation">
-        <a class="no-style-a" href="/outreach"><h4>Outreach</h4></a>
-    </div>
-    <div class="header-navigation">
-        <a class="no-style-a" href="/media"><h4>Media</h4></a>
-    </div>
-    <div class="header-navigation">
-        <a class="no-style-a" href="/sponsor"><h4>Sponsor</h4></a>
-    </div>
-    <div class="header-navigation">
-        <a class="no-style-a" href="/contact"><h4>Contact</h4></a>
-    </div>
+    <a class="no-style-a" href="/"><div class="header-navigation">
+        <h4>Home</h4>
+    </div></a>
+    <a class="no-style-a" href="/about"><div class="header-navigation">
+        <h4>About</h4>
+    </div></a>
+    <a class="no-style-a" href="/members"><div class="header-navigation">
+        <h4>Members</h4>
+    </div></a>
+    <a class="no-style-a" href="/outreach"><div class="header-navigation">
+        <h4>Outreach</h4>
+    </div></a>
+    <a class="no-style-a" href="/media"><div class="header-navigation">
+        <h4>Media</h4>
+    </div></a>
+    <a class="no-style-a" href="/sponsor"><div class="header-navigation">
+        <h4>Sponsor</h4>
+    </div></a>
+    <a class="no-style-a" href="/contact"><div class="header-navigation">
+        <h4>Contact</h4>
+    </div></a>
     <div id="header-idk">
         <a href="/member" class="no-style-a"><img id="header-member-icon" src="/new/img/svg/baseline-person-24px.svg" /></a>
-        <!-- <a class="no-style-a" href="/member"><p id="header-login-button">Login</p></a> -->
+        <img id="header-mobile-expand-icon" src="/new/img/svg/round-menu-24px.svg" />
     </div>
 </div>
+<div id="header-mobile-expand">
+    <a class="no-style-a" href="/"><h1>Home</h1></a>
+    <a class="no-style-a" href="/about"><h1>About</h1></a>
+    <a class="no-style-a" href="/members"><h1>Members</h1></a>
+    <a class="no-style-a" href="/outreach"><h1>Outreach</h1></a>
+    <a class="no-style-a" href="/media"><h1>Media</h1></a>
+    <a class="no-style-a" href="/sponsor"><h1>Sponsor</h1></a>
+    <a class="no-style-a" href="/contact"><h1>Contact</h1></a>
+</div>
+
+<script type="text/javascript">
+    document.getElementById("header-mobile-expand-icon").addEventListener("click", function() {
+        const expand = document.getElementById("header-mobile-expand");
+        if(expand.classList.contains('header-grow')) {
+            expand.classList.remove("header-grow");
+            expand.classList.add("header-shrink")
+        } else {
+            expand.classList.add("header-grow")
+            expand.classList.remove("header-shrink")
+        }
+    });
+</script>
