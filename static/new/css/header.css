@@ -139,7 +139,7 @@
     background-color: var(--color-primary);
     height: 0;
     overflow: hidden;
-    position: absolute;
+    position: fixed;
     width: 100vw;
     z-index: 100;
 

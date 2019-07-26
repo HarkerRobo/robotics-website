@@ -103,3 +103,10 @@ button:hover, .submit-button:hover {
 button:focus, .submit-button:hover {
     outline: none;
 }
+
+@media screen and (max-width: 800px) {
+    button, .submit-button {
+        font-size: 5vw;
+        height: 8vw;
+    }
+}

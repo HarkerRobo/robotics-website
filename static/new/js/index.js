@@ -80,7 +80,11 @@ function removeLetter() {
 
 setInterval(function() {
     typing = typing == false;
-    landingText.style.marginLeft = typing ? "0.5vw" : "0";
+    if(typing) {
+        landingText.classList.add("landing-text-shift")
+    } else {
+        landingText.classList.remove("landing-text-shift")
+    }
     if(typing && !landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML += "|";
     } else if(!typing && landingText.innerHTML.endsWith("|")) {
