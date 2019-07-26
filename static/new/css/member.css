@@ -55,11 +55,6 @@
     margin: 0 auto;
     text-align: center;
 }
-
-#missionstatement {
-    font-weight: 100;
-}
-
 #team-picture {
     width: 90%;
     margin: 0 auto;
@@ -136,7 +131,7 @@
 #opsgang {
     width: 50%;
     margin: 0 auto;
-    margin-bottom: 4vw;
+    padding-bottom: 4vw;
 
     display: -webkit-box;
 
@@ -199,5 +194,33 @@
 @media (max-width: 800px) {
     #triumvirate, #tech-directors, #e-directors, #reeeeeeeee, #opsgang {
         width: 10%;
+    }
+
+    #body h1 {
+        font-size: 10vw;
+    }
+
+    #body h2 {
+        font-size: 5.5vw;
+    }
+
+    #body h3 {
+        font-size: 6vw;
+    }
+
+    #body h4 {
+        font-size: 6vw;
+    }
+
+    #body h5 {
+        font-size: 4.5vw;
+    }
+
+    #body p {
+        font-size: 4vw;
+    }
+
+    .leader {
+        width: 15vw;
     }
   }
