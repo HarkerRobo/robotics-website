@@ -47,7 +47,7 @@
     border-radius: 30px;
 
     text-align: left;
-    margin-bottom: 7vw;
+    padding-bottom: 7vw;
 
     background-color: var(--color-light);
 }
