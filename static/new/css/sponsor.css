@@ -5,18 +5,9 @@
     background-color: var(--color-background);
     text-align: center;
 
-    margin-bottom: 7vw;
+    padding-bottom: 7vw;
 }
 
-#sponsor-description {
-    width: 80%;
-    font-size: 3.5vw;
-    margin: 2.2vw auto;
-}
-
-#sponsor-us-please {
-    font-size: 4vw;
-}
 
 #sponsors-title {
     color: var(--color-primary);
@@ -27,7 +18,7 @@
 
 #sponsor-images {
     margin: auto auto;
-    margin-bottom: 3vw;
+    padding-bottom: 3vw;
     width: 80vw;
 
     display: -webkit-box;
@@ -83,5 +74,20 @@
 
 #sponsor-button {
     font-size: 1.8vw;
-    font-weight: 100;
+    font-weight: normal;
 }
+
+@media screen and (max-width: 800px) {
+    #sponsors-title {
+        font-size: 10vw;
+    }
+
+    .sponsor-image {
+        height: 10vw;
+        margin: 3vw;
+    }
+
+    #sponsor-button {
+        font-size: 5vw;
+    }
+ }
