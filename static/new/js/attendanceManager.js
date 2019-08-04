@@ -130,8 +130,7 @@ function edittingClickListener(e) {
     e.preventDefault();
 
     window.getSelection().removeAllRanges();
-    e.target.setAttribute("data-value", e.target.innerHTML);
-    e.target.removeEventListener("dblclick", edittingClickListener);
+    e.target.parentElement.removeEventListener("dblclick", edittingClickListener);
 
     e.target.contentEditable = true;
     e.target.focus();
@@ -142,32 +141,32 @@ function edittingClickListener(e) {
 function editBlurListener(e) {
     console.log("BLUR");
     e.target.contentEditable = false;
-    e.target.addEventListener("dblclick", edittingClickListener);
+    e.target.parentElement.addEventListener("dblclick", edittingClickListener);
     e.target.removeEventListener("blur", editBlurListener);
     
-    updateTime(e.target.parentElement);
+    updateTime(e.target.parentElement.parentElement);
 }
 
 function updateTime(elem) {
-    const startTime = convertTime(elem.children[0]);
-    const endTime = convertTime(elem.children[1]);
+    const startTextElement = elem.children[1].firstChild;
+    const endTextElement = elem.children[2].firstChild;
 
-    if(startTime > endTime) {
-        elem.children[0].innerHTML = elem.children[0].getAttribute("data-value");
-        elem.children[1].innerHTML = elem.children[1].getAttribute("data-value");
+    const startTime = convertTime(startTextElement, true);
+    const endTime = convertTime(endTextElement, false);
+
+    if(startTime > endTime && endTime != null || startTime == null) {
+        startTextElement.innerHTML = startTextElement.getAttribute("data-value");
+        endTextElement.innerHTML = endTextElement.getAttribute("data-value");
         return;
     }
 
-    elem.children[0].innerHTML = convertDateToTime(startTime);
-    elem.children[1].innerHTML = convertDateToTime(startTime);
-    elem.children[0].setAttribute("data-value", convertDateToTime(startTime));
-    elem.children[1].setAttribute("data-value", convertDateToTime(endTime));
-    elem.childNodes[0].replaceWith(convertHours(startTime, endTime) + " (");
-    //elem.parentElement.innerHTML = '<p>' + convertHours(startTime, endTime) + ' (<span class="startTime">' + convertDateToTime(startTime) + '</span> - ' + convertDateToTime(endTime) + ')</p>';   
+    startTextElement.parentElement.innerHTML = convertDateToTime(startTime);
+    endTextElement.parentElement.innerHTML = convertDateToTime(endTime);
+    elem.firstChild.replaceWith(new DOMParser().parseFromString(convertHours(startTime, endTime), "text/html").firstChild.children[1].firstChild);
+    // elem.childNodes[0].replaceWith(convertHours(startTime, endTime) + " (");
 }
 
-function convertTime(elem) {
-    console.log(elem);
+function convertTime(elem, isStart) {
     try {
         const string = elem.innerHTML;
         const hours = parseInt(string.split(":")[0], 10);
@@ -175,13 +174,18 @@ function convertTime(elem) {
         if(Number.isNaN(hours) || Number.isNaN(minutes) || hours < 0 || hours > 12 || minutes < 0 || minutes > 59) {
             throw new Error();
         }
-
-        return new Date(2019, 1, 1, (hours < 9 ? 12 : 0) + hours % 12, minutes);
+        
+        if(isStart) {
+            return new Date(2019, 0, 1, (hours < 8 ? 12 : 0) + hours % 12, minutes);
+        }
+        return new Date(2019, 0, 1, (hours < 11 ? 12 : 0) + hours % 12, minutes);
     } catch(e) {
+        if(elem.getAttribute("data-value") == "????" || elem.innerHTML == "????") {
+            return null;
+        }
         const p = document.createElement("p");
         p.innerHTML = elem.getAttribute("data-value");
-        console.log(elem.getAttribute("data-value"));
-        return convertTime(p);
+        return convertTime(p, isStart);
     }
 }
 
@@ -224,24 +228,25 @@ function convertDateToWeekdayAndDate(date) {
 
 function convertDateToTime(date) {
     if(!date) {
-        return "????"//'<span class="red">????</span>';
+        return '<span class="red" data-value="????">????</span>';
     }
-    return (date.getHours() % 12) + ":" + (date.getMinutes() < 10 ? ("0" + date.getMinutes()) : date.getMinutes());
+    const str = date.getHours() % 12 + ":" + (date.getMinutes() < 10 ? ("0" + date.getMinutes()) : date.getMinutes());
+    return '<span data-value="' + str + '">' + str + "</span>";
 }
 
 function calculateHours(checkIn, checkOut) {
     if(checkIn == null || checkOut == null) return 0;
-    return ((checkOut - checkIn) / 1000 / 60 / 60).toFixed(1);
+    return ""+ +((checkOut - checkIn) / 1000 / 60 / 60).toFixed(1);
 }
 
 function convertHours(checkIn, checkOut) {
     const hours = calculateHours(checkIn, checkOut);
     if(!hours)
-        return "0 Hours"//'<span class="red">0 Hours</span>';
+        return '<span class="red">0 Hours</span>';
     if(!(hours - 1))
-        return "1 Hour";
+        return '<span>1 Hour</span>';
     else
-        return hours + " Hours";
+        return '<span>' + hours + ' Hours</span>';
 }
 
 

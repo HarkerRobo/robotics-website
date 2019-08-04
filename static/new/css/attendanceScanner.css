@@ -1,3 +1,7 @@
+body {
+    background-color: var(--color-background);
+}
+
 #buttons-wrapper {
     width: 100%;
     text-align: center;
@@ -12,4 +16,6 @@ button {
 #scanner-message {
     font-size: 3vw;
 }
+
+
 
