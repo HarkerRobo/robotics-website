@@ -447,7 +447,7 @@
 
 #media-title {
     padding-top: 3vw;
-    margin-bottom: 1vw;
+    margin-bottom: -0.5vw;
 }
 
 #media-description {
@@ -456,7 +456,7 @@
     font-size: 3.4vw;
     line-height: 4vw;
 
-    width: 95%;
+    width: 98%;
     margin: 0 auto 2vw auto;
 
     color: #355797;
