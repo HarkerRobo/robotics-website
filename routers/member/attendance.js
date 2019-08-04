@@ -89,7 +89,7 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
                 throw new Error();
         } catch(e) {
             console.error(e);
-            res.json({error: "Invalid QR data."});
+            res.status(400).json({error: "Invalid QR data."});
             return;
         }
 
@@ -130,13 +130,13 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
         res.json({"success": true});
     } catch(e) {
         console.error(e);
-        res.json({"error": e.message});
+        res.status(400).json({"error": e.message});
     }
 });
 
 router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, res) => {
     if(!req.query.count || !Number.isInteger(+req.query.count) || (req.query.date && Number.isNaN(Date.parse(req.query.date)))) {
-        res.json({"error": "Invalid query"});
+        res.status(400).json({"error": "Invalid query"});
         return;
     }
 
@@ -194,7 +194,7 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, re
 
 router.post("/review", auth.verifyRank(ranks.director), async (req, res) => {
     if(!req.body.id || !(req.body.rating || req.body.rating === 0)  || Number.isNaN(Number(req.body.rating))) {
-        res.json({"error": "invalid query"});
+        res.status(400).json({"error": "invalid query"});
         return;
     }
     const entry = await Entry.findById(req.body.id);
@@ -246,6 +246,32 @@ router.get("/attendance/:username", auth.verifyRank(ranks.director), async (req,
         negativeRatings: negativeRatings
     });
 });
+
+router.post("/attendance/:id", auth.verifyRank(ranks.director), async (req, res) => {
+    if((req.body.startTime && Number.isNaN(Date.parse(new Date(req.body.startTime)))) || (req.body.endTime && Number.isNaN(Date.parse(new Date(req.body.endTime)))) || (!req.body.startTime && !req.body.endTime)) {
+        res.status(400).json({"error": "invalid query"})
+        return;
+    }
+    const entry = await Entry.findOne({
+        _id: req.params.id
+    });
+    if(entry == null) {
+        res.status(404).end("Attendance entry not found");
+        return;
+    }
+    await entry.update({
+        checkIn: mergeDateAndTime(entry.checkIn, req.body.startTime),
+        checkOut: mergeDateAndTime(entry.checkOut, req.body.endTime)
+    });
+    res.json({"success": "updated"}).end();
+});
+
+function mergeDateAndTime(date, time) {
+    if(time == null) return null;
+    date = new Date(date);
+    time = new Date(time);
+    return new Date(date.getFullYear(), date.getMonth(), date.getDate(), time.getHours(), time.getMinutes(), time.getSeconds()).getTime();
+}
 
 function convertTimeToDate(time) {
     return new Date(time.getFullYear(), time.getMonth(), time.getDate()); 

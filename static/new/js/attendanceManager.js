@@ -154,7 +154,12 @@ function updateTime(elem) {
     const startTime = convertTime(startTextElement, true);
     const endTime = convertTime(endTextElement, false);
 
-    if(startTime > endTime && endTime != null || startTime == null) {
+    if(startTime == null) {
+        alert("todo");
+        return;
+    }
+
+    if(startTime > endTime && endTime != null) {
         startTextElement.innerHTML = startTextElement.getAttribute("data-value");
         endTextElement.innerHTML = endTextElement.getAttribute("data-value");
         return;
@@ -163,7 +168,23 @@ function updateTime(elem) {
     startTextElement.parentElement.innerHTML = convertDateToTime(startTime);
     endTextElement.parentElement.innerHTML = convertDateToTime(endTime);
     elem.firstChild.replaceWith(new DOMParser().parseFromString(convertHours(startTime, endTime), "text/html").firstChild.children[1].firstChild);
+
+    postUpdatedTime(elem.parentElement.parentElement.id, startTime && startTime.getTime(), endTime && endTime.getTime());
+
     // elem.childNodes[0].replaceWith(convertHours(startTime, endTime) + " (");
+}
+
+function postUpdatedTime(id, startTime, endTime) {
+    const xhr = new XMLHttpRequest();
+    xhr.open("POST", "/member/attendance/attendance/" + id, true);
+    xhr.setRequestHeader("Content-Type", "application/json");
+    xhr.onload = function() {
+        const resp = JSON.parse(xhr.responseText);
+        if(resp.error) {
+            alert(resp.error);
+        }
+    };
+    xhr.send(JSON.stringify({startTime: startTime, endTime: endTime}));
 }
 
 function convertTime(elem, isStart) {
@@ -248,7 +269,6 @@ function convertHours(checkIn, checkOut) {
     else
         return '<span>' + hours + ' Hours</span>';
 }
-
 
 document.addEventListener("scroll", function() {
     if(fetched && (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) { //https://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
