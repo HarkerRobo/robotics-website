@@ -141,11 +141,15 @@ h1, h2, h3, h4, h5, h6, p {
 
     .outreach-text {
         left: 25vw;
-        top: 25vw;
-        font-size: 5vw;
+        top: 30vw;
+        font-size: 4vw;
     }
 
     .outreach-card:hover .outreach-text-title {
-        top: 12vw;
+        top: 14vw;
+    }
+
+    .outreach-card:hover .outreach-text-title[data-summercamp] {
+        top: 9vw;
     }
 }
