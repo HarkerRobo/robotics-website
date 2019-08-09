@@ -1,5 +1,4 @@
 
-@media only screen {
     #footer {
         width: 100vw;
         height: 40vh;
@@ -144,8 +143,8 @@
         -webkit-border-radius: 50%;
            -moz-border-radius: 50%;
                 border-radius: 50%;
-        width: 8vw;
-        height: 8vw;
+        width: 5vw;
+        height: 5vw;
         margin-right: 2vw;
         display: inline-block;
 
@@ -171,12 +170,12 @@
     .footer-media-icon-image {
         -webkit-filter: brightness(2);
                 filter: brightness(2);
-        width: 5vw;
-        height: 5vw;
+        width: 3vw;
+        height: 3vw;
 
-        margin: 1.5vw auto;
+        margin: 1vw auto;
     }
-}
+
 
 @media only screen and (max-width: 800px) {
     #footer {
@@ -186,4 +185,15 @@
     #footer-copyright {
         font-size: 3vw;
     }    
+
+    .footer-media-icon {
+        width: 8vw;
+        height: 8vw;
+    }
+
+    .footer-media-icon-image {
+        width: 5vw;
+        height: 5vw;
+        margin: 1.5vw auto;
+    }
 }
