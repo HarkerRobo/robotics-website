@@ -21,6 +21,12 @@ function fetchEntries() {
             dayDiv.classList.add("attendance-day-wrapper");
             
             const dayDay = new Date(Date.parse(key));
+            setTimeout(function() {
+                dayDiv.firstChild.children[0].addEventListener("click", function() {
+                    downloadCSV(dayDay);
+                });
+            }, 0);
+
             let html = '<div class="attendance-day-title-text">' +
 '    <p class="attendance-day-date-text">' + convertDateToWeekdayAndDate(dayDay) + '</p> ' +
 '    <p class="attendance-day-members-text">Members: ' + entries[key].length + '</p> ' +
@@ -268,6 +274,24 @@ function convertHours(checkIn, checkOut) {
         return '<span>1 Hour</span>';
     else
         return '<span>' + hours + ' Hours</span>';
+}
+
+function downloadCSV(date) {
+    try {
+        const a = document.createElement("a");
+        a.href = "/member/attendance/attendance/export/" + date.getTime();
+        a.download = getFileName(date);
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } catch(e) {
+        alert("An error occured while downloading CSV: " + e.message);
+        console.error(e);
+    }
+}
+
+function getFileName(date) {
+    return (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear() + ".csv";
 }
 
 document.addEventListener("scroll", function() {

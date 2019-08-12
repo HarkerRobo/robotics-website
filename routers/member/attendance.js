@@ -170,7 +170,6 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, re
     const dateMap = {};
     for(entry of realEntries) {
         const dateStamp = convertTimeToDate(new Date(entry.checkIn)).toISOString();
-
         if(!dateMap[dateStamp]) {
             dateMap[dateStamp] = [];
         }
@@ -266,6 +265,28 @@ router.post("/attendance/:id", auth.verifyRank(ranks.director), async (req, res)
     res.json({"success": "updated"}).end();
 });
 
+router.get("/attendance/export/:date", auth.verifyRank(ranks.director), async (req, res) => {
+    if(!req.params.date || Number.isNaN(Date.parse(new Date(Number(req.params.date))))) {
+        res.status(400).json({"error": "invalid query"});
+        return;
+    }
+    req.params.date = Number(req.params.date);
+    const startTime = convertTimeToDate(new Date(req.params.date));
+    const endTime = getNextDay(startTime);
+    const entries = await Entry.find({
+        checkIn: {
+            $gte: startTime.getTime(),
+            $lte: endTime.getTime()
+        }
+    });
+    res.end(generateCSV(["Username", "Check In Time", "Check Out Time", "Member Type"], entries.map(entry => [
+        entry.email.split("@students.harker.org")[0],
+        get12HourTime(entry.checkIn && new Date(entry.checkIn)),
+        get12HourTime(entry.checkOut && new Date(entry.checkOut)),
+        Number(entry.email.substring(0, 2)) > 22 ? "Camper" : "Helper"
+    ])));
+});
+
 function mergeDateAndTime(date, time) {
     if(time == null) return null;
     date = new Date(date);
@@ -287,6 +308,18 @@ function getToday() {
 
 function getTomorrow() {
     return getNextDay(getToday());
+}
+
+function get12HourTime(time) {
+    return time ? time.getHours() % 12 + ":" + pad(time.getMinutes()) + (time.getHours() < 12 ? " AM" : " PM") : "No time";
+}
+
+function pad(number) {
+    return number < 10 ? "0" + number : number;
+}
+
+function generateCSV(keys, lines) {
+    return `${keys.map(key => `${key}`).join(",")}\n${lines.map(values => values.map(value => JSON.stringify(value)).join(",")).join("\n")}`;
 }
 
 module.exports = router;
