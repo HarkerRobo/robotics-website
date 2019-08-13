@@ -33,10 +33,13 @@ function getTimeFormatted() {
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
-app.set('env', 'development')
+app.set('env', 'production')
+app.set('case sensitive routing', true);
 if (config.server.production) app.set('trust proxy', 1)
 
 // http://cwe.mitre.org/data/definitions/693
+
+app.use(redirectTrailingSlash);
 app.use(require('helmet')())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('static'))
@@ -122,6 +125,18 @@ app.get('*', function (req, res, next) {
 })
 
 let request_id = 0
+
+function redirectTrailingSlash(req, res, next) {
+  if(req.url.slice(-1) == "/") { 
+    if(req.method == "POST") {
+      res.sendStatus(404).end();
+    } else {
+      res.redirect(req.url.slice(0, -1));
+    }
+  } else {
+    next();
+  }
+}
 
 // functions
 function logRequests(req, res, next) {
