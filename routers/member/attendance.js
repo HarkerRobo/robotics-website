@@ -259,8 +259,8 @@ router.post("/attendance/:id", auth.verifyRank(ranks.director), async (req, res)
         return;
     }
     await entry.update({
-        checkIn: mergeDateAndTime(entry.checkIn, req.body.startTime),
-        checkOut: mergeDateAndTime(entry.checkOut, req.body.endTime)
+        checkIn: mergeDateAndTime(entry.checkOut || entry.checkIn, req.body.startTime),
+        checkOut: mergeDateAndTime(entry.checkIn || entry.checkOut, req.body.endTime)
     });
     res.json({"success": "updated"}).end();
 });
