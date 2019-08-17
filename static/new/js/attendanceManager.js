@@ -195,7 +195,7 @@ function postUpdatedTime(id, startTime, endTime) {
 
 function convertTime(elem, isStart) {
     try {
-        const string = elem.innerHTML;
+        const string = elem.innerHTML == "now" ? (new Date().getHours() % 12 + ":" + (new Date().getMinutes() < 10 ? ("0" + new Date().getMinutes()) : new Date().getMinutes())): elem.innerHTML;
         const hours = parseInt(string.split(":")[0], 10);
         const minutes = parseInt(string.split(":")[1], 10); // base 10 in case of 0 padding
         if(Number.isNaN(hours) || Number.isNaN(minutes) || hours < 0 || hours > 12 || minutes < 0 || minutes > 59) {
