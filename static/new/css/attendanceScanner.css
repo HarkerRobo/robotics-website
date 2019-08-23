@@ -1,0 +1,21 @@
+body {
+    background-color: var(--color-background);
+}
+
+#buttons-wrapper {
+    width: 100%;
+    text-align: center;
+}
+
+button {
+    margin-right: 2vw;
+    margin-left: 2vw;
+    margin-bottom: 2vh;
+}
+
+#scanner-message {
+    font-size: 3vw;
+}
+
+
+

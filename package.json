@@ -5,21 +5,22 @@
   "main": "index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/djmcoder/robotics-website.git"
+    "url": "git+https://github.com/HarkerRobo/robotics-website.git"
   },
   "author": "David Melisso",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/djmcoder/robotics-website/issues/"
+    "url": "https://github.com/HarkerRobo/robotics-website/issues/"
   },
-  "homepage": "https://github.com/djmcoder/robotics-website#readme",
+  "homepage": "https://github.com/HarkerRobo/robotics-website#readme",
   "dependencies": {
+    "axios": "^0.19.0",
     "body-parser": "^1.18.3",
     "compression": "^1.7.2",
     "connect-mongo": "^1.3.2",
     "cookie-parser": "^1.4.3",
     "csurf": "^1.9.0",
-    "ejs": "^2.6.1",
+    "ejs": "^2.6.2",
     "express": "^4.16.3",
     "express-session": "^1.15.6",
     "google-auth-library": "^1.5.0",
@@ -33,7 +34,8 @@
     "mongoose-auto-increment": "^5.0.1",
     "multiparty": "^4.1.4",
     "nodemailer": "^2.7.0",
-    "request": "^2.87.0",
+    "qrcode": "^1.3.3",
+    "request": "^2.88.0",
     "socket.io": "^2.1.1",
     "spdy": "^3.4.0",
     "type-is": "^1.6.16",

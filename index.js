@@ -24,7 +24,8 @@ const express = require('express'),
   photosRouter = require('./routers/photos'),
   blogsRouter = require('./routers/blogs'),
 
-  config = require('./config.json')
+  config = require('./config.json'),
+  request = require("request");
 
 function getTimeFormatted() {
   return moment().format('MMMM Do YYYY, h:mm:ss a') + ' (' + Date.now() + ')'
@@ -32,10 +33,13 @@ function getTimeFormatted() {
 
 app.set('view engine', 'ejs')
 app.set('views', __dirname + '/views')
-app.set('env', 'development')
+app.set('env', 'production')
+app.set('case sensitive routing', true);
 if (config.server.production) app.set('trust proxy', 1)
 
 // http://cwe.mitre.org/data/definitions/693
+
+app.use(redirectTrailingSlash);
 app.use(require('helmet')())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(express.static('static'))
@@ -59,17 +63,53 @@ app.locals.ranks = require('./helpers/ranks.json')
 app.use('/hackathon', hackathonRouter)
 //app.use('/photos', photosRouter)
 
-
-// '/' router
-app.get('/about', function (req, res) {
-  res.render('pages/about')
+app.get("/", (req, res) => {
+  res.render("new/pages/index.ejs");
 })
 
-// '/privacy' router
+app.get("/about", (req, res) => {
+  res.render("new/pages/about.ejs");
+})
+
+app.get("/members", (req, res) => {
+  res.render("new/pages/member.ejs");
+})
+
+app.get("/outreach", (req, res) => {
+  res.render("new/pages/outreach.ejs");
+});
+
+app.get("/media", (req, res) => {
+  res.render("new/pages/media.ejs");
+});
+
+app.get("/contact", (req, res) => {
+  res.render("new/pages/contact.ejs");
+})
+
+app.get("/sponsor", (req, res) => {
+  res.render("new/pages/sponsor.ejs");
+})
+
 app.get('/privacy', function (req, res) {
   res.render('pages/privacy')
 })
 
+app.post("/contact", (req, res) => {
+  request({
+    url: "https://hooks.slack.com/services/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",
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    json: {
+      text: `*Email*: ${req.body.email}\n*Name*: ${req.body.name}\n*Organization*: ${req.body.organization}\n*Topic*: ${req.body.topic}\n*Message:* ${req.body.message}`
+    }
+  });
+  res.render("new/pages/contact.ejs", {
+    message: "Thank you for contacting us!"
+  })
+});
 /*app.get('/photos', function (req, res) {
   res.render('pages/photos')
 })*/
@@ -78,26 +118,6 @@ app.get('/summersignup', function (req, res) {
   res.redirect('https://forms.gle/hUUqJxHaUHzd8UrD6');
 });
 
-app.get('/contact', function(req, res) {
-  res.render('pages/contact')
-})
-
-app.get('/sponsorship', function(req, res) {
-  res.render('pages/sponsorship')
-})
-
-app.get('/contact/map', function (req, res) {
-  res.render('pages/map')
-})
-
-app.get('/contact/message', function (req, res) {
-  res.render('pages/contactform')
-})
-
-app.get('/', function (req, res) {
-  res.render('pages/index')
-})
-
 app.get('*', function (req, res, next) {
   res.status(404)
   res.errCode = 404
@@ -105,6 +125,18 @@ app.get('*', function (req, res, next) {
 })
 
 let request_id = 0
+
+function redirectTrailingSlash(req, res, next) {
+  if(req.url != "/" && req.url.slice(-1) == "/") { 
+    if(req.method == "POST") {
+      res.sendStatus(404).end();
+    } else {
+      res.redirect(req.url.slice(0, -1));
+    }
+  } else {
+    next();
+  }
+}
 
 // functions
 function logRequests(req, res, next) {

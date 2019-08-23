@@ -1,0 +1,47 @@
+body {
+    text-align: center;
+    background-color: var(--color-background);
+}
+
+#member-username {
+    font-weight: bold;
+    font-size: 3vw;
+}
+
+#rating-icons {
+    width: 33vw;
+    margin: 1vw auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.rating-icon-a {
+    width: 40%;
+    flex-grow: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.rating-icon-image {
+    width: 4vw;
+}
+
+.rating-value {
+    font-weight: normal;
+    font-size: 3vw;
+}
+
+.green {
+    color: #227D26;
+}
+
+.gray {
+    color: #a5a5a5;
+}
+
+.red {
+    color: #ff0909;
+}

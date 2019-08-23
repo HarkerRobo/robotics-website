@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>About - Harker Robotics</title>    
+        <%- include(__base + 'views/new/partials/analytics.ejs') %>
+
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Chivo&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="new/css/theme.css" />
+         <link rel="stylesheet" href="new/css/splash.css" />
+         <link rel="stylesheet" href="new/css/header.css" />
+         <link rel="stylesheet" href="new/css/footer.css" />
+
+         <!-- Page Styles -->
+        <link rel="stylesheet" href="new/css/about.css" />
+
+        <!-- Site Scripts -->
+        <script src="new/js/splash.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/splash.ejs') %>
+        <div id="content">
+            <%- include(__base + 'views/new/partials/header.ejs') %>
+            <div id="body">
+                <div id="about">
+                    <h1>About</h1>
+                    <h2>Mission Statement</h2>
+                    <p id="missionstatement">We aim to grant club members the opportunity to learn STEAM skills through hands-on experience with robots and their components. We learn the organizational and teamwork skills required to successfully design and build robots for the FIRST® competition. We perform with joy, professionalism, and excellence, sharing our knowledge and experience with our larger community.</p>
+                </div>  
+            </div>
+            <%- include(__base + 'views/new/partials/footer.ejs') %>
+        </div>
+    </body>
+</html>

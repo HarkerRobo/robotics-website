@@ -1,0 +1,206 @@
+#content {
+    width: 100%;
+}
+
+#header-navigation-wrapper {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 0;
+
+    margin: 0vh auto 0vh auto;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: row;
+       -moz-box-orient: horizontal;
+       -moz-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+       -moz-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+       -moz-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    height: 8vh;
+
+    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+    -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+         box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+     
+
+    z-index: 1;
+}
+
+#header-logo-image-wrapper {
+    background-color: var(--color-primary);
+    height: calc(100%);
+    line-height: calc(100%);
+    transition-duration: 0.4s;
+}
+
+#header-logo-image-wrapper:hover {
+    background-color: var(--color-primary-light);
+    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+       -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+            box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+
+    border-bottom: 5px solid var(--color-light);
+}
+
+
+#header-logo-image {
+    height: 5vh;
+    margin-left: 1.9vw;
+    margin-right: 2.1vw;
+    margin-top: 1.5vh;
+}
+
+#header-harker-robotics {
+    margin-top: calc(-1 * (50% - 0.5vh));
+    transform: translateY(-50%);
+}
+
+
+.header-navigation {
+    background-color: var(--color-primary);
+    text-align: center;
+    vertical-align: middle;
+    
+    line-height: 8vh;
+    height: 8vh;
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+
+    -webkit-transition-duration: 0.4s;
+       -moz-transition-duration: 0.4s;
+         -o-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+    
+    box-sizing: content-box;
+}
+
+.header-navigation:hover {
+    background-color: var(--color-primary-light);
+    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+       -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+            box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+
+
+    border-bottom: 5px solid var(--color-light);
+}
+
+.header-navigation > h4 {
+    margin: 0 auto;
+    font-size: calc(6pt + 0.7vw);
+}
+
+.header-break {
+    height: 0px;
+    width: 100%;
+    display: none;
+}
+
+#header-idk {
+    flex-grow: 1;
+    background-color: var(--color-primary);
+    height: 100%;
+    width: 50%;
+    text-align: right;
+    line-height: 8vh;
+    padding-right: 2vw;
+}
+
+
+#header-member-icon, #header-mobile-expand-icon {
+    width: 5vh;
+    height: 5vh;
+    margin: auto auto;
+    margin-top: 1.5vh;
+}
+
+#header-member-icon:hover, #header-mobile-expand-icon:hover {
+    cursor: pointer;
+}
+
+#header-mobile-expand-icon {
+    display: none;
+}
+
+#header-mobile-expand {
+    background-color: rgba(30,49,85, 0.8);
+    height: 0;
+    overflow: hidden;
+    position: fixed;
+    width: 100vw;
+    z-index: 100;
+
+    line-height: 15vw;
+}
+
+#header-mobile-expand > a > h1 {
+    color: var(--color-light);
+    font-size: 7vw;
+    padding-left: 6vw;
+}
+
+#header-mobile-expand:first-child {
+    margin-top: 3vw;
+}
+
+#header-mobile-expand:last-child {
+    margin-bottom: 3vw;
+}
+
+
+.header-grow {
+    animation-name: header-grow;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+.header-shrink {
+    animation-name: header-shrink;
+    animation-duration: 0.6s;
+    animation-fill-mode: forwards;
+}
+
+@media (max-width: 800px) {
+    .header-navigation, #header-member-icon {
+        display: none;
+    }
+    #header-mobile-expand-icon {
+        display: initial;
+    }
+    #header-logo-image {
+        margin-left: 6vw;
+    }
+    
+} 
+
+@keyframes header-grow {
+    from {
+        height: 0
+    }
+    to {
+        height: 105vw;
+    }
+}
+
+
+@keyframes header-shrink {
+    from {
+        height: 105vw;
+    }
+    to {
+        height: 0;
+    }
+}

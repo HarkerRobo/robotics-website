@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Sponsorship - Harker Robotics</title>    
+        <%- include(__base + 'views/new/partials/analytics.ejs') %>
+
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Chivo:300,400,700&display=swap" rel="stylesheet">
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="new/css/theme.css" />
+         <link rel="stylesheet" href="new/css/splash.css" />
+         <link rel="stylesheet" href="new/css/header.css" />
+         <link rel="stylesheet" href="new/css/footer.css" />
+
+         <!-- Page Styles -->
+        <link rel="stylesheet" href="new/css/sponsor.css" />
+
+        <!-- Site Scripts -->
+        <script src="new/js/splash.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/splash.ejs') %>
+        <div id="content">
+            <%- include(__base + 'views/new/partials/header.ejs') %>
+            <div id="body">
+                <h1 id="sponsors-title">Sponsors</h1>
+                <!--<p id="sponsor-description">As an FRC team, sponsorships keep us afloat. We offer several rewards as a thanks for your support.</p>
+                <p id="sponsor-us-please">Interested in sponsoring us? <a id="contact-link" href="/contact">Send us a message.</a></p> -->
+                <div id="sponsors">
+                    <!-- <h2 id="sponsors-title">Our Sponsors</h2> -->
+                    <div id="sponsor-images">
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/AlanSteel.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/AutomationDirect.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/DestinyTool.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/Google.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/KeyShot.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/OzzyBoards.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/RightQuestion.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/Thinbit.png" />
+                    </div>
+                </div>
+                <a class="no-style-a" href="/contact"><button id="sponsor-button">Sponsor Us</button></a>
+            </div>
+            <%- include(__base + 'views/new/partials/footer.ejs') %>
+        </div>
+    </body>
+</html>

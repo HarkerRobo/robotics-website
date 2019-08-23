@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Attendance</title>
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
+        <!-- Page Scripts-->
+        <script src="/new/js/vendored/qrcode.min.js" type="text/javascript" defer></script>
+        <script src="/new/js/qr.js" type="text/javascript" defer></script>
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="/new/css/theme.css" />
+         <link rel="stylesheet" href="/new/css/attendanceHeader.css" />
+         <link rel="stylesheet" href="/new/css/attendanceMember.css" />
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
+        <% if (auth.level >= ranks.director) { %>
+        <div id="admin-icons">
+            <a class="admin-icon" href="attendance/attendance"><img class="admin-image" src="/new/img/svg/baseline-assignment-24px.svg"></a>
+            <a class="admin-icon" href="attendance/scanner"><img class="admin-image" id="idk" src="/new/img/svg/baseline-linked_camera-24px.svg"></a>
+        </div>
+        <% } %>
+        <div id="canvas-wrapper">
+            <canvas id="qr-canvas" width="512" height="512"></canvas>
+        </div>
+    </body>
+</html>

@@ -102,7 +102,7 @@ router.post('/token', function (req, res) {
 
   // send to google
   verifyIdToken(token)
-  .then(data => {
+  .then(async data => {
     console.log(`[REQ ${req.request_id}] [TOKEN]`, data)
 
     req.session.auth = {
@@ -114,10 +114,19 @@ router.post('/token', function (req, res) {
     // if email is in superadmins list, grant superadmin access
     if (config.users.superadmins.includes(data.email.toLowerCase())) {
       console.log('Superadmin status granted for', data.email.toLowerCase())
+      
+      const existingUser = await User.findOne({email: data.email.toLowerCase()})
+      if(existingUser) {
+        req.session.auth.level = ranks.superadmin
+        res.status(200).end()
+      }
 
-      req.session.auth.level = ranks.superadmin
-      res.status(200).end()
-      return
+      User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin}).then(() => {
+        req.session.auth.level = ranks.superadmin
+        res.status(200).end()
+      });
+
+      return;
     }
 
     // find the user with the email
@@ -189,6 +198,7 @@ router.all('/*', function (req, res, next) {
 router.use('/purchase', require('./purchase'))
 router.use('/scouting', require('./scouting'))
 router.use('/parts', require('./parts'))
+router.use("/attendance", require("./attendance"))
 
 router.get('/', function (req, res) {
   res.render('pages/member/index')

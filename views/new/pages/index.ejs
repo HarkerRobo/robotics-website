@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Harker Robotics</title>
+        <%- include(__base + 'views/new/partials/analytics.ejs') %>
+
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Chivo:300,400,700&display=swap" rel="stylesheet">
+
+        <!-- Site Styles -->
+        <link rel="stylesheet" href="new/css/theme.css" />
+        <link rel="stylesheet" href="new/css/splash.css" />
+        <link rel="stylesheet" href="new/css/header.css" />
+        <link rel="stylesheet" href="new/css/footer.css" />
+        
+        <!-- Page Styles -->
+        <link rel="stylesheet" href="new/css/index.css" />
+
+        <!-- Site Scripts -->
+        <script src="new/js/splash.js" type="text/javascript" defer></script>
+
+        <!-- Page Library Scripts -->
+        <script src="new/js/vendored/in-view.min.js" type="text/javascript" defer></script>
+
+        <!-- Page Scripts -->
+        <script src="new/js/index.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/splash.ejs') %>
+        <div id="content">
+            <%- include(__base + 'views/new/partials/header.ejs') %>
+            <div id="body">
+                <!-- <a id="member-link" href="/member"><img id="member-image" src="/new/img/media/index/member.png" /></a> -->
+                <div id="landing-banner">
+                    <div id="landing-banner-image-wrapper">
+                        <img id="landing-banner-image" src="/new/img/media/index/landing-background.png" />
+                        <img id="landing-banner-image-top" src="/new/img/media/index/landing-background2.png" />
+                        <div id="landing-banner-gradient"></div>
+                    </div>
+                    <h1 id="landing-banner-title-text">Harker Robotics</h1>
+                    <h1 id="landing-banner-secondary-text">We are</h1>
+                </div>
+                <div id="landing-transition"></div>
+                <div id="team-info">
+                    <h1 id="team-background-text">We are an FRC Team located at The Harker School.</h1>
+                    <div id="team-statistics-wrapper">
+                        <div class="team-statistic">
+                            <h3 class="team-stat-value" id="in-view-0">37</h2>
+                            <h4 class="team-stat-label">Members</h3>
+                        </div>
+                        <div class="team-statistic">
+                            <h3 class="team-stat-value" id="in-view-2">45</h2>
+                            <h4 class="team-stat-label">Competitions</h3>
+                        </div>
+                        <div class="team-statistic">
+                            <h3 class="team-stat-value" id="in-view-1">17</h2>
+                            <h4 class="team-stat-label">Years</h3>
+                        </div>
+                    </div>
+                    <div id="about-buttons-wrapper">
+                        <a class="no-style-a" href="/about"><button>About</button></a>
+                    </div>
+                </div>
+                <div id="outreach-transition"></div>
+                <div id="outreach">
+                    <div id="outreach-gradient">
+                        <div id="outreach-info">
+                            <h1 id="outreach-title">Outreach</h1>
+                            <h3 id="outreach-description">We strive to share our passion for STEAM with our local community.</h3>
+                            <a class="no-style-a" href="/outreach"><button>Learn More</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="outreach-media-spacer">
+
+                </div><div id="media">
+                    <div id="media-gradient">
+                        <div id="media-info">
+                            <h1 id="media-title">Media</h1>
+                            <h3 id="media-description">We document and showcase our team's progress through the season.</h3>
+                            <a class="no-style-a" href="/media"><button>Learn More</button></a>
+                        </div>
+                    </div>
+                </div>
+                <div id="media-transition"></div>
+                <div id="sponsors">
+                    <h1 id="sponsors-title">Sponsors</h1>
+                    <h4 id="sponsors-description">We thank our sponsors for supporting our team and helping us achieve our mission.</h4>
+                    <div id="sponsor-images">
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/AlanSteel.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/AutomationDirect.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/DestinyTool.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/Google.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/KeyShot.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/OzzyBoards.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/RightQuestion.png" />
+                        <img class="sponsor-image" src="/new/img/logo/sponsor/Thinbit.png" />
+                    </div>
+                    <a class="no-style-a" href="/sponsor"><button>Sponsor Us</button></a>
+                </div>
+                <%- include(__base + 'views/new/partials/footer.ejs') %>
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,112 @@
+:root {
+    --color-primary: #1e3155;
+    --color-primary-light: #4b5a82;
+    --color-primary-dark: #001057;
+
+    --color-secondary: #42577d;
+    --color-secondary-light: #C3D7F0;
+
+    --color-light: #c8cacd;
+    --color-background: #F0F0F0;
+}
+
+
+body {
+    background-color: var(--color-primary);
+}
+
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Lato', sans-serif;
+    font-weight: 900;
+    margin: 0;
+}
+
+h1, h2, h3 {
+    font-family: "Chivo", sans-serif;
+}
+
+h1 {
+    color: var(--color-primary);
+    font-size: -webkit-calc(2.4vw + 24pt);
+    font-size: -moz-calc(2.4vw + 24pt);
+    font-size: calc(2.4vw + 24pt);
+    font-weight: 400;
+}
+
+h3 {
+    color: var(--color-secondary);
+    font-size: -webkit-calc(1.8vw + 6pt);
+    font-size: -moz-calc(1.8vw + 6pt);
+    font-size: calc(1.8vw + 6pt);
+    font-weight: 400;
+}
+
+h4 {
+    color: var(--color-light);
+    font-size: 1.225vw;
+    font-weight: 400;
+}
+
+.no-style-a {
+    color: inherit; 
+    text-decoration: inherit; 
+}
+
+button, .submit-button {
+    -webkit-transition-duration: 0.15s;
+       -moz-transition-duration: 0.15s;
+         -o-transition-duration: 0.15s;
+            transition-duration: 0.15s;
+
+    background-color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+
+    font-family: 'Lato', sans-serif;
+    font-size: 2.7vw;
+    color: var(--color-light);
+    text-align: center;
+
+    /* width: 15vw; */
+    height: 5vw;
+    display: table-cell;
+    /* padding: 1.5vw; */
+    padding-left: 1.5vw;
+    padding-right: 1.5vw;
+    vertical-align: middle;
+    /* line-height: 5vw; */
+    text-decoration: none;
+
+    -webkit-border-radius: 7px;
+
+       -moz-border-radius: 7px;
+
+            border-radius: 7px;
+    cursor: pointer;
+}
+
+/* 
+ * { 
+    box-shadow: 0 12px 14px 0 rgba(0,0,0,0.80), 0 20px 100px 0 rgba(0,0,0,0.80);
+}  */
+ 
+button:hover, .submit-button:hover {
+    /* background-color: var(--color-secondary-light); */
+    /* background: var(--color-background); */
+    background: none;
+    border: 2px solid var(--color-primary);
+    color: var(--color-primary);
+    /* -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+       -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+            box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30); */
+}
+
+button:focus, .submit-button:hover {
+    outline: none;
+}
+
+@media screen and (max-width: 800px) {
+    button, .submit-button {
+        font-size: 5vw;
+        height: 8vw;
+    }
+}

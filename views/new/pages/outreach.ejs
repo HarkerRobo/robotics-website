@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Outreach - Harker Robotics</title>    
+        <%- include(__base + 'views/new/partials/analytics.ejs') %>
+
+        <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+        <!-- External Styles -->
+        <link href="https://fonts.googleapis.com/css?family=Chivo:300,400,700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+         <!-- Site Styles -->
+         <link rel="stylesheet" href="new/css/theme.css" />
+         <link rel="stylesheet" href="new/css/splash.css" />
+         <link rel="stylesheet" href="new/css/header.css" />
+         <link rel="stylesheet" href="new/css/footer.css" />
+
+         <!-- Page Styles -->
+        <link rel="stylesheet" href="new/css/outreach.css" />
+
+        <!-- Site Scripts -->
+        <script src="new/js/splash.js" type="text/javascript" defer></script>
+    </head>
+    <body>
+        <%- include(__base + 'views/new/partials/splash.ejs') %>
+        <div id="content">
+            <%- include(__base + 'views/new/partials/header.ejs') %>
+            <div id="body">
+                <h1 id="outreach-title">Outreach</h1>
+                <p id="outreach-info">Our team believes that service and teaching are essential parts of any educational endeavor. We share our knowledge and passion for STEAM and engineering with our local community through FIRST® programs, public demonstrations, training camps, and more.</p>
+                <div id="outreach-cards">
+                    <div class="outreach-card">
+                        <img class="outreach-image" src="/new/img/media/outreach/santanarow.png" />
+                        <div class="outreach-text-wrapper">
+                            <p class="outreach-text-title">Santana Row</p>
+                            <p class="outreach-text">Showcasing our robot at a local outdoor mall.</p>
+                        </div>
+                    </div>
+                    <div class="outreach-card">
+                        <img class="outreach-image" src="/new/img/media/outreach/grandparentsday.png" />
+                        <div class="outreach-text-wrapper">
+                                <p class="outreach-text-title">Grandparents Day</p>
+
+                            <p class="outreach-text">Teaching robotics to people of all ages at the Harker Lower School.</p>
+                        </div>
+                    </div>
+                    <div class="outreach-card">
+                        <img class="outreach-image" src="/new/img/media/outreach/fll.png" />
+                        <div class="outreach-text-wrapper">
+                                <p class="outreach-text-title">FLL</p>
+
+                            <p class="outreach-text">Starting and mentoring three middle school FLL teams.</p>
+                        </div>
+                    </div>
+                    <div class="outreach-card">
+                        <img class="outreach-image" src="/new/img/media/outreach/vex.png" />
+                        <div class="outreach-text-wrapper">
+                                <p class="outreach-text-title">Vex</p>
+                            <p class="outreach-text">Starting and mentoring a high school VEX team.</p>
+                        </div>
+                    </div>
+                    <div class="outreach-card">
+                        <img class="outreach-image" src="/new/img/media/outreach/summercamp.png" />
+                        <div class="outreach-text-wrapper">
+                                <p class="outreach-text-title" data-summercamp>Summer Camp</p>
+                            <p class="outreach-text">Our team hosts an annual robotics summer camp open to incoming high-schoolers.</p>
+                        </div>
+                    </div>
+                    <div class="outreach-card">
+                        <img class="outreach-image" src="/new/img/media/outreach/wonderbots.png" />
+                        <div class="outreach-text-wrapper">
+                                <p class="outreach-text-title">Wonderbots</p>
+                            <p class="outreach-text">We offer a robotics program for middle school girls using Lego™ EV3 robots.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <%- include(__base + 'views/new/partials/footer.ejs') %>
+        </div>
+    </body>
+</html>

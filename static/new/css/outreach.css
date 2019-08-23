@@ -1,0 +1,155 @@
+h1, h2, h3, h4, h5, h6, p {
+    font-family: 'Lato', sans-serif;
+}
+
+#body {
+    width: 100%;
+    text-align: center;
+
+    background-color: var(--color-background);
+    padding-top: 3vw;
+}
+
+#outreach-title {
+    font-size: 4vw;
+    font-weight: bold;
+
+    margin-bottom: 2vw;
+}
+
+#outreach-info {
+    font-size: 2.4vw;
+    width: 71%;
+
+    margin: 0 auto;
+    font-weight: 100;
+}
+
+#outreach-cards {
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: center;
+    width: 75vw;
+    margin: 5vw auto;
+    margin-bottom: 0;
+    padding-bottom: 7vw;
+}
+
+.outreach-card {
+    border-radius: 1000px;
+    position: relative;
+    overflow: hidden;
+    width: 20vw;
+    height: 20vw;
+
+    margin-left: 1vw;
+    margin-right: 1vw;
+    margin-bottom: 6vw;
+
+}
+
+.outreach-image {
+    width: 20vw;
+    height: 20vw;
+    position: relative;
+    border-radius: 10%;
+}
+
+.outreach-text-wrapper {
+    position: absolute;
+    top: 14vw;
+    /* bottom: -20vw; */
+    height: 20vw;
+
+    left: 0;
+    right: 0;
+
+    overflow: hidden;
+    text-align: center;
+
+    background-color: rgba(240, 240, 240, 0.7);
+    transition: 0.7s ease-out;
+    padding-left: 2vw;
+    padding-right: 2vw;
+}
+
+.outreach-card:hover .outreach-text-wrapper {
+    top: 0;
+}
+
+.outreach-card:hover .outreach-text-title {
+    top: 4.5vw;
+}
+
+.outreach-text-title {
+    position: absolute;
+    top: 3vw;
+    left: 10vw;
+    transform: translate(-50%, -50%);
+
+    font-size: 2vw;
+    font-weight: normal;
+
+    transition: 0.7s ease-out;
+
+    user-select: none;
+}
+
+.outreach-text {
+    overflow: hidden;
+    position: absolute;
+    top: 10vw;
+    left: 10vw;
+    transform: translate(-50%, -50%);
+
+    width: 80%;
+
+    font-weight: 100;
+    user-select: none;
+}
+
+@media screen and (max-width: 800px) {
+    #outreach-title {
+        font-size: 10vw;
+    }
+
+    #outreach-info {
+        font-size: 6vw;
+        width: 90%;
+    }
+
+    .outreach-card {
+        width: 50vw;
+        height: 50vw;
+    }
+
+    .outreach-image {
+        width: 50vw;
+        height: 50vw;
+    }
+
+    .outreach-text-wrapper {
+        top: 35vw;
+        height: 50vw;
+    }
+
+    .outreach-text-title {
+        left: 25vw;
+        font-size: 6vw;
+        top: 7vw;
+    }
+
+    .outreach-text {
+        left: 25vw;
+        top: 30vw;
+        font-size: 4vw;
+    }
+
+    .outreach-card:hover .outreach-text-title {
+        top: 14vw;
+    }
+
+    .outreach-card:hover .outreach-text-title[data-summercamp] {
+        top: 9vw;
+    }
+}
