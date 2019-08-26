@@ -119,6 +119,7 @@ router.post('/token', function (req, res) {
       if(existingUser) {
         req.session.auth.level = ranks.superadmin
         res.status(200).end()
+        return;
       }
 
       User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin}).then(() => {
