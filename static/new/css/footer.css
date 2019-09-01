@@ -202,4 +202,8 @@
         height: 5vw;
         margin: 1.5vw auto;
     }
+    
+    #credit {
+        transform: translate(-0.4vw, -11.8vw);
+    }
 }
