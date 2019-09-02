@@ -127,7 +127,7 @@ app.get('*', function (req, res, next) {
 let request_id = 0
 
 function redirectTrailingSlash(req, res, next) {
-  if(req.url != "/" && req.url.slice(-1) == "/") { 
+  if(req.url != "/" && req.url.slice(-1) == "/" && req.url.indexOf("attendance") != -1) { 
     if(req.method == "POST") {
       res.sendStatus(404).end();
     } else {
