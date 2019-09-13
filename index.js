@@ -95,6 +95,10 @@ app.get('/privacy', function (req, res) {
   res.render('pages/privacy')
 })
 
+app.get("/intro", (req, res) => {
+  res.redirect("https://www.youtube.com/playlist?list=PL7Cpqic7wNE46H1Ndz03dwn_6nFvS9zyc");  
+});
+
 app.post("/contact", (req, res) => {
   request({
     url: "https://hooks.slack.com/services/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",
