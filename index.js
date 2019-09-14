@@ -95,9 +95,16 @@ app.get('/privacy', function (req, res) {
   res.render('pages/privacy')
 })
 
+/** shortlinks **/
+
 app.get("/intro", (req, res) => {
   res.redirect("https://www.youtube.com/playlist?list=PL7Cpqic7wNE46H1Ndz03dwn_6nFvS9zyc");  
 });
+
+app.get("/safetycontract", (req, res) => {
+  res.redirect("/img/media/direc/forms/RoboticsLabSafetyContract.pdf");
+});
+/** end **/
 
 app.post("/contact", (req, res) => {
   request({
