@@ -264,6 +264,8 @@
             console.log('-----')
             console.log(row)
             var row = arr[i];
+            if(Number.isNaN(Number(row[4])) || Number.isNaN(Number(row[5]))) continue;
+
             // for each text column in the table
             for (var j = 0; j <= 3; j++) {
               // fill in the input row with values from the CSV
