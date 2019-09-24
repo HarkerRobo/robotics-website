@@ -10,6 +10,7 @@ const express = require('express'),
   config = require(__base + 'config.json'),
   Purchase = require('../../models/purchase'),
   User = require('../../models/user'),
+  Vendor = require("../../models/vendor"),
   nodemailer = require('nodemailer'),
   xss = require('xss'),
   smtpConfig = config["automail"],
@@ -118,6 +119,19 @@ router.get('/list_object/', auth.verifyRank(ranks.pr_whitelist), async (req, res
   }
 })
 
+router.post("/vendor", auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
+  if(!(req.body.name && req.body.email && req.body.phone && req.body.address)) {
+    res.status(401).end("Bad request")
+  }
+  await Vendor.create({
+    name: req.body.name,
+    email: req.body.email,
+    phone: req.body.phone,
+    address: req.body.address,
+  })
+  res.status(200).end();
+});
+
 router.get('/list/', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
   res.render('pages/member/purchase/list', { filter: 'all' })
 })
@@ -127,8 +141,9 @@ router.get('/list_my', auth.verifyRank(ranks.pr_whitelist), async (req, res) => 
 })
 
 router.get('/create', csrfProtection, auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
-  res.render('pages/member/purchase/create', { csrfToken: req.csrfToken() })
-})
+  const vendors = await Vendor.find();
+  res.render('pages/member/purchase/create', { csrfToken: req.csrfToken(), vendors: vendors})
+});
 
 const xss_array = function(arr) {
   let res = arr

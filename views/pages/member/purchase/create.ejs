@@ -2,6 +2,13 @@
 <html>
   <head>
     <%- include(__base + 'views/partials/head.ejs') %>
+    <style>
+      @media screen and (max-width: 800px) {
+        #add-vendor {
+          padding-left: 7px;
+        }
+      }
+    </style>
   </head>
   <body>
 
@@ -15,17 +22,13 @@
           <div class="form-group">
             <label class="col-sm-2 control-label" for="premade">Premade Vendor</label>
             <div class="col-sm-10 col-lg-8">
-              <select name="premade" id="premade" class="form-control" style="inline">
-                <option value="">Custom...</option>
-                <option value="Andymark">Andymark</option>
-                <option value="VexPro">Vex Pro</option>
-                <option value="Amazon">Amazon</option>
-                <option value="SDPSI">SDP/SI</option>
-                <option value="MMC">McMaster-Carr</option>
-                <option value="WCP">WCP</option>
-                <option value="LMS">Little Machine Shop</option>
-                <option value="MT">MariTool</option>
+              <select name="premade" id="premade" class="form-control" style="display: inline;width: 91.5%;">
+                <option value="_custom">Custom...</option>
+                <% vendors.forEach((vendor) => { %>
+                  <option value="<%= vendor.name %>"><%= vendor.name %></option>
+                <% }); %>
               </select>
+              <button type="button" id="add-vendor" class="btn btn-info" style="width: 7%;float: right;">Add</button>
             </div>
           </div>
           <div class="form-group">
@@ -139,7 +142,7 @@
     </header>
 
     <script>
-
+      var vendorData = <%- JSON.stringify(vendors) %>;
       var entityMap = {
         '&': '&amp;',
         '<': '&lt;',
@@ -180,16 +183,12 @@
       $(".remove-row").click(function() {
         $(this).parent().parent().remove();
       });
-      var vendors = {
-        "Andymark": ["Andymark", "877-868-4770", "sales@andymark.com", "2311 N. Washington St., Kokomo, IN 46901"],
-        "VexPro": ["Vex Pro", "903-453-0802", "sales@vexrobotics.com", "1519 Interstate 30, West Greenville, TX 75402"],
-        "Amazon": ["Amazon", "(888) 280-3321", "", "4625 Albany Drive, San Jose, CA 95129"],
-        "SDPSI": ["SDP/SI", "800-819-8900", "SDP-SIsupport@sdp-si.com", "2101 Jericho Turnpike, Box 5416, New Hyde Park, New York 11042-5416"],
-        "MMC": ["McMaster-Carr", "(562) 692-5911", "la.sales@mcmaster.com", "P.O. Box 54960, Los Angeles, CA 90054-0960"],
-        "WCP": ["West Coast Products", "323-989-2718", "sales@wcproducts.net", "2214 Driftwood Drive, Madera, CA 93637"],
-        "LMS": ["Little Machine Stop", "(800) 981-9663", "info@littlemachineshop.com", "396 W. Washington Blvd. #500 Pasadena, CA 91103"],
-        "MT": ["MariTool", "888 352 7773", "info@maritool.com", "242 Beinoris Drive Wood Dale, IL 60191 United States"]
-      };
+
+      var vendors = {};
+      vendorData.forEach((vendor) => {
+        vendors[vendor.name] = [vendor.name, vendor.phone, vendor.email, vendor.address];
+      });
+
       $("#premade").change(function() {
         $('.vendor-fill').empty();
         var val = $(this).val();
@@ -198,6 +197,27 @@
         $(".vendor-fill").each(function(i, e) {
           $($(".vendor-fill")[i]).val(vendor[i]);
         });
+      });
+
+      $("#add-vendor").click(function() {
+        let name, phone, email, address;
+        while((name = prompt("Vendor name")) == "");
+        while((phone = prompt("Vendor phone number")) == "");
+        while((email = prompt("Vendor email")) == "");
+        while((address = prompt("Vendor address")) == "");
+        if(!(name && phone && email && address)) return;
+        $("#vendor").val(name);
+        $("#vendor_phone").val(phone);
+        $("#vendor_email").val(email);
+        $("#vendor_address").val(address);
+        document.getElementById("premade").innerHTML += "<option value='" + name + "'>" + name + "</option>"
+        document.getElementById("premade").value = name;
+
+        $.ajax({
+          method: "POST",
+          url: "/member/purchase/vendor",
+          data: {name, phone, email, address}
+        })
       });
 
       // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
