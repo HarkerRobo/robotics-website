@@ -104,6 +104,10 @@ app.get("/intro", (req, res) => {
 app.get("/safetycontract", (req, res) => {
   res.redirect("/img/media/direc/forms/RoboticsLabSafetyContract.pdf");
 });
+
+app.get("/1072roster", (req, res) => {
+  res.redirect("https://docs.google.com/spreadsheets/u/2/d/1Lua7IpreBmSZlf8dKEk6iljFpoun17RMcPn-4SOLpIc/edit?usp=sharing_eip&ts=5d8107da&urp=gmail_link");
+});
 /** end **/
 
 app.post("/contact", (req, res) => {
