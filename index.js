@@ -23,6 +23,7 @@ const express = require('express'),
   hackathonRouter = require('./routers/hackathon'),
   photosRouter = require('./routers/photos'),
   blogsRouter = require('./routers/blogs'),
+  Url = require("./models/url"),
 
   config = require('./config.json'),
   request = require("request");
@@ -97,18 +98,38 @@ app.get('/privacy', function (req, res) {
 
 /** shortlinks **/
 
-app.get("/intro", (req, res) => {
-  res.redirect("https://www.youtube.com/playlist?list=PL7Cpqic7wNE46H1Ndz03dwn_6nFvS9zyc");  
-});
+// app.get("/intro", (req, res) => {
+//   res.redirect("https://www.youtube.com/playlist?list=PL7Cpqic7wNE46H1Ndz03dwn_6nFvS9zyc");  
+// });
 
-app.get("/safetycontract", (req, res) => {
-  res.redirect("/img/media/direc/forms/RoboticsLabSafetyContract.pdf");
-});
+// app.get("/safetycontract", (req, res) => {
+//   res.redirect("/img/media/direc/forms/RoboticsLabSafetyContract.pdf");
+// });
 
-app.get("/1072roster", (req, res) => {
-  res.redirect("https://docs.google.com/spreadsheets/u/2/d/1Lua7IpreBmSZlf8dKEk6iljFpoun17RMcPn-4SOLpIc/edit?usp=sharing_eip&ts=5d8107da&urp=gmail_link");
+// app.get("/1072roster", (req, res) => {
+//   res.redirect("https://docs.google.com/spreadsheets/u/2/d/1Lua7IpreBmSZlf8dKEk6iljFpoun17RMcPn-4SOLpIc/edit?usp=sharing_eip&ts=5d8107da&urp=gmail_link");
+// });
+
+app.use( async (req, res, next) => {
+
+  if(req.originalUrl.substring(1).indexOf("/") >= 0) {
+    console.log("bad");
+    next();
+  } else {
+    const test = await Url.findOne({path: req.originalUrl.substring(1)});
+    if(test) {
+      console.log("REDIRect");
+      test.update({$inc: {uses: 1}}).exec();
+      // console.log(test);
+      res.redirect(test.url);
+    } else {
+      console.log("teehee");
+      next();
+    }
+  }
 });
 /** end **/
+
 
 app.post("/contact", (req, res) => {
   request({

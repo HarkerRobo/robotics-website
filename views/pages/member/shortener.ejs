@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="/css/shortener.css" rel="stylesheet" />
+		<!-- <script src="/js/index.js" defer></script> -->
+    <title>Harker URL Shortener</title>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="google" content="notranslate" />
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Noto+Sans" rel="stylesheet">
+</head>
+<body>
+    <div id="link-main">
+      <header class="center" style="padding-top: 5vw;">
+        <span id="header-text" style="margin: 0 auto; font-size: calc(32px + 3vw)">URL Shortener</span>
+      </header>
+
+      <section id="linkcreation-container">
+          <div id="linkcreation-shortlink">
+            <span id="shortlink-domain">robotics/</span>
+            <input placeholder="slack" autocorrect="off" autocapitalize="none" type="text" id="shortlink-input" />
+          </div>
+
+          <div id="actionhint">goes to</div>
+
+          <input placeholder="http://harkerrobo.slack.com" autocorrect="off" autocapitalize="none" type="text" id="longlink-input" />
+          <span id="bad" style="color: red; font-size: calc(16px + 1vw); visibility: hidden">a</span>
+          <button id="createlink-button">Generate</button>
+      </section>
+
+      <section id="linkcount-container" class="center">
+          <span>Generated Links</span>
+          <!-- <span id="linkcount-hyperlink">
+            <span id="linkcount-hyperlink-numlinks">{{linkMetadata.numLinks}}</span>
+            <span id="linkcount-hyperlink-linkdescriptor">{{linkMetadata.lengthDescriptor}}.</span>
+          </span> -->
+
+      </section>
+    </div>
+
+    <section id="linkblock-largecontainer">
+      <table>
+        <tbody id="tbody">
+          <colgroup> <col width="45%;" /> <col width="20%;" /> <col width="15%;" /> <col width="5%;" /> </colgroup> <thead> <tr style="padding-top: 20px;"> <th>URL</th> <th>Shortlink</th> <th>Uses</th> <th></th> </tr> </thead>
+          <div id="body2">
+          </div>
+        </tbody>
+      </table>
+    </section>
+
+    <script type="text/javascript">
+      document.getElementById("createlink-button").addEventListener("click", function() {
+        const xhr = new XMLHttpRequest();
+        const body = {
+          short: document.getElementById("shortlink-input").value,
+          url: document.getElementById("longlink-input").value
+        }
+        xhr.open("POST", "shortener/create");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        // xhr.setRequestHeader("Content-", "application/json");
+        xhr.onload = function() {
+          const resp = JSON.parse(xhr.responseText);
+          document.getElementById("bad").style.visibility = "initial";
+          if(resp.error) {
+            document.getElementById("bad").innerText = resp.error;
+            document.getElementById("bad").style.color = "red";
+          } else {
+            document.getElementById("bad").innerText = resp.success;
+            document.getElementById("bad").style.color = "green";
+            createTable();
+          }
+        }
+        xhr.send(JSON.stringify(body));
+      });
+
+      function createTable() {
+        // document.getElementById("tbody").innerHTML = '<colgroup> <col width="45%;" /> <col width="20%;" /> <col width="15%;" /> <col width="5%;" /> </colgroup> <thead> <tr> <th>URL</th> <th>Shortlink</th> <th>Uses</th> <th></th> </tr> </thead>';
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "shortener/urls");
+        xhr.onload = function() {
+          const resp = JSON.parse(xhr.responseText);
+          let arr = [];
+          document.getElementById("tbody").innerHTML = "";
+          for(let i = 0;i < resp.length;i ++) {
+            let url = resp[i];
+            arr.push('<tr><td style="colspan: 4; overflow: hidden; white-space: nowrap"><a href="' + url.url + '">' + url.url + '</a></td>'
+              +'<td><a href="https://robotics.harker.org/' + url.path + '">/' + url.path + '</a></td>'
+              +'<td>' + url.uses + '</td>'
+              +'<td><span onclick="removeShort(\'' + url.path + '\')" class="delete-link" style="color: red; cursor: pointer">X</span></td>'
+            +'</tr>')
+          }
+          // setTimeout(function() {
+            console.log(document.getElementById("body2").innerHTML);
+            document.getElementById("tbody").innerHTML += arr.join("");
+          // }, 0);
+        }
+        xhr.send();
+      }
+
+      function removeShort(path) {
+        const xhr = new XMLHttpRequest();
+        xhr.open("POST", "shortener/delete");
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onload = function() {
+          if(JSON.parse(xhr.responseText).success) {
+            createTable();
+          }
+        }
+        xhr.send(JSON.stringify({short: path}));
+      }  
+
+      createTable();
+
+    </script>
+</body>
+</html>

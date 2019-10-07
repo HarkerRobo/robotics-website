@@ -84,6 +84,9 @@
             <% } %>
           </ul>
         </li>
+        <% if (auth.loggedin && auth.level >= ranks.admin) { %>
+          <li><a href="/member/shortener">URL Shortener</a></li>
+        <% } %>
         <% if (auth.loggedin && auth.level >= ranks.superadmin) { %>
           <li><a href="/member/userman">UAMS</a></li>
         <% } %>

@@ -114,7 +114,7 @@ router.post('/token', function (req, res) {
     // if email is in superadmins list, grant superadmin access
     if (config.users.superadmins.includes(data.email.toLowerCase())) {
       console.log('Superadmin status granted for', data.email.toLowerCase())
-      
+
       const existingUser = await User.findOne({email: data.email.toLowerCase()})
       if(existingUser) {
         req.session.auth.level = ranks.superadmin
@@ -199,6 +199,7 @@ router.use('/purchase', require('./purchase'))
 router.use('/scouting', require('./scouting'))
 router.use('/parts', require('./parts'))
 router.use("/attendance", require("./attendance"))
+router.use("/shortener", require("./shortener"))
 
 router.get('/', function (req, res) {
   res.render('pages/member/index')
