@@ -31,14 +31,14 @@ router.use(auth.sessionAuth)
 router.use(express.json({extended: true}));
 
 router.all('/*', function (req, res, next) {
-    if (req.auth.level >= 0) {
+    if (req.auth.level >= ranks.director) {
       next()
     } else {
         res.render('pages/member/error', { statusCode: 401, error: "Must be a admin to use the URL shortener."})
     }
 });
 
-const notAllowed = ["about", "members", "outreach", "media", "contact", "sponsor", "privacy"];
+const notAllowed = ["about", "members", "outreach", "media", "contact", "sponsor", "privacy", "member"];
 
 router.get("/", (req, res) => {
   res.render("pages/member/shortener");
