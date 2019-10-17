@@ -93,8 +93,8 @@ router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
             return;
         }
 
-        // if(dbUser.authorization > req.auth.level)
-        //         throw new Error("You are not authorized to scan this user.");
+        if(dbUser.authorization > req.auth.level)
+                throw new Error("You are not authorized to scan this user.");
 
         if(new Date() - scanTime > 1000 * 60 * 60 * 24 * 365) // 1 year expiry
             throw new Error("Expired QR Code.")
