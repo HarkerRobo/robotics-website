@@ -132,6 +132,10 @@ function initializeRatingEventListeners() {
     });
 }
 
+function enterClearListener(e) {
+    if (e.which == 13) e.target.blur();
+}
+
 function edittingClickListener(e) {
     e.preventDefault();
 
@@ -141,6 +145,7 @@ function edittingClickListener(e) {
     e.target.contentEditable = true;
     e.target.focus();
     e.target.addEventListener("blur", editBlurListener)
+    e.target.addEventListener("keydown", enterClearListener);
 
 }
 
@@ -149,6 +154,7 @@ function editBlurListener(e) {
     e.target.contentEditable = false;
     e.target.parentElement.addEventListener("dblclick", edittingClickListener);
     e.target.removeEventListener("blur", editBlurListener);
+    e.target.removeEventListener("keydown", enterClearListener);
     
     updateTime(e.target.parentElement.parentElement);
 }
