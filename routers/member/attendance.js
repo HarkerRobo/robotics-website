@@ -39,8 +39,34 @@ router.all('/*', function (req, res, next) {
     }
 });
 
-router.get("/", (req, res) => {
-    res.render("attendance/pages/member.ejs");
+router.get("/", async (req, res) => {
+    const todayCheckIns = await Entry.find({
+        email: req.auth.info.email.toLowerCase(),
+        checkOut: null,
+        checkIn: {
+            $gte: getToday().getTime(),
+            $lte: getTomorrow().getTime()
+        }
+    }).exec();
+    console.log(todayCheckIns);
+    res.render("attendance/pages/member.ejs", {checkedIn: !!todayCheckIns.length});
+});
+
+router.get("/checkout", async (req, res) => {
+    const todayCheckIns = await Entry.find({
+        email: req.auth.info.email.toLowerCase(),
+        checkOut: null,
+        checkIn: {
+            $gte: getToday().getTime(),
+            $lte: getTomorrow().getTime()
+        }
+    }).exec();
+    if(!todayCheckIns.length) {
+        throw new Error("You are not checked in.");
+    }
+    todayCheckIns[0].checkOut = Date.now();
+    await todayCheckIns[0].save();
+    res.json({"success": "done"});
 });
 
 

@@ -22,6 +22,13 @@
         </head>
     <body>
         <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
+        <% if (auth.level >= ranks.director) { %>
+            <div id="admin-icons">
+                <a class="admin-icon" href="../../attendance"><img class="admin-image" src="/new/img/svg/fullscreen_exit-24px.svg"></a>
+                <a class="admin-icon" href="../../attendance/attendance"><img class="admin-image" src="/new/img/svg/baseline-assignment-24px.svg"></a>
+                <a class="admin-icon" href="../../attendance/scanner"><img class="admin-image" id="idk" src="/new/img/svg/baseline-linked_camera-24px.svg"></a>
+            </div>
+            <% } %>
         <h1 id="member-username"><%= username %></h1>
         <div id="rating-icons">
             <div class="rating-icon-a">

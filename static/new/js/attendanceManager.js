@@ -305,6 +305,6 @@ document.addEventListener("scroll", function() {
         setTimeout(function() {
             fetched = false;
             fetchEntries(lastFetchedDate);
-        }, 1000); //throttle entry fetching to prevent rapid scrolling
+        }, 750); //throttle entry fetching to prevent rapid scrolling
     }
 });
