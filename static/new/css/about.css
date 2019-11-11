@@ -23,13 +23,14 @@
     margin-top: -3vw;
     padding-top: 3vw;
     background-color: var(--color-background);
-    padding-bottom: 10vw;
+    /* padding-bottom: 10vw; */
 
 }
 
 #about {
     width: 90%;
     margin: 0 auto;
+    margin-bottom: 6vw;
     text-align: center;
 }
 
@@ -37,6 +38,13 @@
     font-weight: 100;
     font-size: 3vw;
     /* margin-bottom: 10vw; */
+}
+
+#calendar {
+    background-color: var(--color-background);
+    width: 80%;
+    /* margin-left: 10%; */
+    margin-bottom: 2vw;
 }
 
 
