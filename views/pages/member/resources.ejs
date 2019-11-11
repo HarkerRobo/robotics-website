@@ -10,8 +10,21 @@
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
     <header>
       <h1 class="title">RESOURCES</h1>
-      <p class="info-text">
-        <a class="regular" target="_blank" href="/img/media/direc/forms/RoboticsLabSafetyContract.pdf">
+      <div class="allthestuff">
+        <h2>General Info</h2>
+        <h3>Safety contract</h3>
+        <p>Print and sign the <a class="regular" target="_blank" href="/img/media/direc/forms/RoboticsLabSafetyContract.pdf">lab safety contract</a> to gain lab access.</p>
+        
+        <h3>Trello</h3>
+        <p>To stay on top of the projects ongoing in every subteam and to see how to get involved, check out our <a class="regular" target="_blank" href="https://robotics.harker.org/trello">Trello</a>.</p>
+
+        <h3>Slack</h3>
+        <p>To help with planning projects, check out updates, help coordinate scheduling, and have general robotics-related discussion, take a look at our <a class="regular" target="_blank" href="https://robotics.harker.org/slack">Slack</a>.</p>
+
+        <h3>Introduction</h3>
+        <p>To learn more about FRC and how our team competes, watch the <a class="regular" target="_blank" href="https://robotics.harker.org/intro">intro to FRC playlist</a>.</p>
+
+        <!-- <a class="regular" target="_blank" href="/img/media/direc/forms/RoboticsLabSafetyContract.pdf">
           <strong>Robotics Lab Safety Contract</strong>
         </a><br/>
         <a class="regular" target="_blank" href="/img/media/direc/forms/2018/UCDavis.pdf">
@@ -25,8 +38,24 @@
         </a><br/>
         <a class="regular" target="_blank" href="/img/media/direc/forms/2018/Houston.pdf">
           <strong>Houston Champs Permission Form</strong>
-        </a>
-      </p>
+        </a> -->
+      </div>
     </header>
+
+    <style>
+      .allthestuff {
+        text-align: center;
+        width: 100%;
+      }
+      .allthestuff h2 {
+        font-size: 4vw;
+      }
+      .allthestuff h3 {
+        font-size: 2.5vw;
+      }
+      .allthestuff p {
+        font-size: 2vw;
+      }
+    </style>
   </body>
 </html>

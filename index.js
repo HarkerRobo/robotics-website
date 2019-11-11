@@ -40,12 +40,12 @@ if (config.server.production) app.set('trust proxy', 1)
 
 // http://cwe.mitre.org/data/definitions/693
 
-app.use((req, res, next) => {
-  if(req.secure)
-    next();
-  else
-    res.redirect('https://' + req.headers.host + req.url);
-});
+// app.use((req, res, next) => {
+//   if(req.secure)
+//     next();
+//   else
+//     res.redirect('https://' + req.headers.host + req.url);
+// });
 
 app.use(redirectTrailingSlash);
 app.use(require('helmet')())
@@ -120,7 +120,6 @@ app.get('/privacy', function (req, res) {
 app.use( async (req, res, next) => {
 
   if(req.originalUrl.substring(1).indexOf("/") >= 0) {
-    console.log("bad");
     next();
   } else {
     const test = await Url.findOne({path: req.originalUrl.substring(1)});
