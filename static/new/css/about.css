@@ -30,7 +30,8 @@
 #about {
     width: 90%;
     margin: 0 auto;
-    margin-bottom: 6vw;
+    /* margin-bottom: 6vw; */
+    padding-bottom: 6vw;
     text-align: center;
 }
 

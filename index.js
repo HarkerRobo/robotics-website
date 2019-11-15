@@ -143,7 +143,7 @@ app.use( async (req, res, next) => {
 
 app.post("/contact", (req, res) => {
   request({
-    url: "https://hooks.slack.com/services/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",
+    url: "https://hooks.slack.com/services/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",
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -151,6 +151,7 @@ app.post("/contact", (req, res) => {
     json: {
       text: `*Email*: ${req.body.email}\n*Name*: ${req.body.name}\n*Organization*: ${req.body.organization}\n*Topic*: ${req.body.topic}\n*Message:* ${req.body.message}`
     }
+  }, function(err, resp, body) { 
   });
   res.render("new/pages/contact.ejs", {
     message: "Thank you for contacting us!"
