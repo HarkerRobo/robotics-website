@@ -143,7 +143,7 @@ app.use( async (req, res, next) => {
 
 app.post("/contact", (req, res) => {
   request({
-    url: "https://hooks.slack.com/services/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",
+    url: config.contacturl,
     method: "POST",
     headers: {
       "Content-Type": "application/json"
