@@ -5,11 +5,11 @@ body {
 
 #canvas-wrapper {
     width: 100%;
-    height: calc(100vh - 20vh - 4vw);
+    height: calc(50vh + 128px - 20vh + 4vw);
 }
 
 #qr-canvas {
-    margin: calc(50vh - 10vh - 2vw - 128px) calc(50vw - 128px);
+    margin: 0 calc(50vw - 128px);
     margin-top: calc(50vh - 128px - 20vh - 4vw);
 }
 
@@ -20,6 +20,6 @@ body {
 
 #check-out-button {
     width: 40vw;
-    margin: -50vw 50vw;
-    transform: translate(-20vw, -15vw);
+    margin-left: 30vw;
+    /* transform: translate(-20vw, -15vw); */
 }
