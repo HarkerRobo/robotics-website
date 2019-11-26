@@ -75,7 +75,7 @@ ul.no-bullets {
 }
 
 .title {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+  font-family: 'Chivo', sans-serif;
   color: white;
   font-weight: 700;
   text-align: center;
@@ -93,7 +93,7 @@ h2.title {
 }
 
 .info-text {
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+  font-family: "Roboto", sans-serif;
   font-size: 40px;
   margin: 5%;
   color: white;
@@ -217,17 +217,17 @@ h2.title {
 a.regular {
   /*color: aqua;*/
   font-weight: bold;
-  color: aquamarine;
+  color: #A0C1D8;
 }
 
 a.regular:hover {
   /*color: aqua;*/
-  color: aquamarine;
+  color: #A0C1D8;
 }
 
 a.regular:focus {
   /*color: aqua;*/
-  color: aquamarine;
+  color: #A0C1D8;
 }
 
 a.covert {
