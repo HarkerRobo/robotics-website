@@ -8,6 +8,21 @@
     padding-bottom: 7vw;
 }
 
+.blue {
+    color: var(--color-primary);
+}
+
+.gold {
+    color: #efc411
+}
+
+.silver {
+    color: #9ea7af;
+}
+
+.bronze {
+    color: #cd7f32
+}
 
 #sponsors-title {
     color: var(--color-primary);
@@ -16,8 +31,20 @@
     font-weight: 900;
 }
 
-#sponsor-images {
+.sponsor-tier-title {
+    font-size: 5vw;
+}
+
+.sponsor-tier-description {
+    width: 80%;
+    margin: 0 auto;
+    font-size: 2vw;
+    font-weight: normal;
+}
+
+.sponsor-images {
     margin: auto auto;
+    padding-top: 3vw;
     padding-bottom: 3vw;
     width: 80vw;
 
@@ -54,16 +81,8 @@
             align-items: center;
 }
 
-#contact-link {
-    color:black;
-    -webkit-transition-duration: 0.4s;
-       -moz-transition-duration: 0.4s;
-         -o-transition-duration: 0.4s;
-            transition-duration: 0.4s;
-}
-
-#contact-link:hover {
-    color: var(--color-primary);
+.big-image {
+    height: 8vw;
 }
 
 .sponsor-image {
@@ -77,6 +96,18 @@
     font-weight: normal;
 }
 
+#contact-link {
+    color:black;
+    -webkit-transition-duration: 0.4s;
+       -moz-transition-duration: 0.4s;
+         -o-transition-duration: 0.4s;
+            transition-duration: 0.4s;
+}
+
+#contact-link:hover {
+    color: var(--color-primary);
+}
+
 @media screen and (max-width: 800px) {
     #sponsors-title {
         font-size: 10vw;
@@ -87,7 +118,19 @@
         margin: 3vw;
     }
 
+    .big-image {
+        height: 14vw;
+    }
+
     #sponsor-button {
         font-size: 5vw;
+    }
+
+    .sponsor-tier-title {
+        font-size: 10vw;
+    }
+
+    .sponsor-tier-description {
+        font-size: 7vw;
     }
  }
