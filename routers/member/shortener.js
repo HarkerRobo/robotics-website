@@ -51,6 +51,7 @@ router.post("/create", async (req, res) => {
     return res.json({error: "Invalid URL."}).end();
   if(!(/[a-zA-Z][a-zA-Z0-9]+/g.test(req.body.short)))
     return res.json({error: "Invalid shortened URL."}).end();
+  req.body.short = req.body.short.toLowerCase();
   if(notAllowed.indexOf(req.body.short) >= 0)
     return res.json({error: "Short URL is an actual page."}).end();
   if(await Url.findOne({path: req.body.short}))

@@ -126,14 +126,14 @@ app.use( async (req, res, next) => {
   if(req.originalUrl.substring(1).indexOf("/") >= 0) {
     next();
   } else {
-    const test = await Url.findOne({path: req.originalUrl.substring(1)});
+    const path = req.originalUrl.substring(1).toLowerCase();
+    const test = await Url.findOne({path});
     if(test) {
       console.log("REDIRect");
       test.update({$inc: {uses: 1}}).exec();
       // console.log(test);
       res.redirect(test.url);
     } else {
-      console.log("teehee");
       next();
     }
   }
