@@ -81,14 +81,17 @@
             align-items: center;
 }
 
-.big-image {
-    height: 8vw;
-}
 
 .sponsor-image {
     height: 5vw;
 
     margin: 2vw;
+}
+
+
+.big-image {
+    height: 8vw;
+    margin: 0;
 }
 
 #sponsor-button {

@@ -8,14 +8,35 @@ body {
 }
 
 button {
-    margin-right: 2vw;
-    margin-left: 2vw;
-    margin-bottom: 2vh;
+    margin-right: 1vw;
+    margin-left: 1vw;
+    margin-bottom: 1vh;
+}
+
+#check-in-button, #check-out-button {
+    /* font-size: calc(16pt + .5vw); */
 }
 
 #scanner-message {
     font-size: 3vw;
 }
 
+#toggle-camera {
+    display: none;
+}
+
+@media screen and (max-width: 800px) {
+    #toggle-camera {
+        display: none;
+        /* position: absolute; */
+        /* margin-left: 49vw; */
+        margin-top: 4vw;
+        /* transform: translateX(-50%); */
+        /* bottom: 2vw; */
+    }
+    #dummy {
+        display: none;
+    }
+}
 
 
