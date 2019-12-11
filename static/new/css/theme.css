@@ -10,10 +10,18 @@
     --color-background: #F0F0F0;
 }
 
+content {
+    overflow: hidden;
+}
+
+html, body {
+    max-width: 100% !important;
+    overflow-x: hidden !important;
+}
+
 
 body {
     background-color: var(--color-primary);
-    scrollbar-color: var(--color-primary);
 }
 
 h1, h2, h3, h4, h5, h6, p {

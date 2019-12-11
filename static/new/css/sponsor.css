@@ -92,6 +92,8 @@
 .big-image {
     height: 8vw;
     margin: 0;
+    margin-right: 3vw;
+    margin-left: 3vw;
 }
 
 #sponsor-button {
