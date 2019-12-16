@@ -6,11 +6,9 @@
   </head>
   <body>
 
-    <!-- Navbar -->
-    <%- include(__base + 'views/partials/navbar-main.ejs') %>
 
     <header id="error" hashname="error">
-      <div class="container-fluid">
+      <div class="container-fluid" style>
         <h1> We found an error </h1>
         <p> <strong><%- statusCode -%></strong> error: <strong><%- error -%></strong> </p>
       </div>
