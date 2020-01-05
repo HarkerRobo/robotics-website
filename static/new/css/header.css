@@ -191,14 +191,14 @@
         height: 0
     }
     to {
-        height: 105vw;
+        height: 150vw;
     }
 }
 
 
 @keyframes header-shrink {
     from {
-        height: 105vw;
+        height: 150vw;
     }
     to {
         height: 0;

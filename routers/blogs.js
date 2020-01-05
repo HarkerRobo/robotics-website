@@ -16,6 +16,7 @@ function updateBlogsInDatabase() {
   request(postsURL, (error, response, body) => {
     console.log()
     console.log('--- BLOG POSTS REQUEST ---')
+    console.log(response.statusCode);
     if (!error && response.statusCode >= 200 && response.statusCode < 400) {
       console.log('Status code: ', response.statusCode)
 
@@ -107,11 +108,11 @@ let interval = (typeof config.blog.interval !== 'undefined' ? config.blog.interv
 
 if (config.blog.runBlog) setInterval(updateBlogsInDatabase, interval*1000)
 
-// router.get('/', (req, res) => {
-//   Blog.find({}).sort({ createdAt: 'desc' }).limit(20)
-//   .then(posts => {
-//     res.render('pages/blog', { posts: posts})
-//   })
-// })
+router.get('/', (req, res) => {
+  Blog.find({}).sort({ createdAt: 'desc' }).limit(20)
+  .then(posts => {
+    res.render('pages/blog', { posts: posts})
+  })
+})
 
 module.exports = router

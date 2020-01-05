@@ -24,6 +24,6 @@ setTimeout(function() {
     document.getElementById("header-navigation-wrapper").style.animationDelay = window.scrollY / -marginTop + "s"; 
 }, 1000);
 
-document.addEventListener("scroll", function() {
-    document.getElementById("header-navigation-wrapper").style.animationDelay = Math.min(window.scrollY / -marginTop, 0) + "s"; 
-});
+// document.addEventListener("scroll", function() {
+//     document.getElementById("header-navigation-wrapper").style.animationDelay = Math.min(window.scrollY / -marginTop, 0) + "s"; 
+// });

@@ -1,34 +1,98 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include(__base + 'views/partials/head.ejs') %>
+    <title>Blog - Harker Robotics</title>    
+    <%- include(__base + 'views/new/partials/analytics.ejs') %>
+
+    <%- include(__base + 'views/new/partials/favicon.ejs') %>
+
+    <!-- External Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Chivo&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /> -->
+
+
+    <!-- Site Styles -->
+    <link rel="stylesheet" href="new/css/theme.css" />
+    <link rel="stylesheet" href="new/css/splash.css" />
+    <link rel="stylesheet" href="new/css/header.css" />
+    <link rel="stylesheet" href="new/css/footer.css" />
+
+    
+     <!-- Site Scripts -->
+     <script src="new/js/splash.js" type="text/javascript" defer></script>
+
     <style> header *:not(a), h1.title { color: black } body, header { background-color: lightgray } </style>
-    <link rel="stylesheet" type="text/css" href="/css/about.css">
     <style>
       header { padding-top: 50px; }
       iframe { width: 100%; height: 100%; }
       body, header { background-color: lightgray }
     </style>
+    <style>
+      .list-group-item {
+        position: relative;
+        display: block;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 0.5vw;
+        margin: 2.5vw 1vw;
+        padding: 1vw;
+        text-align: left;
+      }
+
+      .list-group-item-heading {
+        margin-top: 0;
+        color: var(--color-primary);
+        font-size: 1.5em;
+      }
+
+      .list-group-item-text {
+        font-family: 'Lato', sans-serif;
+      }
+      
+      #body {
+        text-align: center;
+      }
+
+      #title {
+        color: var(--color-primary);
+        margin-top: 3vw;
+        margin-bottom: -1.5vw;
+        font-size: 6vw;
+
+        font-weight: bold;
+      }
+
+      @media screen and (max-width: 800px) {
+        #title {
+          font-size: 10vw;
+          margin-bottom: -10vw;
+        }
+      }
+
+    </style>
   </head>
   <body>
 
-    <!-- Navbar -->
-    <%- include(__base + 'views/partials/navbar-main.ejs') %>
+    <%- include(__base + 'views/new/partials/splash.ejs') %>
+   
     <% if (config.blog.runBlog) { %>
-    <header>
+    <div id="content">
+      <%- include(__base + 'views/new/partials/header.ejs') %>
 
-      <div class="container-fluid">
-        <h1 class="title">BUILD LOG</h1>
+      <div id="body"class="container-fluid">
+        <h1 id="title">Build Blog</h1>
 
 
         <div class="list-group" style="margin-top: 74px">
           <% for (var post of posts) { %>
             <div class="list-group-item">
               <h3 class="list-group-item-heading"><%- post.title %></h3>
-              <p style="color: lightgray; font-size: .9em; ">Posted
+              <p style="color: gray; font-size: .9em;margin-bottom: 1vw; ">Posted
                 <%- post.author ? ' by ' + post.author + ' on ' : '' %>
                 <%- post.createdAt.toLocaleDateString('en-US', {
-                  weekday: "long", year: "numeric", month: "short",
+                  year: "numeric", month: "long",
                   day: "numeric"
                 }) %>
               </p>
@@ -37,12 +101,7 @@
           <% } %>
         </div>
       </div>
-    </header>
-    <% } else { %>
-  
-    <header>
-      <iframe src="https://harkerrobotics.blogspot.com/" frameborder="0" marginheight="0" marginwidth="0">Loading...</iframe>
-    </header>
+    </div>
     <% } %>
 
     
