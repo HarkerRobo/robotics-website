@@ -20,8 +20,6 @@ const express = require('express'),
   transporter = nodemailer.createTransport(smtpConfig),
   csrfProtection = csrf({ cookie: true })
 
-
-
 const crypto = require("crypto");
 
 router.use(cookieParser())
@@ -45,7 +43,6 @@ router.get("/", async (req, res) => {
         checkOut: null,
         checkIn: {
             $gte: getToday().getTime(),
-            $lte: getTomorrow().getTime()
         }
     }).exec();
     console.log(todayCheckIns);
@@ -70,7 +67,7 @@ router.get("/checkout", async (req, res) => {
 });
 
 
-router.get("/scanner", auth.verifyRank(ranks.director), (req, res) => {
+router.get("/scanner", auth.verifyRank(ranks.lead), (req, res) => {
     res.render("attendance/pages/scanner.ejs")
 });
 
@@ -97,7 +94,7 @@ router.get("/attendance", auth.verifyRank(ranks.director), (req, res) => {
     res.render("attendance/pages/attendance.ejs");
 });
 
-router.post("/qrcode", auth.verifyRank(ranks.director), async (req, res) => {
+router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
     try {
         let dbUser;
         let scanTime
