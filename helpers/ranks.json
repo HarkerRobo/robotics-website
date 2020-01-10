@@ -3,6 +3,7 @@
   "harker_student": 10,
   "pr_whitelist": 20,
   "lead": 25,
+  "scouting_lead": 26,
   "director": 30,
   "parts_whitelist": 50,
   "scouting_sergeants": 60,

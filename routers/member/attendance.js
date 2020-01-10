@@ -90,7 +90,7 @@ router.get("/qrcode", (req, res) => {
     });
 });
 
-router.get("/attendance", auth.verifyRank(ranks.director), (req, res) => {
+router.get("/attendance", auth.verifyRank(ranks.scoutingLead), (req, res) => {
     res.render("attendance/pages/attendance.ejs");
 });
 
@@ -157,7 +157,7 @@ router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
     }
 });
 
-router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, res) => {
+router.get("/attendanceEntries", auth.verifyRank(ranks.scoutingLead), async (req, res) => {
     if(!req.query.count || !Number.isInteger(+req.query.count) || (req.query.date && Number.isNaN(Date.parse(req.query.date)))) {
         res.status(400).json({"error": "Invalid query"});
         return;
@@ -214,7 +214,7 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.director), async (req, re
     res.json(dateMap);
 });
 
-router.post("/review", auth.verifyRank(ranks.director), async (req, res) => {
+router.post("/review", auth.verifyRank(ranks.scoutingLead), async (req, res) => {
     if(!req.body.id || !(req.body.rating || req.body.rating === 0)  || Number.isNaN(Number(req.body.rating))) {
         res.status(400).json({"error": "invalid query"});
         return;
@@ -248,7 +248,7 @@ router.post("/review", auth.verifyRank(ranks.director), async (req, res) => {
     res.json({"success": "reviewed"});
 });
 
-router.get("/attendance/:username", auth.verifyRank(ranks.director), async (req, res) => {
+router.get("/attendance/:username", auth.verifyRank(ranks.scoutingLead), async (req, res) => {
     const positiveRatings = await Review.find({
         attendanceEmail: req.params.username.toLowerCase() + "@students.harker.org",
         rating: 1
@@ -269,7 +269,7 @@ router.get("/attendance/:username", auth.verifyRank(ranks.director), async (req,
     });
 });
 
-router.post("/attendance/:id", auth.verifyRank(ranks.director), async (req, res) => {
+router.post("/attendance/:id", auth.verifyRank(ranks.scoutingLead), async (req, res) => {
     if((req.body.startTime && Number.isNaN(Date.parse(new Date(req.body.startTime)))) || (req.body.endTime && Number.isNaN(Date.parse(new Date(req.body.endTime)))) || (!req.body.startTime && !req.body.endTime)) {
         res.status(400).json({"error": "invalid query"})
         return;
@@ -288,7 +288,7 @@ router.post("/attendance/:id", auth.verifyRank(ranks.director), async (req, res)
     res.json({"success": "updated"}).end();
 });
 
-router.get("/attendance/export/:date", auth.verifyRank(ranks.director), async (req, res) => {
+router.get("/attendance/export/:date", auth.verifyRank(ranks.scoutingLead), async (req, res) => {
     if(!req.params.date || Number.isNaN(Date.parse(new Date(Number(req.params.date))))) {
         res.status(400).json({"error": "invalid query"});
         return;
