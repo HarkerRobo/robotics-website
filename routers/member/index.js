@@ -1,7 +1,7 @@
 'use strict'
 
 const express = require('express'),
-
+  Blog = require('../../models/blog'),
   https = require('https'),
   session = require('../../helpers/session'),
   cookieParser = require('cookie-parser'),
@@ -258,6 +258,13 @@ router.get('/userman/userswithauth/:level', function (req, res) {
       result.push(user.email)
     }
     res.json(result)
+  })
+})
+
+router.get('/blog', (req, res) => {
+  Blog.find({}).sort({ createdAt: 'desc' }).limit(20)
+  .then(posts => {
+    res.render('pages/blog', { posts: posts})
   })
 })
 

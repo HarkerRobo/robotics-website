@@ -14,14 +14,14 @@
 
 
     <!-- Site Styles -->
-    <link rel="stylesheet" href="new/css/theme.css" />
-    <link rel="stylesheet" href="new/css/splash.css" />
-    <link rel="stylesheet" href="new/css/header.css" />
-    <link rel="stylesheet" href="new/css/footer.css" />
+    <link rel="stylesheet" href="../new/css/theme.css" />
+    <link rel="stylesheet" href="../new/css/splash.css" />
+    <link rel="stylesheet" href="../new/css/header.css" />
+    <link rel="stylesheet" href="../new/css/footer.css" />
 
     
      <!-- Site Scripts -->
-     <script src="new/js/splash.js" type="text/javascript" defer></script>
+     <!-- <script src="new/js/splash.js" type="text/javascript" defer></script> -->
 
     <style> header *:not(a), h1.title { color: black } body, header { background-color: lightgray } </style>
     <style>
@@ -75,11 +75,10 @@
   </head>
   <body>
 
-    <%- include(__base + 'views/new/partials/splash.ejs') %>
+    
    
     <% if (config.blog.runBlog) { %>
     <div id="content">
-      <%- include(__base + 'views/new/partials/header.ejs') %>
 
       <div id="body"class="container-fluid">
         <h1 id="title">Build Blog</h1>
