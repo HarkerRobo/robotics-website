@@ -28,3 +28,7 @@ document.getElementById("check-out-button").addEventListener("click", function()
     }
     xhr.send();
 });
+
+setInterval(function() {
+    location.reload();
+}, 1000 * 60 * 60 * 10);
