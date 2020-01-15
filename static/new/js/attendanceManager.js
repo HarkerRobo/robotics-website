@@ -263,7 +263,7 @@ function convertDateToTime(date) {
     if(!date) {
         return '<span class="red" data-value="????">????</span>';
     }
-    const str = date.getHours() % 12 + ":" + (date.getMinutes() < 10 ? ("0" + date.getMinutes()) : date.getMinutes());
+    const str = ((date.getHours() - 1) % 12 + 1) + ":" + (date.getMinutes() < 10 ? ("0" + date.getMinutes()) : date.getMinutes());
     return '<span data-value="' + str + '">' + str + "</span>";
 }
 
