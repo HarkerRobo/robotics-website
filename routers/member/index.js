@@ -205,6 +205,15 @@ router.get('/', function (req, res) {
   res.render('pages/member/index')
 })
 
+
+router.get('/blog', (req, res) => {
+  Blog.find({}).sort({ createdAt: 'desc' }).limit(20)
+  .then(posts => {
+    res.render('pages/blog', { posts: posts})
+  })
+})
+
+
 router.get('/resources', function(req, res){
   res.render('pages/member/resources')
 })
@@ -258,13 +267,6 @@ router.get('/userman/userswithauth/:level', function (req, res) {
       result.push(user.email)
     }
     res.json(result)
-  })
-})
-
-router.get('/blog', (req, res) => {
-  Blog.find({}).sort({ createdAt: 'desc' }).limit(20)
-  .then(posts => {
-    res.render('pages/blog', { posts: posts})
   })
 })
 
