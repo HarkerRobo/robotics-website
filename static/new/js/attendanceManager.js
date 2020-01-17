@@ -296,9 +296,24 @@ function downloadCSV(date) {
     }
 }
 
+function downloadCSV2(date) {
+    try {
+        const a = document.createElement("a");
+        a.href = "/member/attendance/attendance/exportAll/" + date.getTime();
+        a.download = "export.csv";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+    } catch(e) {
+        alert("An error occured while downloading CSV: " + e.message);
+        console.error(e);
+    }
+}
+
 function getFileName(date) {
     return (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear() + ".csv";
 }
+
 
 document.addEventListener("scroll", function() {
     if(fetched && (window.innerHeight + window.pageYOffset) >= document.body.offsetHeight - 2) { //https://stackoverflow.com/questions/9439725/javascript-how-to-detect-if-browser-window-is-scrolled-to-bottom
@@ -308,3 +323,13 @@ document.addEventListener("scroll", function() {
         }, 750); //throttle entry fetching to prevent rapid scrolling
     }
 });
+
+(function() {
+    if(document.getElementById("download-button")) {
+        document.getElementById("download-button").addEventListener("click", function() {
+            if(document.getElementById("date-input").value.length) {
+            downloadCSV2(new Date(Date.parse(document.getElementById("date-input").value) + 100000));
+        }
+    });
+}
+})();

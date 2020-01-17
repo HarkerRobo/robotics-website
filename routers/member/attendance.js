@@ -302,11 +302,36 @@ router.get("/attendance/export/:date", auth.verifyRank(ranks.scoutingLead), asyn
             $lte: endTime.getTime()
         }
     });
-    res.end(generateCSV(["Username", "Check In Time", "Check Out Time", "Member Type"], entries.map(entry => [
+    res.end(generateCSV(["Username", "Check In Time", "Check Out Time"], entries.map(entry => [
         entry.email.split("@students.harker.org")[0],
         get12HourTime(entry.checkIn && new Date(entry.checkIn)),
         get12HourTime(entry.checkOut && new Date(entry.checkOut)),
-        Number(entry.email.substring(0, 2)) > 22 ? "Camper" : "Helper"
+        // Number(entry.email.substring(0, 2)) > 22 ? "Camper" : "Helper"
+    ])));
+});
+
+router.get("/attendance/exportAll/:date", auth.verifyRank(ranks.scoutingLead), async (req, res) => {
+    if(!req.params.date || Number.isNaN(Date.parse(new Date(Number(req.params.date))))) {
+        res.status(400).json({"error": "invalid query"});
+        return;
+    }
+    req.params.date = Number(req.params.date) + 1000 * 60 * 60 * 24;
+    console.log(new Date(req.params.date));
+    const startTime = convertTimeToDate(new Date(req.params.date));
+    console.log(startTime);
+    const endTime = new Date(Date.now());
+    const entries = await Entry.find({
+        checkIn: {
+            $gte: startTime.getTime(),
+            $lte: endTime.getTime()
+        }
+    }).sort({checkIn: 1});
+    res.end(generateCSV(["Username", "Date", "Check In Time", "Check Out Time"], entries.map(entry => [
+        entry.email.split("@students.harker.org")[0],
+        convertTimeToDate(new Date(entry.checkIn)).toDateString().substr(4),
+        get12HourTime(entry.checkIn && new Date(entry.checkIn)),
+        get12HourTime(entry.checkOut && new Date(entry.checkOut)),
+        // Number(entry.email.substring(0, 2)) > 22 ? "Camper" : "Helper"
     ])));
 });
 
@@ -334,7 +359,7 @@ function getTomorrow() {
 }
 
 function get12HourTime(time) {
-    return time ? time.getHours() % 12 + ":" + pad(time.getMinutes()) + (time.getHours() < 12 ? " AM" : " PM") : "No time";
+    return time ? time.getHours() % 12 + ":" + pad(time.getMinutes()) + (time.getHours() < 12 ? " AM" : " PM") : "None";
 }
 
 function pad(number) {

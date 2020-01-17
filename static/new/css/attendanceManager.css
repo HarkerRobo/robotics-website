@@ -84,3 +84,14 @@ body {
     all: unset;
     cursor: pointer;
 }
+
+#download-button {
+    width: 15vw;
+    height: 3vw;
+    padding-top: 0vw;
+    font-size: calc(16pt + .2vw);
+}
+
+@media screen and (max-width: 800px) {
+    #export-attendance { display:none; }
+}
