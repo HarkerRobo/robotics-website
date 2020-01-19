@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="/css/shortener.css" rel="stylesheet" />
+		<!-- <script src="/js/index.js" defer></script> -->
+    <title>Harker URL Shortener</title>
+    <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+<meta name="google" content="notranslate" />
+
+<link rel="shortcut icon" href="/favicon.ico">
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<link href="https://fonts.googleapis.com/icon?family=Noto+Sans" rel="stylesheet">
+</head>
+<body>
+    <div id="link-main">
+      <header class="center" style="padding-top: 5vw;margin-bottom: 10vw;">
+        <span id="header-text" style="margin: 0 auto; font-size: calc(32px + 3vw);">Battery Log</span>
+      </header>
+
+      
+    <section id="linkblock-largecontainer">
+      <table>
+        <tbody id="tbody">
+          <colgroup> <col width="75%;" /> <col width="25%;" /> </colgroup> <thead> <tr style="padding-top: 20px;"> <th>Battery</th> <th>Cycles</th> </tr> </thead>
+          <div id="body2">
+          </div>
+        </tbody>
+      </table>
+    </section>
+
+    <script type="text/javascript">
+      function createTable() {
+        // document.getElementById("tbody").innerHTML = '<colgroup> <col width="45%;" /> <col width="20%;" /> <col width="15%;" /> <col width="5%;" /> </colgroup> <thead> <tr> <th>URL</th> <th>Shortlink</th> <th>Uses</th> <th></th> </tr> </thead>';
+        const xhr = new XMLHttpRequest();
+        xhr.open("GET", "battery/cycles");
+        xhr.onload = function() {
+          const resp = JSON.parse(xhr.responseText);
+          let arr = [];
+          document.getElementById("tbody").innerHTML = "";
+          for(let i = 0;i < resp.length;i ++) {
+            let url = resp[i];
+            arr.push('<tr><td style="colspan: 4; overflow: hidden; white-space: nowrap">' +  url.id + '</td>'
+              +'<td>' + url.cycles +'</td>'
+            +'</tr>')
+          }
+          // setTimeout(function() {
+            console.log(document.getElementById("body2").innerHTML);
+            document.getElementById("tbody").innerHTML += arr.join("");
+          // }, 0);
+        }
+        xhr.send();
+      }
+      createTable();
+</script>
+</body>
+</html>

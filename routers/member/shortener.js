@@ -38,7 +38,7 @@ router.all('/*', function (req, res, next) {
     }
 });
 
-const notAllowed = ["about", "members", "outreach", "media", "contact", "sponsor", "privacy", "member"];
+const notAllowed = ["about", "members", "outreach", "media", "contact", "sponsor", "privacy", "member", "blog", "calendar", "battery"];
 
 router.get("/", (req, res) => {
   res.render("pages/member/shortener");
