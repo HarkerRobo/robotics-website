@@ -30,7 +30,9 @@
             <% } %>
         <div id="buttons-wrapper">
             <button id="check-in-button">Check in</button>
-            <% if(auth.level != ranks.checkin_tablet) <button id="check-out-button">Check out</button><br />
+            <% if(auth.level != ranks.checkin_tablet) { %>
+                <button id="check-out-button">Check out</button><br />
+            <% } %>
             <button id="toggle-camera">Switch Camera</button><br />
             <video id="camera"></video>
             <h1 id="scanner-message"></h1>
