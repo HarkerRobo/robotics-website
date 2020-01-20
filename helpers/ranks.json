@@ -5,6 +5,7 @@
   "lead": 25,
   "scoutingLead": 26,
   "director": 30,
+  "checkin_tablet": 35,
   "parts_whitelist": 50,
   "scouting_sergeants": 60,
   "admin": 70,

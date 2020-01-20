@@ -19,7 +19,7 @@
     </head>
     <body>
         <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
-        <% if (auth.level >= ranks.lead) { %>
+        <% if (auth.level >= ranks.lead && auth.level != ranks.checkin_tablet) { %>
             <div id="admin-icons">
                 <a class="admin-icon" href="../attendance"><img class="admin-image" src="/new/img/svg/fullscreen_exit-24px.svg"></a>
                 <% if (auth.level >= ranks.scoutingLead) { %>
@@ -29,7 +29,8 @@
             </div>
             <% } %>
         <div id="buttons-wrapper">
-            <button id="check-in-button">Check in</button><button id="check-out-button">Check out</button><br />
+            <button id="check-in-button">Check in</button>
+            <% if(auth.level != ranks.checkin_tablet) <button id="check-out-button">Check out</button><br />
             <button id="toggle-camera">Switch Camera</button><br />
             <video id="camera"></video>
             <h1 id="scanner-message"></h1>

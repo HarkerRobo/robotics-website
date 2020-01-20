@@ -36,7 +36,6 @@ router.get("/cycles", async (req, res, next) => {
     res.json(batteries);
 });
 
-
 router.post("/postScan", async (req, res, next) => {
     const split = req.body.data.split("__");
     const id = split[0];

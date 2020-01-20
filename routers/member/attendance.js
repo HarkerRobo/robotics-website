@@ -116,7 +116,7 @@ router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
             return;
         }
 
-        if(dbUser.authorization > req.auth.level)
+        if(dbUser.authorization > req.auth.level && req.auth.level != ranks.checkin_tablet)
                 throw new Error("You are not authorized to scan this user.");
 
         if(new Date() - scanTime > 1000 * 60 * 60 * 24 * 365) // 1 year expiry

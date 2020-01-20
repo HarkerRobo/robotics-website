@@ -18,7 +18,10 @@
     </head>
     <body>
         <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
-        <% if (auth.level >= ranks.lead) { %>
+        <% if (auth.level == ranks.checkin_tablet) { %>
+            <meta http-equiv="Refresh" content="0; url=https://robotics.harker.org/member/attendance/scanner" />
+        <% } %>
+        <% if (auth.level >= ranks.lead && auth.level != ranks.checkin_tablet) { %>
             <div id="admin-icons">
                 <a class="admin-icon" href="attendance"><img class="admin-image" src="/new/img/svg/fullscreen_exit-24px.svg"></a>
                 <% if (auth.level >= ranks.scoutingLead) { %>
@@ -27,10 +30,12 @@
                 <a class="admin-icon" href="attendance/scanner"><img class="admin-image" id="idk" src="/new/img/svg/baseline-linked_camera-24px.svg"></a>
             </div>
             <% } %>
+        <% if (auth.level != ranks.checkin_tablet && auth.level != ranks.mentor) { %>
         <div id="canvas-wrapper">
             <canvas id="qr-canvas" width="512" height="512"></canvas>
         </div>
-        <% if(checkedIn) { %>
+        <% } %>
+        <% if(checkedIn && auth.level >= ranks.triumvirate) { %>
             <div id="checkoutbutton">
                 <button id="check-out-button">Check out</button>
             </div>
