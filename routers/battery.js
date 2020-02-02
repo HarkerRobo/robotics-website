@@ -52,7 +52,7 @@ router.post("/postScan", async (req, res, next) => {
             cycles: 1
         });
     } else {
-        battery.count++;
+        battery.cycles++;
         await battery.save();
     }
     res.end("created");
