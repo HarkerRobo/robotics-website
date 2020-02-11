@@ -168,7 +168,7 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.scoutingLead), async (req
     const count = +req.query.count;
 
     const testEntries = await (req.query.username ? Entry.find({checkIn: {$lte: maxDate.getTime()}, email: req.query.username + "@students.harker.org"}) : Entry.find({checkIn: {$lte: maxDate.getTime()}}))
-                                   .sort({checkOut: 1})
+                                   .sort({checkOut: -1})
                                    .limit(count)
                                    .exec();
     if(!testEntries.length) {
