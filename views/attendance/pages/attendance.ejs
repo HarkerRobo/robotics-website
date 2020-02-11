@@ -24,6 +24,11 @@
         </style>
     </head>
     <body>
+        <script type="text/javascript">
+            var canEditTimes = <%= auth.level >= ranks.parts_whitelist %>;
+            console.log(canEditTimes);
+        </script>
+
         <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
         <% if (auth.level >= ranks.lead) { %>
             <div id="admin-icons">

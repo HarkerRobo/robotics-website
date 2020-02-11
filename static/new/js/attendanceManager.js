@@ -223,12 +223,14 @@ function convertTime(elem, isStart) {
 }
 
 function initializeEdittingListeners() {
-    Array.from(document.getElementsByClassName("startTime")).forEach(function(text) {
-        text.addEventListener("dblclick", edittingClickListener);
-    });
-    Array.from(document.getElementsByClassName("endTime")).forEach(function(text) {
-        text.addEventListener("dblclick", edittingClickListener);
-    });
+    if(window.canEditTimes) {
+        Array.from(document.getElementsByClassName("startTime")).forEach(function(text) {
+            text.addEventListener("dblclick", edittingClickListener);
+        });
+        Array.from(document.getElementsByClassName("endTime")).forEach(function(text) {
+            text.addEventListener("dblclick", edittingClickListener);
+        });
+    }
 }
 
 function disableAll(button) {
