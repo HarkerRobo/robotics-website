@@ -16,6 +16,10 @@
           <p class="info-text">Since you are whitelisted for PR, you can also make Purchase Requests and view our Resources.</p>
         <% } %>
 
+        <div id="roles">
+          
+        </div>
+
         <div id="travelteam">
           
         </div>
@@ -29,17 +33,23 @@
       window.travelTeamDecisions = window.decode(window.travelTeamData);
       window.decision = window.travelTeamDecisions["<%= auth.info.email %>".slice(0, -20).toLowerCase()];
       if(decision) {
-        document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision\").classList.toggle(\"show\")' class='decision-button'> Reveal Travel Team Decision </button><p id='decision' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
+        document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision1\").classList.toggle(\"show\")' class='decision-button'> Reveal MBR Travel Team Decision </button><p id='decision1' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
       }
-      delete window.travelTeamData;
-      delete window.travelTeamDecisions;
-      delete window.decision;
-      delete window.decode;
+      
+      window.travelTeamDecisions = window.decode(window.rolesData);
+      window.decision = window.travelTeamDecisions["<%= auth.info.email %>".slice(0, -20).toLowerCase()];
+      if(decision) {
+        window.decision = window.decode(window.roles)[decision];
+        document.getElementById("roles").innerHTML = "<button onclick='document.getElementById(\"decision2\").classList.toggle(\"show\")' class='decision-button'> Reveal CVR Travel Team Role </button><p id='decision2' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
+      }
     </script>
 
     <style>
+      #roles, #travelteam {
+        margin-bottom: 3vw;
+      }
       .decision-text {
-        width: 56vw;
+        width: 52vw;
         margin-left: 22vw;
         font-family: "Roboto", sans-serif;
         font-size: 16pt;
@@ -73,11 +83,12 @@
         }
 
         .decision-text {
-          width: 80vw;
+          width: 76vw;
           margin-left: 7vw;
           font-size: 12pt;
         }
       }
     </style>
+    <script>delete window.travelTeamData;delete window.travelTeamDecisions;delete window.roles;delete window.rolesData;delete window.decision;delete window.decode;</script>
   </body>
 </html>
