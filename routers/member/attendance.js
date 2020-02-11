@@ -188,7 +188,7 @@ router.get("/attendanceEntries", auth.verifyRank(ranks.scoutingLead), async (req
             $gte: lastDate.getTime()
         }
     }))
-    .sort({checkOut: 1, email: 1});
+    .sort({checkOut: -1, email: 1});
 
     const dateMap = {};
     for(entry of realEntries) {
