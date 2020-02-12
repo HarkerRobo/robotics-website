@@ -30,19 +30,25 @@
     <%- include(__base + 'views/partials/footer.ejs') %>
 
     <script>
+      setTimeout(function(){
       window.travelTeamDecisions = window.decode(window.travelTeamData);
-      window.decision = window.travelTeamDecisions["<%= auth.info.email %>".slice(0, -20).toLowerCase()];
+      window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
+      console.log(window.travelTeamDecisions);
       if(decision) {
+        window.decision = window.decode(window.travelTeams)[decision];
         document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision1\").classList.toggle(\"show\")' class='decision-button'> Reveal MBR Travel Team Decision </button><p id='decision1' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
       }
       
       window.travelTeamDecisions = window.decode(window.rolesData);
-      window.decision = window.travelTeamDecisions["<%= auth.info.email %>".slice(0, -20).toLowerCase()];
+      window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
       if(decision) {
         window.decision = window.decode(window.roles)[decision];
         document.getElementById("roles").innerHTML = "<button onclick='document.getElementById(\"decision2\").classList.toggle(\"show\")' class='decision-button'> Reveal CVR Travel Team Role </button><p id='decision2' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
       }
+      delete window.travelTeamData;delete window.travelTeamDecisions;delete window.roles;delete window.rolesData;delete window.decision;delete window.decode;
+      }, 1000);
     </script>
+    
 
     <style>
       #roles, #travelteam {
@@ -89,6 +95,5 @@
         }
       }
     </style>
-    <script>delete window.travelTeamData;delete window.travelTeamDecisions;delete window.roles;delete window.rolesData;delete window.decision;delete window.decode;</script>
   </body>
 </html>
