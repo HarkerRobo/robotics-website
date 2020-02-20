@@ -15,9 +15,10 @@
         <h3>Safety Contract</h3>
         <p>Print and sign the <a class="regular" target="_blank" href="/img/media/direc/forms/RoboticsLabSafetyContract.pdf">lab safety contract</a> to gain lab access.</p>
         
+        <% if (auth.level >= ranks.harker_student) {%>
         <h3>Trello</h3>
         <p>To stay on top of the projects ongoing in every subteam and to see how to get involved, check out our <a class="regular" target="_blank" href="https://robotics.harker.org/trello">Trello</a>.</p>
-
+        <% } %>
         <h3>Slack</h3>
         <p>To help with planning projects, check out updates, help coordinate scheduling, and have general robotics-related discussion, take a look at our <a class="regular" target="_blank" href="https://robotics.harker.org/slack">Slack</a>.</p>
 
