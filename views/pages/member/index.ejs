@@ -16,10 +16,6 @@
           <p class="info-text">Since you are whitelisted for PR, you can also make Purchase Requests and view our Resources.</p>
         <% } %>
 
-        <div id="roles">
-          
-        </div>
-
         <div id="travelteam">
           
         </div>
@@ -37,15 +33,15 @@
       console.log(window.travelTeamDecisions);
       if(decision) {
         window.decision = window.decode(window.travelTeams)[decision];
-        document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision1\").classList.toggle(\"show\")' class='decision-button'> Reveal MBR Travel Team Decision </button><p id='decision1' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
+        document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision1\").classList.toggle(\"show\")' class='decision-button'> Houston Travel Team Decision </button><p id='decision1' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
       }
       
-      window.travelTeamDecisions = window.decode(window.rolesData);
-      window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
-      if(decision) {
-        window.decision = window.decode(window.roles)[decision];
-        document.getElementById("roles").innerHTML = "<button onclick='document.getElementById(\"decision2\").classList.toggle(\"show\")' class='decision-button'> Reveal CVR Travel Team Role </button><p id='decision2' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
-      }
+      // window.travelTeamDecisions = window.decode(window.rolesData);
+      // window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
+      // if(decision) {
+      //   window.decision = window.decode(window.roles)[decision];
+      //   document.getElementById("roles").innerHTML = "<button onclick='document.getElementById(\"decision2\").classList.toggle(\"show\")' class='decision-button'> Reveal CVR Travel Team Role </button><p id='decision2' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
+      // }
       delete window.travelTeamData;delete window.travelTeamDecisions;delete window.roles;delete window.rolesData;delete window.decision;delete window.decode;
       }, 1000);}
     </script>
