@@ -1,6 +1,7 @@
 'use strict'
 
 const express = require('express'),
+  fs = require("fs"),
   Blog = require('../../models/blog'),
   https = require('https'),
   session = require('../../helpers/session'),
@@ -201,7 +202,12 @@ router.use('/parts', require('./parts'))
 router.use("/attendance", require("./attendance"))
 router.use("/shortener", require("./shortener"))
 
+let stream = fs.createWriteStream("logins.txt", {flags: "a"})
 router.get('/', function (req, res) {
+  console.log(req.auth.info.email);
+  stream = fs.createWriteStream("logins.txt", {flags: "a"})
+  stream.write(req.auth.info.email);
+  stream.close();
   res.render('pages/member/index')
 })
 
