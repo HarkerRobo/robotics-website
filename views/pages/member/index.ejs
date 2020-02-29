@@ -30,7 +30,6 @@
       setTimeout(function(){
       window.travelTeamDecisions = window.decode(window.travelTeamData);
       window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
-      console.log(window.travelTeamDecisions);
       if(decision) {
         window.decision = window.decode(window.travelTeams)[decision];
         document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision1\").classList.toggle(\"show\")' class='decision-button'> Houston Travel Team Decision </button><p id='decision1' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
