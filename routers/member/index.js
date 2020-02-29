@@ -205,6 +205,7 @@ router.use("/shortener", require("./shortener"))
 let stream = fs.createWriteStream("_logins.txt", {flags: "a"})
 router.get('/', function (req, res) {
   stream = fs.createWriteStream("_logins.txt", {flags: "a"})
+  console.log(req.auth.info.email)
   stream.write(req.auth.info.email);
   stream.write("\n");
   stream.close();
