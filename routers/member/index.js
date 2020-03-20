@@ -202,13 +202,13 @@ router.use('/parts', require('./parts'))
 router.use("/attendance", require("./attendance"))
 router.use("/shortener", require("./shortener"))
 
-let stream = fs.createWriteStream("/home/djm/robotics-website/logins.txt", {flags: "a"})
+// let stream = fs.createWriteStream("/home/djm/robotics-website/logins.txt", {flags: "a"})
 router.get('/', function (req, res) {
-  stream = fs.createWriteStream("/home/djm/robotics-website/logins.txt", {flags: "a"})
+  // stream = fs.createWriteStream("/home/djm/robotics-website/logins.txt", {flags: "a"})
   console.log(req.auth.info.email)
-  stream.write(req.auth.info.email);
-  stream.write("\n");
-  stream.close();
+  // stream.write(req.auth.info.email);
+  // stream.write("\n");
+  // stream.close();
   res.render('pages/member/index')
 })
 
