@@ -106,7 +106,7 @@ window.addEventListener("load", function() {
 const hrefs = [];
 const bottom = document.getElementById("landing-banner-image");
 const _top = document.getElementById("landing-banner-image-top");
-for(let i = 1;i <= 3;i ++) {
+for(let i = 1;i <= 5;i ++) {
     hrefs.push("/new/img/media/index/landing-background" + (!(i - 1) ? "" : i) + ".png")
 }
 bottom.src = hrefs[0];
@@ -127,7 +127,7 @@ function nextSwitch() {
     img = ++img % hrefs.length;
     _top.src = hrefs[img]
 
-    setTimeout(startSwitch, 3000);
+    setTimeout(startSwitch, 2800);
 }
 
 setTimeout(startSwitch, 4000);
