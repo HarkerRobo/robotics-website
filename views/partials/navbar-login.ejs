@@ -53,9 +53,9 @@
         <!--<li><a href="/member/wiki">Wiki</a></li>
         <li><a href="/member/challenges">Challenges</a></li>
         <li><a href="/member/volunteer">Volunteer</a></li>-->
-        <% if (auth.loggedin && auth.level >= ranks.harker_student) { %>
+        <!-- <% if (auth.loggedin && auth.level >= ranks.harker_student) { %>
           <li><a href="/member/attendance">Attendance</a></li>
-        <% } %>
+        <% } %> -->
         <% if (auth.loggedin && auth.level >= ranks.harker_student) { %>
           <li><a href="/member/blog">Blog</a></li>
         <% } %>
@@ -77,7 +77,7 @@
             <% } %>
           </ul>
         </li>
-        <!-- <li class="dropdown">
+        <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Parts<span class="caret"></span></a>
           <ul class="dropdown-menu">
             <li><a href="/member/parts/search">Search</a></li>
@@ -86,7 +86,7 @@
               <li><a href="/member/parts/create">Create</a></li>
             <% } %>
           </ul>
-        </li> -->
+        </li>
         <% if (auth.loggedin && auth.level >= ranks.admin) { %>
           <li><a href="/member/shortener">URL Shortener</a></li>
         <% } %>
