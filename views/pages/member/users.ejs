@@ -19,7 +19,7 @@
             <h1 class="center title-text"><b>PR WHITELIST</b></h1>
             <ul class="list-group black-text" id="members">
               <li class="list-group-item">
-                <form data-level="<%= ranks.pr_whitelist %>"><div class="form-group"><div class="input-group">
+                <form data-level="<%= ranks.director %>"><div class="form-group"><div class="input-group">
                   <input type="email" class="form-control" placeholder="Email" name="email" required />
                   <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div></div></form>
@@ -30,7 +30,7 @@
             <h1 class="center title-text"><b>ADMINS</b></h1>
             <ul class="list-group black-text" id="admins">
               <li class="list-group-item">
-                <form data-level="<%= ranks.admin %>"><div class="form-group"><div class="input-group">
+                <form data-level="<%= ranks.triumvirate %>"><div class="form-group"><div class="input-group">
                   <input type="email" class="form-control" placeholder="Email" name="email" required />
                   <a class="btn input-group-addon submit"><i class="fa fa-plus" aria-hidden="true"></i></a>
                 </div></div></form>
@@ -65,7 +65,7 @@
       }
       function loadUsers() {
         if (xhr1 !== null) xhr1.abort()
-        xhr1 = $.get('/member/userman/userswithauth/' + <%= ranks.pr_whitelist %>, function(emails) {
+        xhr1 = $.get('/member/userman/userswithauth/' + <%= ranks.director %>, function(emails) {
           $('#members li:not(:first)').remove()
           for (var email of emails) {
             $('#members').append('<li class="list-group-item clearfix">' + email +
@@ -75,7 +75,7 @@
           }
         })
         if (xhr2 !== null) xhr2.abort()
-        xhr2 = $.get('/member/userman/userswithauth/' + <%= ranks.admin %>, function(emails) {
+        xhr2 = $.get('/member/userman/userswithauth/' + <%= ranks.triumvirate %>, function(emails) {
           $('#admins li:not(:first)').remove()
           for (var email of emails) {
             $('#admins').append('<li class="list-group-item clearfix">' + email +
