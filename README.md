@@ -24,7 +24,7 @@ The website was updated in the summer of 2019 by Chirag Kaushik with a new desig
 
 The website uses [Node.js](https://nodejs.org/en/) for backend and [Bootstrap 3.3](http://getbootstrap.com/docs/3.3/) + [JQuery](http://jquery.com/) for the frontend. More info can be found in [the Setup section](#setup). The new external facing website uses vanilla Javascript and CSS.
 
-The current Director of Application Development (and webmaster) is [Chirag Kaushik](https://github.com/chiragzq). The website can be found at https://robotics.harker.org/.
+The current Director of Application Development is [Arjun Dixit](https://github.com/dixits1). The website can be found at https://robotics.harker.org/.
 
 ## Setup
 ### Install mongoDB
