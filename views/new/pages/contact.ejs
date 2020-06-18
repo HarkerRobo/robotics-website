@@ -1,56 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Contact - Harker Robotics</title>    
-        <%- include(__base + 'views/new/partials/analytics.ejs') %>
+
+<head>
+    <title>Contact - Harker Robotics</title>
+    <%- include(__base + 'views/new/partials/analytics.ejs') %>
 
         <%- include(__base + 'views/new/partials/favicon.ejs') %>
 
-        <!-- External Styles -->
-        <link href="https://fonts.googleapis.com/css?family=Chivo&display=swap" rel="stylesheet">
+            <!-- External Styles -->
+            <link href="https://fonts.googleapis.com/css?family=Chivo&display=swap" rel="stylesheet">
 
-         <!-- Site Styles -->
-         <link rel="stylesheet" href="new/css/theme.css" />
-         <link rel="stylesheet" href="new/css/splash.css" />
-         <link rel="stylesheet" href="new/css/header.css" />
-         <link rel="stylesheet" href="new/css/footer.css" />
+            <!-- Site Styles -->
+            <link rel="stylesheet" href="new/css/theme.css" />
+            <link rel="stylesheet" href="new/css/splash.css" />
+            <link rel="stylesheet" href="new/css/header.css" />
+            <link rel="stylesheet" href="new/css/footer.css" />
 
-         <!-- Page Styles -->
-        <link rel="stylesheet" href="new/css/contact.css" />
+            <!-- Page Styles -->
+            <link rel="stylesheet" href="new/css/contact.css" />
 
-        <!-- Site Scripts -->
-        <script src="new/js/splash.js" type="text/javascript" defer></script>
-    </head>
-    <body>
-        <%- include(__base + 'views/new/partials/splash.ejs') %>
+            <!-- Site Scripts -->
+            <script src="new/js/splash.js" type="text/javascript" defer></script>
+            <script src="https://www.google.com/recaptcha/api.js"></script>
+</head>
+
+<body>
+    <%- include(__base + 'views/new/partials/splash.ejs') %>
         <div id="content">
             <%- include(__base + 'views/new/partials/header.ejs') %>
-            <div id="body">
-                <h1 id="contact-title">Contact</h1>
-                <p id="contact-description">We would love to hear from you! If you are interested in contacting us, you can send us a message or visit us.</p>
-                <h2>Visit Us</h2>
-                <iframe id="google-maps" src="https://maps.google.com/maps?q=harker%20upper&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no">Loading map...</iframe>
-                <p style="margin-bottom: 4vw;">500 Saratoga Ave, San Jose, CA 95129</p>
-                <h2>Message Us</h2>
-                <form action="/contact" method="POST" id="form">
-                    <% if(locals.message) { %>
-                        <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center"><%= message %></p>
-                    <% } %>
-                    <p class="form-text">Email Address</p>
-                    <input class="form-input" type="email" name="email" minlength="1" required /> <br />
-                    <p class="form-text">Name</p>
-                    <input class="form-input" type="text" name="name" minlength="1" required /> <br />
-                    <p class="form-text">Organization</p>
-                    <input class="form-input" type="text" name="organization" minlength="1" required /> <br />
-                    <p class="form-text">Topic</p>
-                    <input class="form-input" type="text" name="topic" minlength="1" required /> <br />
-                    <p class="form-text">Message</p>
-                    <textarea class="form-input" id="textarea" form="form" name="message" minlength="1" required></textarea> <br />
-                    <input type="submit" class="submit-button" value="Submit"/>
-                </form>
-                <!-- <iframe id="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSdcDTb_iFBL7v-AlndSE7g__vXogUWy_gCYP5VLm_d8wQTcEg/viewform?embedded=true" frameborder="0">Loading form...</iframe> -->
-            </div>
-            <%- include(__base + 'views/new/partials/footer.ejs') %>
+                <div id="body">
+                    <h1 id="contact-title">Contact</h1>
+                    <p id="contact-description">We would love to hear from you! If you are interested in contacting us, you can send us a message or visit us.</p>
+                    <h2>Visit Us</h2>
+                    <iframe id="google-maps" src="https://maps.google.com/maps?q=harker%20upper&t=&z=17&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no">Loading map...</iframe>
+                    <p style="margin-bottom: 4vw;">500 Saratoga Ave, San Jose, CA 95129</p>
+                    <h2>Message Us</h2>
+                    <form action="/contact" method="POST" id="form">
+                        <% if(locals.message) { %>
+                            <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center">
+                                <%= message %>
+                            </p>
+                            <% } %>
+                                <p class="form-text">Email Address</p>
+                                <input class="form-input" type="email" name="email" minlength="1" required /> <br />
+                                <p class="form-text">Name</p>
+                                <input class="form-input" type="text" name="name" minlength="1" required /> <br />
+                                <p class="form-text">Organization</p>
+                                <input class="form-input" type="text" name="organization" minlength="1" required /> <br />
+                                <p class="form-text">Topic</p>
+                                <input class="form-input" type="text" name="topic" minlength="1" required /> <br />
+                                <p class="form-text">Message</p>
+                                <textarea class="form-input" id="textarea" form="form" name="message" minlength="1" required></textarea> <br />
+                                <div class="g-recaptcha" data-sitekey="6LeBUaYZAAAAAPJ86mgUDGSVncmg4VeOo-0651kt"></div> <br />
+                                <input type="submit" class="submit-button" value="Submit" />
+                    </form>
+                    <!-- <iframe id="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSdcDTb_iFBL7v-AlndSE7g__vXogUWy_gCYP5VLm_d8wQTcEg/viewform?embedded=true" frameborder="0">Loading form...</iframe> -->
+                </div>
+                <%- include(__base + 'views/new/partials/footer.ejs') %>
         </div>
-    </body>
+</body>
+
 </html>
