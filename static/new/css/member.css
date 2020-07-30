@@ -55,6 +55,63 @@
     margin: 0 auto;
     text-align: center;
 }
+
+#header {
+    width: 90%;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.year-div {
+    padding: 20px;
+    margin: 20px auto;
+    text-align: center;
+    width: 90%;
+    font-family: "Chivo", sans-serif;
+}
+
+.year-div-inner {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    max-height: 120vh;
+}
+
+.year-div-item {
+    max-width: 50%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 1vh;
+}
+
+.year-div-item span {
+    width: 80%;
+    text-align: left;
+    color: var(--color-primary);
+}
+
+.year-div-item span:nth-child(1) {
+    font-size: 2vw;
+    font-weight: 700;
+}
+
+.year-div-item span:nth-child(2) {
+    font-size: 2vw;
+}
+
+
+#body div:last-child {
+    margin-bottom: 0px;
+}
+
+#leaders {
+    padding: 0px 0px 40px 0px;
+}
+
 #team-picture {
     width: 90%;
     margin: 0 auto;

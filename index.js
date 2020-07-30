@@ -94,6 +94,10 @@ app.get("/outreach", (req, res) => {
     res.render("new/pages/outreach.ejs");
 });
 
+app.get("/pastleadership", (req, res) => {
+    res.render("new/pages/pastleadership.ejs");
+});
+
 app.get("/media", (req, res) => {
     res.render("new/pages/media.ejs");
 });
@@ -265,7 +269,7 @@ process.on('unhandledRejection', (reason, p) => {
 })
 
 
-const port = config.server.port || 80
+const port = config.server.port || 5000
 const server = app.listen(port, () => {
     console.log()
     console.log("--- WEBSERVER ON ---")

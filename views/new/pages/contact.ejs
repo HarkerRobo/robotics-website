@@ -36,23 +36,23 @@
                     <p style="margin-bottom: 4vw;">500 Saratoga Ave, San Jose, CA 95129</p>
                     <h2>Message Us</h2>
                     <form action="/contact" method="POST" id="form">
-                        <% if(locals.message) { %>
-                            <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center">
+                        <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center">
+                            <% if(locals.message) { %>
                                 <%= message %>
-                            </p>
-                            <% } %>
-                                <p class="form-text">Email Address</p>
-                                <input class="form-input" type="email" name="email" minlength="1" required /> <br />
-                                <p class="form-text">Name</p>
-                                <input class="form-input" type="text" name="name" minlength="1" required /> <br />
-                                <p class="form-text">Organization</p>
-                                <input class="form-input" type="text" name="organization" minlength="1" required /> <br />
-                                <p class="form-text">Topic</p>
-                                <input class="form-input" type="text" name="topic" minlength="1" required /> <br />
-                                <p class="form-text">Message</p>
-                                <textarea class="form-input" id="textarea" form="form" name="message" minlength="1" required></textarea> <br />
-                                <div class="g-recaptcha" data-sitekey="6LeBUaYZAAAAAPJ86mgUDGSVncmg4VeOo-0651kt"></div> <br />
-                                <input type="submit" class="submit-button" value="Submit" />
+                                    <% } %>
+                        </p>
+                        <p class="form-text">Email Address</p>
+                        <input class="form-input" type="email" name="email" minlength="1" required /> <br />
+                        <p class="form-text">Name</p>
+                        <input class="form-input" type="text" name="name" minlength="1" required /> <br />
+                        <p class="form-text">Organization</p>
+                        <input class="form-input" type="text" name="organization" minlength="1" required /> <br />
+                        <p class="form-text">Topic</p>
+                        <input class="form-input" type="text" name="topic" minlength="1" required /> <br />
+                        <p class="form-text">Message</p>
+                        <textarea class="form-input" id="textarea" form="form" name="message" minlength="1" required></textarea> <br />
+                        <div class="g-recaptcha" data-sitekey="6LeBUaYZAAAAAPJ86mgUDGSVncmg4VeOo-0651kt"></div> <br />
+                        <input type="submit" class="submit-button" value="Submit" />
                     </form>
                     <!-- <iframe id="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSdcDTb_iFBL7v-AlndSE7g__vXogUWy_gCYP5VLm_d8wQTcEg/viewform?embedded=true" frameborder="0">Loading form...</iframe> -->
                 </div>
