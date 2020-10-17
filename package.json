@@ -24,6 +24,7 @@
         "express": "^4.16.3",
         "express-session": "^1.15.6",
         "google-auth-library": "^1.5.0",
+        "googleapis": "^59.0.0",
         "greenlock-express": "^2.1.5",
         "helmet": "^3.12.1",
         "le-challenge-fs": "^2.0.8",

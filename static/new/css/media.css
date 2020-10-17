@@ -12,8 +12,74 @@
     margin-bottom: 1vw;
 }
 
+/* #team-tutorials {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0px 0px 20px 5px rgba(0.1, 0.1, 0.1, 0.15);
+    margin: 30px 5vw;
+    display: flex;
+    flex-direction: column;
+} */
 
-#team-videos-title, #team-pictures-title {
+#tutorials-content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: auto;
+    padding: 50px;
+}
+
+#tutorials-nav {
+    display: flex;
+    flex-direction: row;
+    width: auto;
+    padding: 30px 50px 10px 50px;
+    color: var(--color-primary-light);
+}
+
+.tut-nav-tab {
+    flex-grow: 1;
+    padding: 20px;
+    font-size: 2vw;
+}
+
+
+.tut-nav-tab {
+    flex-grow: 1;
+    padding: 20px;
+    font-size: 2vw;
+}
+
+.tut-nav-tab > h3 {
+    color: var(--color-primary-light);
+}
+
+.tut-nav-tab-selected > h3 {
+    color: var(--color-primary) !important;
+    font-weight: 600;
+}
+
+#tutorials-separator {
+    width: 100%;
+    background-color: rgba(0.1, 0.1, 0.1, 0.15);
+    height: 4px;
+}
+
+.video-card {
+    flex-grow: 1;
+}
+
+.video-card-vid {
+    min-width: 260px;
+    max-width: 300px;
+}
+
+.video-card-title {
+    color: #444;
+    font-size: 3vw;
+}
+
+#team-tutorials-title, #team-videos-title, #team-pictures-title {
     font-size: 4vw;
     color: var(--color-primary-light);
     margin-bottom: 2vw;
@@ -58,7 +124,7 @@
 }
 
 .media-title {
-    color: black;
+    color: var(--color-primary-light);
     /* margin-left: 1vw; */
     font-size: 2.2vw;
     margin-bottom: 1vw;
@@ -164,3 +230,130 @@
         transform: translate(28vw, -45vw);
     }
 }
+
+#tut-software-content {
+    flex-direction: row;
+    display: flex;
+    padding: 50px 50px;
+}
+
+
+/* Tabs UI */
+.media-tutorial-tab-wrap {
+    transition: 0.3s box-shadow ease;
+    border-radius: 6px;
+    margin: 0px 4vw 40px 4vw;
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+    list-style: none;
+    background-color: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+}
+.media-tutorial-tab-wrap:hover {
+    box-shadow: 0 12px 23px rgba(0, 0, 0, 0.23), 0 10px 10px rgba(0, 0, 0, 0.19);
+}
+.media-tutorial-tab {
+    display: none;
+}
+.media-tutorial-tab:checked:nth-of-type(1) ~ .media-tutorial-tab__content:nth-of-type(1) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    text-shadow: 0 0 0;
+}
+.media-tutorial-tab:checked:nth-of-type(2) ~ .media-tutorial-tab__content:nth-of-type(2) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    text-shadow: 0 0 0;
+}
+.media-tutorial-tab:checked:nth-of-type(3) ~ .media-tutorial-tab__content:nth-of-type(3) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    text-shadow: 0 0 0;
+}
+.media-tutorial-tab:checked:nth-of-type(4) ~ .media-tutorial-tab__content:nth-of-type(4) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    text-shadow: 0 0 0;
+}
+.media-tutorial-tab:checked:nth-of-type(5) ~ .media-tutorial-tab__content:nth-of-type(5) {
+    opacity: 1;
+    transition: 0.5s opacity ease-in, 0.8s transform ease;
+    position: relative;
+    top: 0;
+    z-index: 100;
+    transform: translateY(0px);
+    text-shadow: 0 0 0;
+}
+.media-tutorial-tab:first-of-type:not(:last-of-type) + label {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+.media-tutorial-tab:not(:first-of-type):not(:last-of-type) + label {
+    border-radius: 0;
+}
+.media-tutorial-tab:last-of-type:not(:first-of-type) + label {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+.media-tutorial-tab:checked + label {
+    background-color: #fff;
+    box-shadow: 0 -1px 0 #fff inset;
+    cursor: default;
+}
+.media-tutorial-tab:checked + label:hover {
+    box-shadow: 0 -1px 0 #fff inset;
+    background-color: #fff;
+}
+.media-tutorial-tab + label {
+    box-shadow: 0 -1px 0 #eee inset;
+    border-radius: 6px 6px 0 0;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    flex-grow: 3;
+    text-align: center;
+    background-color: #f2f2f2;
+    user-select: none;
+    text-align: center;
+    transition: 0.3s background-color ease, 0.3s box-shadow ease;
+    box-sizing: border-box;
+    padding: 20px;
+}
+
+label {
+    color: var(--color-primary-light);
+    font-size: 2.2vw;
+}
+
+.media-tutorial-tab + label:hover {
+    background-color: #f9f9f9;
+    box-shadow: 0 1px 0 #f4f4f4 inset;
+}
+.media-tutorial-tab__content {
+    padding: 10px 25px;
+    background-color: transparent;
+    position: absolute;
+    width: 100%;
+    z-index: -1;
+    opacity: 0;
+    left: 0;
+    transform: translateY(-3px);
+    border-radius: 6px;
+)

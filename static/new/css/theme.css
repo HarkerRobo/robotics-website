@@ -30,7 +30,7 @@ h1, h2, h3, h4, h5, h6, p {
     margin: 0;
 }
 
-h1, h2, h3 {
+h1, h2, h3, label {
     font-family: "Chivo", sans-serif;
 }
 
@@ -62,34 +62,32 @@ h4 {
 }
 
 button, .submit-button {
-    -webkit-transition-duration: 0.15s;
-       -moz-transition-duration: 0.15s;
-         -o-transition-duration: 0.15s;
-            transition-duration: 0.15s;
+    -webkit-transition-duration: 0.07s;
+       -moz-transition-duration: 0.07s;
+         -o-transition-duration: 0.07s;
+            transition-duration: 0.07s;
 
     background-color: var(--color-primary);
     border: 2px solid var(--color-primary);
 
     font-family: 'Lato', sans-serif;
-    font-size: 2.7vw;
+    font-size: 1.8vw;
     color: var(--color-light);
     text-align: center;
 
     /* width: 15vw; */
-    height: 5vw;
     display: table-cell;
     /* padding: 1.5vw; */
-    padding-left: 1.5vw;
-    padding-right: 1.5vw;
+    padding: 0.9vw 1.6vw;
     vertical-align: middle;
     /* line-height: 5vw; */
     text-decoration: none;
 
-    -webkit-border-radius: 7px;
+    -webkit-border-radius: 5px;
 
-       -moz-border-radius: 7px;
+    -moz-border-radius: 5px;
 
-            border-radius: 7px;
+    border-radius: 5px;
     cursor: pointer;
 }
 

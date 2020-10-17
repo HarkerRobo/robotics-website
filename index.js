@@ -27,7 +27,10 @@ const express = require('express'),
     Url = require("./models/url"),
 
     config = require('./config.json'),
-    request = require("request");
+    request = require("request"),
+    { google } = require('googleapis'),
+    youtube = google.youtube('v3');
+
 
 function getTimeFormatted() {
     return moment().format('MMMM Do YYYY, h:mm:ss a') + ' (' + Date.now() + ')'
@@ -98,10 +101,6 @@ app.get("/pastleadership", (req, res) => {
     res.render("new/pages/pastleadership.ejs");
 });
 
-app.get("/media", (req, res) => {
-    res.render("new/pages/media.ejs");
-});
-
 app.get("/contact", (req, res) => {
     res.render("new/pages/contact.ejs");
 })
@@ -113,6 +112,28 @@ app.get("/sponsor", (req, res) => {
 app.get('/privacy', function(req, res) {
     res.render('pages/privacy')
 })
+
+app.get("/media", (req, res) => {
+    youtube.playlistItems.list({
+        key: config.google.secretKey,
+        part: 'id,snippet',
+        playlistId: 'PL7Cpqic7wNE4fiC5SfmtTijEwN_rZ-Su6'
+      }, (err, results) => {
+          if(err) {
+              console.log(err.message);
+              res.render("new/pages/media.ejs");
+          }
+          else {
+              let videoItems = results.data.items;
+              let videoIdList = [];
+              for(let video of videoItems)
+              {
+                videoIdList.push(video.snippet.resourceId.videoId);
+              }
+              res.render("new/pages/media.ejs", {idList: videoIdList});
+          }
+      });
+});
 
 /** shortlinks **/
 
@@ -154,8 +175,7 @@ app.post("/contact", (req, res) => {
             message: "Please complete the captcha."
         })
     } else {
-        var captcha_secret = "6LeBUaYZAAAAANpB_vDy8y3JATdNIqANroLionYP"
-        var captcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + captcha_secret + "&response=" + captcha_res + "&remoteip=" + req.connection.remoteAddress
+        var captcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config.captcha.secret + "&response=" + captcha_res + "&remoteip=" + req.connection.remoteAddress
 
         request(captcha_url, function(error, response, body) {
             body = JSON.parse(body);

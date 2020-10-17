@@ -28,6 +28,44 @@
             <%- include(__base + 'views/new/partials/header.ejs') %>
             <div id="body">
                 <h1 id="media-title">Media</h1>
+                <h2 id="team-videos-title">Tutorials</h2>
+                <!-- https://codepen.io/fusco/pen/Wvzjrm -->
+                <div class="media-tutorial-tab-wrap">
+
+                    <!-- active tab on page load gets checked attribute -->
+                    <input type="radio" id="tab1" name="tabGroup1" class="media-tutorial-tab" checked>
+                    <label for="tab1">Software</label>
+                
+                    <!-- <input type="radio" id="tab2" name="tabGroup1" class="media-tutorial-tab">
+                    <label for="tab2">Design</label> -->
+                
+                    <!-- <input type="radio" id="tab3" name="tabGroup1" class="media-tutorial-tab">
+                    <h3 for="tab3">Electrical</h3> -->
+                
+                    <div id="tut-software-content" class="media-tutorial-tab__content">
+                        <% if (idList) { %>
+                            <% for (let id of idList) { %>
+                                <div class="video-card">
+                                    <iframe class="video-card-vid" src="https://www.youtube.com/embed/<%= id %>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                                </div>
+                            <% } %>
+                        <% } %>                 
+                    </div>
+
+                    <div class="media-tutorial-tab__content">
+                                  
+                    </div>
+                
+                  </div>
+                <!-- <div id="team-tutorials">
+                    <input type="radio" id="tab1" name="tabGroup1" class="media-tutorial-tab">
+                    <span>Software</span>
+                    <input type="radio" id="tab2" name="tabGroup2" class="media-tutorial-tab">
+                    <span>Electrical</span>
+                    <input type="radio" id="tab3" name="tabGroup3" class="media-tutorial-tab">
+                    <span>Design</span>
+                    <div id="tutorials-separator"></div>
+                </div> -->
                 <h2 id="team-videos-title">Videos</h2>
                 <div id="team-videos">
                     <div class="media-card">
@@ -44,13 +82,20 @@
                     </div>
                     <div class="media-card">
                         <h3 class="media-title">Sacramento and Houston Recap</h3>
-                        <iframe class="media-video" src="https://www.youtube.com/embed/YPKJjokdZ8c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    </div>
+                        <iframe class="media-video" src="https://www.youtube.com/embed/YPKJjokdZ8c" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    
+                    </div>
                     <div class="media-card">
                         <h3 class="media-title">Central Valley Regional Recap</h3>
-                        <iframe class="media-video" src="https://www.youtube.com/embed/q29h3ALmlQs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    </div>
+                        <iframe class="media-video" src="https://www.youtube.com/embed/q29h3ALmlQs" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    
+                    </div>
                     <div class="media-card">
                         <h3 class="media-title">Robot Reveal</h3>
-                        <iframe class="media-video" src="https://www.youtube.com/embed/oDzwGE3Y1GA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    </div>
+                        <iframe class="media-video" src="https://www.youtube.com/embed/oDzwGE3Y1GA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    
+                    </div>
+                    <div class="media-card">
+                        <h3 class="media-title">Club Fair</h3>
+                        <iframe class="media-video" src="https://www.youtube.com/embed/zJ8GRliXA4w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                    
+                    </div>
                 </div>
                 <h2 id="team-pictures-title">Pictures</h2>
                 <div id="team-pictures">
