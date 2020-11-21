@@ -197,6 +197,7 @@
 #team-background-text {
     margin: 10vw auto;
     font-size: 3.8vw;
+    color: var(--color-header);
 }
 
 #team-statistics-wrapper {
@@ -254,7 +255,7 @@
     margin: 0;
 
     font-size: 2.2vw;
-    color: black;
+    color: var(--color-content);
 }
 
 #about-buttons-wrapper {
@@ -365,32 +366,35 @@
 }
 
 #outreach-info {
-    font-family: "Lato", sans-serif;
-    background-color: rgba(240, 240, 240, 0.5);
-
-    width: 40vw;
-    height: 37vw;
-
+    width: 35vw;
     margin-left: auto;
-    margin-bottom: 17.4vw;
+    margin-right: 6vw;
+}
+
+#outreach-info, #media-info {
+    font-family: "Roboto", sans-serif;
+    background-color: rgba(20, 20, 20, 0.5);
     text-align: center;
+    padding: 3vw;
+    margin-bottom: 17.4vw;
 }
 
-#outreach-title {
-    padding-top: 3vw;
-    margin-bottom: 1vw;
+#outreach-title, #media-title {
+    text-transform: uppercase;
+    font-weight: 500;
+    color: #fff;
+    font-size: 4.4vw;
 }
 
-#outreach-description {
-    font-family: "Lato", sans-serif;
+#outreach-description, #media-description {
+    font-family: "Roboto", sans-serif;
     font-weight: 300;
-    font-size: 3.2vw;
-    line-height: 4vw;
-    margin: 0 auto 2vw auto;
-    width: 90%;
-
-    color: #355797;
+    font-size: 2.2vw;
+    line-height: 3vw;
+    color: var(--color-light);
+    margin: 5vh 0;
 }
+
 
 #outreach-media-spacer {
     width: 100vw;
@@ -419,10 +423,6 @@
             background-size: cover;
 }
 
-#outreach-title, #media-title {
-    font-size: 6vw;
-}
-
 #media-gradient {
     width: 100%;
     height: -webkit-calc(100% - 17.4vw);
@@ -434,34 +434,10 @@
 }
 
 #media-info {
-    background-color: rgba(240, 240, 240, 0.5);
-
     width: 40vw;
-    height: 35vw;
-
     margin-right: auto;
-    
-    margin-bottom: 17.4vw;
-    text-align: center;
+    margin-left: 6vw;
 }
-
-#media-title {
-    padding-top: 3vw;
-    margin-bottom: -0.5vw;
-}
-
-#media-description {
-    font-family: "Lato", sans-serif;
-    font-weight: 100;
-    font-size: 3.4vw;
-    line-height: 4vw;
-
-    width: 98%;
-    margin: 0 auto 2vw auto;
-
-    color: #355797;
-}
-
 
 #media-transition {
     width: 100vw;
@@ -500,16 +476,13 @@
         width: 60vw;
     }
 
-    #outreach-title, #media-title {
-        font-size: 9vw;
-    }
-
     #outreach-description, #media-description {
-        font-size: 5.5vw;
-        line-height: 6vw;
-        width: 95%;
-        font-weight: normal;
-        margin-bottom: 3vw;
+        font-family: "Roboto", sans-serif;
+        font-weight: 300;
+        font-size: 2.2vw;
+        line-height: 3vw;
+        color: var(--color-light);
+        margin: 5vh 0;
     }
 
     #media-info {
@@ -548,7 +521,7 @@
     width: 75%;
     color: black;
 
-    font-size: 4vw;
+    font-size: 3vw;
     margin-bottom: 6vw;
     font-weight: 100;
 }

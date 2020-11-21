@@ -1,10 +1,24 @@
+:root {
+    --header-height: 9vh;
+}
+
 #content {
     width: 100%;
 }
 
-#header-navigation-wrapper {
-    position: -webkit-sticky;
+#header-navigation-invis {
+    background-color: var(--color-light);
     position: sticky;
+    width: 100%;
+    top: 0;
+    margin: 0vh auto 0vh auto;
+    height: var(--header-height);
+}
+
+#header-navigation-wrapper {
+    opacity: 0.8;
+    position: fixed;
+    width: 100%;
     top: 0;
     margin: 0vh auto 0vh auto;
     display: -webkit-box;
@@ -29,11 +43,11 @@
        -moz-box-align: center;
         -ms-flex-align: center;
             align-items: center;
-    height: 8vh;
+    height: var(--header-height);
 
-    -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+    /* -webkit-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
     -moz-box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
-         box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30);
+         box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30); */
      
 
     z-index: 1;
@@ -57,10 +71,9 @@
 
 
 #header-logo-image {
-    height: 5vh;
-    margin-left: 1.9vw;
-    margin-right: 2.1vw;
-    margin-top: 1.5vh;
+    height: 4vh;
+    margin: 2.5vh 0;
+    padding: 0px 1.5vw;
 }
 
 #header-harker-robotics {
@@ -74,8 +87,8 @@
     text-align: center;
     vertical-align: middle;
     
-    line-height: 8vh;
-    height: 8vh;
+    line-height: var(--header-height);
+    height: var(--header-height);
     padding-left: 1.5vw;
     padding-right: 1.5vw;
 
@@ -99,7 +112,8 @@
 
 .header-navigation > h4 {
     margin: 0 auto;
-    font-size: calc(6pt + 0.7vw);
+    font-size: calc(4pt + 1.5vh);
+    text-transform: uppercase;
 }
 
 .header-break {
@@ -114,14 +128,14 @@
     height: 100%;
     width: 50%;
     text-align: right;
-    line-height: 8vh;
+    line-height: 100%;
     padding-right: 2vw;
 }
 
 
 #header-member-icon, #header-mobile-expand-icon {
-    width: 5vh;
-    height: 5vh;
+    width: 6vh;
+    height: 6vh;
     margin: auto auto;
     margin-top: 1.5vh;
 }
