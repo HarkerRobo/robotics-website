@@ -24,6 +24,7 @@ nav:
     - Command Based Structure: basic/command-structure.md
     - Motors and Motor Controllers: basic/motors.md
     - OI: basic/oi.md
+    - RobotMap: basic/robotmap.md
     - Sample Drivetrain Subsystem: basic/sample-subsystem.md
     - Sample Drivetrain Command: basic/sample-command.md
     - Pneumatics: basic/pneumatics.md
