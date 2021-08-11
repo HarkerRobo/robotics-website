@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/member.css" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <body>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <header>
+      <h1 class="title" style="font-size:calc(32pt+1vw)">TEAM CALENDAR</h1>
+      <iframe class="calendar" src="https://calendar.google.com/calendar/embed?src=harker.org_kfg7qblgl81se4dcjtl5di48dk%40group.calendar.google.com&ctz=America%2FLos_Angeles" style="border: 0" width="800" height="600" frameborder="0" scrolling="no"></iframe>
+    </header>
+
+    <style>
+      .calendar {
+        width: 90%;
+        margin: 5vh 5%;
+
+      }
+    </style>
+  </body>
+</html>

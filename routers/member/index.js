@@ -21,7 +21,11 @@ const express = require('express'),
   smtpConfig = config.automail,
   transporter = nodemailer.createTransport(smtpConfig),
   csrfProtection = csrf({ cookie: true }),
-  client = new OAuth2Client(config.google.clientIDs)
+  client = new OAuth2Client(config.google.clientIDs),
+  
+  request = require("request"),
+  { google } = require('googleapis'),
+  youtube = google.youtube('v3');
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
@@ -220,6 +224,31 @@ router.get('/blog', (req, res) => {
   })
 })
 
+router.get("/training", (req, res) => {
+  youtube.playlistItems.list({
+      key: config.google.secretKey,
+      part: 'id,snippet',
+      playlistId: 'PL7Cpqic7wNE4fiC5SfmtTijEwN_rZ-Su6'
+    }, (err, results) => {
+        if(err) {
+            console.log(err.message);
+            res.render("pages/member/trainingResources");
+        }
+        else {
+            let videoItems = results.data.items;
+            let videoIdList = [];
+            for(let video of videoItems)
+            {
+              videoIdList.push(video.snippet.resourceId.videoId);
+            }
+            res.render("pages/member/trainingResources", {idList: videoIdList});
+        }
+    });
+});
+
+router.get('/calendar', function(req, res){
+  res.render('pages/member/calendar')
+})
 
 router.get('/resources', function(req, res){
   res.render('pages/member/resources')

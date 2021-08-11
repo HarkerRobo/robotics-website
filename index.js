@@ -114,25 +114,7 @@ app.get('/privacy', function(req, res) {
 })
 
 app.get("/media", (req, res) => {
-    youtube.playlistItems.list({
-        key: config.google.secretKey,
-        part: 'id,snippet',
-        playlistId: 'PL7Cpqic7wNE4fiC5SfmtTijEwN_rZ-Su6'
-      }, (err, results) => {
-          if(err) {
-              console.log(err.message);
-              res.render("new/pages/media.ejs");
-          }
-          else {
-              let videoItems = results.data.items;
-              let videoIdList = [];
-              for(let video of videoItems)
-              {
-                videoIdList.push(video.snippet.resourceId.videoId);
-              }
-              res.render("new/pages/media.ejs", {idList: videoIdList});
-          }
-      });
+    res.render("new/pages/media.ejs");
 });
 
 /** shortlinks **/

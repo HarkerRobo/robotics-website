@@ -9,24 +9,10 @@
   <body>
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
     <header>
-      <h1 class="title" style="font-size:calc(32pt+1vw)">RESOURCES</h1>
+      <h1 class="title" style="font-size:calc(32pt+1vw)">PERMISSION FORMS</h1>
       <div class="allthestuff">
-        <h2>Useful Links</h2>
         <h3>Safety Contract</h3>
         <p>Print and sign the <a class="regular" target="_blank" href="/img/media/direc/forms/RoboticsLabSafetyContract.pdf">lab safety contract</a> to gain lab access.</p>
-        
-        <% if (auth.level >= ranks.harker_student) {%>
-        <h3>Trello</h3>
-        <p>To stay on top of the projects ongoing in every subteam and to see how to get involved, check out our <a class="regular" target="_blank" href="https://robotics.harker.org/trello">Trello</a>.</p>
-        <% } %>
-        <h3>Slack</h3>
-        <p>To help with planning projects, check out updates, help coordinate scheduling, and have general robotics-related discussion, take a look at our <a class="regular" target="_blank" href="https://robotics.harker.org/slack">Slack</a>.</p>
-
-        <h3>Introduction</h3>
-        <p>To learn more about FRC and how our team competes, watch the <a class="regular" target="_blank" href="https://robotics.harker.org/intro">intro to FRC playlist</a>.</p>
-        <br />
-
-        <h2>Permission Forms</h2>
         <h3>Kickoff Permission Form</h3>
         <p>Turn in the <a class="regular" target="_blank" href="https://drive.google.com/file/d/16zZp-hQghx3y90fylVQgo2KXHAZyOhin/view">Kickoff Permission Form</a> to attend the kickoff event on January 4th.</p>
         <h3>Build Permission Form</h3>
