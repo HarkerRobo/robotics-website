@@ -35,6 +35,7 @@ router.all('/*', function (req, res, next) {
       next()
     } else {
         res.render('pages/member/error', { statusCode: 401, error: "Must be a admin to use the URL shortener."})
+	console.log(req.body)
     }
 });
 
