@@ -34,7 +34,7 @@ router.all('/*', function (req, res, next) {
     if (req.auth.level >= ranks.director) { 
       next()
     } else {
-        res.render('pages/member/error', { statusCode: 401, error: "Must be a admin to use the URL shortener."})
+        res.render('pages/member/error', { statusCode: 401, error: "Must be a director to use the URL shortener."})
 	console.log(req.body)
     }
 });
