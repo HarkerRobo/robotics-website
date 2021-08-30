@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include(__base + 'views/partials/head.ejs') %>
+    <link rel="stylesheet" type="text/css" href="/css/machiningFiles.css" />
+
+    <meta name="apple-mobile-web-app-capable" content="yes">
+  </head>
+  <body>
+    <%- include(__base + 'views/partials/navbar-login.ejs') %>
+    <header>
+        <h1 class="title" style="font-size:calc(32pt+1vw)">Machining File Upload</h1>
+        <form class="main-content" method='post' action='/member/machining' enctype="multipart/form-data">
+            <input type="file" id="file upload" name="filename">
+            <span id="file-err-msg"><% payload.statusMessage %></span>
+            <input class="btn btn-default" type="submit" value="Upload">
+        </form>
+    </header>
+  </body>
+</html>
