@@ -17,6 +17,7 @@ const express = require('express'),
   config = require(__base + 'config.json'),
   ranks = require('../../helpers/ranks.json'),
   auth = require('../../helpers/auth'),
+  email = require('../../helpers/email'),
   router = express.Router(),
   smtpConfig = config.automail,
   transporter = nodemailer.createTransport(smtpConfig),
@@ -25,7 +26,13 @@ const express = require('express'),
   
   request = require("request"),
   { google } = require('googleapis'),
-  youtube = google.youtube('v3');
+  youtube = google.youtube('v3'),
+  busboy = require('connect-busboy'),
+  path = require('path'),
+  fse = require('fs-extra'),
+  cron = require('node-cron');
+
+let MACHINING_FILES = require.main.filename.split('index.js')[0] + '/machining-files/'
 
 const toNumber = (num, err) => {
   var res = parseInt(num, 10)
@@ -48,49 +55,33 @@ async function verifyIdToken(token) {
       idToken: token,
       audience: config.google.clientIDs,
   })).getPayload();
-
-  /*return new Promise((resolve, reject) => {
-
-    let data = ""
-    const req_path = `/oauth2/v3/tokeninfo?id_token=${token}`
-    console.log('[API TOKEN] path: ', req_path)
-    let request = https.request({
-        hostname: 'www.googleapis.com',
-        port: 443,
-        path: req_path,
-        method: 'GET'
-      }, (result, err) => {
-        if (err) {
-          reject(err)
-          return
-        }
-
-        result.on('data', (d) => { data += d }).on('end', (d) => {
-
-          data = JSON.parse(data)
-          console.log('[DATA]', data)
-
-          console.log()
-          console.log('---API TOKEN REQUESTED---')
-          console.log('[API TOKEN]', data.name + ' (' + data.email + ')')
-
-          if (result.statusCode !== 200) {
-            reject('Invalid Token')
-            return
-          }
-
-          if (!config.google.clientIDs.includes(data.aud)) {
-            reject('Token does match Google Client ID')
-            return
-          }
-
-          resolve(data)
-      })
-    }).on('error', reject)
-    request.end()
-  })
-  */
 }
+
+cron.schedule(config.automail.cronPattern, async () => {
+  n_requests = await Purchase.count({"approval": 2});
+
+  if (n_requests > 0) {
+    if(n_requests == 1) {
+      subject = 'A purchase request is awaiting your approval.';
+    } else {
+      subject = n_requests + ' purchase requests are awaiting your approval.';
+    }
+
+    to = MENTOR_EMAIL;
+    text =
+      subject + ` You can see all pending requests here:
+http://${config.server.domain}/member/purchase/mentor`
+
+    html = 
+      subject + ` You can see all pending requests here:<br/>
+<a href="http://${config.server.domain}/member/purchase/mentor">
+http://${config.server.domain}/member/purchase/mentor
+</a>`
+    
+    email.sendMail(config.automail.auth.email, to, subject, text, html) 
+  }
+});
+
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // handles google sign-in tokens given from client
@@ -223,6 +214,35 @@ router.get('/blog', (req, res) => {
     res.render('pages/blog', { posts: posts})
   })
 })
+
+router.get("/machining/getfiles", (req, res) => { 
+  fs.readdir(MACHINING_FILES, (err, files) => {
+    if(!err) {
+      res.json({"files": files});
+    }
+  });
+})
+
+router.get("/machining", (req, res) => { 
+  res.render("pages/member/machiningFiles", {statusMessage: "Upload Completed"});
+})
+
+// https://stackoverflow.com/questions/23691194/node-express-file-upload
+router.post('/machining', (req, res) => {
+    var fstream;
+    req.pipe(req.busboy);
+    req.busboy.on('file', function (fieldname, file, filename) {
+        console.log("Uploading: " + filename);
+
+        //Path where image will be uploaded
+        fstream = fse.createWriteStream(MACHINING_FILES + filename);
+        file.pipe(fstream);
+        fstream.on('close', function () {    
+            console.log("Upload Finished of " + filename);
+            res.render("pages/member/machiningFiles", {statusMessage: "Upload Completed"});
+        });
+    });
+});
 
 router.get("/training", (req, res) => {
   youtube.playlistItems.list({
