@@ -29,9 +29,7 @@ const express = require('express'),
     config = require('./config.json'),
     request = require("request"),
     { google } = require('googleapis'),
-    youtube = google.youtube('v3'),
-
-    busboy = require('connect-busboy');
+    youtube = google.youtube('v3');
 
 
 function getTimeFormatted() {
@@ -54,7 +52,6 @@ if (config.server.production)
             res.redirect('https://' + req.headers.host + req.url);
     });
 
-app.use(busboy())
 app.use(redirectTrailingSlash);
 app.use(require('helmet')())
 app.use(bodyParser.urlencoded({ extended: true }))
