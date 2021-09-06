@@ -43,11 +43,11 @@ function fetchEntries() {
 '        <div class="attendance-hours">'+
 '            <p>' + convertHours(checkIn, checkOut) + ' (<span class="startTime">' + convertDateToTime(checkIn) + '</span> - <span class="endTime">' + convertDateToTime(checkOut) + '</span>)</p>'+
 '        </div>'+
-'        <div class="attendance-rating">'+
-'            <button class="thumbsUp"><img class="rating-icon" src="/new/img/svg/' + (review == 1 ? "baseline" : "outline") + '-thumb_up-24px.svg" /></button>'+
-'            <button class="meh"><img class="rating-icon" src="/new/img/svg/' + (review == 0 ? "baseline" : "outline") + '-change_history-24px.svg" /></button>'+
-'            <button class="thumbsDown"><img class="rating-icon" src="/new/img/svg/' + (review == -1 ? "baseline" : "outline") + '-thumb_down-24px.svg" /></button>'+
-'        </div>'+
+// '        <div class="attendance-rating">'+
+// '            <button class="thumbsUp"><img class="rating-icon" src="/new/img/svg/' + (review == 1 ? "baseline" : "outline") + '-thumb_up-24px.svg" /></button>'+
+// '            <button class="meh"><img class="rating-icon" src="/new/img/svg/' + (review == 0 ? "baseline" : "outline") + '-change_history-24px.svg" /></button>'+
+// '            <button class="thumbsDown"><img class="rating-icon" src="/new/img/svg/' + (review == -1 ? "baseline" : "outline") + '-thumb_down-24px.svg" /></button>'+
+// '        </div>'+
 '    </div>'+
 '</div>'
             });
