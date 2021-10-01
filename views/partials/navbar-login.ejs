@@ -53,10 +53,8 @@
         <!--<li><a href="/member/wiki">Wiki</a></li>
         <li><a href="/member/challenges">Challenges</a></li>
         <li><a href="/member/volunteer">Volunteer</a></li>-->
-        <!-- <% if (auth.loggedin && auth.level >= ranks.harker_student) { %>
-          <li><a href="/member/attendance">Attendance</a></li>
-        <% } %> -->
         <% if (auth.loggedin && auth.level >= ranks.harker_student) { %>
+          <li><a href="/member/attendance">Attendance</a></li>
           <li><a href="/member/blog">Blog</a></li>
         <% } %>
         <li class="dropdown">
