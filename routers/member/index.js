@@ -117,7 +117,7 @@ router.post('/token', function (req, res) {
         res.status(200).end()
       }
 
-      User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin}).then(() => {
+      User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin, firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name }).then(() => {
         req.session.auth.level = ranks.superadmin
         res.status(200).end()
       });
@@ -140,7 +140,7 @@ router.post('/token', function (req, res) {
         if (data.hd === 'students.harker.org' || data.hd === 'staff.harker.org')
             authorization = ranks.harker_student
 
-        User.create({ email: data.email.toLowerCase(), authorization })
+        User.create({ email: data.email.toLowerCase(), authorization, firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name })
         .then(() => {
           req.session.auth.level = authorization
           res.status(200).send()

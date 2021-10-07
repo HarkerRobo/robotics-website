@@ -150,7 +150,7 @@ router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
             await todayCheckIns[0].save();
         }
 
-        res.json({"success": true});
+        res.json({"success": true, "name": dbUser.name, "firstName": dbUser.firstName, "lastName": dbUser.lastName });
     } catch(e) {
         console.error(e);
         res.status(400).json({"error": e.message});

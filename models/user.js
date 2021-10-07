@@ -9,6 +9,21 @@ const userSchema = mongoose.Schema({
     type: Number,
     default: 0,
   },
+  firstName: {
+    type: String,
+    required: false,
+    default: ""
+  },
+  lastName: {
+    type: String,
+    required: false,
+    default: ""
+  },
+  name: {
+    type: String,
+    required: false,
+    default: ""
+  }
 })
 
 const User = mongoose.model('User', userSchema)
