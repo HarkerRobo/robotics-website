@@ -113,8 +113,15 @@ router.post('/token', function (req, res) {
 
       const existingUser = await User.findOne({email: data.email.toLowerCase()})
       if(existingUser) {
-        req.session.auth.level = ranks.superadmin
-        res.status(200).end()
+        User.updateOne({ email: data.email.toLowerCase() }, { $set: { firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name } }).then(() => {
+          req.session.auth.level = ranks.superadmin
+          res.status(200).end()
+        }).catch((err) => {
+          console.error(`[REQ ${req.request_id}] [ERROR] could not update database user:`, err)
+          res.status(401).send(err.toString())
+          req.session.destroy()
+        })
+        
       }
 
       User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin, firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name }).then(() => {
@@ -145,13 +152,16 @@ router.post('/token', function (req, res) {
           req.session.auth.level = authorization
           res.status(200).send()
         })
-
-      }
-
-      // if the user can be found, give appropriate authorization
-      else {
-        req.session.auth.level = user.authorization
-        res.status(200).send()
+      } else {
+        // if the user can be found, give appropriate authorization
+        User.updateOne({ email: data.email.toLowerCase() }, { $set: { firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name } }).then(() => {
+          req.session.auth.level = user.authorization
+          res.status(200).send()
+        }).catch((err) => {
+          console.error(`[REQ ${req.request_id}] [ERROR] could not update database user:`, err)
+          res.status(401).send(err.toString())
+          req.session.destroy()
+        })
       }
     })
 
