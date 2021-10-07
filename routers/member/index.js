@@ -283,8 +283,28 @@ router.all('/*', function (req, res, next) {
   })
 })
 
-router.get('/userman', function (req, res) {
-  res.render('pages/member/users')
+function getUsersWithAuth(level) {
+  return new Promise(async (resolve, reject) => {
+    User.find({ authorization: level }, function(err, users) {
+      if (err){
+        reject(err);
+        return
+      }
+      let result = []
+      for (const user of users) {
+        result.push(user.email)
+      }
+      resolve(result)
+    })
+  })
+}
+
+router.get('/userman', async function (req, res) {
+  res.render('pages/member/users', {
+    director: await getUsersWithAuth("director"),
+    triumvirate: await getUsersWithAuth("triumvirate"),
+    mentor: await getUsersWithAuth("mentor")
+  })
 })
 
 router.post('/userman/setuserauth', function (req, res) {
@@ -313,6 +333,12 @@ router.post('/userman/setuserauth', function (req, res) {
 })
 
 router.get('/userman/userswithauth/:level', function (req, res) {
+  getUsersWithAuth(req.params.level).then((result) => {
+    res.json(result);
+  }).catch((err) => {
+    res.status(500).json({ success: 'false', error: { message: err }})
+  })
+  /*
   User.find({ authorization: req.params.level }, function(err, users) {
     if (err){
       res.status(500).json({ success: 'false', error: { message: err }})
@@ -324,6 +350,7 @@ router.get('/userman/userswithauth/:level', function (req, res) {
     }
     res.json(result)
   })
+  */
 })
 
 router.get('/*', function (req, res, next) {

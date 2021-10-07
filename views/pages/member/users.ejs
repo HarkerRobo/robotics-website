@@ -68,30 +68,44 @@
         xhr1 = $.get('/member/userman/userswithauth/' + <%= ranks.director %>, function(emails) {
           $('#members li:not(:first)').remove()
           for (var email of emails) {
-            $('#members').append('<li class="list-group-item clearfix">' + email +
-            '<span class="pull-right"><span class="btn btn-xs btn-default btn-danger remove" data-email="' + email + '">'
-            +'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
-            +'</span></span></li>').find('span.remove').click(removeHandler)
+            $('#members').append(`<li class="list-group-item clearfix">
+              ${email}
+              <span class="pull-right">
+                <span class="btn btn-xs btn-default btn-danger remove" data-email="${email}">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true">
+                  </span>
+                </span>
+              </span>
+            </li>`).find('span.remove').click(removeHandler)
           }
         })
         if (xhr2 !== null) xhr2.abort()
         xhr2 = $.get('/member/userman/userswithauth/' + <%= ranks.triumvirate %>, function(emails) {
           $('#admins li:not(:first)').remove()
           for (var email of emails) {
-            $('#admins').append('<li class="list-group-item clearfix">' + email +
-            '<span class="pull-right"><span class="btn btn-xs btn-default btn-danger remove" data-email="' + email + '">'
-            +'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
-            +'</span></span></li>').find('span.remove').click(removeHandler)
+            $('#admins').append(`<li class="list-group-item clearfix">
+              ${email}
+              <span class="pull-right">
+                <span class="btn btn-xs btn-default btn-danger remove" data-email="${email}">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true">
+                  </span>
+                </span>
+              </span>
+            </li>`).find('span.remove').click(removeHandler)
           }
         })
         if (xhr3 !== null) xhr3.abort()
         xhr3 = $.get('/member/userman/userswithauth/' + <%= ranks.mentor %>, function(emails) {
           $('#mentors li:not(:first)').remove()
           for (var email of emails) {
-            $('#mentors').append('<li class="list-group-item clearfix">' + email +
-            '<span class="pull-right"><span class="btn btn-xs btn-default btn-danger remove" data-email="' + email + '">'
-            +'<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>'
-            +'</span></span></li>').find('span.remove').click(removeHandler)
+            $('#mentors').append(`<li class="list-group-item clearfix">
+              ${email}
+              <span class="pull-right">
+                <span class="btn btn-xs btn-default btn-danger remove" data-email="${email}">
+                  <span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+                </span>
+              </span>
+            </li>`).find('span.remove').click(removeHandler)
           }
         })
 
