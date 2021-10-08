@@ -43,11 +43,11 @@ scanner.addListener("scan", function(content) {
     xhr.onload = function() {
         const resp = JSON.parse(xhr.responseText);
         if(resp.success) {
-            console.log("Successfully scanned");
+            console.log(`Successfully scanned ${resp.name}.`);
             document.getElementById("scanner-message").style.color = "green";
             document.getElementById("scanner-message").style.display = "block";
             document.getElementById("toggle-camera").style.display = "none";
-            document.getElementById("scanner-message").innerHTML = "Successfully scanned."
+            document.getElementById("scanner-message").innerHTML = `Successfully scanned ${resp.name}.`
             scanner.stop();
         } else {
             console.log("Scanning error");
