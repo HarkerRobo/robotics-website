@@ -113,7 +113,7 @@ router.post('/token', function (req, res) {
 
       const existingUser = await User.findOne({email: data.email.toLowerCase()})
       if(existingUser) {
-        User.updateOne({ email: data.email.toLowerCase() }, { $set: { firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name } }).then(() => {
+        User.updateOne({ email: data.email.toLowerCase() }, { $set: { firstName: data.given_name, lastName: data.family_name, name: data.name } }).then(() => {
           req.session.auth.level = ranks.superadmin
           res.status(200).end()
         }).catch((err) => {
@@ -121,10 +121,12 @@ router.post('/token', function (req, res) {
           res.status(401).send(err.toString())
           req.session.destroy()
         })
+        // req.session.auth.level = ranks.superadmin
+        // res.status(200).end()
         
       }
 
-      User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin, firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name }).then(() => {
+      User.create({ email: data.email.toLowerCase(), authorization: ranks.superadmin, firstName: data.given_name, lastName: data.family_name, name: data.name }).then(() => {
         req.session.auth.level = ranks.superadmin
         res.status(200).end()
       });
@@ -135,6 +137,7 @@ router.post('/token', function (req, res) {
     // find the user with the email
     return User.findOne({ email: data.email.toLowerCase() })
     .then(user => {
+      // console.log(data);
 
 
 
@@ -147,14 +150,14 @@ router.post('/token', function (req, res) {
         if (data.hd === 'students.harker.org' || data.hd === 'staff.harker.org')
             authorization = ranks.harker_student
 
-        User.create({ email: data.email.toLowerCase(), authorization, firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name })
+        User.create({ email: data.email.toLowerCase(), authorization, firstName: data.given_name, lastName: data.family_name, name: data.name })
         .then(() => {
           req.session.auth.level = authorization
           res.status(200).send()
         })
       } else {
         // if the user can be found, give appropriate authorization
-        User.updateOne({ email: data.email.toLowerCase() }, { $set: { firstName: data.info.given_name, lastName: data.info.family_name, name: data.info.name } }).then(() => {
+        User.updateOne({ email: data.email.toLowerCase() }, { $set: { firstName: data.given_name, lastName: data.family_name, name: data.name } }).then(() => {
           req.session.auth.level = user.authorization
           res.status(200).send()
         }).catch((err) => {
@@ -162,6 +165,8 @@ router.post('/token', function (req, res) {
           res.status(401).send(err.toString())
           req.session.destroy()
         })
+        // req.session.auth.level = user.authorization
+        // res.status(200).send()
       }
     })
 
