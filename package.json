@@ -46,5 +46,8 @@
         "type-is": "^1.6.18",
         "x-ray": "^2.3.4",
         "xss": "^0.3.8"
+    },
+    "scripts": {
+        "start": "node index.js"
     }
 }
