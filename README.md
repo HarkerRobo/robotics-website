@@ -31,7 +31,7 @@ The current Director of Application Development is [Arjun Dixit](https://github.
 Follow [this tutorial](https://docs.mongodb.com/manual/administration/install-community/) by mongoDB on how to install mongoDB onto your computer. For your reference, mongoDB is the database program used by this repository. Ensure that the `mongod` process is running before starting up the website. The tutorial explains how to run the `mongod` process.
 
 ### Install Node.js
-First, go to [the Node.js download page](https://nodejs.org/en/download/). You will see two download links, download the one titled "LTS" or "Long Term Solution".
+First, go to [the Node.js download page](https://nodejs.org/en/download/). You will see two download links, download the one titled "LTS" or "Long Term Support".
 
 As of January 8, 2018, this program works successfully on versions 7.4.0 and 8.9.0 of Node.js. In the future, this program should be updated to work successfully on future verisons of Node.js. You can check the version of node you are running by entering the command `node -v` into your terminal or command prompt.
 
