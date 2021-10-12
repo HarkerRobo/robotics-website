@@ -42,7 +42,7 @@ In your file browser (Finder in macOS, File Explorer in Windows), locate the fol
 In your terminal (or command prompt), [change your working directory (`cd`)](https://en.wikipedia.org/wiki/Cd_(command)) to the folder for this repository. Then, enter the command `npm install`. This uses the [node package manager](https://www.npmjs.com/) to install the packages required to run this program.
 
 ### Run the website
-With your terminal's working directory still being that of the repository, enter the command `node index.js`. Then, go to `localhost` in your web browser. The website should appear.  
+With your terminal's working directory still being that of the repository, enter the command `npm i` and then `npm start`. Then, go to `localhost` in your web browser. The website should appear.  
 
 ## Folder Navigation
 ### /models
