@@ -1,0 +1,47 @@
+  {
+    "contacturl": "https://hooks.slack.com/services/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",
+    "google": {
+        "clientIDs": ["clientID1", "clientID2"],
+        "displayID": 1,
+        "secretKey": "secret"
+    },
+    "captcha": {
+        "secret": "secret"
+    },
+    "cookie": {
+        "secret": "secret",
+        "name": "Harker1072Robotics"
+    },
+    "server": {
+        "domain": "robotics.harker.org",
+        "production": true,
+        "port": 3000,
+        "runInternal": true
+    },
+    "TBA": {
+        "apiKey": "key"
+    },
+    "blog": {
+        "runBlog": true,
+        "interval": 100,
+        "blogID": "2019535614975828896",
+        "apiKey": "key"
+    },
+    "database": {
+        "port": 27017,
+        "databaseName": "robotics-website"
+    },
+    "automail": {
+        "singleMentorMail": true,
+        "cronPattern": "0 17 * * *",
+        "auth": {
+            "email": "22arjund@students.harker.org"
+        },
+        "apiKey": "key"
+    },
+    "users": {
+        "admins": ["22angiej@students.harker.org", "22ethanc@students.harker.org", "22gloriaz@students.harker.org"],
+        "mentor": "robotics@harker.org",
+        "superadmins": [ "22arjund@students.harker.org", "22chiragk@students.harker.org"]
+    }
+}
