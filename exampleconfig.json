@@ -1,11 +1,12 @@
   {
     "contacturl": "https://hooks.slack.com/services/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",
     "google": {
-        "clientIDs": ["clientID1", "clientID2"],
-        "displayID": 1,
+        "clientIDs": ["GoogleClientID"],
+        "displayID": 0,
         "secretKey": "secret"
     },
     "captcha": {
+        "sitekey": "6LeBUaYZAAAAAPJ86mgUDGSVncmg4VeOo-0651kt",
         "secret": "secret"
     },
     "cookie": {

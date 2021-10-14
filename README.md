@@ -76,6 +76,7 @@ The config file should be stored as `config.json`. You can copy from the example
 | google.clientIDs          | ["GoogleClientID"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `server.runInternal` is set to `true`.
 | google.displayID   | 0 | The index of the client id in the array google.clientIDs which to use to display on the website
 | google.secretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `server.runInternal` is set to `true`.
+| captcha.sitekey            | "6LeBUaYZAAAAAPJ86mgUDGSVncmg4VeOo-0651kt"                                        | The sitekey for captcha display on the contact form.
 | captcha.secret            | "secret"                                        | The secret for captcha verification on the contact form.
 | cookie.secret            | "secret"                                        | The secret to use in your cookies. Make sure it has high entropy (very long and random).
 | cookie.name              | "Harker1072Robotics"                            | The name of the cookies.

@@ -105,7 +105,9 @@ app.get("/pastleadership", (req, res) => {
 });
 
 app.get("/contact", (req, res) => {
-    res.render("new/pages/contact.ejs");
+    res.render("new/pages/contact.ejs", {
+        sitekey: config.captcha.sitekey
+    });
 })
 
 app.get("/sponsor", (req, res) => {
@@ -157,7 +159,8 @@ app.post("/contact", (req, res) => {
     var captcha_res = req.body["g-recaptcha-response"]
     if (captcha_res === undefined || captcha_res === '' || captcha_res === null) {
         res.render("new/pages/contact.ejs", {
-            message: "Please complete the captcha."
+            message: "Please complete the captcha.",
+            sitekey: config.captcha.sitekey
         })
     } else {
         var captcha_url = "https://www.google.com/recaptcha/api/siteverify?secret=" + config.captcha.secret + "&response=" + captcha_res + "&remoteip=" + req.connection.remoteAddress
@@ -167,7 +170,8 @@ app.post("/contact", (req, res) => {
 
             if (body.success !== undefined && !body.success) {
                 res.render("new/pages/contact.ejs", {
-                    message: "Captcha failed."
+                    message: "Captcha failed.",
+                    sitekey: config.captcha.sitekey
                 })
             } else {
                 request({
@@ -181,7 +185,8 @@ app.post("/contact", (req, res) => {
                     }
                 }, function(err, resp, body) {});
                 res.render("new/pages/contact.ejs", {
-                    message: "Thank you for contacting us!"
+                    message: "Thank you for contacting us!",
+                    sitekey: config.captcha.sitekey
                 })
             }
         });
@@ -200,7 +205,8 @@ app.post("/contact", (req, res) => {
 //   }, function(err, resp, body) { 
 //   });
 //   res.render("new/pages/contact.ejs", {
-//     message: "Thank you for contacting us!"
+//     message: "Thank you for contacting us!",
+//     sitekey: config.captcha.sitekey
 //   })
 // });
 /*app.get('/photos', function (req, res) {
