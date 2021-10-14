@@ -13,10 +13,10 @@
         "name": "Harker1072Robotics"
     },
     "server": {
-        "domain": "robotics.harker.org",
-        "production": true,
+        "domain": "localhost",
+        "production": false,
         "port": 3000,
-        "runInternal": true
+        "runInternal": false
     },
     "TBA": {
         "apiKey": "key"
@@ -42,6 +42,6 @@
     "users": {
         "admins": ["22angiej@students.harker.org", "22ethanc@students.harker.org", "22gloriaz@students.harker.org"],
         "mentor": "robotics@harker.org",
-        "superadmins": [ "22arjund@students.harker.org", "22chiragk@students.harker.org"]
+        "superadmins": [ "22arjund@students.harker.org", "22chiragk@students.harker.org", "24kabirr@students.harker.org"]
     }
 }
