@@ -73,25 +73,30 @@ The config file should be stored as `config.json`. You can copy from the example
 
 | Field                   |  Value                                          | Description
 |-------------------------|-------------------------------------------------|-------------
-| google.clientIDs          | ["[GoogleClientID]"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
+| google.clientIDs          | ["GoogleClientID"]   | The google client IDs used for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `server.runInternal` is set to `true`.
 | google.displayID   | 0 | The index of the client id in the array google.clientIDs which to use to display on the website
-| google.secretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `runInternal` is set to `true`.
+| google.secretKey         | "secret"                                        | The key given by google for "sign in with Google". Ask for it from the webmaster if needed. Only needed if `server.runInternal` is set to `true`.
+| captcha.secret            | "secret"                                        | The secret for captcha verification on the contact form.
 | cookie.secret            | "secret"                                        | The secret to use in your cookies. Make sure it has high entropy (very long and random).
 | cookie.name              | "Harker1072Robotics"                            | The name of the cookies.
 | server.domain                  | "localhost"                                     | The domain that the server is running on. If you are running this on your local machine, "localhost" will do.
 | server.production            | false                                           | Whether the server is a production server, meaning it is behind a proxy and being used as the robotics website.
 | server.runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
 | server.port                    | 3000  | the port to run the system on
-| blog.runBlog            | false                                           | Whether to run the blogs with the API or the iframe
-| blog.interval           | 10                                              | The interval (in seconds) on which to pull the blog posts from Blogger.
-| blog.blogID             | "123456789"                                     | The ID number for the blog. Use [this](http://blogtimenow.com/blogging/find-blogger-blog-id-post-id-unique-id-number/) tutorial to find the ID number of the blog, or ask the webmaster.
-| blog.apiKey             | "some-key"                                      | The API key used to access the blog through API. Ask the webmaster if needed.
+| TBA.apiKey                    | "key"  | the API key for TBA
+| blog.runBlog            | true                                           | Whether to run the blogs with the API or the iframe
+| blog.interval           | 100                                              | The interval (in seconds) on which to pull the blog posts from Blogger.
+| blog.blogID             | "2019535614975828896"                                     | The ID number for the blog. Use [this](http://blogtimenow.com/blogging/find-blogger-blog-id-post-id-unique-id-number/) tutorial to find the ID number of the blog, or ask the webmaster.
+| blog.apiKey             | "key"                                      | The API key used to access the blog through API. Ask the webmaster if needed.
 | database.port           | 27017                                           | The port on which mongoDB runs.
 | database.databaseName   | "robotics-website"                              | The name of the database used for this program.
-| automail.service        | "gmail"                                         | The name of the service (gmail, exchange, etc.) which hosts the email address used in `automail.auth.user`.
-| automail.auth.user      | "email@example.org"                             | The username of said email.
-| automail.auth.pass      | "pass"                                          | The password of said email.
-| users.superadmins       | ["webmaster@example.org"]                       | The array of google email addresses of the webmasters of the project. Grants special access for testing purposes.
+| automail.singleMentorMail      | true                             | Whether to send the email for purchase requests to a mentor once per day or after every purchase request (set to `true` if only once per day)
+| automail.cronPattern      | "0 17 * * *"                                          | The cron pattern for scheduling emails if `automail.singleMentorMail` is true (use the example value to send at 5 P.M. every day).
+| automail.auth.email      | "22arjund@students.harker.org"                             | The email address to send from
+| automail.apiKey      | "key"                                          | The SendGrid api key
+| users.admins       | ["22angiej@students.harker.org", "22ethanc@students.harker.org", "22gloriaz@students.harker.org"]                       | The array of google email addresses of the admins.
+| users.mentor       | "robotics@harker.org"                       | The email address of the mentor.
+| users.superadmins       | ["22arjund@students.harker.org", "22chiragk@students.harker.org", "24kabirr@students.harker.org"]                       | The array of google email addresses of the webmasters of the project. Grants special access for testing purposes.
 
 ## Desired Coding Standard
 (I'll also get back to this later, but make sure to comment the code which is written.)
