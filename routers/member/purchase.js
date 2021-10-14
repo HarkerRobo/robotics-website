@@ -419,6 +419,8 @@ http://${config.server.domain}/member/purchase/mentor
             email.sendMail(config.automail.auth.email, to, subject, text, html) 
         }
 
+        res.status(200).send();
+
     }
     catch (err) {
         console.error(err)
