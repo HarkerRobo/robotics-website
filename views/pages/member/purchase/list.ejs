@@ -10,6 +10,8 @@
     <header>
       <h1 class="title"> LIST OF PURCHASES </h1>
       <div class="container-fluid">
+        <input type="text" class="form-control" name="search" id="search" placeholder="Search..." oninput="searchForPurchaseRequest(this.value);">
+        <br>
         <ul class="list-group black-text" id="purchases">
         </ul>
       </div>
@@ -83,29 +85,39 @@
         for (var purchase of purchases) {
           purchase_id = purchase.purchase_id
           console.log(purchase)
-          $("#purchases").append(""
-            + '<li class="list-group-item">'
-            +   "<h2><b>" + safeValue(purchase.vendor) + "</b></h2>"
-            +   '<div class="btn-group float-right">'
-            +     '<a href="view/' + purchase_id + '" class="btn btn-default btn-lg">View</a>'
-            +     ((purchase.approval <= 1 && purchase.submitted_by == '<%= auth.info.email %>') ? ('<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>') : '')
-            +   '</div>'
-            +   (purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? '<a href="edit/' + purchase_id + '" class="btn btn-default btn-lg float-right">Edit</a>' : "")
-            +   "<p><b>Purchase ID:</b> " + safeValue(purchase.purchase_id) + "</p>"
-            +   "<p><b>Submitted By:</b> " + safeValue(purchase.submitted_by) + "</p>"
-            +   "<p><b>Subteam:</b> " + getSubteam(purchase.subteam) + "</p>"
-            +   "<p><b>Approval Status:</b> " + getApprovalStatus(purchase.approval) + "</p>"
-            // if mentor approved/rejected, use their comments; otherwise use admin comments
-            // if there are no comments don't even print the line
-            +   ((purchase.admin_comments || purchase.mentor_comments) ?
-                  ("<p>" + (purchase.approval > 2 ?
-                    ('<b>Mentor Comments:</b> ' + purchase.mentor_comments) :
-                    ('<b>Admin Comments:</b> ' + purchase.admin_comments)
-                  ) + "</p>") : '')
-            +   "<h4><b>Total:</b> $" + Number(purchase.total_cost).toFixed(2) + "</h4>"
-            + '</li>'
+          $("#purchases").append(`
+            <li class="list-group-item" data-pr="${purchase_id}">
+              <h2><b>${safeValue(purchase.vendor)}</b></h2>
+              <div class="btn-group float-right">
+                <a href="view/${purchase_id}" class="btn btn-default btn-lg">View</a>
+                ${((purchase.approval <= 1 && purchase.submitted_by == '<%= auth.info.email %>') ? (`<a href="edit/${purchase_id}" class="btn btn-default btn-lg float-right">Edit</a>`) : '')}
+              </div>
+              ${(purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? `<a href="edit/${purchase_id}" class="btn btn-default btn-lg float-right">Edit</a>` : "")}
+              <p><b>Purchase ID:</b> ${safeValue(purchase.purchase_id)}</p>
+              <p><b>Submitted By:</b> ${safeValue(purchase.submitted_by)}</p>
+              <p><b>Subteam:</b> ${getSubteam(purchase.subteam)}</p>
+              <p><b>Approval Status:</b> ${getApprovalStatus(purchase.approval)}</p>
+              <!-- if mentor approved/rejected, use their comments; otherwise use admin comments -->
+              <!-- if there are no comments don't even print the line -->
+              ${((purchase.admin_comments || purchase.mentor_comments) ?
+                (`<p>${(purchase.approval > 2 ?
+                  (`<b>Mentor Comments:</b> ${purchase.mentor_comments}`) :
+                  (`<b>Admin Comments:</b> ${purchase.admin_comments}`)
+                )}</p>`)
+              : '')}
+              <h4><b>Total:</b> $${Number(purchase.total_cost).toFixed(2)}</h4>
+            </li>`
           )
         }
+      }
+      function searchForPurchaseRequest(keyword) {
+        document.querySelectorAll(".list-group-item").forEach((node) => {
+          if(node.innerHTML.toLowerCase().includes(keyword.toLowerCase())) {
+            node.style.display = "block";
+          } else {
+            node.style.display = "none";
+          }
+        })
       }
       function error() {
         $("#purchases").empty().append('<li class="list-group-item">There was an error</li>')
