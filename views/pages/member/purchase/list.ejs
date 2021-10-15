@@ -112,7 +112,8 @@
       }
       function searchForPurchaseRequest(keyword) {
         document.querySelectorAll(".list-group-item").forEach((node) => {
-          if(node.innerHTML.toLowerCase().includes(keyword.toLowerCase())) {
+          let innerHTML = node.innerHTML.toLowerCase().replaceAll(/<[^>]*>/g, " ").replaceAll(/\s+/g, " ").trim();
+          if(innerHTML.includes(keyword.toLowerCase())) {
             node.style.display = "block";
           } else {
             node.style.display = "none";
