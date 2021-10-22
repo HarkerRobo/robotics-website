@@ -340,7 +340,7 @@ router.get('/search_by_keyword', async (req, res) => {
         for(let i = 0; i < fields.length; i++) {
             let purchases = await Purchase.find({[fields[i]]: {"$regex": keyword}});
             for(let j = 0; j < purchases.length; j++) {
-                results.add(purchases[j]);
+                results.add(purchases[j].purchase_id);
             }
         }
         res.send([...results]);
