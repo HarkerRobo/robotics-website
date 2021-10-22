@@ -1,6 +1,7 @@
 {
   "none": 0,
   "harker_student": 10,
+  "deployer": 15,
   "pr_whitelist": 20,
   "lead": 25,
   "scoutingLead": 26,
