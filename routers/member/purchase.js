@@ -333,12 +333,10 @@ router.get('/total_plain', (req, res) => {
 router.get('/search_by_keyword', async (req, res) => {
     try {
         let results = new Set();
-        let fields = ["part_name", "vendor"];
-        let keyword = "battery";
-        //let fields = req.query.fields.split(",");
-        //let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+        let fields = req.query.fields.split(",");
+        let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
         for(let i = 0; i < fields.length; i++) {
-            let purchases = await Purchase.find({[fields[i]]: {"$regex": keyword}});
+            let purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
             for(let j = 0; j < purchases.length; j++) {
                 results.add(purchases[j].purchase_id);
             }
