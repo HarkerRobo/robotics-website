@@ -330,6 +330,22 @@ router.get('/total_plain', (req, res) => {
         });
 });
 
+router.get('/search_by_keyword', async (req, res) => {
+    try {
+        let results = new Set();
+        let fields = req.query.fields.split(",");
+        let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&');
+        for(let i = 0; i < fields.length; i++) {
+            let purchases = await Purchase.find({[fields[i]]: {"$regex": keyword}});
+            for(let j = 0; j < purchases.length; j++) {
+                results.add(purchases[j]);
+            }
+        }
+        res.send([...results]);
+    } catch {
+        res.send([]);
+    }
+})
 
 // must be an admin to see below pages
 router.all('/*', function (req, res, next) {
