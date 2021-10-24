@@ -336,8 +336,7 @@ router.get('/search_by_keyword', async (req, res) => {
         let fields = req.query.fields.split(",");
         for(let i = 0; i < fields.length; i++) {
             if(!Object.keys(Purchase.schema.paths).includes(fields[i])) {
-                res.status(400);
-                res.send(`Unknown field: ${fields[i]}`);
+                res.status(400).end(`Unknown field: ${fields[i]}`);
                 return;
             }
         }
