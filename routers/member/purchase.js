@@ -334,6 +334,13 @@ router.get('/search_by_keyword', async (req, res) => {
     try {
         let results = new Set();
         let fields = req.query.fields.split(",");
+        for(let i = 0; i < fields.length; i++) {
+            if(!Object.keys(Purchase.schema.paths).includes(fields[i])) {
+                res.status(400);
+                res.send(`Unknown field: ${fields[i]}`);
+                return;
+            }
+        }
         let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
         for(let i = 0; i < fields.length; i++) {
             let purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
