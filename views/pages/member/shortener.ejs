@@ -87,7 +87,8 @@
           let resp = JSON.parse(xhr.responseText);
           let arr = [];
           document.getElementById("tbody").innerHTML = "";
-          resp = resp.sort((url1, url2) => url1.path.localeCompare(url2.path));
+          //resp = resp.sort((url1, url2) => url1.path.localeCompare(url2.path));
+          resp = resp.sort((url1, url2) => new Date(url2.createdAt).getTime() - new Date(url1.createdAt).getTime());
           for(let i = 0;i < resp.length;i ++) {
             let url = resp[i];
             arr.push(`<tr>
