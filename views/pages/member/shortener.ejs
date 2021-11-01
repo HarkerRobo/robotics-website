@@ -84,16 +84,24 @@
         const xhr = new XMLHttpRequest();
         xhr.open("GET", "shortener/urls");
         xhr.onload = function() {
-          const resp = JSON.parse(xhr.responseText);
+          let resp = JSON.parse(xhr.responseText);
           let arr = [];
           document.getElementById("tbody").innerHTML = "";
+          resp = resp.sort((url1, url2) => url1.path.localeCompare(url2.path));
           for(let i = 0;i < resp.length;i ++) {
             let url = resp[i];
-            arr.push('<tr><td style="colspan: 4; overflow: hidden; white-space: nowrap"><a href="' + url.url + '">' + url.url + '</a></td>'
-              +'<td><a href="https://robotics.harker.org/' + url.path + '">/' + url.path + '</a></td>'
-              +'<td>' + url.uses + '</td>'
-              +'<td><span onclick="removeShort(\'' + url.path + '\')" class="delete-link" style="color: red; cursor: pointer">X</span></td>'
-            +'</tr>')
+            arr.push(`<tr>
+              <td style="colspan: 4; overflow: hidden; white-space: nowrap">
+                <a href="${url.url}">${url.url}</a>
+              </td>
+              <td>
+                <a href="https://robotics.harker.org/${url.path}">/${url.path}</a>
+              </td>
+              <td>${url.uses}</td>
+              <td>
+                <span onclick="removeShort('${url.path}')" class="delete-link" style="color: red; cursor: pointer">X</span>
+              </td>
+            </tr>`)
           }
           // setTimeout(function() {
             console.log(document.getElementById("body2").innerHTML);
