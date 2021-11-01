@@ -65,7 +65,7 @@ router.post("/create", async (req, res) => {
 });
 
 router.get("/urls", async (req, res) => {
-  res.json(await Url.find({}, {path: 1, url: 1, uses: 1, _id: 0, createdAt: 1}));
+  res.json(await Url.find({}, {path: 1, url: 1, uses: 1, _id: 0, createdAt: 1, updatedAt: 1}));
 });
 
 router.post("/delete", async (req, res) => {
