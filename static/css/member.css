@@ -34,4 +34,5 @@ header, section, body {
   font-weight: normal;
   margin-left: 5px;
   vertical-align: text-bottom;
+  margin-bottom: 0;
 }

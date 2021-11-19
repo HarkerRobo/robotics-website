@@ -13,7 +13,7 @@
         <input type="text" class="form-control" name="search" id="search" placeholder="Search...">
         <% for(var i = 0; i < fields.length; i++) { %> 
           <div class="search-filter-container">
-            <input type="checkbox" class="search-filter" name="<%- fields[i] %>" id="search-<%- fields[i] %>">
+            <input type="checkbox" class="search-filter" name="<%- fields[i] %>" id="search-<%- fields[i] %>" >
             <label for="search-<%- fields[i] %>"><%- fields[i] %></label>
           </div>
         <% } %>
@@ -26,6 +26,14 @@
 
     
     <script>
+      function selectAll() {
+        let fields = document.querySelectorAll(".search-filter");
+        for(let i = 0; i < fields.length; i++) {
+          fields[i].checked = true;
+        }
+      }
+      selectAll();
+
       function searchWithFilters() {
         let fields = document.querySelectorAll(".search-filter");
         let selectedFields = [];
@@ -47,7 +55,7 @@
               document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
             } 
           },
-          error: function(err1, err2, err3) { console.log(err1, err2, err3); alert("Error!")  }
+          error: function(err1, err2, err3) { console.log(err1, err2, err3); alert(`Error! ${err3}`)  }
         })
       }
       function safeValue(str) {
