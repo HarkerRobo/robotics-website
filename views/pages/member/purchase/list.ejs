@@ -10,8 +10,15 @@
     <header>
       <h1 class="title"> LIST OF PURCHASES </h1>
       <div class="container-fluid">
-        <input type="text" class="form-control" name="search" id="search" placeholder="Search..." oninput="searchForPurchaseRequest(this.value);">
-        <br>
+        <input type="text" class="form-control" name="search" id="search" placeholder="Search...">
+        <% for(var i = 0; i < data.length; i++) %> 
+          <div class="search-filter-container">
+            <input type="checkbox" class="search-filter" name="<%- fields[i] %>" id="search-<%- fields[i] %>">
+            <label for="search-<%- fields[i] %>"><%- fields[i] %></label>
+          </div>
+        <% } %>
+        <button class="btn btn-primary" style="width: 100%;" onclick="searchWithFilters()">Search</button>
+        <br><br>
         <ul class="list-group black-text" id="purchases">
         </ul>
       </div>
@@ -19,6 +26,30 @@
 
     
     <script>
+      function searchWithFilters() {
+        let fields = document.querySelectorAll(".search-filter");
+        let selectedFields = [];
+        for (i = 0; i < fields.length; i++) {
+          if(fields[i].checked) {
+            selectedFields.push(fields[i].name);
+          }
+        }
+        $.ajax({
+          method: "GET",
+          url: `/member/purchase/search_by_keyword?keyword=${encodeURIComponent(document.getElementById("search"))}&fields=${encodeURIComponent(selectedFields.join(","))}`,
+          success: function(data) { 
+            console.log(data);
+            let allPurchases = document.querySelectorAll(".list-group-item");
+            for(i = 0; i < allPurchases.length; i++) {
+              allPurchases[i].style.display = "none";
+            }
+            for(i = 0; i < data.length; i++) {
+              document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
+            } 
+          },
+          error: function(err1, err2, err3) { console.log(err1, err2, err3); alert("Error!")  }
+        })
+      }
       function safeValue(str) {
         return (str === "" || typeof str === "undefined" || str === null ? "N/A" : str)
       }

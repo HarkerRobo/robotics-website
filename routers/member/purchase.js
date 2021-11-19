@@ -131,11 +131,11 @@ router.post("/vendor", auth.verifyRank(ranks.pr_whitelist), async (req, res) => 
 });
 
 router.get('/list/', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
-    res.render('pages/member/purchase/list', { filter: 'all' })
+    res.render('pages/member/purchase/list', { filter: 'all', fields: Purchase.schema.paths })
 })
 
 router.get('/list_my', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
-    res.render('pages/member/purchase/list', { filter: 'my' })
+    res.render('pages/member/purchase/list', { filter: 'my', fields: Purchase.schema.paths })
 })
 
 router.get('/create', csrfProtection, auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
