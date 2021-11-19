@@ -44,7 +44,7 @@
         }
         $.ajax({
           method: "GET",
-          url: `/member/purchase/search_by_keyword?keyword=${encodeURIComponent(document.getElementById("search"))}&fields=${encodeURIComponent(selectedFields.join(","))}`,
+          url: `/member/purchase/search_by_keyword?keyword=${encodeURIComponent(document.getElementById("search").value)}&fields=${encodeURIComponent(selectedFields.join(","))}`,
           success: function(data) { 
             console.log(data);
             let allPurchases = document.querySelectorAll(".list-group-item");
