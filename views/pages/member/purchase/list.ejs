@@ -9,19 +9,21 @@
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
     <header>
       <h1 class="title"> LIST OF PURCHASES </h1>
-      <div class="container-fluid">
-        <input type="text" class="form-control" name="search" id="search" placeholder="Search...">
-        <% for(var i = 0; i < fields.length; i++) { %> 
-          <div class="search-filter-container">
-            <input type="checkbox" class="search-filter" name="<%- fields[i] %>" id="search-<%- fields[i] %>" >
-            <label for="search-<%- fields[i] %>"><%- fields[i] %></label>
-          </div>
-        <% } %>
-        <button class="btn btn-primary" style="width: 100%;" onclick="searchWithFilters()">Search</button>
-        <br><br>
-        <ul class="list-group black-text" id="purchases">
-        </ul>
-      </div>
+      <% if (fields) { %>
+        <div class="container-fluid">
+          <input type="text" class="form-control" name="search" id="search" placeholder="Search...">
+          <% for(var i = 0; i < fields.length; i++) { %> 
+            <div class="search-filter-container">
+              <input type="checkbox" class="search-filter" name="<%- fields[i] %>" id="search-<%- fields[i] %>" >
+              <label for="search-<%- fields[i] %>"><%- fields[i] %></label>
+            </div>
+          <% } %>
+          <button class="btn btn-primary" style="width: 100%;" onclick="searchWithFilters()">Search</button>
+          <br><br>
+          <ul class="list-group black-text" id="purchases">
+          </ul>
+        </div>
+      <% } %>
     </header>
 
     
