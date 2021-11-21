@@ -9,7 +9,7 @@
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
     <header>
       <h1 class="title"> LIST OF PURCHASES </h1>
-      <% if (fields) { %>
+      <% if (locals.fields) { %>
         <div class="container-fluid">
           <input type="text" class="form-control" name="search" id="search" placeholder="Search...">
           <% for(var i = 0; i < fields.length; i++) { %> 
