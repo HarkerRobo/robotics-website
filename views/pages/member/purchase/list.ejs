@@ -9,8 +9,8 @@
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
     <header>
       <h1 class="title"> LIST OF PURCHASES </h1>
-      <% if (locals.fields) { %>
-        <div class="container-fluid">
+      <div class="container-fluid">
+        <% if (locals.fields) { %>
           <input type="text" class="form-control" name="search" id="search" placeholder="Search...">
           <% for(var i = 0; i < fields.length; i++) { %> 
             <div class="search-filter-container">
@@ -20,10 +20,10 @@
           <% } %>
           <button class="btn btn-primary" style="width: 100%;" onclick="searchWithFilters()">Search</button>
           <br><br>
-          <ul class="list-group black-text" id="purchases">
-          </ul>
-        </div>
-      <% } %>
+        <% } %>
+        <ul class="list-group black-text" id="purchases">
+        </ul>
+      </div>
     </header>
 
     
