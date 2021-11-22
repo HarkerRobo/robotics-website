@@ -71,7 +71,9 @@
                 allPurchases[i].style.display = "none";
               }
               for(i = 0; i < data.length; i++) {
-                document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
+                if(document.querySelector(`[data-pr="${data[i]}"]`) != null) {
+                  document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
+                }
               } 
             },
             error: function(err1, err2, err3) { console.log(err1, err2, err3); alert(`Error! ${err3}`)  }
