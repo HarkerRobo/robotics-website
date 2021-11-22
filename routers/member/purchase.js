@@ -366,7 +366,7 @@ router.get('/search_by_keyword', async (req, res) => {
         let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
         for(let i = 0; i < fields.length; i++) {
             let purchases = [];
-            if(["purchase_id", "tax"].includes(fields[i])) {
+            if(["purchase_id", "price_per_unit", "quantity", "shipping_and_handling", "tax"].includes(fields[i])) {
                 if(!isNaN(parseFloat(keyword))) {
                     purchases = await Purchase.find({[fields[i]]: {"$eq": keyword}});
                 }
