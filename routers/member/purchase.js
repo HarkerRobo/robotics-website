@@ -363,7 +363,7 @@ router.all('/*', function (req, res, next) {
 })
 
 router.get('/admin', auth.verifyRank(ranks.admin), async (req, res) => {
-    res.render('pages/member/purchase/list', { filter: 'admin' })
+    res.render('pages/member/purchase/list', { filter: 'admin', fields: Object.keys(Purchase.schema.paths)  })
 })
 
 router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res) => {
@@ -493,7 +493,7 @@ router.all('/*', function (req, res, next) {
 })
 
 router.get('/mentor', function (req, res) {
-    res.render('pages/member/purchase/list', { filter: 'mentor' })
+    res.render('pages/member/purchase/list', { filter: 'mentor', fields: Object.keys(Purchase.schema.paths)  })
 })
 
 module.exports = router
