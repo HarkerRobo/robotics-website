@@ -37,28 +37,35 @@
       selectAll();
 
       function searchWithFilters() {
-        let fields = document.querySelectorAll(".search-filter");
-        let selectedFields = [];
-        for (i = 0; i < fields.length; i++) {
-          if(fields[i].checked) {
-            selectedFields.push(fields[i].name);
+        if(document.getElementById("search").value == "") {
+          let allPurchases = document.querySelectorAll(".list-group-item");
+          for(i = 0; i < allPurchases.length; i++) {
+            allPurchases[i].style.display = "block";
           }
-        }
-        $.ajax({
-          method: "GET",
-          url: `/member/purchase/search_by_keyword?keyword=${encodeURIComponent(document.getElementById("search").value)}&fields=${encodeURIComponent(selectedFields.join(","))}`,
-          success: function(data) { 
-            console.log(data);
-            let allPurchases = document.querySelectorAll(".list-group-item");
-            for(i = 0; i < allPurchases.length; i++) {
-              allPurchases[i].style.display = "none";
+        } else {
+          let fields = document.querySelectorAll(".search-filter");
+          let selectedFields = [];
+          for (i = 0; i < fields.length; i++) {
+            if(fields[i].checked) {
+              selectedFields.push(fields[i].name);
             }
-            for(i = 0; i < data.length; i++) {
-              document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
-            } 
-          },
-          error: function(err1, err2, err3) { console.log(err1, err2, err3); alert(`Error! ${err3}`)  }
-        })
+          }
+          $.ajax({
+            method: "GET",
+            url: `/member/purchase/search_by_keyword?keyword=${encodeURIComponent(document.getElementById("search").value)}&fields=${encodeURIComponent(selectedFields.join(","))}`,
+            success: function(data) { 
+              console.log(data);
+              let allPurchases = document.querySelectorAll(".list-group-item");
+              for(i = 0; i < allPurchases.length; i++) {
+                allPurchases[i].style.display = "none";
+              }
+              for(i = 0; i < data.length; i++) {
+                document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
+              } 
+            },
+            error: function(err1, err2, err3) { console.log(err1, err2, err3); alert(`Error! ${err3}`)  }
+          });
+        }
       }
       function safeValue(str) {
         return (str === "" || typeof str === "undefined" || str === null ? "N/A" : str)
