@@ -40,7 +40,7 @@ const PURCHASE_FIELDS = {
     admin_username: "Admin Username",
     admin_date_approved: "Admin Date Approved",
     mentor_comments: "Mentor Comments",
-    mentor_date_comments: "Mentor Date Approved"
+    mentor_date_approved: "Mentor Date Approved"
 };
 
 router.use(cookieParser())
