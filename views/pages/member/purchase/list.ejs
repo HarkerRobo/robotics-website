@@ -18,6 +18,10 @@
               <label for="search-<%- field %>"><%- fields[field] %></label>
             </div>
           <% } %>
+          <br>
+          <br>
+          <button class="btn btn-success" onclick="selectAllFilters()">Select All Filters</button>
+          <button class="btn btn-danger" onclick="deselectAllFilters()">Deselect All Filters</button>
           <button class="btn btn-primary" style="width: 100%;" onclick="searchWithFilters()">Search</button>
           <br><br>
         <% } %>
@@ -28,13 +32,20 @@
 
     
     <script>
-      function selectAll() {
+      function selectAllFilters() {
         let fields = document.querySelectorAll(".search-filter");
         for(let i = 0; i < fields.length; i++) {
           fields[i].checked = true;
         }
       }
-      selectAll();
+      function deselectAllFilters() {
+        let fields = document.querySelectorAll(".search-filter");
+        for(let i = 0; i < fields.length; i++) {
+          fields[i].checked = false;
+        }
+      }
+
+      selectAllFilters();
 
       function searchWithFilters() {
         if(document.getElementById("search").value == "") {

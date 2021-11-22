@@ -355,27 +355,31 @@ router.get('/search_by_keyword', async (req, res) => {
     try {
         let results = new Set();
         let fields = req.query.fields.split(",");
-        for(let i = 0; i < fields.length; i++) {
-            if(!Object.keys(Purchase.schema.paths).includes(fields[i])) {
-                res.status(400).end(`Unknown field: ${fields[i]}`);
-                return;
-            }
-        }
         let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
-        for(let i = 0; i < fields.length; i++) {
-            let purchases = [];
-            if(["purchase_id", "price_per_unit", "quantity", "shipping_and_handling", "tax"].includes(fields[i])) {
-                if(!isNaN(parseFloat(keyword))) {
-                    purchases = await Purchase.find({[fields[i]]: {"$eq": keyword}});
+        if(fields.length == 0 || (fields.length == 1 && fields[0] == "") || keyword == "") {
+            res.send([]);
+        } else {
+            for(let i = 0; i < fields.length; i++) {
+                if(!Object.keys(PURCHASE_FIELDS).includes(fields[i])) {
+                    res.status(400).end(`Unknown field: ${fields[i]}`);
+                    return;
                 }
-            } else {
-                purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
             }
-            for(let j = 0; j < purchases.length; j++) {
-                results.add(purchases[j].purchase_id);
+            for(let i = 0; i < fields.length; i++) {
+                let purchases = [];
+                if(["purchase_id", "price_per_unit", "quantity", "shipping_and_handling", "tax"].includes(fields[i])) {
+                    if(!isNaN(parseFloat(keyword))) {
+                        purchases = await Purchase.find({[fields[i]]: {"$eq": keyword}});
+                    }
+                } else {
+                    purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
+                }
+                for(let j = 0; j < purchases.length; j++) {
+                    results.add(purchases[j].purchase_id);
+                }
             }
+            res.send([...results]);
         }
-        res.send([...results]);
     } catch(err) {
         console.log(err);
         res.send([]);
