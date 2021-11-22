@@ -365,7 +365,12 @@ router.get('/search_by_keyword', async (req, res) => {
         }
         let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
         for(let i = 0; i < fields.length; i++) {
-            let purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
+            let purchases = [];
+            if(["purchase_id", "tax"].includes(fields[i])) {
+                purchases = await Purchase.find({[fields[i]]: {"$eq": keyword}});
+            } else {
+                purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
+            }
             for(let j = 0; j < purchases.length; j++) {
                 results.add(purchases[j].purchase_id);
             }
