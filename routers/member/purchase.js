@@ -366,8 +366,10 @@ router.get('/search_by_keyword', async (req, res) => {
         let keyword = req.query.keyword.replace(/[-[\]{}()*+?.,\\^$|#\s]/g, '\\$&').toLowerCase();
         for(let i = 0; i < fields.length; i++) {
             let purchases = [];
-            if(["purchase_id", "tax"].includes(fields[i]) && !isNaN(parseFloat(keyword))) {
-                purchases = await Purchase.find({[fields[i]]: {"$eq": keyword}});
+            if(["purchase_id", "tax"].includes(fields[i])) {
+                if(!isNaN(parseFloat(keyword))) {
+                    purchases = await Purchase.find({[fields[i]]: {"$eq": keyword}});
+                }
             } else {
                 purchases = await Purchase.find({[fields[i]]: {"$regex": new RegExp(`.*${keyword}.*`, "i")}});
             }
