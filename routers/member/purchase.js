@@ -20,6 +20,29 @@ const express = require('express'),
 
 const MENTOR_EMAIL = config.users.mentor;
 
+const PURCHASE_FIELDS = {
+    purchase_id: "Purchase ID",
+    vendor: "Vendor",
+    vendor_phone: "Vendor Phone",
+    vendor_email: "Vendor Email",
+    vendor_address: "Vendor Address",
+    reason_for_purchase: "Reason For Purchase",
+    part_url: "Part URL",
+    part_number: "Part Number",
+    part_name: "Part Name",
+    subsystem: "Subsystem",
+    price_per_unit: "Price Per Unit",
+    quantity: "Quantity",
+    shipping_and_handling: "Shipping and Handling",
+    tax: "Tax",
+    submitted_by: "Submitted By",
+    admin_comments: "Admin Comments",
+    admin_username: "Admin Username",
+    admin_date_approved: "Admin Date Approved",
+    mentor_comments: "Mentor Comments",
+    mentor_date_comments: "Mentor Date Approved"
+};
+
 router.use(cookieParser())
 
 const safeString = (str) => (typeof str === 'undefined' ? "" : str)
@@ -131,11 +154,11 @@ router.post("/vendor", auth.verifyRank(ranks.pr_whitelist), async (req, res) => 
 });
 
 router.get('/list/', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
-    res.render('pages/member/purchase/list', { filter: 'all', fields: Object.keys(Purchase.schema.paths) })
+    res.render('pages/member/purchase/list', { filter: 'all', fields: PURCHASE_FIELDS })
 })
 
 router.get('/list_my', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
-    res.render('pages/member/purchase/list', { filter: 'my', fields: Object.keys(Purchase.schema.paths) })
+    res.render('pages/member/purchase/list', { filter: 'my', fields: PURCHASE_FIELDS })
 })
 
 router.get('/create', csrfProtection, auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
@@ -348,7 +371,8 @@ router.get('/search_by_keyword', async (req, res) => {
             }
         }
         res.send([...results]);
-    } catch {
+    } catch(err) {
+        console.log(err);
         res.send([]);
     }
 })
@@ -363,7 +387,7 @@ router.all('/*', function (req, res, next) {
 })
 
 router.get('/admin', auth.verifyRank(ranks.admin), async (req, res) => {
-    res.render('pages/member/purchase/list', { filter: 'admin', fields: Object.keys(Purchase.schema.paths)  })
+    res.render('pages/member/purchase/list', { filter: 'admin', fields: PURCHASE_FIELDS })
 })
 
 router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res) => {
@@ -493,7 +517,7 @@ router.all('/*', function (req, res, next) {
 })
 
 router.get('/mentor', function (req, res) {
-    res.render('pages/member/purchase/list', { filter: 'mentor', fields: Object.keys(Purchase.schema.paths)  })
+    res.render('pages/member/purchase/list', { filter: 'mentor', fields: PURCHASE_FIELDS })
 })
 
 module.exports = router
