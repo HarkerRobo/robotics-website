@@ -74,4 +74,10 @@ document.getElementById("toggle-camera").addEventListener("click", function() {
     if(content != null) {
         scan(content);
     }
+    setTimeout(() => {
+        content = scanner.scan();
+        if(content != null) {
+            scan(content);
+        }
+    }, 1000);
 })
