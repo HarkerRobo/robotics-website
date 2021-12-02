@@ -35,7 +35,7 @@ Instascan.Camera.getCameras().then(function (_cameras) {
     console.error(e);
 });
 
-scanner.addListener("scan", function(content) {
+function scan(content) {
     console.log(content);
     const xhr = new XMLHttpRequest();
     xhr.open("POST", "qrcode", true);
@@ -60,10 +60,18 @@ scanner.addListener("scan", function(content) {
         }
     }
     xhr.send(JSON.stringify({qr: content, checkIn: scanMode}));
+}
+
+scanner.addListener("scan", function(content) {
+    scan(content);
 });
 
 document.getElementById("toggle-camera").addEventListener("click", function() {
     currentCamera = ++currentCamera % cameras.length;
     scanner.start(cameras[currentCamera]);
     document.getElementById("toggle-camera").style.display = "initial";
+    let content = scanner.scan();
+    if(content != null) {
+        scan(content);
+    }
 })
