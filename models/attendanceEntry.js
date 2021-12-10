@@ -12,7 +12,10 @@ const EntrySchema = new mongoose.Schema({
     checkOut: {
         type: Number
     },
-    subteams: [String]
+    subteams: {
+        type: [String],
+        required: false
+    }
 });
 
 const Entry = mongoose.model("Entry", EntrySchema);
