@@ -7,7 +7,8 @@ mongoose.connect(`mongodb://${config.database.auth ? config.database.auth.userna
  config: {
    autoIndex: false,
  },
- useMongoClient: true,
+ useNewUrlParser:true,
+ useUnifiedTopology: true
 });
 
 const db = mongoose.connection;
