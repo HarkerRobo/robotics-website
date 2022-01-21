@@ -35,8 +35,8 @@
                 <canvas id="qr-canvas" width="512" height="512"></canvas>
             </div>
             <% for(let i = 0; i < roles.length; i++) {%>
-                <input type="checkbox" id="<% roles[i].replace(" ", "_").toLowerCase() %>_checkbox" value="<% roles[i] %>">
-                <label for="<% roles[i].replace(" ", "_").toLowerCase() %>_checkbox"><% roles[i] %></label><br>
+                <input type="checkbox" id="<%- roles[i].replace(" ", "_").toLowerCase() -%>_checkbox" value="<%- roles[i] -%>">
+                <label for="<%- roles[i].replace(" ", "_").toLowerCase() -%>_checkbox"><%- roles[i] -%></label><br>
             <% } %>
         <% } %>
         <% if(checkedIn && auth.level >= ranks.triumvirate) { %>
