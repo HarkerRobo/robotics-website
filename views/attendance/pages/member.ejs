@@ -31,13 +31,13 @@
             </div>
             <% } %>
         <% if (auth.level != ranks.checkin_tablet && auth.level != ranks.mentor) { %>
-        <div id="canvas-wrapper">
-            <canvas id="qr-canvas" width="512" height="512"></canvas>
-        </div>
-        <% for(var i=0; roles.length; i++) {%>
-            <input type="checkbox" id="<% roles[i] %>-checkbox" value="<% roles[i] %>">
-            <label for="<% roles[i] %>"></label><br>
-        <% } %>
+            <div id="canvas-wrapper">
+                <canvas id="qr-canvas" width="512" height="512"></canvas>
+            </div>
+            <% for(let i = 0; i < roles.length; i++) {%>
+                <input type="checkbox" id="<% roles[i] %>-checkbox" value="<% roles[i] %>">
+                <label for="<% roles[i] %>"></label><br>
+            <% } %>
         <% } %>
         <% if(checkedIn && auth.level >= ranks.triumvirate) { %>
             <div id="checkoutbutton">
