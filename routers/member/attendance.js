@@ -46,7 +46,7 @@ router.get("/", async (req, res) => {
         }
     }).exec();
     console.log(todayCheckIns);
-    res.render("attendance/pages/member.ejs", {checkedIn: !!todayCheckIns.length});
+    res.render("attendance/pages/member.ejs", {checkedIn: !!todayCheckIns.length, roles: ["App Dev", "Software", "Mechanical", "Electrical", "Machining", "Design", "Scouting"]});
 });
 
 router.get("/checkout", async (req, res) => {

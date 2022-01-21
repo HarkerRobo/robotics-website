@@ -11,6 +11,10 @@ const EntrySchema = new mongoose.Schema({
     },
     checkOut: {
         type: Number
+    },
+    subteams: {
+        type: [String],
+        required: false
     }
 });
 
