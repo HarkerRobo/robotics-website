@@ -157,7 +157,7 @@ router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
             await todayCheckIns[0].save();
         }
 
-        res.json({"success": true, "name": dbUser.name });
+        res.json({"success": true, "name": dbUser.name, "username": dbUser.email.replace("@students.harker.org", "")});
     } catch(e) {
         console.error(e);
         res.status(400).json({"error": e.message});

@@ -55,6 +55,8 @@ function scan(content) {
             document.getElementById("scanner-message").style.display = "block";
             document.getElementById("toggle-camera").style.display = "none";
             document.getElementById("scanner-message").innerHTML = resp.error;
+
+            document.getElementById("user-photo").setAttribute("src", `/member/attendance/photos/${resp.username}`);
             scanner.stop();
             console.error(resp.error);
         }
