@@ -14,7 +14,7 @@
          <!-- Site Styles -->
          <link rel="stylesheet" href="/new/css/theme.css" />
          <link rel="stylesheet" href="/new/css/attendanceHeader.css" />
-         <link rel="stylesheet" href="/new/css/attendanceMember.css" />
+         <link rel="stylesheet" href="/new/css/attendanceMember.css?v=2" />
     </head>
     <body>
         <%- include(__base + 'views/new/partials/attendanceHeader.ejs') %>
@@ -35,8 +35,10 @@
                 <canvas id="qr-canvas" width="512" height="512"></canvas>
             </div>
             <% for (team in subteams) { %>
-                <input type="checkbox" class="attendance-checkbox" id="<%- team -%>_checkbox" value="<%- team -%>" onchange="updateQR()">
-                <label for="<%- team -%>_checkbox"><%- subteams[team] -%></label><br>
+                <div class="checkbox-container">
+                    <input type="checkbox" class="attendance-checkbox" id="<%- team -%>_checkbox" value="<%- team -%>" onchange="updateQR()">
+                    <label for="<%- team -%>_checkbox"><%- subteams[team] -%></label>
+                </div>
             <% } %>
         <% } %>
         <% if(checkedIn && auth.level >= ranks.triumvirate) { %>
