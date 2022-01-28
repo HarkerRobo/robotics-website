@@ -256,11 +256,7 @@ router.post("/review", auth.verifyRank(ranks.lead), async (req, res) => {
 });
 
 router.get("/photos/:username", auth.verifyRank(ranks.lead), async (req, res) => {
-    let uri = `${config.photos.host}/${req.params.username}.jpg?auth=${config.photos.auth}`;
-    request(uri).pipe((imageStream) => { 
-        imageStream.on("end", () => res.end());
-        imageStream.pipe(res); 
-    }); 
+    request(`${config.photos.host}/${req.params.username}.jpg?auth=${config.photos.auth}`).pipe(res); 
 })
 
 router.get("/attendance/:username", auth.verifyRank(ranks.lead), async (req, res) => {
