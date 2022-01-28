@@ -99,17 +99,18 @@ router.get("/attendance", auth.verifyRank(ranks.lead), (req, res) => {
 router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
     try {
         let dbUser;
-        let scanTime
+        let scanTime;
+        let subteams = [];
         try {
             let qr = req.body.qr.split("%");
-            console.log(qr[1]);
+            subteams = qr[1].split(",");
             const decodedQrData = Buffer.from(qr[0], "base64").toString("ascii");
             scanTime = Number(decodedQrData.split("%")[1]);
             const usernameWithoutRandom = decodedQrData.split("%")[0];
             const decodedUsername = Buffer.from(usernameWithoutRandom, "base64").toString("ascii");
             const username = decodedUsername.split("").filter((char, index) => index % 5 == 4).join("");
             dbUser = await User.findOne({email: username.toLowerCase() + "@students.harker.org"}).exec();
-            console.log("Attendnace scan from " + dbUser.email);
+            console.log("Attendance scan from " + dbUser.email);
             console.log(scanTime);
             
             if(!dbUser) //check null
@@ -143,7 +144,8 @@ router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
             await Entry.create({
                 email: dbUser.email,
                 checkIn: /*new Date().getTimezoneOffset() * -60 * 1000 +*/ Date.now(),
-                checkOut: null
+                checkOut: null,
+                subteams: subteams
             });
         } else {
             if(!todayCheckIns.length) {
