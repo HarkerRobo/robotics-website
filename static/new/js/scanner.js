@@ -51,7 +51,7 @@ function scan(content) {
             document.getElementById("user-photo").style.display = "block";
             document.getElementById("toggle-camera").style.display = "none";
             document.getElementById("scanner-message").innerHTML = `Successfully scanned ${resp.name}.`
-            document.getElementById("user-photo").setAttribute("src", `/member/attendance/photos/${resp.username}`);
+            document.getElementById("user-photo").src = `/member/attendance/photos/${resp.username}`;
             scanner.stop();
         } else {
             console.log("Scanning error");
