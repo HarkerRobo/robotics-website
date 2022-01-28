@@ -101,7 +101,9 @@ router.post("/qrcode", auth.verifyRank(ranks.lead), async (req, res) => {
         let dbUser;
         let scanTime
         try {
-            const decodedQrData = Buffer.from(req.body.qr, "base64").toString("ascii");
+            let qr = req.body.qr.split("%");
+            console.log(qr[1]);
+            const decodedQrData = Buffer.from(qr[0], "base64").toString("ascii");
             scanTime = Number(decodedQrData.split("%")[1]);
             const usernameWithoutRandom = decodedQrData.split("%")[0];
             const decodedUsername = Buffer.from(usernameWithoutRandom, "base64").toString("ascii");
