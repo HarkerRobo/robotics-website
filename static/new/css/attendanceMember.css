@@ -23,3 +23,7 @@ body {
     margin-left: 30vw;
     /* transform: translate(-20vw, -15vw); */
 }
+
+.checkbox-container {
+    text-align: center;
+}
