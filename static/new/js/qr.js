@@ -1,16 +1,22 @@
+var qrdata = "";
+
+function updateQR() {
+    QRCode.toCanvas(document.getElementById("qr-canvas"), qrdata + "%" + [...document.querySelectorAll(".attendance-checkbox")].filter(checkbox => checkbox.checked).map(checkbox => checkbox.value).join(","), {
+        color: {
+            dark: "#000",
+            light: "#F0F0F0"
+        },
+        width: 256,
+        height: 256
+    });
+}
+
 function resetQR() {
     const xhr = new XMLHttpRequest();
     xhr.open("GET", "./attendance/qrcode", true);
     xhr.onload = function() {
-        const data = JSON.parse(xhr.responseText);
-        QRCode.toCanvas(document.getElementById("qr-canvas"), data.data, {
-            color: {
-                dark: "#000",
-                light: "#F0F0F0"
-            },
-            width: 256,
-            height: 256
-        });
+        qrdata = JSON.parse(xhr.responseText).data;
+        updateQR();
     };
     xhr.send();
 }
