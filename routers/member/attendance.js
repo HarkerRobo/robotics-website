@@ -18,7 +18,9 @@ const express = require('express'),
   router = express.Router(),
   smtpConfig = config.automail,
   transporter = nodemailer.createTransport(smtpConfig),
-  csrfProtection = csrf({ cookie: true })
+  csrfProtection = csrf({ cookie: true }),
+
+  subteams = require('../../helpers/subteams.json');
 
 const crypto = require("crypto");
 
@@ -46,7 +48,7 @@ router.get("/", async (req, res) => {
         }
     }).exec();
     console.log(todayCheckIns);
-    res.render("attendance/pages/member.ejs", {checkedIn: !!todayCheckIns.length, roles: ["App Dev", "Software", "Mechanical", "Electrical", "Machining", "Design", "Scouting"]});
+    res.render("attendance/pages/member.ejs", {checkedIn: !!todayCheckIns.length, subteams: subteams});
 });
 
 router.get("/checkout", async (req, res) => {
