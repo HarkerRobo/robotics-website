@@ -7,6 +7,7 @@ const express = require('express'),
   xss = require('xss'),
   csrf = require('csurf'),
   {OAuth2Client} = require('google-auth-library'),
+  request = require('request');
 
   User = require('../../models/user'),
   Entry = require("../../models/attendanceEntry");
@@ -253,6 +254,14 @@ router.post("/review", auth.verifyRank(ranks.lead), async (req, res) => {
     }
     res.json({"success": "reviewed"});
 });
+
+router.get("/photos/:username", auth.verifyRank(ranks.lead), async (req, res) => {
+    let uri = `${config.photos.host}/${req.params.username}.jpg?auth=${config.photos.auth}`;
+    request(uri).pipe((imageStream) => { 
+        imageStream.on("end", () => res.end());
+        imageStream.pipe(res); 
+    }); 
+})
 
 router.get("/attendance/:username", auth.verifyRank(ranks.lead), async (req, res) => {
     const positiveRatings = await Review.find({
