@@ -161,6 +161,7 @@ router.get('/list_my', auth.verifyRank(ranks.pr_whitelist), async (req, res) => 
 
 router.get('/create', csrfProtection, auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
     const vendors = await Vendor.find();
+    vendors=vendors.sort((a,b)=>a.name>b.name?1:-1);
     res.render('pages/member/purchase/create', { csrfToken: req.csrfToken(), vendors: vendors })
 });
 
