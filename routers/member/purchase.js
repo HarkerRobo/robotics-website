@@ -87,7 +87,7 @@ res.render('pages/member/wiki')
 })*/
 
 router.get('/', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
-    res.redirect('list_my')
+    res.redirect('list')
 })
 
 router.get('/view/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (req, res) => {
