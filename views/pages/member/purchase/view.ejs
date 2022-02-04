@@ -28,6 +28,10 @@
       <div class="container-fluid">
         <form class="form-horizontal" method="POST">
           <h1 class="title"> VIEW PURCHASE (ID: <span id="purchase_id_title"><%- purchase.purchase_id %></span>)</h1>
+          <% if (purchase.draft) { %>
+            <h3 class="text-center text-muted">DRAFT</h3>
+            <br>
+          <% } %>
           <div class="form-group">
             <label for="vendor" class="col-sm-2 control-label">Submitted By</label>
             <div class="col-sm-10 col-lg-8">

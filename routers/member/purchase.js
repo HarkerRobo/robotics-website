@@ -219,6 +219,7 @@ router.post('/create', csrfProtection, auth.verifyRank(ranks.pr_whitelist), asyn
             shipping_and_handling: xss_array(toDollarAmount(req.body.shipping_and_handling, 0)),
             tax: xss(toDollarAmount(req.body.tax, 0)),
             submitted_by: safeString(req.auth.info.email),
+            draft: Boolean(safeString(req.body.draft))
         })
         res.redirect('view/' + purchase.purchase_id)
     }
