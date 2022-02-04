@@ -62,6 +62,10 @@ const purchaseSchema = mongoose.Schema({
     type: Boolean,
     default: true,
   },
+  draft: {
+    type: Boolean,
+    default: false
+  }
 }, { timestamps: true })
 
 purchaseSchema.plugin(autoIncrement.plugin, { model: 'Purchase', field: 'purchase_id' });
