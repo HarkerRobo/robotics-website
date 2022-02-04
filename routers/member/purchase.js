@@ -307,6 +307,7 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
             tax: xss(toDollarAmount(req.body.tax, 0)),
             submitted_by: safeString(req.auth.info.email),
             approval: 0,
+            draft: Boolean(safeString(req.body.draft))
         })
         res.redirect('../list')
     }
