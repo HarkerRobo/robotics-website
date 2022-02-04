@@ -147,10 +147,10 @@
               <tbody>
                 <% for(var i = 0; i < purchase.part_url.length; i++) { %>
                   <tr>
-                    <td><textarea name="part_url"     class="form-control" disabled ><%- purchase.part_url[i] %>    </textarea></td>
-                    <td><textarea name="part_number"  class="form-control" disabled ><%- purchase.part_number[i] %> </textarea></td>
-                    <td><textarea name="part_name"    class="form-control" disabled /><%- purchase.part_name[i] %>  </textarea></td>
-                    <td><textarea name="subsystem"    class="form-control" disabled /><%- purchase.subsystem[i] %>  </textarea></td>
+                    <td><a href="<%- purchase.part_url[i] %>" target="_blank" class="form-control" style="height: auto;" disabled><%- purchase.part_url[i] %></a></td>
+                    <td><textarea name="part_number" class="form-control" disabled ><%- purchase.part_number[i] %></textarea></td>
+                    <td><textarea name="part_name" class="form-control" disabled /><%- purchase.part_name[i] %></textarea></td>
+                    <td><textarea name="subsystem" class="form-control" disabled /><%- purchase.subsystem[i] %></textarea></td>
                     <td><div class="input-group">
                      <span class="input-group-addon">$</span>
                      <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%- purchase.price_per_unit[i] %>" disabled />
