@@ -21,12 +21,14 @@ Instascan.Camera.getCameras().then(function (_cameras) {
             scanner.start(cameras[currentCamera]);
             document.getElementById("toggle-camera").style.display = "initial";
             document.getElementById("scanner-message").style.display = "none";
+            document.getElementById("user-photo").style.display = "none";
         });
         document.getElementById("check-out-button").addEventListener("click", function() {
             scanMode = false;
             scanner.start(cameras[currentCamera]);
             document.getElementById("toggle-camera").style.display = "initial";
             document.getElementById("scanner-message").style.display = "none";
+            document.getElementById("user-photo").style.display = "none";
         });
     } else {
       console.error('No cameras found.');
@@ -46,17 +48,18 @@ function scan(content) {
             console.log(`Successfully scanned ${resp.name}.`);
             document.getElementById("scanner-message").style.color = "green";
             document.getElementById("scanner-message").style.display = "block";
+            document.getElementById("user-photo").style.display = "block";
             document.getElementById("toggle-camera").style.display = "none";
             document.getElementById("scanner-message").innerHTML = `Successfully scanned ${resp.name}.`
+            document.getElementById("user-photo").src = `/member/attendance/photos/${resp.username}`;
             scanner.stop();
         } else {
             console.log("Scanning error");
             document.getElementById("scanner-message").style.color = "red";
             document.getElementById("scanner-message").style.display = "block";
+            document.getElementById("user-photo").style.display = "none";
             document.getElementById("toggle-camera").style.display = "none";
             document.getElementById("scanner-message").innerHTML = resp.error;
-
-            document.getElementById("user-photo").setAttribute("src", `/member/attendance/photos/${resp.username}`);
             scanner.stop();
             console.error(resp.error);
         }

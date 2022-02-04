@@ -23,3 +23,14 @@ body {
     margin-left: 30vw;
     /* transform: translate(-20vw, -15vw); */
 }
+
+.checkbox-container {
+    text-align: left;
+}
+
+.checkbox-wrapper {
+    text-align: center;
+    width: max-content;
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+}

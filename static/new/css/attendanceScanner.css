@@ -21,6 +21,11 @@ button {
     font-size: 33px;
 }
 
+#user-photo {
+    margin-left: 50%;
+    transform: translate(-50%, 0);
+}
+
 #toggle-camera {
     display: none;
 }
