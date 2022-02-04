@@ -244,6 +244,9 @@
       $('#parts > table > tbody > tr > td textarea').each(function(i,e) {
         this.style.height = this.scrollHeight+'px';
       })
+      $('#parts > table > tbody > tr > td a').each(function(i,e) {
+        this.style.minHeight = this.scrollHeight+'px';
+      })
       console.log(<%- auth.loggedin && auth.level >= ranks.admin %>)
       <% if (auth.loggedin && auth.level >= ranks.admin) { %>
         var data_admin = { 'comments': $("#approval-comments").val(), updatedAt: <%= purchase.updatedAt.getTime() %> }
