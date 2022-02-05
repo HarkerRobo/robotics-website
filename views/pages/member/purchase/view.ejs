@@ -192,7 +192,7 @@
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase" <%- purchase.draft ? "disabled" : "" %>>Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
               <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
               <% if (auth.level >= ranks.superadmin) { %>
-                <button type="button" class="btn btn-success btn-lg" id="approve-purchase-mentor">Approve (Mentor)</button>
+                <button type="button" class="btn btn-success btn-lg" id="approve-purchase-mentor" <%- purchase.draft ? "disabled" : "" %>>Approve (Mentor)</button>
                 <button type="button" class="btn btn-danger btn-lg" id="reject-purchase-mentor">Reject (Mentor)</button>
               <% } %>
             <% } %>
