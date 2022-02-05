@@ -425,6 +425,9 @@ router.post('/admin/approve/:id', auth.verifyRank(ranks.admin), async (req, res)
     }
     try {
         const purchase = await Purchase.findOneAndUpdate({ purchase_id: req.params.id }, query)
+        if(purchase.draft) {
+            res.status(400).send('The purchase request is a draft.')
+        }
         if (req.body.updatedAt != purchase.updatedAt.getTime()) {
             res.status(409).send('The purchase request has been updated elsewhere, not approved.')
             return

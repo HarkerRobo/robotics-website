@@ -182,11 +182,14 @@
           <% if (put_buttons) { %>
             <input style="width: 60%; margin: auto;" type="text" id="approval-comments" class="form-control" placeholder="Comments" /></p>
           <% } %>
+          <% if (purchase.draft) { %>
+            <p class="text-center text-danger">This purchase cannot be approved because it is a draft.</p>
+          <% } %> 
           <div class="btn-group">
             <!-- <button type="button" class="btn btn-info btn-lg">Print</button> -->
             <button type="button" class="btn btn-info btn-lg" id="vex-list-button">Vex List</button>
             <% if (put_buttons) { %>
-              <button type="button" class="btn btn-success btn-lg" id="approve-purchase">Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
+              <button type="button" class="btn btn-success btn-lg" id="approve-purchase" <%- purchase.draft ? "disabled" : "" %>>Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
               <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
               <% if (auth.level >= ranks.superadmin) { %>
                 <button type="button" class="btn btn-success btn-lg" id="approve-purchase-mentor">Approve (Mentor)</button>
