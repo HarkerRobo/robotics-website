@@ -189,7 +189,7 @@
             <!-- <button type="button" class="btn btn-info btn-lg">Print</button> -->
             <button type="button" class="btn btn-info btn-lg" id="vex-list-button">Vex List</button>
             <% if ((purchase.approval === 0 || purchase.approval === 1 || purchase.approval === 3) && purchase.submitted_by == auth.info.email) { %>
-              <button class="btn btn-default btn-lg" onclick="window.location.replace('edit/<%- purchase.purchase_id %>')">Edit</button>
+              <button class="btn btn-default btn-lg" onclick="window.location.replace('../edit/<%- purchase.purchase_id %>')">Edit</button>
             <% } %>
             <% if (put_buttons) { %>
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase" <%- purchase.draft ? "disabled" : "" %>>Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
