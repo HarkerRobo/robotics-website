@@ -289,7 +289,7 @@
         var data_mentor = { 'comments': $("#approval-comments").val(), updatedAt: <%= purchase.updatedAt.getTime() %>, mentor: true }
         $("#approve-purchase-mentor").click(function() {
           $.post('/member/purchase/admin/approve/<%= purchase.purchase_id %>', data_mentor, function() {
-            window.location.href = "/member/purchase/admin"
+            window.location.href = "/member/purchase/mentor"
           }).fail(function(xhr) {
             alert('Something went wrong.')
             console.error(xhr)
