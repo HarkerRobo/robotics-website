@@ -307,7 +307,8 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
             tax: xss(toDollarAmount(req.body.tax, 0)),
             submitted_by: safeString(req.auth.info.email),
             approval: 0,
-            draft: Boolean(safeString(req.body.draft))
+            draft: Boolean(safeString(req.body.draft)),
+            edited_after_rejection: req.body.approval === 1 || req.body.approval === 3
         })
         res.redirect('../list')
     }
@@ -497,6 +498,7 @@ router.post('/admin/reject/:id', auth.verifyRank(ranks.admin), function (req, re
         query.mentor_comments = safeString(req.body.comments)
         query.mentor_username = safeString(req.auth.info.email)
         query.mentor_date_approved = new Date()
+        query.edited_after_rejection = false;
     }
     // if admin
     else {
