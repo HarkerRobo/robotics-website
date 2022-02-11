@@ -238,7 +238,7 @@ router.get('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (req
 
     // if the purchase is awaiting approval, admin rejected, or mentor rejected
     else if (purchase.submitted_by.toLowerCase() === req.auth.info.email.toLowerCase() && purchase.approval < 4)
-        res.render('pages/member/purchase/edit', { purchase: purchase })
+        res.render('pages/member/purchase/edit', { purchase: purchase, creation: purchase._id.getTimestamp().toDateString(), total: purchase.totalCost() })
 
     // otherwise, just view the purchase
     else
