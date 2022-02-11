@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include(__base + 'views/partials/head.ejs', {title: `PR #${purchase.purchase_id} - ${purchase.vendor} | Harker Robotics 1072`}) %>
+    <%- include(__base + 'views/partials/head.ejs', {title: `View PR #${purchase.purchase_id} - ${purchase.vendor} | Harker Robotics 1072`}) %>
     <style media="print">
       #approval-buttons {
         display: none;
@@ -188,6 +188,9 @@
           <div class="btn-group">
             <!-- <button type="button" class="btn btn-info btn-lg">Print</button> -->
             <button type="button" class="btn btn-info btn-lg" id="vex-list-button">Vex List</button>
+            <% if ((purchase.approval === 0 || purchase.approval === 1 || purchase.approval === 3) && purchase.submitted_by == auth.info.email) { %>
+              <button class="btn btn-default btn-lg" onclick="window.location.replace('edit/<%- purchase.purchase_id %>')">Edit</button>
+            <% } %>
             <% if (put_buttons) { %>
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase" <%- purchase.draft ? "disabled" : "" %>>Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
               <button type="button" class="btn btn-danger btn-lg" id="reject-purchase">Reject<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
