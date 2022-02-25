@@ -290,6 +290,7 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
     }
 
     try {
+        const oldPurchase = Purchase.findOne({ purchase_id: req.params.purchase_id  })
         const purchase = await Purchase.findOneAndUpdate({ purchase_id: req.params.purchase_id }, {
             subteam: xss(safeString(req.body.subteam)),
             vendor: xss(safeString(req.body.vendor)),
@@ -307,7 +308,8 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
             tax: xss(toDollarAmount(req.body.tax, 0)),
             submitted_by: safeString(req.auth.info.email),
             approval: 0,
-            draft: Boolean(safeString(req.body.draft))
+            draft: Boolean(safeString(req.body.draft)),
+            edited_after_rejection: oldPurchase.approval === 1 || oldPurchase.approval === 3
         })
         res.redirect('../list')
     }
@@ -497,6 +499,7 @@ router.post('/admin/reject/:id', auth.verifyRank(ranks.admin), function (req, re
         query.mentor_comments = safeString(req.body.comments)
         query.mentor_username = safeString(req.auth.info.email)
         query.mentor_date_approved = new Date()
+        query.edited_after_rejection = false;
     }
     // if admin
     else {

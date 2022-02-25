@@ -65,6 +65,10 @@ const purchaseSchema = mongoose.Schema({
   draft: {
     type: Boolean,
     default: false
+  },
+  edited_after_rejection: {
+    type: Boolean,
+    default: false
   }
 }, { timestamps: true })
 
