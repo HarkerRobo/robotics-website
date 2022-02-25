@@ -1,0 +1,43 @@
+.table-purchases > td {
+  overflow-wrap: anywhere;
+}
+
+@media (max-width: 750px) {
+  .table-purchases > thead {
+    display: none;
+  }
+  .table-purchases > tbody > tr {
+    display: flex;
+    flex-direction: column;
+  }
+  .table-purchases > tbody > tr > td:nth-child(1)::before {
+    content: "Part URL";
+    font-weight: bold;
+  }
+  .table-purchases > tbody > tr > td:nth-child(2)::before {
+    content: "Part #";
+    font-weight: bold;
+  }
+  .table-purchases > tbody > tr > td:nth-child(3)::before {
+    content: "Part Name";
+    font-weight: bold;
+  }
+  .table-purchases > tbody > tr > td:nth-child(4)::before {
+    content: "Subsystem";
+    font-weight: bold;
+  }
+  .table-purchases > tbody > tr > td:nth-child(5)::before {
+    content: "$/Unit";
+    font-weight: bold;
+  }
+  .table-purchases > tbody > tr > td:nth-child(6)::before {
+    content: "Quantity";
+    font-weight: bold;
+  }
+  .table-bordered > tbody > tr > td {
+    border: none;
+  }
+  .table-purchases > tbody > tr {
+    border: 1px solid #ddd;
+  }
+}
