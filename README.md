@@ -82,8 +82,8 @@ The config file should be stored as `config.json`. You can copy from the example
 | cookie.name              | "Harker1072Robotics"                            | The name of the cookies.
 | server.domain                  | "localhost"                                     | The domain that the server is running on. If you are running this on your local machine, "localhost" will do.
 | server.production            | false                                           | Whether the server is a production server, meaning it is behind a proxy and being used as the robotics website.
-| server.runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
 | server.port                    | 3000  | the port to run the system on
+| server.runInternal             | false                                           | Whether to run the /member path (which includes all stuff which is required to login to see, like PR's and the scouting app).
 | TBA.apiKey                    | "key"  | the API key for TBA
 | blog.runBlog            | true                                           | Whether to run the blogs with the API or the iframe
 | blog.interval           | 100                                              | The interval (in seconds) on which to pull the blog posts from Blogger.
@@ -95,6 +95,8 @@ The config file should be stored as `config.json`. You can copy from the example
 | automail.cronPattern      | "0 17 * * *"                                          | The cron pattern for scheduling emails if `automail.singleMentorMail` is true (use the example value to send at 5 P.M. every day).
 | automail.auth.email      | "22arjund@students.harker.org"                             | The email address to send from
 | automail.apiKey      | "key"                                          | The SendGrid api key
+| photos.host        | "https://photos.harker.org" | The website hosting the photos of students
+| photos.auth        | "key" | The API key used to access the photos
 | users.admins       | ["22angiej@students.harker.org", "22ethanc@students.harker.org", "22gloriaz@students.harker.org"]                       | The array of google email addresses of the admins.
 | users.mentor       | "robotics@harker.org"                       | The email address of the mentor.
 | users.superadmins       | ["22arjund@students.harker.org", "22chiragk@students.harker.org", "24kabirr@students.harker.org"]                       | The array of google email addresses of the webmasters of the project. Grants special access for testing purposes.
