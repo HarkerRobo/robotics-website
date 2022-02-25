@@ -501,7 +501,7 @@ router.post('/admin/reject/:id', auth.verifyRank(ranks.admin), function (req, re
         query.mentor_comments = safeString(req.body.comments)
         query.mentor_username = safeString(req.auth.info.email)
         query.mentor_date_approved = new Date()
-        query.edited_after_rejection = false;
+        query.edited_after_rejection = false
     }
     // if admin
     else {
@@ -509,6 +509,7 @@ router.post('/admin/reject/:id', auth.verifyRank(ranks.admin), function (req, re
         query.admin_comments = safeString(req.body.comments)
         query.admin_username = safeString(req.auth.info.email)
         query.admin_date_approved = new Date()
+        query.edited_after_rejection = false
     }
     Purchase.findOneAndUpdate({ purchase_id: req.params.id }, query, function (err, purchase) {
         if (err) {
