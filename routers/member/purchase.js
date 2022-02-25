@@ -290,7 +290,8 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
     }
 
     try {
-        const oldPurchase = Purchase.findOne({ purchase_id: req.params.purchase_id  })
+        const oldPurchase = await Purchase.findOne({ purchase_id: req.params.purchase_id  })
+        const oldApproval = oldPurchase.approval
         const purchase = await Purchase.findOneAndUpdate({ purchase_id: req.params.purchase_id }, {
             subteam: xss(safeString(req.body.subteam)),
             vendor: xss(safeString(req.body.vendor)),
@@ -309,7 +310,7 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
             submitted_by: safeString(req.auth.info.email),
             approval: 0,
             draft: Boolean(safeString(req.body.draft)),
-            edited_after_rejection: oldPurchase.approval === 1 || oldPurchase.approval === 3
+            edited_after_rejection: oldApproval === 1 || oldApproval === 3
         })
         res.redirect('../list')
     }
