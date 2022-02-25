@@ -2,6 +2,10 @@
   overflow-wrap: anywhere;
 }
 
+.table-purchases > tbody > tr > td:nth-child(1) {
+  max-width: 100vw;
+}
+
 @media (max-width: 750px) {
   .table-purchases > thead {
     display: none;
