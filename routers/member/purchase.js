@@ -292,7 +292,7 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
     try {
         const oldPurchase = await Purchase.findOne({ purchase_id: req.params.purchase_id  })
         const oldApproval = oldPurchase.approval
-        const oldEdited = oldPurchase.edited
+        const oldEdited = oldPurchase.edited_after_rejection
         const purchase = await Purchase.findOneAndUpdate({ purchase_id: req.params.purchase_id }, {
             subteam: xss(safeString(req.body.subteam)),
             vendor: xss(safeString(req.body.vendor)),
