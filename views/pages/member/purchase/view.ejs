@@ -307,7 +307,7 @@
         })
       <% } %>
 
-      window.addEventListener("beforeprint", () => document.title = "OI<%= purchase.purchase_id %>" );
+      window.addEventListener("beforeprint", () => document.title = "OID<%= purchase.purchase_id %>" );
       window.addEventListener("afterprint", () => document.title = "View PR #<%= purchase.purchase_id %> - <%= purchase.vendor %> | Harker Robotics 1072" );
     </script>
 
