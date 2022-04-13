@@ -22,7 +22,10 @@ const purchaseSchema = mongoose.Schema({
   vendor_phone: String,
   vendor_email: String,
   vendor_address: String,
-  reason_for_purchase: String,
+  reason_for_purchase: {
+    type: String,
+    required: true
+  },
   part_url: [String],
   part_number: [String],
   part_name: [String],
