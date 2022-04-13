@@ -201,7 +201,9 @@ router.post('/create', csrfProtection, auth.verifyRank(ranks.pr_whitelist), asyn
         req.body.price_per_unit.shift()
         req.body.quantity.shift()
     }
-
+    if (req.body.reason_for_purchase === "") {
+        res.render('pages/member/error', { statusCode: 400, error: "Purchase reason missing" })
+    }
     try {
         const purchase = await Purchase.create({
             subteam: xss(safeString(req.body.subteam)),
@@ -235,6 +237,10 @@ router.get('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (req
     // if the purchase does not exist
     if (purchase == null)
         res.render('pages/member/error', { statusCode: 404, error: (err ? err : "Purchase not found") })
+
+    // if reason for purchase not given
+    else if  (req.params.reason_for_purchase === "")
+        res.render('pages/member/error', { statusCode: 400, error: "Purchase reason missing" })
 
     // if the purchase is awaiting approval, admin rejected, or mentor rejected
     else if (purchase.submitted_by.toLowerCase() === req.auth.info.email.toLowerCase() && purchase.approval < 4)
