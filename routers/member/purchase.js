@@ -404,7 +404,7 @@ router.all('/*', function (req, res, next) {
     if (req.auth.level >= ranks.admin) {
         next()
     } else {
-        res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page." })
+        res.render('pages/member/error', { statusCode: 401, error: "You must have higher authorization to reach this page." })
     }
 })
 
@@ -539,7 +539,7 @@ router.all('/*', function (req, res, next) {
     if (req.auth.level >= ranks.mentor) {
         next()
     } else {
-        res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page." })
+        res.render('pages/member/error', { statusCode: 401, error: "You must have higher authorization to reach this page." })
     }
 })
 

@@ -21,7 +21,7 @@ const verifyRank = rank => {
   return (req, res, next) => {
     verifyLogin(req, res, () => {
       if (req.auth.level >= rank) next()
-      else res.render('pages/member/error', { statusCode: 401, error: "You must have higher clearance to reach this page."})
+      else res.render('pages/member/error', { statusCode: 401, error: "You must have higher authorization to reach this page."})
     })
   }
 }

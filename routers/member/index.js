@@ -289,7 +289,7 @@ router.all('/*', function (req, res, next) {
   if (req.auth.level >= ranks.superadmin) next()
   else res.render('pages/member/error', {
     statusCode: 401,
-    error: "You must have higher clearance to reach this page."
+    error: "You must have higher authorization to reach this page."
   })
 })
 
