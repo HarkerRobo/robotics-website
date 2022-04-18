@@ -327,12 +327,12 @@ router.post('/edit/:purchase_id', auth.verifyRank(ranks.pr_whitelist), async (re
     }
 })
 
-router.get('/total', (req, res) => {
+router.get('/total', auth.verifyRank(ranks.admin), (req, res) => {
     res.render('pages/member/purchase/total');
 });
 
 
-router.get('/total_plain', (req, res) => {
+router.get('/total_plain', auth.verifyRank(ranks.admin), (req, res) => {
     const subteam = req.query.subteams ? req.query.subteams.map(num => {
         if (num == null || num == 'null') return null;
         return Number(num)
