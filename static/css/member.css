@@ -1,38 +1,40 @@
-header, section, body {
-  background: #1e3155;
-  /*background: black;*/
+header,
+section,
+body {
+    background: #1e3155;
+    /*background: black;*/
 }
 
 .deleteIfSignedOut {
-  display: none;
+    display: none;
 }
 
 #parts-drop-area {
-  border: white 2px dashed;
-  background-color: darkcyan;
-  border-radius: 10px;
-  width: 50%;
-  margin: 20px auto;
-  padding: 10px;
-  transition: background 0.5s,
+    border: white 2px dashed;
+    background-color: darkcyan;
+    border-radius: 10px;
+    width: 50%;
+    margin: 20px auto;
+    padding: 10px;
+    transition: background 0.5s;
 }
 
 #parts-drop-area #fileElem {
-  display: inline;
+    display: inline;
 }
 
 #parts-drop-area.highlight {
-  background-color: rgb(0, 179, 60);
+    background-color: rgb(0, 179, 60);
 }
 .search-filter-container {
-  display: inline-block;
-  margin-right: 15px;
-  margin-top: 5px;
+    display: inline-block;
+    margin-right: 15px;
+    margin-top: 5px;
 }
 
 .search-filter-container > label {
-  font-weight: normal;
-  margin-left: 5px;
-  vertical-align: text-bottom;
-  margin-bottom: 0;
+    font-weight: normal;
+    margin-left: 5px;
+    vertical-align: text-bottom;
+    margin-bottom: 0;
 }

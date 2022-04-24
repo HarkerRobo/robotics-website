@@ -13,7 +13,7 @@
 }
 
 .gold {
-    color: #efc411
+    color: #efc411;
 }
 
 .silver {
@@ -21,7 +21,7 @@
 }
 
 .bronze {
-    color: #cd7f32
+    color: #cd7f32;
 }
 
 #sponsors-title {
@@ -60,34 +60,32 @@
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -webkit-flex-flow: row wrap;
-       -moz-box-orient: horizontal;
-       -moz-box-direction: normal;
-        -ms-flex-flow: row wrap;
-            flex-flow: row wrap;
+    -moz-box-orient: horizontal;
+    -moz-box-direction: normal;
+    -ms-flex-flow: row wrap;
+    flex-flow: row wrap;
 
     -webkit-box-pack: center;
 
     -webkit-justify-content: center;
 
-       -moz-box-pack: center;
+    -moz-box-pack: center;
 
-        -ms-flex-pack: center;
+    -ms-flex-pack: center;
 
-            justify-content: center;
+    justify-content: center;
     -webkit-box-align: center;
     -webkit-align-items: center;
-       -moz-box-align: center;
-        -ms-flex-align: center;
-            align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
 }
-
 
 .sponsor-image {
     height: 5vw;
 
     margin: 2vw;
 }
-
 
 .big-image {
     height: 8vw;
@@ -102,11 +100,11 @@
 }
 
 #contact-link {
-    color:black;
+    color: black;
     -webkit-transition-duration: 0.4s;
-       -moz-transition-duration: 0.4s;
-         -o-transition-duration: 0.4s;
-            transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 #contact-link:hover {
@@ -138,4 +136,4 @@
     .sponsor-tier-description {
         font-size: 7vw;
     }
- }
+}

@@ -13,29 +13,28 @@
     height: 100%;
 }
 
-
 .admin-icon {
     background-color: var(--color-primary);
     -webkit-border-radius: 50%;
-       -moz-border-radius: 50%;
-            border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
     width: 4vw;
     height: 4vw;
     margin-right: 2vw;
     display: inline-block;
     text-align: center;
     -webkit-transition-duration: 0.4s;
-       -moz-transition-duration: 0.4s;
-         -o-transition-duration: 0.4s;
-            transition-duration: 0.4s;
+    -moz-transition-duration: 0.4s;
+    -o-transition-duration: 0.4s;
+    transition-duration: 0.4s;
 }
 
 .admin-icon:hover {
     -webkit-filter: brightness(140%);
-            filter: brightness(140%);
-    -webkit-box-shadow: 0 0 50px 0 rgba(0,0,0,1),;
-       -moz-box-shadow: 0 0 50px 0 rgba(0,0,0,1),;
-            box-shadow: 0 0 50px 0 rgba(0,0,0,1), 
+    filter: brightness(140%);
+    -webkit-box-shadow: 0 0 50px 0 rgba(0, 0, 0, 1);
+    -moz-box-shadow: 0 0 50px 0 rgba(0, 0, 0, 1);
+    box-shadow: 0 0 50px 0 rgba(0, 0, 0, 1);
 }
 
 #admin-icons {
@@ -58,7 +57,7 @@
         margin-right: 3vw;
     }
 
-    .admin-image {  
+    .admin-image {
         width: 6vw;
         height: 6vw;
         margin: 1vw auto;

@@ -1,8 +1,7 @@
-let sgMail = require('@sendgrid/mail'),
-    config = require(__base + 'config.json');
+let sgMail = require("@sendgrid/mail"),
+    config = require(__base + "config.json");
 
-
-sgMail.setApiKey(config.automail.apiKey)
+sgMail.setApiKey(config.automail.apiKey);
 
 const sendMail = (from, to, subject, text, html) => {
     let payload = {
@@ -10,21 +9,24 @@ const sendMail = (from, to, subject, text, html) => {
         to: to, // list of receivers
         subject: subject, // Subject line
         text: text, // plaintext body
-        html: html
-    }
+        html: html,
+    };
 
-    sgMail.send(payload).then(() => {
-        console.log('Email sent to '+ to + ' from ' + from)
-    }).catch((error) => {
-        console.error(error)
-        if (error.response) {
-            const { message, code, response } = error;
+    sgMail
+        .send(payload)
+        .then(() => {
+            console.log("Email sent to " + to + " from " + from);
+        })
+        .catch((error) => {
+            console.error(error);
+            if (error.response) {
+                const { message, code, response } = error;
 
-            const { headers, body } = response;
+                const { headers, body } = response;
 
-            console.error(body);
-        }
-    })
-}
+                console.error(body);
+            }
+        });
+};
 
-exports.sendMail = sendMail
+exports.sendMail = sendMail;

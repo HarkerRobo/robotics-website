@@ -53,7 +53,7 @@
 }
 
 .form-text {
-    font-size: 2.0vw;
+    font-size: 2vw;
     color: var(--color-primary);
 }
 
@@ -63,7 +63,7 @@
 
     box-sizing: border-box;
 
-    margin-top: .8vw;
+    margin-top: 0.8vw;
     margin-bottom: 2vw;
     height: 3vw;
     font-size: 1.45vw;
@@ -77,7 +77,7 @@
 
 #textarea {
     height: 12vw;
-    padding-top: .5vw;
+    padding-top: 0.5vw;
 }
 
 .form-input:focus {

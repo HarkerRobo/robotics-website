@@ -1,5 +1,11 @@
-h1, h2, h3, h4, h5, h6, p {
-    font-family: 'Roboto', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    font-family: "Roboto", sans-serif;
 }
 
 #body {
@@ -45,7 +51,6 @@ h1, h2, h3, h4, h5, h6, p {
     margin-left: 1vw;
     margin-right: 1vw;
     margin-bottom: 6vw;
-
 }
 
 .outreach-image {

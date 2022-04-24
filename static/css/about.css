@@ -1,23 +1,22 @@
 table#leaders {
-
 }
 
 table#leaders > thead {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 45px;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 45px;
 }
 
 table#leaders > tbody {
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 40px;
+    font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 40px;
 }
 
 table#leaders > tbody > tr > td {
-  vertical-align: middle;
+    vertical-align: middle;
 }
 
 table#leaders > tbody > tr > td > img {
-  height: 100px;
-  width: 100px;
-  font-size: 16px;
+    height: 100px;
+    width: 100px;
+    font-size: 16px;
 }

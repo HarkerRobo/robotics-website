@@ -1,12 +1,12 @@
-const mongoose = require("../db")
+const mongoose = require("../db");
 
 const ReviewSchema = new mongoose.Schema({
     email: {
         type: String,
-        index: true
+        index: true,
     },
     rating: {
-        type: Number
+        type: Number,
     },
     attendanceEmail: {
         type: String,
@@ -14,8 +14,8 @@ const ReviewSchema = new mongoose.Schema({
     entryId: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "entry",
-        index: true
-    }
+        index: true,
+    },
 });
 
 const Review = mongoose.model("Review", ReviewSchema);

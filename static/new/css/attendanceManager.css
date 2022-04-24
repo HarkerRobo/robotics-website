@@ -3,7 +3,7 @@
 }
 
 p {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
 }
 
 body {
@@ -53,7 +53,7 @@ body {
 
 .attendance-hours {
     min-width: 46%;
-    color: #6F6F6F;
+    color: #6f6f6f;
     font-size: 1.8vw;
     text-align: left;
 }
@@ -69,18 +69,22 @@ body {
 }
 
 .rating-icon {
-    height: 2.0vw;
+    height: 2vw;
 }
 
 .red {
     color: red;
 }
 
-.thumbsUp, .meh, .thumbsDown {
+.thumbsUp,
+.meh,
+.thumbsDown {
     all: unset;
 }
 
-.thumbsUp:hover, .meh:hover, .thumbsDown:hover {
+.thumbsUp:hover,
+.meh:hover,
+.thumbsDown:hover {
     all: unset;
     cursor: pointer;
 }
@@ -89,9 +93,11 @@ body {
     width: 15vw;
     height: 3vw;
     padding-top: 0vw;
-    font-size: calc(16pt + .2vw);
+    font-size: calc(16pt + 0.2vw);
 }
 
 @media screen and (max-width: 800px) {
-    #export-attendance { display:none; }
+    #export-attendance {
+        display: none;
+    }
 }

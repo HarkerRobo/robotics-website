@@ -1,78 +1,96 @@
 .navbar-custom {
-  margin-bottom: 0;
-  border-bottom: 1px solid rgba(255,255,255,.3);
-  text-transform: uppercase;
-  font-family: Montserrat,"Helvetica Neue",Helvetica,Arial,sans-serif;
+    margin-bottom: 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    text-transform: uppercase;
+    font-family: Montserrat, "Helvetica Neue", Helvetica, Arial, sans-serif;
 
-  background: black; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left,rgba(50,50,50,.81),rgba(243,243,243,.27)); /*Safari 5.1-6*/
-  background: -o-linear-gradient(right,rgba(50,50,50,.81),rgba(243,243,243,.27)); /*Opera 11.1-12*/
-  background: -moz-linear-gradient(right,rgba(50,50,50,.81),rgba(243,243,243,.27)); /*Fx 3.6-15*/
-  background: linear-gradient(to right, rgba(50,50,50,.81), rgba(243,243,243,.27)); /*Standard*/
+    background: black; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(
+        left,
+        rgba(50, 50, 50, 0.81),
+        rgba(243, 243, 243, 0.27)
+    ); /*Safari 5.1-6*/
+    background: -o-linear-gradient(
+        right,
+        rgba(50, 50, 50, 0.81),
+        rgba(243, 243, 243, 0.27)
+    ); /*Opera 11.1-12*/
+    background: -moz-linear-gradient(
+        right,
+        rgba(50, 50, 50, 0.81),
+        rgba(243, 243, 243, 0.27)
+    ); /*Fx 3.6-15*/
+    background: linear-gradient(
+        to right,
+        rgba(50, 50, 50, 0.81),
+        rgba(243, 243, 243, 0.27)
+    ); /*Standard*/
 
-  border: 5px solid white;
+    border: 5px solid white;
 }
 
 nav {
-  border: 0 !important;
+    border: 0 !important;
 }
 
 nav a {
-  color: white;
-  font-size: 1.15em;
-  padding: 15px 10px !important;
+    color: white;
+    font-size: 1.15em;
+    padding: 15px 10px !important;
 }
 
 .navbar-brand {
-  font-size: 1.5em !important;
+    font-size: 1.5em !important;
 }
 
 a.iconlink {
-  padding: 5px 15px !important;
+    padding: 5px 15px !important;
 }
 
 nav i.iconlink {
-  font-size: 40px;
+    font-size: 40px;
 }
 
-@media (min-width: 768px) and (max-width: 1000px)
-{
-  nav a {
+@media (min-width: 768px) and (max-width: 1000px) {
+    nav a {
+        color: white;
+        font-size: 1em;
+        padding: 15px 5px !important;
+    }
+
+    .navbar-brand {
+        font-size: 1.5em !important;
+    }
+
+    a.iconlink {
+        padding: 10px 10px !important;
+    }
+
+    i.iconlink {
+        font-size: 30px;
+    }
+}
+
+nav a:hover,
+nav a:focus nav,
+nav .open > a {
+    background: rgba(0, 0, 0, 0.3) !important;
     color: white;
-    font-size: 1em;
-    padding: 15px 5px !important;
-  }
-
-  .navbar-brand {
-    font-size: 1.5em !important;
-  }
-
-  a.iconlink {
-    padding: 10px 10px !important;
-  }
-
-  i.iconlink {
-    font-size: 30px;
-  }
-}
-
-nav a:hover, nav a:focus nav, nav .open > a {
-  background: rgba(0,0,0,.3) !important;
-  color: white;
 }
 
 .navbar-toggle {
-  padding:0px 0px !important;
-  margin: 3px 10px !important;
-  color: white;
-  font-size: 30px;
+    padding: 0px 0px !important;
+    margin: 3px 10px !important;
+    color: white;
+    font-size: 30px;
 }
 
 .navbar-fixed-top {
-  border: 0px;
+    border: 0px;
 }
 
-a.current-nav, a.current-nav:focus {
-  /*background-color: rgba(0,255,127,.5) !important;*/
-  background-color: rgba(65,105,225,.7)
+a.current-nav,
+a.current-nav:focus {
+    /*background-color: rgba(0,255,127,.5) !important;*/
+    background-color: rgba(65, 105, 225, 0.7);
 }

@@ -1,15 +1,15 @@
 {
-  "none": 0,
-  "harker_student": 10,
-  "deployer": 15,
-  "pr_whitelist": 20,
-  "lead": 25,
-  "director": 30,
-  "checkin_tablet": 35,
-  "parts_whitelist": 50,
-  "scouting_sergeants": 60,
-  "admin": 70,
-  "triumvirate": 80,
-  "mentor": 90,
-  "superadmin": 100
+    "none": 0,
+    "harker_student": 10,
+    "deployer": 15,
+    "pr_whitelist": 20,
+    "lead": 25,
+    "director": 30,
+    "checkin_tablet": 35,
+    "parts_whitelist": 50,
+    "scouting_sergeants": 60,
+    "admin": 70,
+    "triumvirate": 80,
+    "mentor": 90,
+    "superadmin": 100
 }
