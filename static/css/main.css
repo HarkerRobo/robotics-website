@@ -1,354 +1,372 @@
 *:not(.btn) {
-  transition: background .3s ease-in-out;
-  -webkit-transition: background .3s ease-in-out;
+    transition: background 0.3s ease-in-out;
+    -webkit-transition: background 0.3s ease-in-out;
 }
 
 *:focus {
-  outline: 0px !important;
+    outline: 0px !important;
 }
 
 ::-webkit-scrollbar {
-    width:0;
+    width: 0;
     height: 0;
 }
 
 .black-text {
-  color: black;
+    color: black;
 }
 
 .center {
-  text-align: center;
+    text-align: center;
 }
 
 .float-right {
-  float: right;
+    float: right;
 }
 
 .zero-vertical-margin {
-  margin-top: 0 !important;
-  margin-bottom: 0 !important;
+    margin-top: 0 !important;
+    margin-bottom: 0 !important;
 }
 
-
-header, section {
-  mix-blend-mode: normal;
-  height: 100vh;
-  width: 100vw;
-  position: relative;
-  padding-top: 80px;
-  background: linear-gradient(90deg, rgba(255,0,0, .5) 0%, rgba(0,14,255, .5) 100%);
-  opacity: 1;
-  color: white;
+header,
+section {
+    mix-blend-mode: normal;
+    height: 100vh;
+    width: 100vw;
+    position: relative;
+    padding-top: 80px;
+    background: linear-gradient(
+        90deg,
+        rgba(255, 0, 0, 0.5) 0%,
+        rgba(0, 14, 255, 0.5) 100%
+    );
+    opacity: 1;
+    color: white;
 }
 
 ul.no-bullets {
-  list-style-type: none;
+    list-style-type: none;
 }
 
 .title {
-  font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
-  color: white;
-  font-weight: 700;
-  text-align: center;
-  margin-bottom: .25em;
+    font-family: "Montserrat", "Helvetica Neue", Helvetica, sans-serif;
+    color: white;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 0.25em;
 }
 
 h1.title {
-  font-size: 5em;
+    font-size: 5em;
 }
 
 h2.title {
-  margin-top: 5%;
-  font-size: 3em;
-  margin-bottom: -5%;
-}
-
-@media (max-width:750px)
-{
-  h1.title {
-    font-size: 2.5em;
-  }
-
-  h2.title {
-    font-size: 2em;
-    margin-top: 10%;
-  }
-}
-
-@media (max-width:400px) {
-  h2.title {
-    margin-bottom: -15%;
-  }
-}
-
-@media (max-height:400px) {
-  h2.title {
     margin-top: 5%;
-  }
+    font-size: 3em;
+    margin-bottom: -5%;
 }
 
-@font-face {
-  font-family: neuropol;
-  src: url('../fonts/neuropol.ttf');
+@media (max-width: 750px) {
+    h1.title {
+        font-size: 2.5em;
+    }
+
+    h2.title {
+        font-size: 2em;
+        margin-top: 10%;
+    }
 }
 
-.learn-more-button {
-  font-size: 45px;
-  font-family: Montserrat, "Helvetica Neue", sans-serif;
-  height: 15vh;
-  width: 35vw;
-  margin: auto;
-  margin-top: 30px;
-  display: table;
-  background-color: rgba(0,0,0,0.4);
-  border: 2px solid #FFFFFF;
-  color: #FFFFFF;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
-.multiple-learn-more-button {
-  margin: auto;
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  display: flex;
-}
-
-.multiple-learn-more-button .learn-more-button {
-  margin: 0 1vw;
-  position: relative;
-}
-
-@media (max-width: 1000px) {
-  .learn-more-button {
-    font-size: 40px;
-    width: 50vw;
-  }
-}
-
-@media (max-width: 450px) {
-  .learn-more-button {
-    width: 70vw;
-    font-size: 30px;
-  }
-
-  .multiple-learn-more-button {
-    display: block;
-  }
-}
-
-.learn-more-button:hover {
-  background-color: rgba(0,0,0,.6);
-}
-
-.learn-more-button:active, a:focus > .learn-more-button {
-  background-color: rgba(0,0,0,.65);
-}
-
-.learn-more-button > p {
-  vertical-align: middle;
-  text-align: center;
-  display: table-cell;
-}
-
-a.regular {
-  /*color: aqua;*/
-  font-weight: bold;
-  color: aquamarine;
-}
-
-a.regular:hover {
-  /*color: aqua;*/
-  color: aquamarine;
-}
-
-a.regular:focus {
-  /*color: aqua;*/
-  color: aquamarine;
-}
-
-a.covert {
-  color: white;
-}
-
-a.covert:hover {
-  text-decoration: none;
-  color: white;
-}
-
-.info-text {
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-  font-size: 40px;
-  margin: 5%;
-  color: white;
-  text-align: center;
-}
-
-@media (max-height: 600px), (max-width: 400px) {
-  .info-text {
-    margin-top: 10vh;
-    margin-bottom: 3vh;
-    font-size: 25px;
-  }
+@media (max-width: 400px) {
+    h2.title {
+        margin-bottom: -15%;
+    }
 }
 
 @media (max-height: 400px) {
-  .info-text {
-    margin-top: 0;
-  }
+    h2.title {
+        margin-top: 5%;
+    }
+}
+
+@font-face {
+    font-family: neuropol;
+    src: url("../fonts/neuropol.ttf");
+}
+
+.learn-more-button {
+    font-size: 45px;
+    font-family: Montserrat, "Helvetica Neue", sans-serif;
+    height: 15vh;
+    width: 35vw;
+    margin: auto;
+    margin-top: 30px;
+    display: table;
+    background-color: rgba(0, 0, 0, 0.4);
+    border: 2px solid #ffffff;
+    color: #ffffff;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.multiple-learn-more-button {
+    margin: auto;
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+}
+
+.multiple-learn-more-button .learn-more-button {
+    margin: 0 1vw;
+    position: relative;
+}
+
+@media (max-width: 1000px) {
+    .learn-more-button {
+        font-size: 40px;
+        width: 50vw;
+    }
 }
 
 @media (max-width: 450px) {
-  .info-text {
-    font-size: 30px;
-  }
+    .learn-more-button {
+        width: 70vw;
+        font-size: 30px;
+    }
+
+    .multiple-learn-more-button {
+        display: block;
+    }
+}
+
+.learn-more-button:hover {
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+.learn-more-button:active,
+a:focus > .learn-more-button {
+    background-color: rgba(0, 0, 0, 0.65);
+}
+
+.learn-more-button > p {
+    vertical-align: middle;
+    text-align: center;
+    display: table-cell;
+}
+
+a.regular {
+    /*color: aqua;*/
+    font-weight: bold;
+    color: aquamarine;
+}
+
+a.regular:hover {
+    /*color: aqua;*/
+    color: aquamarine;
+}
+
+a.regular:focus {
+    /*color: aqua;*/
+    color: aquamarine;
+}
+
+a.covert {
+    color: white;
+}
+
+a.covert:hover {
+    text-decoration: none;
+    color: white;
+}
+
+.info-text {
+    font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+    font-size: 40px;
+    margin: 5%;
+    color: white;
+    text-align: center;
+}
+
+@media (max-height: 600px), (max-width: 400px) {
+    .info-text {
+        margin-top: 10vh;
+        margin-bottom: 3vh;
+        font-size: 25px;
+    }
+}
+
+@media (max-height: 400px) {
+    .info-text {
+        margin-top: 0;
+    }
+}
+
+@media (max-width: 450px) {
+    .info-text {
+        font-size: 30px;
+    }
 }
 
 #player {
-  position: absolute;
-  top: -9999px;
-  left: -9999px;
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
 }
 
 /* landing */
 
 #landing-tile {
-  /*background: url('/img/media/direc/landing-background.jpg') no-repeat center center;*/
-  background: url('/img/media/direc/landing-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/landing-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/landing-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/landing-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),url('/img/media/direc/landing-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  opacity: 1;
+    /*background: url('/img/media/direc/landing-background.jpg') no-repeat center center;*/
+    background: url("/img/media/direc/landing-background.jpg") no-repeat center
+        center; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/landing-background.jpg") no-repeat center center; /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/landing-background.jpg") no-repeat center center; /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/landing-background.jpg") no-repeat center center; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/landing-background.jpg") no-repeat center center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 1;
 }
 
-h1.landingtext, h2.landingtext {
-  font-family: neuropol, Montserrat, "Helvetica Neue", sans-serif;
-  text-align: center;
-  display: none;
+h1.landingtext,
+h2.landingtext {
+    font-family: neuropol, Montserrat, "Helvetica Neue", sans-serif;
+    text-align: center;
+    display: none;
 }
 
 h1.landingtext {
-  font-size: 75px;
+    font-size: 75px;
 }
 
 h2.landingtext {
-  font-size: 50px;
+    font-size: 50px;
 }
 
 div.landingtext {
-  padding-top: 10%;
+    padding-top: 10%;
 }
 
-@media (max-width:750px), (max-height: 500px)
-{
-  h1.landingtext {
-    font-size: 40px;
-  }
+@media (max-width: 750px), (max-height: 500px) {
+    h1.landingtext {
+        font-size: 40px;
+    }
 
-  h2.landingtext {
-    font-size: 25px;
-  }
+    h2.landingtext {
+        font-size: 25px;
+    }
 
-  div.landingtext {
-    padding-top: 5%;
-  }
+    div.landingtext {
+        padding-top: 5%;
+    }
 }
-
 
 /* contact */
 
 #contact-tile {
-  background: url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)), url('/img/media/direc/contact-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)),url('/img/media/direc/contact-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  opacity: 1;
+    background: url("/img/media/direc/contact-background.jpg") no-repeat center
+        center; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(255, 255, 255, 0.25)
+        ),
+        url("/img/media/direc/contact-background.jpg") no-repeat center center; /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(255, 255, 255, 0.25)
+        ),
+        url("/img/media/direc/contact-background.jpg") no-repeat center center; /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(
+            rgba(0, 0, 0, 0.5),
+            rgba(255, 255, 255, 0.25)
+        ),
+        url("/img/media/direc/contact-background.jpg") no-repeat center center; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(rgba(0, 0, 0, 0.5), rgba(255, 255, 255, 0.25)),
+        url("/img/media/direc/contact-background.jpg") no-repeat center center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 1;
 }
 
 #contact-tile .container-fluid {
-  width: 100%;
+    width: 100%;
 }
 
 #contact-tile-container {
-  margin: 0 auto;
-  background: rgba(0,0,0, 0.6);
-  border-radius: 25px;
-  width: 90%;
-  padding: 30px 30px 30px 0px;
-  margin-top: 1vh;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.6);
+    border-radius: 25px;
+    width: 90%;
+    padding: 30px 30px 30px 0px;
+    margin-top: 1vh;
 }
 
 #contact-tile li a {
-  color: white;
-  font-size: 2em;
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+    color: white;
+    font-size: 2em;
+    font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
 }
 
-@media (max-height: 530px), (max-width: 500px)
-{
-  #contact-tile li a {
-    font-size: 1.5em;
-  }
+@media (max-height: 530px), (max-width: 500px) {
+    #contact-tile li a {
+        font-size: 1.5em;
+    }
 }
 
-@media (max-height: 320px), (max-width: 320px)
-{
-  #contact-tile li a {
-    font-size: 1em;
-  }
+@media (max-height: 320px), (max-width: 320px) {
+    #contact-tile li a {
+        font-size: 1em;
+    }
 }
-
 
 /* about */
 
 #about-tile {
-  background: url('/img/media/direc/about-background.jpg') no-repeat center center;
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url("/img/media/direc/about-background.jpg") no-repeat center
+        center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #about-tile-container {
-  background-color: rgba(65,105,225,.9);
-  margin: 0 auto;
-  border-radius: 25px;
-  width: 90%;
-  padding: 2%;
-  margin-top: 50px;
-  font-size: 50px;
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 700;
-  text-align: center;
-  vertical-align: middle;
+    background-color: rgba(65, 105, 225, 0.9);
+    margin: 0 auto;
+    border-radius: 25px;
+    width: 90%;
+    padding: 2%;
+    margin-top: 50px;
+    font-size: 50px;
+    font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
 }
 
-@media (max-width: 1050px), (max-height: 500px)
-{
-  #about-tile-container {
-    font-size: 40px;
-  }
+@media (max-width: 1050px), (max-height: 500px) {
+    #about-tile-container {
+        font-size: 40px;
+    }
 }
 
-@media (max-width: 600px)
-{
-  #about-tile-container {
-    font-size: 25px;
-  }
+@media (max-width: 600px) {
+    #about-tile-container {
+        font-size: 25px;
+    }
 }
 
 /*
@@ -361,57 +379,81 @@ div.landingtext {
 }
 */
 
-
 /* outreach/sponsorship */
 
 #outreach-tile {
-  background: url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)), url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: linear-gradient(rgba(0,0,0, 0.6) 20%, rgba(255, 255, 255, 0.3)),url('/img/media/direc/outreach-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url("/img/media/direc/outreach-background.jpg") no-repeat center
+        center; /* For browsers that do not support gradients */
+    background: -webkit-linear-gradient(
+            rgba(0, 0, 0, 0.6) 20%,
+            rgba(255, 255, 255, 0.3)
+        ),
+        url("/img/media/direc/outreach-background.jpg") no-repeat center center; /* Safari 5.1 to 6.0 */
+    background: -o-linear-gradient(
+            rgba(0, 0, 0, 0.6) 20%,
+            rgba(255, 255, 255, 0.3)
+        ),
+        url("/img/media/direc/outreach-background.jpg") no-repeat center center; /* For Opera 11.6 to 12.0 */
+    background: -moz-linear-gradient(
+            rgba(0, 0, 0, 0.6) 20%,
+            rgba(255, 255, 255, 0.3)
+        ),
+        url("/img/media/direc/outreach-background.jpg") no-repeat center center; /* For Firefox 3.6 to 15 */
+    background: linear-gradient(
+            rgba(0, 0, 0, 0.6) 20%,
+            rgba(255, 255, 255, 0.3)
+        ),
+        url("/img/media/direc/outreach-background.jpg") no-repeat center center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
 #outreach-tile > div.container-fluid > div.sponsor-logo {
-  display: table;
-  margin: 0 auto;
+    display: table;
+    margin: 0 auto;
 }
 
 #outreach-tile > div.container-fluid > div.sponsor-logo > img.sponsor-logo {
-  width: 30vw;
-  max-width: 40vh;
+    width: 30vw;
+    max-width: 40vh;
 }
-
 
 /* wiki */
 
 #wiki-tile {
-  background: url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)), url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),url('/img/media/direc/wiki-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url("/img/media/direc/wiki-background.jpg") no-repeat center
+        center; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),
+        url("/img/media/direc/wiki-background.jpg") no-repeat center center; /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),
+        url("/img/media/direc/wiki-background.jpg") no-repeat center center; /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),
+        url("/img/media/direc/wiki-background.jpg") no-repeat center center; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.11)),
+        url("/img/media/direc/wiki-background.jpg") no-repeat center center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
-
 
 /* photos */
 
 #photos-tile {
-  background: url('/img/media/direc/photos-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/photos-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/photos-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)), url('/img/media/direc/photos-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),url('/img/media/direc/photos-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
+    background: url("/img/media/direc/photos-background.jpg") no-repeat center
+        center; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/photos-background.jpg") no-repeat center center; /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/photos-background.jpg") no-repeat center center; /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/photos-background.jpg") no-repeat center center; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/photos-background.jpg") no-repeat center center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
