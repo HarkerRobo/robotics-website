@@ -4,11 +4,11 @@
     --color-primary-dark: #001057;
 
     --color-secondary: #42577d;
-    --color-secondary-light: #C3D7F0;
+    --color-secondary-light: #c3d7f0;
 
     /* --color-light: #e3e3e3; */
-    --color-light: #F0F0F0;
-    --color-background: #F0F0F0;
+    --color-light: #f0f0f0;
+    --color-background: #f0f0f0;
 
     --color-header: #0a2540;
     --color-content: #425466;
@@ -18,29 +18,37 @@ content {
     overflow: hidden;
 }
 
-html, body {
+html,
+body {
     max-width: 100% !important;
     overflow-x: hidden !important;
 }
-
 
 body {
     background-color: var(--color-primary);
 }
 
-h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Roboto", sans-serif;
     font-weight: 900;
     margin: 0;
 }
 
 p {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-weight: 500;
     margin: 0;
 }
 
-h1, h2, h3, label {
+h1,
+h2,
+h3,
+label {
     font-family: "Roboto", sans-serif;
 }
 
@@ -67,20 +75,21 @@ h4 {
 }
 
 .no-style-a {
-    color: inherit; 
-    text-decoration: inherit; 
+    color: inherit;
+    text-decoration: inherit;
 }
 
-button, .submit-button {
+button,
+.submit-button {
     -webkit-transition-duration: 0.07s;
-       -moz-transition-duration: 0.07s;
-         -o-transition-duration: 0.07s;
-            transition-duration: 0.07s;
+    -moz-transition-duration: 0.07s;
+    -o-transition-duration: 0.07s;
+    transition-duration: 0.07s;
 
     background-color: var(--color-primary);
     border: 2px solid var(--color-primary);
 
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 1.3vw;
     text-transform: uppercase;
     font-weight: 500;
@@ -108,8 +117,9 @@ button, .submit-button {
  * { 
     box-shadow: 0 12px 14px 0 rgba(0,0,0,0.80), 0 20px 100px 0 rgba(0,0,0,0.80);
 }  */
- 
-button:hover, .submit-button:hover {
+
+button:hover,
+.submit-button:hover {
     /* background-color: var(--color-secondary-light); */
     /* background: var(--color-background); */
     background: none;
@@ -120,12 +130,14 @@ button:hover, .submit-button:hover {
             box-shadow: 0 12px 14px 0 rgba(0,0,0,0.20), 0 15px 48px 0 rgba(0,0,0,0.30); */
 }
 
-button:focus, .submit-button:hover {
+button:focus,
+.submit-button:hover {
     outline: none;
 }
 
 @media screen and (max-width: 800px) {
-    button, .submit-button {
+    button,
+    .submit-button {
         font-size: 5vw;
         height: 8vw;
     }

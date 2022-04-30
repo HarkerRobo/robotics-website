@@ -1,23 +1,20 @@
-    const express = require('express'),
-  https = require('https'),
-  session = require('../helpers/session'),
-  cookieParser = require('cookie-parser'),
+const express = require("express"),
+    https = require("https"),
+    session = require("../helpers/session"),
+    cookieParser = require("cookie-parser"),
+    BatteryScan = require("../models/batteryScan"),
+    Battery = require("../models/battery"),
+    config = require(__base + "config.json"),
+    ranks = require("../helpers/ranks.json"),
+    auth = require("../helpers/auth"),
+    router = express.Router();
 
-  BatteryScan = require('../models/batteryScan'),
-  Battery = require("../models/battery"),
+router.use(cookieParser());
+router.use(session);
 
-  config = require(__base + 'config.json'),
-  ranks = require('../helpers/ranks.json'),
-  auth = require('../helpers/auth'),
-  router = express.Router()
+router.use(auth.sessionAuth);
 
-
-router.use(cookieParser())
-router.use(session)
-
-router.use(auth.sessionAuth)
-
-router.use(express.json({extended: true}));
+router.use(express.json({ extended: true }));
 
 // router.all('/*', function (req, res, next) {
 //     if (req.auth.level >= ranks.harker_student) {
@@ -32,7 +29,7 @@ router.get("/", async (req, res, next) => {
 });
 
 router.get("/cycles", async (req, res, next) => {
-    const batteries = await Battery.find({}).sort({cycles: -1});
+    const batteries = await Battery.find({}).sort({ cycles: -1 });
     res.json(batteries);
 });
 
@@ -42,14 +39,15 @@ router.post("/postScan", async (req, res, next) => {
     const scanTime = parseInt(split[1]);
     console.log(req.body);
     await BatteryScan.create({
-        id, scanTime
+        id,
+        scanTime,
     });
 
-    const battery = await Battery.findOne({id});
-    if(!battery) {
+    const battery = await Battery.findOne({ id });
+    if (!battery) {
         await Battery.create({
             id: id,
-            cycles: 1
+            cycles: 1,
         });
     } else {
         battery.cycles++;

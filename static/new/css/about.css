@@ -24,7 +24,6 @@
     padding-top: 3vw;
     background-color: var(--color-background);
     /* padding-bottom: 10vw; */
-
 }
 
 #about {
@@ -48,18 +47,16 @@
     margin-bottom: 5vw;
 }
 
-
 @media screen and (max-width: 800px) {
     #body h1 {
         font-size: 10vw;
     }
-    
+
     #body h2 {
         font-size: 7vw;
     }
 
     #missionstatement {
         font-size: 6vw;
-
     }
 }

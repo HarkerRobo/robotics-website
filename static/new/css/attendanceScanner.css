@@ -13,7 +13,8 @@ button {
     margin-bottom: 1vh;
 }
 
-#check-in-button, #check-out-button {
+#check-in-button,
+#check-out-button {
     /* font-size: calc(16pt + .5vw); */
 }
 
@@ -43,5 +44,3 @@ button {
         display: none;
     }
 }
-
-

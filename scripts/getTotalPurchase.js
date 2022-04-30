@@ -5,7 +5,7 @@
 // <year> correlates to the starting year; e.g. 2017 would get the purchases for the 2017-2018 school year
 // @author David Melisso
 // @version June 16, 2018
-const Purchase = require('../models/purchase');
+const Purchase = require("../models/purchase");
 const MONTHS = {
     JANUARY: 0,
     FEBRUARY: 1,
@@ -18,7 +18,7 @@ const MONTHS = {
     SEPTEMBER: 8,
     OCTOBER: 9,
     NOVEMBER: 10,
-    DECEMBER: 11
+    DECEMBER: 11,
 };
 const CUTOFF_MONTH = MONTHS.JANUARY;
 const CUTOFF_DAY = 6;
@@ -28,8 +28,8 @@ let query = {};
 function getCutoffDates(beginningYear) {
     return {
         beginningDate: new Date(beginningYear, CUTOFF_MONTH, CUTOFF_DAY),
-        endDate: new Date(beginningYear + 1, CUTOFF_MONTH, CUTOFF_DAY)
-    }
+        endDate: new Date(beginningYear + 1, CUTOFF_MONTH, CUTOFF_DAY),
+    };
 }
 
 async function getTotal(year, excludeOps) {
@@ -41,7 +41,7 @@ async function getTotal(year, excludeOps) {
 
     query.createdAt = {
         $gte: beginningDate,
-        $lt: endDate
+        $lt: endDate,
     };
 
     const purchases = await Purchase.find(query);
@@ -63,11 +63,15 @@ function getDefaultYear(attempt) {
 
 async function main() {
     const beginningYear = getDefaultYear(process.argv[2]);
-    const excludeOps = process.argv.includes('--excludeOps');
+    const excludeOps = process.argv.includes("--excludeOps");
     const total = await getTotal(beginningYear, excludeOps);
     const { beginningDate, endDate } = getCutoffDates(beginningYear);
     console.log();
-    console.log(`Total recorded purchase amount between ${beginningDate.toLocaleDateString()} and ${endDate.toLocaleDateString()} (${excludeOps ? 'excluding' : 'including'} Ops purchases):`);
+    console.log(
+        `Total recorded purchase amount between ${beginningDate.toLocaleDateString()} and ${endDate.toLocaleDateString()} (${
+            excludeOps ? "excluding" : "including"
+        } Ops purchases):`
+    );
     console.log(`$${total.toFixed(2)}`);
     process.exit();
 }

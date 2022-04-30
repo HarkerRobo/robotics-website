@@ -8,21 +8,21 @@ inView.offset(0);
 
 function step(elem, value, total) {
     elem.innerHTML = "" + value;
-    if(value != total) {
-        setTimeout(function() {
+    if (value != total) {
+        setTimeout(function () {
             step(elem, value + 1, total);
-        }, (1200 - total * 5) / (value + 5))
+        }, (1200 - total * 5) / (value + 5));
     }
 }
 
 function animateNumber(className) {
     const elements = document.getElementsByClassName(className);
-    for(let i = 0;i < elements.length;i ++) {
+    for (let i = 0; i < elements.length; i++) {
         const elem = elements[i];
-        inView("#" + elem.id).once("enter", function() {
+        inView("#" + elem.id).once("enter", function () {
             const total = Number(elem.innerHTML);
             elem.innerHTML = "1";
-            setTimeout(function() {
+            setTimeout(function () {
                 step(elem, 1, total);
             }, (800 - total * 10) / 2);
         });
@@ -39,11 +39,9 @@ animateNumber("team-stat-value");
 //     }
 // }, 1000);
 
-
 /**
  * WE ARE INVENTORS
  */
-
 
 const landingText = document.getElementById("landing-banner-secondary-text");
 const texts = ["Inventors", "Engineers", "Problem Solvers", "Family", "1072"];
@@ -54,8 +52,9 @@ let typing = false;
 
 function addLetter() {
     index += 1;
-    landingText.innerHTML = "We are " + text.substring(0, index) + (typing ? "|" : "");
-    if(index == text.length) {
+    landingText.innerHTML =
+        "We are " + text.substring(0, index) + (typing ? "|" : "");
+    if (index == text.length) {
         setTimeout(removeLetter, 2000);
     } else {
         setTimeout(addLetter, 100);
@@ -63,13 +62,14 @@ function addLetter() {
 }
 
 function removeLetter() {
-    if(textIndex == texts.length - 1) return;
+    if (textIndex == texts.length - 1) return;
     index -= 1;
-    landingText.innerHTML = "We are " + text.substring(0, index) + (typing ? "|" : "");
-    if(!index) {
+    landingText.innerHTML =
+        "We are " + text.substring(0, index) + (typing ? "|" : "");
+    if (!index) {
         //landingText.innerHTML = "We are" + (typing ? "|" : "");
     }
-    if(index + 1) {
+    if (index + 1) {
         setTimeout(removeLetter, 100);
     } else {
         textIndex++;
@@ -78,26 +78,25 @@ function removeLetter() {
     }
 }
 
-setInterval(function() {
+setInterval(function () {
     typing = typing == false;
-    if(typing) {
-        landingText.classList.add("landing-text-shift")
+    if (typing) {
+        landingText.classList.add("landing-text-shift");
     } else {
-        landingText.classList.remove("landing-text-shift")
+        landingText.classList.remove("landing-text-shift");
     }
-    if(typing && !landingText.innerHTML.endsWith("|")) {
+    if (typing && !landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML += "|";
-    } else if(!typing && landingText.innerHTML.endsWith("|")) {
+    } else if (!typing && landingText.innerHTML.endsWith("|")) {
         landingText.innerHTML = landingText.innerHTML.slice(0, -1);
     }
-}, 700)
+}, 700);
 
-window.addEventListener("load", function() {
-    setTimeout(function() {
+window.addEventListener("load", function () {
+    setTimeout(function () {
         addLetter();
     }, 1500);
 });
-
 
 /**
  * SLIDESHOW
@@ -106,8 +105,10 @@ window.addEventListener("load", function() {
 const hrefs = [];
 const bottom = document.getElementById("landing-banner-image");
 const _top = document.getElementById("landing-banner-image-top");
-for(let i = 1;i <= 5;i ++) {
-    hrefs.push("/new/img/media/index/landing-background" + (!(i - 1) ? "" : i) + ".png")
+for (let i = 1; i <= 5; i++) {
+    hrefs.push(
+        "/new/img/media/index/landing-background" + (!(i - 1) ? "" : i) + ".png"
+    );
 }
 bottom.src = hrefs[0];
 _top.src = hrefs[1];
@@ -125,10 +126,9 @@ function nextSwitch() {
 
     bottom.src = hrefs[img];
     img = ++img % hrefs.length;
-    _top.src = hrefs[img]
+    _top.src = hrefs[img];
 
     setTimeout(startSwitch, 2800);
 }
 
 setTimeout(startSwitch, 4000);
-

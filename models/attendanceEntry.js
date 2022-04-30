@@ -3,19 +3,19 @@ const mongoose = require("../db");
 const EntrySchema = new mongoose.Schema({
     email: {
         type: String,
-        index: true
+        index: true,
     },
     checkIn: {
         type: Number,
-        index: true
+        index: true,
     },
     checkOut: {
-        type: Number
+        type: Number,
     },
     subteams: {
         type: [String],
-        required: false
-    }
+        required: false,
+    },
 });
 
 const Entry = mongoose.model("Entry", EntrySchema);

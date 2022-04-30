@@ -3,12 +3,12 @@ const mongoose = require("../db");
 const BatteryScanSchema = new mongoose.Schema({
     id: {
         type: String,
-        index: true
+        index: true,
     },
     scanTime: {
         type: Number,
-        index: true
-    }
+        index: true,
+    },
 });
 
 const BatteryScan = mongoose.model("BatteryScan", BatteryScanSchema);

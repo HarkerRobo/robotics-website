@@ -73,132 +73,132 @@
 @-webkit-keyframes spinny {
     0% {
         -webkit-transform: rotate(0deg);
-                transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     75% {
         -webkit-transform: rotate(360deg);
-                transform: rotate(360deg);
+        transform: rotate(360deg);
     }
     100% {
         -webkit-transform: rotate(360deg);
-                transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
 @-moz-keyframes spinny {
     0% {
         -moz-transform: rotate(0deg);
-             transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     75% {
         -moz-transform: rotate(360deg);
-             transform: rotate(360deg);
+        transform: rotate(360deg);
     }
     100% {
         -moz-transform: rotate(360deg);
-             transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
 @-o-keyframes spinny {
     0% {
         -o-transform: rotate(0deg);
-           transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     75% {
         -o-transform: rotate(360deg);
-           transform: rotate(360deg);
+        transform: rotate(360deg);
     }
     100% {
         -o-transform: rotate(360deg);
-           transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
 @keyframes spinny {
     0% {
         -webkit-transform: rotate(0deg);
-           -moz-transform: rotate(0deg);
-             -o-transform: rotate(0deg);
-                transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
     }
     75% {
         -webkit-transform: rotate(360deg);
-           -moz-transform: rotate(360deg);
-             -o-transform: rotate(360deg);
-                transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
     }
     100% {
         -webkit-transform: rotate(360deg);
-           -moz-transform: rotate(360deg);
-             -o-transform: rotate(360deg);
-                transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
     }
 }
 
 .spin {
     -webkit-animation-duration: 1s;
-       -moz-animation-duration: 1s;
-         -o-animation-duration: 1s;
-            animation-duration: 1s;
-    -webkit-animation-timing-function: cubic-bezier(.9,.01,.23,.99);
-       -moz-animation-timing-function: cubic-bezier(.9,.01,.23,.99);
-         -o-animation-timing-function: cubic-bezier(.9,.01,.23,.99);
-            animation-timing-function: cubic-bezier(.9,.01,.23,.99);
+    -moz-animation-duration: 1s;
+    -o-animation-duration: 1s;
+    animation-duration: 1s;
+    -webkit-animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
+    -moz-animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
+    -o-animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
+    animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
     -webkit-animation-iteration-count: infinite;
-       -moz-animation-iteration-count: infinite;
-         -o-animation-iteration-count: infinite;
-            animation-iteration-count: infinite;
+    -moz-animation-iteration-count: infinite;
+    -o-animation-iteration-count: infinite;
+    animation-iteration-count: infinite;
     -webkit-animation-name: spinny;
-       -moz-animation-name: spinny;
-         -o-animation-name: spinny;
-            animation-name: spinny;
+    -moz-animation-name: spinny;
+    -o-animation-name: spinny;
+    animation-name: spinny;
     -webkit-animation-fill-mode: forwards;
-       -moz-animation-fill-mode: forwards;
-         -o-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
 
 .disappear {
     -webkit-animation-name: disappear;
-       -moz-animation-name: disappear;
-         -o-animation-name: disappear;
-            animation-name: disappear;
+    -moz-animation-name: disappear;
+    -o-animation-name: disappear;
+    animation-name: disappear;
     -webkit-animation-duration: 0.7s;
-       -moz-animation-duration: 0.7s;
-         -o-animation-duration: 0.7s;
-            animation-duration: 0.7s;
+    -moz-animation-duration: 0.7s;
+    -o-animation-duration: 0.7s;
+    animation-duration: 0.7s;
     -webkit-animation-iteration-count: 1;
-       -moz-animation-iteration-count: 1;
-         -o-animation-iteration-count: 1;
-            animation-iteration-count: 1;
+    -moz-animation-iteration-count: 1;
+    -o-animation-iteration-count: 1;
+    animation-iteration-count: 1;
     -webkit-animation-fill-mode: forwards;
-       -moz-animation-fill-mode: forwards;
-         -o-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
-    -webkit-animation-timing-function: cubic-bezier(.9,.01,.23,.99);
-       -moz-animation-timing-function: cubic-bezier(.9,.01,.23,.99);
-         -o-animation-timing-function: cubic-bezier(.9,.01,.23,.99);
-            animation-timing-function: cubic-bezier(.9,.01,.23,.99);
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
+    -webkit-animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
+    -moz-animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
+    -o-animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
+    animation-timing-function: cubic-bezier(0.9, 0.01, 0.23, 0.99);
 }
 
 .curtain {
     -webkit-animation-name: splash-loading;
-       -moz-animation-name: splash-loading;
-         -o-animation-name: splash-loading;
-            animation-name: splash-loading;
+    -moz-animation-name: splash-loading;
+    -o-animation-name: splash-loading;
+    animation-name: splash-loading;
     -webkit-animation-duration: 1.5s;
-       -moz-animation-duration: 1.5s;
-         -o-animation-duration: 1.5s;
-            animation-duration: 1.5s;
-    -webkit-animation-timing-function: cubic-bezier(.46,.27,.28,.98);
-       -moz-animation-timing-function: cubic-bezier(.46,.27,.28,.98);
-         -o-animation-timing-function: cubic-bezier(.46,.27,.28,.98);
-            animation-timing-function: cubic-bezier(.46,.27,.28,.98);
+    -moz-animation-duration: 1.5s;
+    -o-animation-duration: 1.5s;
+    animation-duration: 1.5s;
+    -webkit-animation-timing-function: cubic-bezier(0.46, 0.27, 0.28, 0.98);
+    -moz-animation-timing-function: cubic-bezier(0.46, 0.27, 0.28, 0.98);
+    -o-animation-timing-function: cubic-bezier(0.46, 0.27, 0.28, 0.98);
+    animation-timing-function: cubic-bezier(0.46, 0.27, 0.28, 0.98);
     -webkit-animation-fill-mode: forwards;
-       -moz-animation-fill-mode: forwards;
-         -o-animation-fill-mode: forwards;
-            animation-fill-mode: forwards;
+    -moz-animation-fill-mode: forwards;
+    -o-animation-fill-mode: forwards;
+    animation-fill-mode: forwards;
 }
 
 body {
@@ -213,7 +213,7 @@ body {
     top: 0px;
     width: 100vw;
     height: 100vh;
-    background-color:#1D3252;
+    background-color: #1d3252;
     z-index: 1000;
     padding: 0px;
 }
@@ -222,11 +222,11 @@ body {
     position: fixed;
     top: 50%;
     left: 50%;
-    margin-top: -10vh ;
+    margin-top: -10vh;
     margin-left: -10vh;
     height: 20vh;
     opacity: 1;
-} 
+}
 
 #content {
     position: absolute;

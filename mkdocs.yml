@@ -1,45 +1,45 @@
 site_name: Harker Robotics Software Documentation
 site_url: https://robotics.harker.org/docs/
 theme:
-  name: material
-  features:
-    - navigation.tabs
-    - navigation.indexes
+    name: material
+    features:
+        - navigation.tabs
+        - navigation.indexes
 
 extra_css:
-  - stylesheets/extra.css
+    - stylesheets/extra.css
 
 nav:
-  - Home: index.md
-  - Introduction:
-    - introduction/index.md
-    - Installation: introduction/installation.md
-    - Java Resources: introduction/java-resources.md
-    - Git: introduction/git.md
-    - Creating a Sample Project: introduction/sample-project.md
-    - Libraries: introduction/libraries.md
-    - Commands and Subsystems: introduction/commands-subsystems.md
-  - Basic Concepts:
-    - basic/index.md
-    - Command Based Structure: basic/command-structure.md
-    - Motors and Motor Controllers: basic/motors.md
-    - OI: basic/oi.md
-    - RobotMap: basic/robotmap.md
-    - Sample Drivetrain Subsystem: basic/sample-subsystem.md
-    - Sample Drivetrain Command: basic/sample-command.md
-    - Pneumatics: basic/pneumatics.md
-    - Sample Pneumatics Subsystem: basic/sample-pneumatics.md
-    - PID: basic/pid.md
-    - Arm and Elevator: basic/arm-elevator.md
-    - Motor Control II: basic/motor-control-ii.md
-    - Motion Profiling: basic/motion-profiling.md
-  - Advanced Concepts:
-    - advanced/index.md
-    - Advanced PID: advanced/advanced-pid.md
-    - Vision: advanced/vision.md
-    - Swerve: advanced/swerve.md
-    - Autons: advanced/autons.md
-    - Odometry: advanced/odometry.md
-    - Swerve II: advanced/swerve-ii.md
+    - Home: index.md
+    - Introduction:
+          - introduction/index.md
+          - Installation: introduction/installation.md
+          - Java Resources: introduction/java-resources.md
+          - Git: introduction/git.md
+          - Creating a Sample Project: introduction/sample-project.md
+          - Libraries: introduction/libraries.md
+          - Commands and Subsystems: introduction/commands-subsystems.md
+    - Basic Concepts:
+          - basic/index.md
+          - Command Based Structure: basic/command-structure.md
+          - Motors and Motor Controllers: basic/motors.md
+          - OI: basic/oi.md
+          - RobotMap: basic/robotmap.md
+          - Sample Drivetrain Subsystem: basic/sample-subsystem.md
+          - Sample Drivetrain Command: basic/sample-command.md
+          - Pneumatics: basic/pneumatics.md
+          - Sample Pneumatics Subsystem: basic/sample-pneumatics.md
+          - PID: basic/pid.md
+          - Arm and Elevator: basic/arm-elevator.md
+          - Motor Control II: basic/motor-control-ii.md
+          - Motion Profiling: basic/motion-profiling.md
+    - Advanced Concepts:
+          - advanced/index.md
+          - Advanced PID: advanced/advanced-pid.md
+          - Vision: advanced/vision.md
+          - Swerve: advanced/swerve.md
+          - Autons: advanced/autons.md
+          - Odometry: advanced/odometry.md
+          - Swerve II: advanced/swerve-ii.md
 plugins:
- - section-index
+    - section-index

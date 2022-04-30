@@ -1,69 +1,82 @@
-#table{
-  margin: 5px !important;
-  font-size: 25px;
+#table {
+    margin: 5px !important;
+    font-size: 25px;
 }
-#dot{
-  color: cyan;
+#dot {
+    color: cyan;
 }
 #quote {
-  margin-top: -50px;
-  background-color: rgba(0, 0, 0, 0.5);
+    margin-top: -50px;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 #hackathon-form-container {
-  /*background-color: rgba(0, 0, 0, 0.5);*/
-  margin: 0 auto;
-  border-radius: 25px;
-  width: 90%;
-  padding: 1%;
-  margin-top: 50px;
-  font-size: 40px;
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-  font-weight: 700;
-  text-align: center;
-  vertical-align: middle;
-  margin-top: -50px;
+    /*background-color: rgba(0, 0, 0, 0.5);*/
+    margin: 0 auto;
+    border-radius: 25px;
+    width: 90%;
+    padding: 1%;
+    margin-top: 50px;
+    font-size: 40px;
+    font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
+    font-weight: 700;
+    text-align: center;
+    vertical-align: middle;
+    margin-top: -50px;
 }
 
 form#hackathon-form {
-  width: 90%;
+    width: 90%;
 }
 
 #hackathon-frc-team-name-group {
-  display: none;
+    display: none;
 }
 
 #hackathon-tile {
-  background: url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)),url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  opacity: 1;
-  filter: contrast(125%);
-  filter:brightness(1000%);
-  filter:hue-rotate(90deg);
-  filter: saturate(120%);
+    background: url("/img/media/direc/hackathon-background.jpg") no-repeat
+        center center; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-background.jpg") no-repeat center center; /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-background.jpg") no-repeat center center; /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-background.jpg") no-repeat center center; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-background.jpg") no-repeat center center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 1;
+    filter: contrast(125%);
+    filter: brightness(1000%);
+    filter: hue-rotate(90deg);
+    filter: saturate(120%);
 }
 #subtitle-text {
-  font-size: 20px;
-  text-align: center;
-  font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
-
+    font-size: 20px;
+    text-align: center;
+    font-family: Raleway, "Helvetica Neue", Helvetica, sans-serif;
 }
 
 #donate-tile {
-  background: url('/img/media/direc/hackathon-background.jpg') no-repeat center center; /* For browsers that do not support gradients */
-  background: -webkit-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* Safari 5.1 to 6.0 */
-  background: -o-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* For Opera 11.6 to 12.0 */
-  background: -moz-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, .3)), url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* For Firefox 3.6 to 15 */
-  background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, .1)),url('/img/media/direc/hackathon-donate-background.jpg') no-repeat center center; /* Standard syntax (must be last) */
-  -webkit-background-size: cover;
-  -moz-background-size: cover;
-  -o-background-size: cover;
-  background-size: cover;
-  opacity: 1;
+    background: url("/img/media/direc/hackathon-background.jpg") no-repeat
+        center center; /* For browsers that do not support gradients */
+    background: -webkit-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-donate-background.jpg") no-repeat center
+            center; /* Safari 5.1 to 6.0 */
+    background: -o-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-donate-background.jpg") no-repeat center
+            center; /* For Opera 11.6 to 12.0 */
+    background: -moz-radial-gradient(rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.3)),
+        url("/img/media/direc/hackathon-donate-background.jpg") no-repeat center
+            center; /* For Firefox 3.6 to 15 */
+    background: radial-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1)),
+        url("/img/media/direc/hackathon-donate-background.jpg") no-repeat center
+            center; /* Standard syntax (must be last) */
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    opacity: 1;
 }
