@@ -14,10 +14,8 @@ jobs:
                   persist-credentials: false
             - name: Install packages
               run: npm i
-            - name: Prettier Action
-              uses: creyD/prettier_action@v4.2
+            - name: Format files
+              run: npm run format
+            - uses: stefanzweifel/git-auto-commit-action@v4
               with:
-                  prettier_options: . -w
-                  commit_message: Format code
-                  only_changed: True
-                  github_token: ${{ secrets.GITHUB_TOKEN }}
+                commit_message: Format code
