@@ -12,6 +12,8 @@ jobs:
                   ref: ${{ github.head_ref }}
                   fetch-depth: 0
                   persist-credentials: false
+            - name: Install packages
+              run: npm i
             - name: Prettier Action
               uses: creyD/prettier_action@v4.2
               with:
