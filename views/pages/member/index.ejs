@@ -10,45 +10,51 @@
 
     <header class="scrollable" id="home">
       <div class="container-fluid">
-        <h1 class="title">MEMBER</h1>
-        <!-- <p class="info-text">View <a href="/member/resources" class="regular">important information</a>, or search for a part on the <a href="/member/parts/search" class="regular">parts system</a>.</p> -->
-        <% if (auth.level >= ranks.pr_whitelist) {%>
-          <p class="info-text">Since you are whitelisted for PR, you can also make Purchase Requests and view our Resources.</p>
-        <% } %>
-
-        <div id="travelteam">
-          
+        <div class="text-center">
+          <img src="/new/img/logo/logo.png" class="logo">
+        </div>
+        <h1 class="title">MEMBER PORTAL</h1>
+        <p class="home-description">
+          Welcome to the Harker Robotics member portal. Here you can find our training resources, permission forms, build blogs, &lt;%- auth.level &gt;= ranks.pr_whitelist ? "purchase request system, " : "" %&gt;and build blogs.
+          Click through the top bar to explore the portal.
+        </p>
+        <div class="text-center links">
+          <a href="https://drive.google.com/drive/u/5/folders/0ADc8RSU5LLyTUk9PVA" target="_blank">
+            <img src="/new/img/logo/member-landing/drive.png">
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://harkerrobo.slack.com" target="_blank">
+            <img src="/new/img/logo/member-landing/slack.png">
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://github.com/HarkerRobo" target="_blank">
+            <img src="/new/img/logo/member-landing/github.png">
+          </a>
+          &nbsp;&nbsp;
+          <a href="/member/calendar" target="_blank">
+            <img src="/new/img/logo/member-landing/calendar.png">
+          </a>
+          &nbsp;&nbsp;
+          <a href="https://www.youtube.com/user/Harker1072" target="_blank">
+            <img src="/new/img/logo/member-landing/youtube.png">
+          </a>
         </div>
       </div>
-
     </header>
 
-    <%- include(__base + 'views/partials/footer.ejs') %>
-
-    <script>
-      // window.onload = function(){
-      // setTimeout(function(){
-      // window.travelTeamDecisions = window.decode(window.travelTeamData);
-      // window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
-      // if(decision) {
-      //   window.decision = window.decode(window.travelTeams)[decision];
-      //   document.getElementById("travelteam").innerHTML = "<button onclick='document.getElementById(\"decision1\").classList.toggle(\"show\")' class='decision-button'> Houston Travel Team Decision </button><p id='decision1' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
-      // }
-      
-      // // window.travelTeamDecisions = window.decode(window.rolesData);
-      // // window.decision = window.travelTeamDecisions["<%= auth.info.email %>".toLowerCase()];
-      // // if(decision) {
-      // //   window.decision = window.decode(window.roles)[decision];
-      // //   document.getElementById("roles").innerHTML = "<button onclick='document.getElementById(\"decision2\").classList.toggle(\"show\")' class='decision-button'> Reveal CVR Travel Team Role </button><p id='decision2' class='decision-text'>" + window.decision.replace(/\n/g, "<br />") + "</p>"
-      // // }
-      // delete window.travelTeamData;delete window.travelTeamDecisions;delete window.roles;delete window.rolesData;delete window.decision;delete window.decode;
-      // }, 1000);}
-    </script>
-    
+    <%- include(__base + 'views/partials/member/footer.ejs') %>
 
     <style>
       #roles, #travelteam {
         margin-bottom: 3vw;
+      }
+      img.logo {
+        height: 20vh;
+      }
+      .home-description {
+        font-family: "Roboto", sans-serif;
+        margin: 5%;
+        font-size: 150%;
       }
       .decision-text {
         width: 56vw;
