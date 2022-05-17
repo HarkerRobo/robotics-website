@@ -15,7 +15,13 @@
         </div>
         <h1 class="title">MEMBER PORTAL</h1>
         <p class="home-description">
-          Welcome to the Harker Robotics member portal. Here you can find our training resources, permission forms, build blogs, &lt;%- auth.level &gt;= ranks.pr_whitelist ? "purchase request system, " : "" %&gt;and build blogs.
+          Welcome to the Harker Robotics member portal. Here you can find our
+          training resources,
+          attendance app
+          permission forms,
+          <%- auth.level >= ranks.director ? "URL shortener, " : "" %>,
+          <%- auth.level >= ranks.pr_whitelist ? "purchase request system, " : "" %>
+          and build blogs.
           Click through the top bar to explore the portal.
         </p>
         <div class="text-center links">
