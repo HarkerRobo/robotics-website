@@ -7,7 +7,7 @@
         "type": "git",
         "url": "git+https://github.com/HarkerRobo/robotics-website.git"
     },
-    "author": "Arjun Dixit",
+    "author": "Harker Robotics",
     "license": "MIT",
     "bugs": {
         "url": "https://github.com/HarkerRobo/robotics-website/issues/"
