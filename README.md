@@ -15,7 +15,7 @@
         1. [/views/pages](#viewspages)
         2. [/views/partials](#viewspartials)
 4. [Configuration Values](#configuration-values)
-5. [Desired Coding Standard](#desired-coding-standard)
+5. [Code Style](#code-style)
 
 ## Context & About
 
@@ -115,6 +115,11 @@ The config file should be stored as `config.json`. You can copy from the example
 | users.mentor              | "robotics@harker.org"                                                                             | The email address of the mentor.                                                                                                                                                         |
 | users.superadmins         | ["22arjund@students.harker.org", "22chiragk@students.harker.org", "24kabirr@students.harker.org"] | The array of google email addresses of the webmasters of the project. Grants special access for testing purposes.                                                                        |
 
-## Desired Coding Standard
+## Code Style
 
-(I'll also get back to this later, but make sure to comment the code which is written.)
+Harker Robotics' apps use [@harker-robo/prettier-config](npmjs.com/package/@harker-robo/prettier-config) for standardized code style. To format your code:
+
+    npm run format
+    
+* [Ignoring files](https://prettier.io/docs/en/ignore.html)
+* [Auto-formatting](https://prettier.io/docs/en/editors.html)
