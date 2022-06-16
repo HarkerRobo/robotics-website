@@ -51,7 +51,7 @@
     },
     "scripts": {
         "start": "node index.js",
-        "format": "./node_modules/prettier/bin-prettier.js  . -w"
+        "format": "npx prettier  . -w"
     },
     "devDependencies": {
         "@harker-robo/prettier-config": "^0.0.0",
