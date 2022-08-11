@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <%- include(__base + 'views/partials/head.ejs', {title: `View PR #${purchase.purchase_id} - ${purchase.vendor} | Harker Robotics 1072`}) %>
+    <%- include(__base + 'views/partials/head.ejs', {title: `View PR #${purchase.purchase_id} - ${purchase.vendor}`}) %>
     <link rel="stylesheet" type="text/css" href="/css/purchase.css?v=3" />
     <style media="print">
       #approval-buttons {
@@ -309,7 +309,7 @@
       <% } %>
 
       window.addEventListener("beforeprint", () => document.title = "OID<%= purchase.purchase_id %>" );
-      window.addEventListener("afterprint", () => document.title = "View PR #<%= purchase.purchase_id %> - <%= purchase.vendor %> | Harker Robotics 1072" );
+      window.addEventListener("afterprint", () => document.title = "View PR #<%= purchase.purchase_id %> - <%= purchase.vendor %>" );
     </script>
 
     
