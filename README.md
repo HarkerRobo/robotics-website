@@ -120,6 +120,6 @@ The config file should be stored as `config.json`. You can copy from the example
 Harker Robotics' apps use [@harker-robo/prettier-config](npmjs.com/package/@harker-robo/prettier-config) for standardized code style. To format your code:
 
     npm run format
-    
-* [Ignoring files](https://prettier.io/docs/en/ignore.html)
-* [Auto-formatting](https://prettier.io/docs/en/editors.html)
+
+-   [Ignoring files](https://prettier.io/docs/en/ignore.html)
+-   [Auto-formatting](https://prettier.io/docs/en/editors.html)
