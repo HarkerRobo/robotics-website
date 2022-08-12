@@ -54,7 +54,7 @@ p {
 }
 
 .outreach-image {
-    width: 20vw;
+    width: auto;
     height: 20vw;
     position: relative;
     border-radius: 10%;
@@ -129,7 +129,7 @@ p {
     }
 
     .outreach-image {
-        width: 50vw;
+        width: auto;
         height: 50vw;
     }
 
