@@ -1,3 +1,4 @@
 {
-    "minKBReduced": null
+    "minKBReduced": null,
+    "aggressiveCompression": true
 }
