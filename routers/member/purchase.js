@@ -111,6 +111,11 @@ router.get(
                 purchase: purchase,
                 creation: purchase._id.getTimestamp().toDateString(),
                 total: purchase.totalCost(),
+                submitted_by: ((
+                    await User.findOne({
+                        email: purchase.submitted_by,
+                    })
+                ) || {name: "Harker Robotics"}).name,
             });
         } catch (err) {
             res.render("pages/member/error", {
