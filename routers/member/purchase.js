@@ -111,6 +111,11 @@ router.get(
                 purchase: purchase,
                 creation: purchase._id.getTimestamp().toDateString(),
                 total: purchase.totalCost(),
+                submitted_by: (
+                    await User.findOne({
+                        email: purchase.purchase.submitted_by,
+                    })
+                ).name,
             });
         } catch (err) {
             res.render("pages/member/error", {
