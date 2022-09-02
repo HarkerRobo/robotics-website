@@ -107,15 +107,17 @@ router.get(
                 purchase_id: req.params.purchase_id,
             });
             if (purchase == null) throw new Error();
+            const submitted_by = ((
+                await User.findOne({
+                    email: purchase.submitted_by,
+                })
+            ) || {name: "Harker Robotics"}).name;
+            const email_link = `mailto:Eric.Nelson@harker.org?subject=Receipt for Reimbursement PR #${purchase.purchase_id}&body=Hi Dr. Nelson,%0A%0AHere's the receipt for reimbursement for the PR at https://robotics.harker.org/member/purchase/view/${purchase.purchase_id}.%0A%0AThanks,%0A${submitted_by}`;
             res.render("pages/member/purchase/view", {
                 purchase: purchase,
                 creation: purchase._id.getTimestamp().toDateString(),
                 total: purchase.totalCost(),
-                submitted_by: ((
-                    await User.findOne({
-                        email: purchase.submitted_by,
-                    })
-                ) || {name: "Harker Robotics"}).name,
+                email_link: email_link,
             });
         } catch (err) {
             res.render("pages/member/error", {
