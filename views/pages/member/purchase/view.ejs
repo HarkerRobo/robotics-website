@@ -195,9 +195,7 @@
               <button class="btn btn-default btn-lg" onclick="window.location.replace('../edit/<%- purchase.purchase_id %>')">Edit</button>
             <% } %>
             <% if (purchase.approval >= 4) { %>
-              <a href="<%= email_link %>" target="_blank">
-                <button class="btn btn-default btn-lg">Draft Email</button>
-              </a>
+              <button class="btn btn-default btn-lg" onclick="openDraftEmail()">Draft Email</button>
             <% } %>
             <% if (put_buttons) { %>
               <button type="button" class="btn btn-success btn-lg" id="approve-purchase" <%- purchase.draft ? "disabled" : "" %>>Approve<%= auth.level >= ranks.superadmin ? ' (Admin)' : '' %></button>
@@ -215,6 +213,10 @@
     </header>
 
     <script>
+      function openDraftEmail() {
+        window.open('<%= email_link %>','_blank');
+      }
+
       function generateVexListFromPage() {
         let res = "";
         $('#parts tbody tr').each(function(index, element) {
