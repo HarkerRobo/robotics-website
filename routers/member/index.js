@@ -274,7 +274,7 @@ router.use("/shortener", require("./shortener"));
 
 router.get("/", function (req, res) {
     console.log(req.auth.info.email);
-    res.render("pages/member/index");
+    res.render("pages/member/index", { name: req.auth.info.name });
 });
 
 router.get("/blog", (req, res) => {
