@@ -19,19 +19,30 @@
             </div>
           <% } %>
           <br>
-          <br>
           <button class="btn btn-success" onclick="selectAllFilters()">Select All Filters</button>
           <button class="btn btn-danger" onclick="deselectAllFilters()">Deselect All Filters</button>
-          <button class="btn btn-primary" style="width: 100%;" onclick="searchWithFilters()">Search</button>
-          <br><br>
+          <button class="btn btn-primary mt-4" style="width: 100%; margin-top: 5px" onclick="searchWithFilters()">Search</button>
+          <br>
         <% } %>
         <ul class="list-group black-text" id="purchases">
         </ul>
+        <li class="no-results-indicator" style="display: none;">
+          <h4 class="text-center text-danger"><b>No results</b></p>
+          <br>
+        </li>
       </div>
     </header>
 
     
     <script>
+      function showNoResults() {
+        document.querySelector("#no-results-indicator").style.display = "block";
+      }
+
+      function hideNoResults() {
+        document.querySelector("#no-results-indicator").style.display = "none";
+      }
+
       function selectAllFilters() {
         let fields = document.querySelectorAll(".search-filter");
         for(let i = 0; i < fields.length; i++) {
@@ -54,6 +65,7 @@
       });
 
       function searchWithFilters() {
+        hideNoResults();
         if(document.getElementById("search").value == "") {
           let allPurchases = document.querySelectorAll(".list-group-item");
           for(i = 0; i < allPurchases.length; i++) {
@@ -76,11 +88,15 @@
               for(i = 0; i < allPurchases.length; i++) {
                 allPurchases[i].style.display = "none";
               }
-              for(i = 0; i < data.length; i++) {
-                if(document.querySelector(`[data-pr="${data[i]}"]`) != null) {
-                  document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
-                }
-              } 
+              if (data.length > 0) {
+                for(i = 0; i < data.length; i++) {
+                  if(document.querySelector(`[data-pr="${data[i]}"]`) != null) {
+                    document.querySelector(`[data-pr="${data[i]}"]`).style.display = "block";
+                  }
+                } 
+              } else {
+                showNoResults();
+              }
             },
             error: function(err1, err2, err3) { console.log(err1, err2, err3); alert(`Error! ${err3}`)  }
           });
