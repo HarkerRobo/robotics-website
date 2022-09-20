@@ -1,4 +1,5 @@
-textarea[value=''], input[value=''] {
+textarea[value=""],
+input[value=""] {
     background: darkgray;
 }
 
