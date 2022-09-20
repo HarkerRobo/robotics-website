@@ -156,14 +156,30 @@
             <li class="list-group-item" data-pr="${purchase_id}">
               <h2><b>${(purchase.draft ? "[DRAFT] " : (purchase.edited_after_rejection ? "[EDITED] " : "")) + safeValue(purchase.vendor)}</b></h2>
               <div class="btn-group float-right">
-                <a href="view/${purchase_id}" class="btn btn-default btn-lg">View</a>
+                <a href="view/${purchase_id}" class="btn btn-primary btn-lg">View</a>
                 ${((purchase.approval <= 1 && purchase.submitted_by == '<%= auth.info.email %>') ? (`<a href="edit/${purchase_id}" class="btn btn-default btn-lg float-right">Edit</a>`) : '')}
               </div>
               ${(purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? `<a href="edit/${purchase_id}" class="btn btn-default btn-lg float-right">Edit</a>` : "")}
               <p><b>Purchase ID:</b> ${safeValue(purchase.purchase_id)}</p>
               <p><b>Submitted By:</b> ${safeValue(purchase.submitted_by)}</p>
               <p><b>Subteam:</b> ${getSubteam(purchase.subteam)}</p>
-              <p><b>Approval Status:</b> ${getApprovalStatus(purchase.approval)}</p>
+              <p>
+                <b>Approval Status:</b> ${(() => {
+                  let span = document.createElement("span");
+                  let approvalStatus = getApprovalStatus(purchase.approval);
+                  if (approvalStatus === 1 || approvalStatus == 3) {
+                    span.classList.add("text-danger");
+                  } 
+                  if (approvalStatus == 2) {
+                    span.classList.add("text-primary");
+                  }
+                  if (approvalStatus == 4) {
+                    span.classList.add("text-success");
+                  }
+                  span.innerText = approvalStatus;
+                  return span.outerHTML;
+                })()}
+              </p>
               <!-- if mentor approved/rejected, use their comments; otherwise use admin comments -->
               <!-- if there are no comments don't even print the line -->
               ${((purchase.admin_comments || purchase.mentor_comments) ?
