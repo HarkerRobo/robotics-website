@@ -213,6 +213,13 @@
     </header>
 
     <script>
+      document.querySelectorAll("textarea").forEach((textarea) => {
+        if (!textarea.value) {
+          textarea.style.background = "darkgray";
+          textarea.style.border = "solid gray 2px";
+        }
+      });
+
       function openDraftEmail() {
         window.open('<%- email_link %>','_blank');
       }
