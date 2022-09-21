@@ -107,8 +107,8 @@ router.get(
                 purchase_id: req.params.purchase_id,
             });
             if (purchase == null) throw new Error();
-            const submitted_by = ((
-                await User.findOne({
+            const submitted_by = (
+                (await User.findOne({
                     email: purchase.submitted_by,
                 })
             ) || {name: "Harker Robotics"}).name;
