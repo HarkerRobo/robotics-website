@@ -110,9 +110,9 @@ router.get(
             const submitted_by = (
                 (await User.findOne({
                     email: purchase.submitted_by,
-                })) || { name: "Harker Robotics" }
-            ).name;
-            const email_link = `mailto:Eric.Nelson@harker.org?subject=Receipt for Reimbursement (PR #${purchase.purchase_id})&body=Hi Dr. Nelson,%0A%0AHere\\'s the receipt for reimbursement for PR #${purchase.purchase_id} (https://robotics.harker.org/member/purchase/view/${purchase.purchase_id}).%0A%0AThanks,%0A${submitted_by}`;
+                })
+            ) || {name: "Harker Robotics"}).name;
+            const email_link = `mailto:Eric.Nelson@harker.org?subject=Receipt for Reimbursement (PR #${purchase.purchase_id})&body=Hi Dr. Nelson,%0A%0AHere's the receipt for reimbursement for PR #${purchase.purchase_id} (https://robotics.harker.org/member/purchase/view/${purchase.purchase_id}).%0A%0AThanks,%0A${req.auth.info.name}`;
             res.render("pages/member/purchase/view", {
                 purchase: purchase,
                 creation: purchase._id.getTimestamp().toDateString(),
