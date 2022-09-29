@@ -1,3 +1,8 @@
+textarea[value=""],
+input[value=""] {
+    background: darkgray;
+}
+
 .table-purchases a {
     overflow-wrap: anywhere;
 }

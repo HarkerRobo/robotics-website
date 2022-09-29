@@ -14,12 +14,13 @@
           <img src="/new/img/logo/logo.png" class="logo">
         </div>
         <h1 class="title">MEMBER PORTAL</h1>
+        <h3 style="color: lightgreen; text-align:center">Hello, <%= name %>!</h3>
         <p class="home-description">
           Welcome to the Harker Robotics member portal. Here you can find our
           training resources,
-          attendance app
+          attendance app,
           permission forms,
-          <%- auth.level >= ranks.director ? "URL shortener, " : "" %>,
+          <%- auth.level >= ranks.director ? "URL shortener, " : "" %>
           <%- auth.level >= ranks.pr_whitelist ? "purchase request system, " : "" %>
           and build blogs.
           Click through the top bar to explore the portal.
