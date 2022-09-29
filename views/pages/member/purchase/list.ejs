@@ -182,7 +182,7 @@
               <p>
                 <b>Approval Status:</b> ${(() => {
                   let span = document.createElement("span");
-                  let approvalStatus = getApprovalStatus(purchase.approval);
+                  let approvalStatus = purchase.approval;
                   if (approvalStatus === 1 || approvalStatus == 3) {
                     span.classList.add("text-danger");
                   } 
