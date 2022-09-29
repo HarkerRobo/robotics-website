@@ -192,7 +192,7 @@
                   if (approvalStatus == 4) {
                     span.classList.add("text-success");
                   }
-                  span.innerText = approvalStatus;
+                  span.innerText = getApprovalStatus(approvalStatus);
                   return span.outerHTML;
                 })()}
               </p>
