@@ -172,7 +172,7 @@
             <li class="list-group-item" data-pr="${purchase_id}">
               <h2><b>${(purchase.draft ? "[DRAFT] " : (purchase.edited_after_rejection ? "[EDITED] " : "")) + safeValue(purchase.vendor)}</b></h2>
               <div class="btn-group float-right">
-                <a href="view/${purchase_id}" class="btn btn-primary btn-lg">View</a>
+                <a href="view/${purchase_id}" class="btn btn-lg btn-default">View</a>
                 ${((purchase.approval <= 1 && purchase.submitted_by == '<%= auth.info.email %>') ? (`<a href="edit/${purchase_id}" class="btn btn-default btn-lg float-right">Edit</a>`) : '')}
               </div>
               ${(purchase.submitted_by === "<%- auth.loggedin ? auth.info.email : notpossible %>" && !purchase.locked ? `<a href="edit/${purchase_id}" class="btn btn-default btn-lg float-right">Edit</a>` : "")}

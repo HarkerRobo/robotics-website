@@ -9,7 +9,18 @@
           padding-left: 7px;
         }
       }
+
+      .modal-title, .modal-body, .x-btn {
+        color: black;
+      }
+
+      .modal-body .form-group {
+        margin: 0 0 10px;
+      }
+
     </style>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"></script>
   </head>
   <body>
 
@@ -29,7 +40,7 @@
                   <option value="<%= vendor.name %>"><%= vendor.name %></option>
                 <% }); %>
               </select>
-              <button type="button" id="add-vendor" class="btn btn-info" style="width: 7%;float: right;">Add</button>
+              <button type="button" id="add-vendor" class="btn btn-info" style="width: 7%;float: right;" data-target="#addVendorModal">Add</button>
             </div>
           </div>
           <div class="form-group">
@@ -137,13 +148,55 @@
               </tbody>
             </table>
           </div>
-          <input type="checkbox" id="draft-btn" name="draft">
-          <label for="draft-btn">&nbsp;Draft</label>
-          <br>
-          <br>
-          <button type="submit" class="btn btn-default">Submit</button>
+          <center>
+            <input type="checkbox" id="draft-btn" name="draft">
+            <label for="draft-btn">&nbsp;Draft</label>
+            <br>
+            <button type="submit" class="btn btn-default">Submit</button>
+            <br>
+            <br>
+          </center>
         </form>
       </div>
+
+      <div class="modal fade" id="addVendorModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">×</span>
+              </button>
+              <h5 class="modal-title h3" id="modal-title">Add Vendor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              </button>
+            </div>
+            <div class="modal-body">
+              <form id="submit-new-vendor">
+                <div class="form-group">
+                  <label for="vendor-name">Name</label>
+                  <input class="form-control" id="vendor-name">
+                </div>
+                <div class="form-group">
+                  <label for="vendor-phone">Phone</label>
+                  <input class="form-control" id="vendor-phone" type="tel">
+                </div>
+                <div class="form-group">
+                  <label for="vendor-email">Email</label>
+                  <input class="form-control" id="vendor-email" type="email">
+                </div>
+                <div class="form-group">
+                  <label for="vendor-address">Address</label>
+                  <input class="form-control" id="vendor-address">
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button id="confirm-add-btn" type="button" class="btn btn-primary">Add</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </header>
 
     <script>
@@ -204,17 +257,21 @@
         });
       });
 
-      $("#add-vendor").click(function() {
-        let name, phone, email, address;
-        while((name = prompt("Vendor name")) == "");
-        while((phone = prompt("Vendor phone number")) == "");
-        while((email = prompt("Vendor email")) == "");
-        while((address = prompt("Vendor address")) == "");
-        if(!(name && phone && email && address)) return;
-        $("#vendor").val(name);
-        $("#vendor_phone").val(phone);
-        $("#vendor_email").val(email);
-        $("#vendor_address").val(address);
+      $("#confirm-add-btn").click(function() {
+        $("#addVendorModal").modal("hide")
+        //let name, phone, email, address;
+        let name = $("#vendor-name").val();
+        let phone = $("#vendor-phone").val();
+        let email = $("#vendor-email").val();
+        let address = $("#vendor-address").val()
+        if(!(name && phone && email && address)) {
+          alert("Missing inputs")
+          return;
+        }
+        escapeHtml($("#vendor").val(name));
+        escapeHtml($("#vendor_phone").val(phone));
+        escapeHtml($("#vendor_email").val(email));
+        escapeHtml($("#vendor_address").val(address));
         document.getElementById("premade").innerHTML += "<option value='" + name + "'>" + name + "</option>"
         document.getElementById("premade").value = name;
 
@@ -222,7 +279,14 @@
           method: "POST",
           url: "/member/purchase/vendor",
           data: {name, phone, email, address}
-        })
+        }).then(
+          () => {
+            document.getElementById("vendor-name").value = "";
+            document.getElementById("vendor-phone").value = "";
+            document.getElementById("vendor-email").value = "";
+            document.getElementById("vendor-address").value = "";
+          }
+        );
       });
 
       // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
@@ -288,8 +352,5 @@
         reader.readAsText(files[0])
       }
     </script>
-
-    
-
   </body>
 </html>

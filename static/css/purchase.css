@@ -1,6 +1,6 @@
 textarea[value=""],
 input[value=""] {
-    background: darkgray;
+    background: lightgray;
 }
 
 .table-purchases a {
