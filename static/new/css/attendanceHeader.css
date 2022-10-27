@@ -50,6 +50,10 @@
     margin: 0.5vw auto;
 }
 
+#idk {
+    transform: scale(0.75);
+}
+
 @media screen and (max-width: 800px) {
     .admin-icon {
         width: 8vw;
