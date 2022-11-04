@@ -40,7 +40,7 @@
                   <option value="<%= vendor.name %>"><%= vendor.name %></option>
                 <% }); %>
               </select>
-              <button type="button" id="add-vendor" class="btn btn-info" style="width: 7%;float: right;" data-target="#addVendorModal" data-toggle="modal">Add</button>
+              <button type="button" id="add-vendor" class="btn btn-info" style="width: 7%;float: right;" data-target="#addVendorModal" data-toggle="modal" onclick="handleVendorModalShow()">Add</button>
             </div>
           </div>
           <div class="form-group">
@@ -191,7 +191,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="modal">Add</button>
+              <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="handleVendorModalHide()">Add</button>
             </div>
           </div>
         </div>
@@ -304,6 +304,22 @@
 
       function highlight(e) {
         dropArea.classList.add('highlight')
+      }
+
+      function handleVendorModalHide() {
+        let name = $("#vendor-name").val();
+        let phone = $("#vendor-phone").val();
+        let email = $("#vendor-email").val();
+        let address = $("#vendor-address").val()
+        if(!(name && phone && email && address)) {
+          document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', null);
+        } else {
+          document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', 'modal');
+        }
+      }
+
+      function handleVendorModalShow() {
+        document.querySelector('#add-vendor').setAttribute('data-dismiss', 'modal');
       }
 
       function unhighlight(e) {
