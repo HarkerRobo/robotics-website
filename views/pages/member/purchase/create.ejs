@@ -288,6 +288,7 @@
           document.getElementById("vendor-address").value = "";
         }).fail(function (jqXHR, textStatus, errorThrown) { // Fail message
           $('#modal-addVendor-error').css("visibility","visible");
+          $('#modal-addVendor-error').css("display","block");
           console.log("Request failed to send to database: " + errorThrown);
         });
       });
@@ -324,6 +325,7 @@
       function handleVendorModalShow() {
         document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', 'modal');
         $('#modal-addVendor-error').css("visibility","hidden");
+        $('#modal-addVendor-error').css("visibility","none");
       }
 
       function unhighlight(e) {
