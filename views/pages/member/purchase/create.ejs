@@ -191,8 +191,8 @@
               </form>
             </div>
             <div class="modal-footer">
-              <h5 style="text-align: center; visibility: hidden; display: none" class="text-danger" id="modal-addVendor-error">Request to add vendor failed to reach database</h5>
-              <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="handleVendorModalHide()">Add</button>
+              <h5 style="text-align: center; visibility: hidden; display: none" class="text-danger" id="modal-addVendor-error">An error occurred when adding the vendor</h5>
+              <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="null">Add</button>
             </div>
           </div>
         </div>
@@ -286,6 +286,7 @@
           document.getElementById("vendor-phone").value = "";
           document.getElementById("vendor-email").value = "";
           document.getElementById("vendor-address").value = "";
+          $('.close').click();
         }).fail(function (jqXHR, textStatus, errorThrown) { // Fail message
           $('#modal-addVendor-error').css("visibility","visible");
           $('#modal-addVendor-error').css("display","block");
@@ -310,20 +311,7 @@
         dropArea.classList.add('highlight')
       }
 
-      function handleVendorModalHide() {
-        let name = $("#vendor-name").val();
-        let phone = $("#vendor-phone").val();
-        let email = $("#vendor-email").val();
-        let address = $("#vendor-address").val()
-        if(!(name && phone && email && address)) {
-          document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', null);
-        } else {
-          document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', 'modal');
-        }
-      }
-
       function handleVendorModalShow() {
-        document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', 'modal');
         $('#modal-addVendor-error').css("visibility","hidden");
         $('#modal-addVendor-error').css("display","none");
       }
