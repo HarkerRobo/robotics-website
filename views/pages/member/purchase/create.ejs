@@ -191,6 +191,7 @@
               </form>
             </div>
             <div class="modal-footer">
+              <h5 style="text-align: center; visibility: hidden;" class="text-danger" id="modal-addVendor-error">Request to add vendor failed to reach database</h5>
               <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="modal" onclick="handleVendorModalHide()">Add</button>
             </div>
           </div>
@@ -279,14 +280,16 @@
           method: "POST",
           url: "/member/purchase/vendor",
           data: {name, phone, email, address}
-        }).then(
-          () => {
-            document.getElementById("vendor-name").value = "";
-            document.getElementById("vendor-phone").value = "";
-            document.getElementById("vendor-email").value = "";
-            document.getElementById("vendor-address").value = "";
-          }
-        );
+        }).done(function (data, textStatus, jqXHR) { // Success message
+          console.log("Request succeeded to send to database.");
+          document.getElementById("vendor-name").value = "";
+          document.getElementById("vendor-phone").value = "";
+          document.getElementById("vendor-email").value = "";
+          document.getElementById("vendor-address").value = "";
+        }).fail(function (jqXHR, textStatus, errorThrown) { // Fail message
+          $('#modal-addVendor-error').css("visibility","visible");
+          console.log("Request failed to send to database: " + errorThrown);
+        });
       });
 
       // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
@@ -319,7 +322,8 @@
       }
 
       function handleVendorModalShow() {
-        document.querySelector('#add-vendor').setAttribute('data-dismiss', 'modal');
+        document.querySelector('#confirm-add-btn').setAttribute('data-dismiss', 'modal');
+        $('#modal-addVendor-error').css("visibility","hidden");
       }
 
       function unhighlight(e) {
