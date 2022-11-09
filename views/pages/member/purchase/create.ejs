@@ -191,7 +191,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <h5 style="text-align: center; visibility: hidden; display: none" class="text-danger" id="modal-addVendor-error">An error occurred when adding the vendor</h5>
+              <h5 style="text-align: center; visibility: hidden; display: none; color: red;" class="text-danger" id="modal-addVendor-error">An error occurred when adding the vendor</h5>
               <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="null">Add</button>
             </div>
           </div>
@@ -266,7 +266,15 @@
         let email = $("#vendor-email").val();
         let address = $("#vendor-address").val()
         if(!(name && phone && email && address)) {
-          alert("Missing inputs")
+          let inputStr = "";
+          if(!name) inputStr += "name, ";
+          if(!phone) inputStr += "phone, ";
+          if(!email) inputStr += "email, ";
+          if(!address) inputStr += "address, ";
+          document.getElementById("modal-addVendor-error")
+            .textContent = "Missing inputs: " + inputStr.substring(0, inputStr.length - 2);
+          $('#modal-addVendor-error').css("visibility","visible");
+          $('#modal-addVendor-error').css("display","block");
           return;
         }
         escapeHtml($("#vendor").val(name));
@@ -288,6 +296,7 @@
           document.getElementById("vendor-address").value = "";
           $('.close').click();
         }).fail(function (jqXHR, textStatus, errorThrown) { // Fail message
+          document.getElementById("modal-addVendor-error").textContent = "An error occurred when adding the vendor"
           $('#modal-addVendor-error').css("visibility","visible");
           $('#modal-addVendor-error').css("display","block");
           console.log("Request failed to send to database: " + errorThrown);
