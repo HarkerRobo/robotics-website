@@ -220,7 +220,7 @@
       }
 
       $("#add-row").click(function() {
-        $("#parts > table > tbody").prepend(""
+        $("#parts > table > tbody").append(""
           + '<tr>'
           +   '<td><input type="text" name="part_url" class="form-control" value="' + escapeHtml($("#part_url").val()) + '" /></td>'
           +   '<td><input type="text" name="part_number" class="form-control" value="' + escapeHtml($("#part_number").val()) + '" /></td>'
