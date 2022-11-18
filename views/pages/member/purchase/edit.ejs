@@ -123,7 +123,7 @@
                      <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%= purchase.price_per_unit[i] %>" pattern="^\d+(\.\d{0,2})?$" />
                     </div></td>
                     <td><input type="number" name="quantity" class="form-control" value="<%= purchase.quantity[i] %>" /></td>
-                    <td><input type="number" name="price" class="form-control" value="0" /></td>
+                    <td><input type="number" name="total_price" class="form-control" value="0" /></td>
                     <td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>
                   </tr>
                 <% } %>
@@ -171,10 +171,10 @@
           +   '<td><input type="text" name="subsystem" class="form-control" value="' + escapeHtml($("#subsystem").val()) + '" /></td>'
           +   '<td><div class="input-group">'
           +     '<span class="input-group-addon">$</span>'
-          +     '<input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" />'
+          +     '<input type="text" name="price_per_unit" class="form-control" value="' + escapeHtml($("#price_per_unit").val()) + '" />'
           +   '</div></td>'
-          +   '<td><input type="text" name="quantity" class="form-control" value="' + $("#quantity").val() + '" /></td>'
-          +   '<td><input type="text" id="total_price" name="price" class="form-control" value="' + $("#quantity").val() * $("#price_per_unit").val() + '" disabled /></td>'
+          +   '<td><input type="text" name="quantity" class="form-control" value="' + escapeHtml($("#quantity").val()) + '" /></td>'
+          +   '<td><input type="text" id="total_price" name="price" class="form-control" value="' + escapeHtml($("#quantity").val() * $("#price_per_unit").val()) + '" disabled /></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'
         );
@@ -193,7 +193,7 @@
 
       function getTotalPrice(elementArray) {
         let count = 0;
-        for(let i = 1; i < elementArray.length; ++i) { // 1 to skip the header row of table
+        for(let i = 1; i < elementArray.length; i++) { // 1 to skip the header row of table
           if(elementArray[i].getAttribute("name") === "price")
           {
             count += parseInt(elementArray[i].getAttribute('value'));
