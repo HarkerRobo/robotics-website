@@ -142,7 +142,7 @@
                   <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$" />
                   </div></td>
                   <td><input type="number"  id="quantity"       name="quantity"   value="0"    class="form-control" /></td>
-                  <td><input type="number"  id="totalPrice"       name="price"  disabled    class="form-control" /></td>
+                  <td><input type="number"  id="total_price"       name="price"  disabled    class="form-control" /></td>
                   <td><button type="button" id="add-row" class="btn btn-info form-control">Add</button></td>
                 </tr>
               </thead>
@@ -242,10 +242,10 @@
         $(".remove-row").click(function() {
           $(this).parent().parent().remove();
           var arr = $("table tbody .form-control");
-          $('#totalPrice').val(getTotalPrice(arr));
+          $('#total_price').val(getTotalPrice(arr));
         });
         var arr = $("table tbody .form-control");
-        $('#totalPrice').val(getTotalPrice(arr));
+        $('#total_price').val(getTotalPrice(arr));
       });
       $(".remove-row").click(function() {
         $(this).parent().parent().remove();
@@ -334,14 +334,14 @@
       }
 
       function getTotalPrice(elementArray) {
-        let cnt = 0;
+        let count = 0;
         for(let i = 1; i < elementArray.length; ++i) { // 1 to skip the header row of table
           if(elementArray[i].getAttribute("name") === "price")
           {
-            cnt += parseInt(elementArray[i].getAttribute('value'));
+            count += parseInt(elementArray[i].getAttribute('value'));
           }
         }
-        return cnt;
+        return count;
       }
 
       function unhighlight(e) {

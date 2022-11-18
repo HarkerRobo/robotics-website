@@ -175,7 +175,7 @@
           +     '<input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" />'
           +   '</div></td>'
           +   '<td><input type="text" name="quantity" class="form-control" value="' + $("#quantity").val() + '" /></td>'
-          +   '<td><input type="text" name="price" class="form-control" value="' + $("#quantity").val() * $("#price_per_unit").val() + '" disabled /></td>'
+          +   '<td><input type="text" id="total_price" name="price" class="form-control" value="' + $("#quantity").val() * $("#price_per_unit").val() + '" disabled /></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'
         );
@@ -183,14 +183,25 @@
         $(".remove-row").click(function() {
           $(this).parent().parent().remove();
           var arr = $("table tbody .form-control");
-          $('#totalPrice').val(getTotalPrice(arr));
+          $('#total_price').val(getTotalPrice(arr));
         });
         var arr = $("table tbody .form-control");
-        $('#totalPrice').val(getTotalPrice(arr));
+        $('#total_price').val(getTotalPrice(arr));
       });
       $(".remove-row").click(function() {
         $(this).parent().parent().remove();
       });
+
+      function getTotalPrice(elementArray) {
+        let count = 0;
+        for(let i = 1; i < elementArray.length; ++i) { // 1 to skip the header row of table
+          if(elementArray[i].getAttribute("name") === "price")
+          {
+            count += parseInt(elementArray[i].getAttribute('value'));
+          }
+        }
+        return count;
+      }
     </script>
 
 
