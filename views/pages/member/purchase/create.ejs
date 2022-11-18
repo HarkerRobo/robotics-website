@@ -141,8 +141,11 @@
                   <span class="input-group-addon">$</span>
                   <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$" />
                   </div></td>
-                  <td><input type="number"  id="quantity"       name="quantity"   value="0"    class="form-control" /></td>
-                  <td><input type="number"  id="total_price"       name="total_price"  disabled    class="form-control" /></td>
+                  <td><input type="number"  id="quantity"     name="quantity"  class="form-control" /></td>
+                  <td><div class="input-group">
+                  <span class="input-group-addon">$</span>
+                  <input type="number"  id="total_price"  name="total_price"  values="0 (Total)"  disabled  class="form-control" /></td>
+                  </div></td>
                   <td><button type="button" id="add-row" class="btn btn-info form-control">Add</button></td>
                 </tr>
               </thead>
@@ -233,7 +236,10 @@
           +     '<input type="text" name="price_per_unit" class="form-control" value="' + escapeHtml($("#price_per_unit").val()) + '" />'
           +   '</div></td>'
           +   '<td><input type="text" name="quantity" class="form-control" value="' + escapeHtml($("#quantity").val()) + '" /></td>'
-          +   '<td><input type="text" name="price" class="form-control" value="' + escapeHtml($("#quantity").val() * $("#price_per_unit").val()) + '" disabled /></td>'
+          +   '<td><div class="input-group">'
+          +     '<span class="input-group-addon">$</span>'
+          +     '<input type="text" name="price" class="form-control" value="' + escapeHtml($("#quantity").val() * $("#price_per_unit").val()) + '" disabled />'
+          +   '</div></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'
         );
@@ -241,10 +247,10 @@
         $(".remove-row").click(function() {
           $(this).parent().parent().remove();
           var arr = $("table tbody .form-control");
-          $('#total_price').val(getTotalPrice(arr));
+          $('#total_price').val(getTotalPrice(arr) + " (Total)");
         });
         var arr = $("table tbody .form-control");
-        $('#total_price').val(getTotalPrice(arr));
+        $('#total_price').val(getTotalPrice(arr) + " (Total)");
       });
       $(".remove-row").click(function() {
         $(this).parent().parent().remove();
