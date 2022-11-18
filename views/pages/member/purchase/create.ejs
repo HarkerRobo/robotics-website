@@ -222,7 +222,6 @@
       }
 
       $("#add-row").click(function() {
-        totalPrice += $("#quantity").val() * $("#price_per_unit").val();
         $("#parts > table > tbody").append(""
           + '<tr>'
           +   '<td><input type="text" name="part_url" class="form-control" value="' + escapeHtml($("#part_url").val()) + '" /></td>'
