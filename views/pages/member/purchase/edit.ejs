@@ -94,10 +94,9 @@
                   <th class="center">Subsystem</th>
                   <th class="center">$/Unit</th>
                   <th class="center">Quantity</th>
+                  <th class="center">Price</th>
                   <th class="center">Add/Cut Rows</th>
                 </tr>
-              </thead>
-              <tbody>
                 <tr id="input-row">
                   <td><input type="text"    id="part_url"       name="part_url"       class="form-control" /></td>
                   <td><input type="text"    id="part_number"    name="part_number"    class="form-control" /></td>
@@ -108,8 +107,11 @@
                    <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$" />
                   </div></td>
                   <td><input type="number"  id="quantity"       name="quantity"       class="form-control" /></td>
+                  <td><input type="number"  id="pri"       name="quantity"       class="form-control" /></td>
                   <td><button type="button" id="add-row" class="btn btn-info form-control">Add</button></td>
                 </tr>
+              </thead>
+              <tbody>
                 <% for(var i = 0; i < purchase.part_url.length; i++) { %>
                   <tr>
                     <td><input type="text" name="part_url" class="form-control" value="<%= purchase.part_url[i] %>" /></td>
@@ -121,6 +123,7 @@
                      <input type="text" id="price_per_unit" name="price_per_unit" class="form-control to-price" value="<%= purchase.price_per_unit[i] %>" pattern="^\d+(\.\d{0,2})?$" />
                     </div></td>
                     <td><input type="number" name="quantity" class="form-control" value="<%= purchase.quantity[i] %>" /></td>
+                    <td><input type="number" name="total_price" class="form-control" value="0" /></td>
                     <td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>
                   </tr>
                 <% } %>
@@ -171,20 +174,35 @@
           +     '<input type="text" name="price_per_unit" class="form-control" value="' + escapeHtml($("#price_per_unit").val()) + '" />'
           +   '</div></td>'
           +   '<td><input type="text" name="quantity" class="form-control" value="' + escapeHtml($("#quantity").val()) + '" /></td>'
+          +   '<td><input type="text" id="total_price" name="price" class="form-control" value="' + escapeHtml($("#quantity").val() * $("#price_per_unit").val()) + '" disabled /></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'
         );
         $("#input-row input").val("");
         $(".remove-row").click(function() {
           $(this).parent().parent().remove();
+          var arr = $("table tbody .form-control");
+          $('#total_price').val(getTotalPrice(arr));
         });
+        var arr = $("table tbody .form-control");
+        $('#total_price').val(getTotalPrice(arr));
       });
       $(".remove-row").click(function() {
         $(this).parent().parent().remove();
       });
+
+      function getTotalPrice(elementArray) {
+        let count = 0;
+        for(let i = 1; i < elementArray.length; i++) { // 1 to skip the header row of table
+          if(elementArray[i].getAttribute("name") === "price")
+          {
+            count += parseInt(elementArray[i].getAttribute('value'));
+          }
+        }
+        return count;
+      }
     </script>
 
-    
 
   </body>
 </html>

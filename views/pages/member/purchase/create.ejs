@@ -129,22 +129,24 @@
                   <th class="center">Subsystem</th>
                   <th class="center">$/Unit</th>
                   <th class="center">Quantity</th>
+                  <th class="center">Price</th>
                   <th class="center">Add/Cut Rows</th>
                 </tr>
-              </thead>
-              <tbody>
                 <tr id="input-row">
                   <td><input type="text" id="part_url"       name="part_url"       class="form-control" /></td>
                   <td><input type="text" id="part_number"    name="part_number"    class="form-control" /></td>
                   <td><input type="text" id="part_name"      name="part_name"      class="form-control" /></td>
                   <td><input type="text" id="subsystem"      name="subsystem"      class="form-control" /></td>
                   <td><div class="input-group">
-                   <span class="input-group-addon">$</span>
-                   <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$" />
+                  <span class="input-group-addon">$</span>
+                  <input type="text" id="price_per_unit" name="price_per_unit" class="form-control" pattern="^\d+(\.\d{0,2})?$" />
                   </div></td>
-                  <td><input type="number"  id="quantity"       name="quantity"       class="form-control" /></td>
+                  <td><input type="number"  id="quantity"       name="quantity"   value="0"    class="form-control" /></td>
+                  <td><input type="number"  id="total_price"       name="total_price"  disabled    class="form-control" /></td>
                   <td><button type="button" id="add-row" class="btn btn-info form-control">Add</button></td>
                 </tr>
+              </thead>
+              <tbody>
               </tbody>
             </table>
           </div>
@@ -191,7 +193,7 @@
               </form>
             </div>
             <div class="modal-footer">
-              <h5 style="text-align: center; visibility: hidden; display: none" class="text-danger" id="modal-addVendor-error">An error occurred when adding the vendor</h5>
+              <h5 style="text-align: center; visibility: hidden; display: none; color: red;" class="text-danger" id="modal-addVendor-error">An error occurred when adding the vendor</h5>
               <button id="confirm-add-btn" type="button" class="btn btn-primary" data-dismiss="null">Add</button>
             </div>
           </div>
@@ -220,7 +222,7 @@
       }
 
       $("#add-row").click(function() {
-        $("#parts > table > tbody").prepend(""
+        $("#parts > table > tbody").append(""
           + '<tr>'
           +   '<td><input type="text" name="part_url" class="form-control" value="' + escapeHtml($("#part_url").val()) + '" /></td>'
           +   '<td><input type="text" name="part_number" class="form-control" value="' + escapeHtml($("#part_number").val()) + '" /></td>'
@@ -228,16 +230,21 @@
           +   '<td><input type="text" name="subsystem" class="form-control" value="' + escapeHtml($("#subsystem").val()) + '" /></td>'
           +   '<td><div class="input-group">'
           +     '<span class="input-group-addon">$</span>'
-          +     '<input type="text" name="price_per_unit" class="form-control" value="' + $("#price_per_unit").val() + '" />'
+          +     '<input type="text" name="price_per_unit" class="form-control" value="' + escapeHtml($("#price_per_unit").val()) + '" />'
           +   '</div></td>'
-          +   '<td><input type="text" name="quantity" class="form-control" value="' + $("#quantity").val() + '" /></td>'
+          +   '<td><input type="text" name="quantity" class="form-control" value="' + escapeHtml($("#quantity").val()) + '" /></td>'
+          +   '<td><input type="text" name="price" class="form-control" value="' + escapeHtml($("#quantity").val() * $("#price_per_unit").val()) + '" disabled /></td>'
           +   '<td><button type="button" class="remove-row btn btn-info form-control">Remove</button></td>'
           + '</tr>'
         );
         $("#input-row input").val("");
         $(".remove-row").click(function() {
           $(this).parent().parent().remove();
+          var arr = $("table tbody .form-control");
+          $('#total_price').val(getTotalPrice(arr));
         });
+        var arr = $("table tbody .form-control");
+        $('#total_price').val(getTotalPrice(arr));
       });
       $(".remove-row").click(function() {
         $(this).parent().parent().remove();
@@ -266,7 +273,15 @@
         let email = $("#vendor-email").val();
         let address = $("#vendor-address").val()
         if(!(name && phone && email && address)) {
-          alert("Missing inputs")
+          let inputStr = "";
+          if(!name) inputStr += "name, ";
+          if(!phone) inputStr += "phone, ";
+          if(!email) inputStr += "email, ";
+          if(!address) inputStr += "address, ";
+          document.getElementById("modal-addVendor-error")
+            .textContent = "Missing inputs: " + inputStr.substring(0, inputStr.length - 2);
+          $('#modal-addVendor-error').css("visibility","visible");
+          $('#modal-addVendor-error').css("display","block");
           return;
         }
         escapeHtml($("#vendor").val(name));
@@ -288,6 +303,7 @@
           document.getElementById("vendor-address").value = "";
           $('.close').click();
         }).fail(function (jqXHR, textStatus, errorThrown) { // Fail message
+          document.getElementById("modal-addVendor-error").textContent = "An error occurred when adding the vendor"
           $('#modal-addVendor-error').css("visibility","visible");
           $('#modal-addVendor-error').css("display","block");
           console.log("Request failed to send to database: " + errorThrown);
@@ -314,6 +330,17 @@
       function handleVendorModalShow() {
         $('#modal-addVendor-error').css("visibility","hidden");
         $('#modal-addVendor-error').css("display","none");
+      }
+
+      function getTotalPrice(elementArray) {
+        let count = 0;
+        for(let i = 1; i < elementArray.length; i++) { // 1 to skip the header row of table
+          if(elementArray[i].getAttribute("name") === "price")
+          {
+            count += parseInt(elementArray[i].getAttribute('value'));
+          }
+        }
+        return count;
       }
 
       function unhighlight(e) {
