@@ -42,6 +42,7 @@ router.all("/*", function (req, res, next) {
 });
 
 router.get("/", async (req, res) => {
+    /*
     const todayCheckIns = await Entry.find({
         email: req.auth.info.email.toLowerCase(),
         checkOut: null,
@@ -54,6 +55,8 @@ router.get("/", async (req, res) => {
         checkedIn: !!todayCheckIns.length,
         subteams: subteams,
     });
+    */
+    res.redirect("/attendance");
 });
 
 router.get("/checkout", async (req, res) => {
