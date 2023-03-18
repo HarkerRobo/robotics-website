@@ -37,13 +37,13 @@
                     <p style="margin-bottom: 4vw;">500 Saratoga Ave, San Jose, CA 95129</p>
                     <h2>Message Us</h2>
                     <p id="contact-description">Please reach out to us by sending an email to <a href="mailto:harker1072@gmail.com" target="_blank">harker1072@gmail.com</a></p>
-                    <!-- <form action="/contact" method="POST" id="form">
+                    <form action="/contact" method="POST" id="form">
                         <p style="color: red/*var(--color-primary)*/; font-size: 3vw;text-align: center">
                             <% if(locals.message) { %>
                                 <%= message %>
                                     <% } %>
                         </p>
-                        <p class="form-text">Email Address</p>
+                        <!-- <p class="form-text">Email Address</p>
                         <input class="form-input" type="email" name="email" minlength="1" required /> <br />
                         <p class="form-text">Name</p>
                         <input class="form-input" type="text" name="name" minlength="1" required /> <br />
@@ -54,9 +54,8 @@
                         <p class="form-text">Message</p>
                         <textarea class="form-input" id="textarea" form="form" name="message" minlength="1" required></textarea> <br />
                         <div class="g-recaptcha" data-sitekey="<%= sitekey %>"></div> <br />
-                        <input type="submit" class="submit-button" value="Submit" />
-                    </form> -->
-                    
+                        <input type="submit" class="submit-button" value="Submit" /> -->
+                    </form>
                     <!-- <iframe id="google-form" src="https://docs.google.com/forms/d/e/1FAIpQLSdcDTb_iFBL7v-AlndSE7g__vXogUWy_gCYP5VLm_d8wQTcEg/viewform?embedded=true" frameborder="0">Loading form...</iframe> -->
                 </div>
                 <%- include(__base + 'views/new/partials/footer.ejs') %>
