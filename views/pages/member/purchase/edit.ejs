@@ -85,6 +85,11 @@
             </div>
           </div>
           <div id="parts">
+            <div id="parts-drop-area" class="center">
+              <p> Either upload the parts list AS A CSV here, or fill it in manually below.</p>
+              <input type="file" id="fileElem" accept=".csv" onchange="handleFiles(this.files)">
+              <label class="button" for="fileElem">Click or drag to upload files</label>
+            </div>
             <table class="table table-bordered table-purchases">
               <thead>
                 <tr>
@@ -209,6 +214,69 @@
           }
         }
         return count;
+      }
+
+      // https://www.smashingmagazine.com/2018/01/drag-drop-file-uploader-vanilla-js/
+      // functionality for drag and drop so that users can drop a CSV into the page
+      var dropArea = document.getElementById('parts-drop-area');
+
+      dropArea.addEventListener('drop', handleDrop, false)
+      ;['dragenter', 'dragover'].forEach(eventName => {
+        dropArea.addEventListener(eventName, highlight, false)
+      })
+
+      ;['dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, unhighlight, false)
+      })
+
+      function highlight(e) {
+        dropArea.classList.add('highlight')
+      }
+
+      function unhighlight(e) {
+        dropArea.classList.remove('highlight')
+      }
+
+      function handleDrop(e) {
+        let dt = e.dataTransfer
+        let files = dt.files
+
+        handleFiles(files)
+      }
+
+      ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+        dropArea.addEventListener(eventName, function(e) { e.preventDefault() }, false)
+      })
+
+      function handleFiles(files) {
+        var reader = new FileReader();
+        reader.onload = function(e) {
+          var text = reader.result;
+          var arr = text.replace(/\r|\"/g,'').split('\n').map(row => row.split(','));
+          
+          var input_row = $('#input-row > td input');
+
+          for (var i = 0; i < arr.length; i++) {
+            console.log('-----')
+            console.log(row)
+            var row = arr[i];
+            if(Number.isNaN(Number(row[4])) || Number.isNaN(Number(row[5]))) continue;
+
+            // for each text column in the table
+            for (var j = 0; j <= 3; j++) {
+              // fill in the input row with values from the CSV
+              $(input_row[j]).val(row[j])
+            }
+            // for each number column
+            for (var j = 4; j <= 5; j++) {
+              console.log(j,row[j])
+              // fill in the input row with values from the CSV
+              $(input_row[j]).val(row[j].replace('\r','').replace('\"',''))
+            }
+            $('#add-row').click();
+          }
+        }
+        reader.readAsText(files[0])
       }
     </script>
 
