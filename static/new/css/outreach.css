@@ -12,6 +12,10 @@ p {
     width: 100%;
     text-align: center;
 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
     background-color: var(--color-background);
     padding-top: 3vw;
 }
@@ -38,7 +42,7 @@ p {
     width: 75vw;
     margin: 5vw auto;
     margin-bottom: 0;
-    padding-bottom: 7vw;
+    /* padding-bottom: 7vw; */
 }
 
 .outreach-card {
@@ -157,4 +161,36 @@ p {
     .outreach-card:hover .outreach-text-title[data-summercamp] {
         top: 9vw;
     }
+}
+
+#tpw-logo {
+    aspect-ratio: 1;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 200px;
+    margin-bottom: 25px;
+    border-radius: 50%;
+    clip-path: circle(49%)
+}
+
+#tpw-img-anchor {
+    aspect-ratio: 1/1;
+    position: relative;
+    width: 200px;
+    height: 200px;
+    display: block;
+    margin-bottom: 25px;
+}
+
+#outreach-link {
+    font-size: 2.4vw;
+    font-family: "Roboto", sans-serif;
+    text-decoration: none;
+    margin-bottom: 2vh;
+}
+
+#purple-outreach-title {
+    font-size: 4vw;
+    font-weight: bold;
 }
