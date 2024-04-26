@@ -7,12 +7,6 @@
     font-weight: bold;
 }
 
-#body h2 {
-    color: var(--color-primary);
-    margin-bottom: 1.5vh;
-    font-size: 4vw;
-}
-
 #content {
     width: 100%;
 }
@@ -34,10 +28,29 @@
     text-align: center;
 }
 
+#missionstatement-title {
+    color: var(--color-primary);
+    margin-bottom: 1.5vh;
+    margin-top: 1.5vh;
+    font-size: 4vw;
+}
+
 #missionstatement {
     font-weight: 100;
     font-size: 3vw;
     /* margin-bottom: 10vw; */
+}
+
+#awards-title {
+    color: var(--color-primary);
+    margin-bottom: 1.5vh;
+    margin-top: 10vh;
+    font-size: 4vw;
+}
+
+#awards {
+    font-weight: 100;
+    font-size: 2vw;
 }
 
 #calendar {
