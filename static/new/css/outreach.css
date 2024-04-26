@@ -171,7 +171,7 @@ p {
     width: 200px;
     margin-bottom: 25px;
     border-radius: 50%;
-    clip-path: circle(49%)
+    clip-path: circle(49%);
 }
 
 #tpw-img-anchor {
