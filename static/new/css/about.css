@@ -1,6 +1,6 @@
 #body h1 {
     color: var(--color-primary);
-    margin-top: 3vw;
+    margin-top: 1.9rem;
     margin-bottom: 1.5vw;
     font-size: 6vw;
 
@@ -14,8 +14,8 @@
 #body {
     width: 100%;
     text-align: center;
-    margin-top: -3vw;
-    padding-top: 3vw;
+    margin-top: -1.9rem;
+    padding-top: 1.9rem;
     background-color: var(--color-background);
     /* padding-bottom: 10vw; */
 }
@@ -37,7 +37,7 @@
 
 #missionstatement {
     font-weight: 100;
-    font-size: 3vw;
+    font-size: 1.9rem;
     /* margin-bottom: 10vw; */
 }
 
@@ -49,8 +49,9 @@
 }
 
 #awards {
+    text-align: left;
     font-weight: 100;
-    font-size: 2vw;
+    font-size: 1.9rem;
 }
 
 #calendar {
