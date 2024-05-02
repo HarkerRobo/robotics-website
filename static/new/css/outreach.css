@@ -27,6 +27,10 @@ p {
     margin-bottom: 2vw;
 }
 
+body #outreach-title.compact {
+    margin-bottom: 0.5vw;
+}
+
 #outreach-info {
     font-size: 2.4vw;
     width: 71%;
