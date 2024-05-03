@@ -34,7 +34,7 @@ body #outreach-title.compact {
 #outreach-info {
     font-size: 2.4vw;
     width: 71%;
-
+    margin-bottom: 7vh;
     margin: 0 auto;
     font-weight: 100;
 }
@@ -191,15 +191,11 @@ body #outreach-title.compact {
     font-size: 2.4vw;
     font-family: "Roboto", sans-serif;
     text-decoration: none;
-    margin-bottom: 2vh;
+    margin-bottom: 3vh;
     color: rgb(85, 26, 139);
 }
 
 #purple-outreach-title {
     font-size: 4vw;
     font-weight: bold;
-}
-
-#outreach-info:last-child {
-    margin-bottom: 5vh;
 }
