@@ -290,7 +290,7 @@
     #e-directors,
     #reeeeeeeee,
     #opsgang {
-        width: 10%;
+        width: min-content;
     }
 
     #body h1 {
