@@ -36,9 +36,9 @@
         "singleMentorMail": true,
         "cronPattern": "0 17 * * *",
         "auth": {
-            "email": "22arjund@students.harker.org"
-        },
-        "apiKey": "key"
+            "user": "22arjund@students.harker.org",
+            "pass": "password"
+        }
     },
     "users": {
         "admins": [

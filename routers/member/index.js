@@ -84,7 +84,7 @@ http://${config.server.domain}/member/purchase/mentor`;
 <a href="http://${config.server.domain}/member/purchase/mentor">
 http://${config.server.domain}/member/purchase/mentor</a>`;
 
-        email.sendMail(config.automail.auth.email, to, subject, text, html);
+        email.sendMail(config.automail.auth.user, to, subject, text, html);
     }
 });
 

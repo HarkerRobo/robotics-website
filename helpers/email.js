@@ -1,32 +1,30 @@
-let sgMail = require("@sendgrid/mail"),
+let nodemailer = require("nodemailer"),
     config = require(__base + "config.json");
 
-sgMail.setApiKey(config.automail.apiKey);
+var transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+        user: config.automail.auth.user,
+        pass: config.automail.auth.pass,
+    },
+});
 
 const sendMail = (from, to, subject, text, html) => {
-    let payload = {
+    let mailOptions = {
         from: from,
-        to: to, // list of receivers
-        subject: subject, // Subject line
-        text: text, // plaintext body
+        to: to,
+        subject: subject,
+        text: text,
         html: html,
     };
 
-    sgMail
-        .send(payload)
-        .then(() => {
-            console.log("Email sent to " + to + " from " + from);
-        })
-        .catch((error) => {
-            console.error(error);
-            if (error.response) {
-                const { message, code, response } = error;
-
-                const { headers, body } = response;
-
-                console.error(body);
-            }
-        });
-};
+    transporter.sendMail(mailOptions, function (error, info) {
+        if (error) {
+            console.log(error);
+        } else {
+            console.log("Email sent: " + info.response);
+        }
+    });
+}
 
 exports.sendMail = sendMail;
