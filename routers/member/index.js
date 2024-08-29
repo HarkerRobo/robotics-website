@@ -58,12 +58,12 @@ async function verifyIdToken(token) {
     ).getPayload();
 }
 
-cron.schedule(config.automail.cronPattern, async () => {
-    let awaiting_prs = await Purchase.find({ approval: 2 });
+async function cronEmails(to, approval) {
+    let awaiting_prs = await Purchase.find({ approval });
     let n_requests = awaiting_prs.length;
 
     if (n_requests > 0) {
-        let subject, to, text, html;
+        let subject, text, html;
 
         if (n_requests == 1) {
             subject = "A purchase request is awaiting your approval.";
@@ -72,7 +72,6 @@ cron.schedule(config.automail.cronPattern, async () => {
                 n_requests + " purchase requests are awaiting your approval.";
         }
 
-        to = config.users.mentor;
         text =
             subject +
             ` You can see all pending requests here:
@@ -86,7 +85,13 @@ http://${config.server.domain}/member/purchase/mentor</a>`;
 
         email.sendMail(config.automail.auth.user, to, subject, text, html);
     }
+}
+
+cron.schedule(config.automail.cronPattern, async () => {
+    await cronEmails(config.users.mentor, 2);
 });
+
+cronEmails("24kabirr@students.harker.org", 0);
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // handles google sign-in tokens given from client
