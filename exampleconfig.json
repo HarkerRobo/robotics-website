@@ -36,8 +36,12 @@
         "singleMentorMail": true,
         "cronPattern": "0 17 * * *",
         "auth": {
-            "user": "22arjund@students.harker.org",
-            "pass": "password"
+            "host": "smtp.office365.com",
+            "port": "587",
+            "secure": false,
+            "username": "roboticsweb@harker.org",
+            "password": "password",
+            "address": "Harker Robotics PR System <roboticsweb@harker.org>"
         }
     },
     "users": {
