@@ -659,7 +659,7 @@ http://${config.server.domain}/member/purchase/mentor
             // only doesn't send an email when the single mentor mail setting is activated and the email is to a mentor
             if (!(config.automail.singleMentorMail && !mentorApproval)) {
                 email.sendMail(
-                    config.automail.auth.user,
+                    config.automail.auth.address,
                     to,
                     subject,
                     text,
