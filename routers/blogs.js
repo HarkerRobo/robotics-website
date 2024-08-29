@@ -42,7 +42,7 @@ function updateBlogsInDatabase() {
                     Blog.remove({ blog_id: { $nin: curIDs } })
                         .then((a) => {
                             console.log(a);
-                            postsDeleted += a.result.n;
+                            postsDeleted += a.deletedCount;
                             resolve();
                         })
                         .catch(reject);
