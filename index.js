@@ -42,12 +42,6 @@ if (config.server.production) app.set("trust proxy", 1);
 
 // http://cwe.mitre.org/data/definitions/693
 
-if (config.server.production)
-    app.use((req, res, next) => {
-        if (req.secure) next();
-        else res.redirect("https://" + req.headers.host + req.url);
-    });
-
 app.use(busboy());
 app.use(redirectTrailingSlash);
 app.use(require("helmet")());
