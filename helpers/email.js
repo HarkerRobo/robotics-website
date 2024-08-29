@@ -2,12 +2,12 @@ let nodemailer = require("nodemailer"),
     config = require(__base + "config.json");
 
 var transporter = nodemailer.createTransport({
-    host: config.email.host,
-    port: config.email.port,
-    secure: config.email.secure,
+    host: config.automail.auth.host,
+    port: config.automail.auth.port,
+    secure: config.automail.auth.secure,
     auth: {
-      user: config.email.username,
-      pass: config.email.password
+      user: config.automail.auth.username,
+      pass: config.automail.auth.password
     },
     tls: { rejectUnauthorized: false }
 });
