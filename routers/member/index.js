@@ -90,8 +90,7 @@ http://${config.server.domain}/member/purchase/mentor</a>`;
 cron.schedule(config.automail.cronPattern, async () => {
     await cronEmails(config.users.mentor, 2);
 });
-
-cronEmails("24kabirr@students.harker.org", 0);
+// cronEmails("24kabirr@students.harker.org", 0);
 
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // handles google sign-in tokens given from client
