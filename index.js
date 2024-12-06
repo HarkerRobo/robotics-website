@@ -36,7 +36,7 @@ function getTimeFormatted() {
 
 app.set("view engine", "ejs");
 app.set("views", __dirname + "/views");
-app.set("env", "production");
+app.set("env", config.server.runInternal ? "production" : "development");
 app.set("case sensitive routing", true);
 if (config.server.production) app.set("trust proxy", 1);
 
@@ -55,7 +55,9 @@ app.use(clientErrorHandler);
 //TODO: Route mobile
 
 // use routers
-if (config.server.runInternal) app.use("/member", memberRouter);
+// if (config.server.runInternal) 
+app.use("/member", memberRouter);
+
 if (config.server.runInternal)
     app.use("/scoutdata", require("./routers/scoutdata"));
 app.use("/battery", batteryRouter);
@@ -63,6 +65,7 @@ app.use("/blog", blogsRouter);
 
 app.locals.GoogleClientID = config.google.clientIDs[config.google.displayID];
 app.locals.config = config;
+app.locals.isProduction = config.server.runInternal;
 app.locals.ranks = require("./helpers/ranks.json");
 
 app.use("/hackathon", hackathonRouter);

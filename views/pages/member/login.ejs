@@ -8,18 +8,53 @@
     <!-- Navbar -->
     <%- include(__base + 'views/partials/navbar-login.ejs') %>
 
+    <% if (!isProduction) { %>
+    <style>
+      input, #devAuth {
+        color: black;
+      }
 
+      input {
+        width: 100%;
+      }
+
+      input:not(:placeholder-shown):not(:focus):user-invalid {
+        background-color: ivory;
+        border: 2px solid darkorange;
+        border-radius: 5px;
+      }
+
+    </style>
+    <% } %>
     <header id="login-tile">
       <div class="container-fluid">
         <h1 class="title">LOGIN</h1>
         <p class="info-text">Please sign in: </p>
+        <% if (isProduction) { %>
           <div class="g-signin2" style="width: 120px; margin: auto;" data-onsuccess="onSignIn"></div>
+        <% } else { %>
+          <form style="width: 400px; margin-left: auto; margin-right: auto;">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" value="<%= (+new Date().getFullYear().toString().slice(-2) + (new Date().getMonth() >= 4 ? 1 : 0)) %>FirstL@students.harker.org" required><br><br>
+    
+            <label for="first-name">First Name:</label>
+            <input type="text" id="first-name" name="first-name" value="First" required><br><br>
+    
+            <label for="last-name">Last Name:</label>
+            <input type="text" id="last-name" name="last-name" value="Last" required><br><br>
+
+            <label for="auth-level">Auth Level:</label>
+            <input type="number" id="auth-level" name="auth-level" placeholder="10" value="10" min="0" max="100" required><br><br>
+
+            <button id="devAuth" style="width: 120px; margin: auto;" onclick="onDevSignIn()">Log In</button>
+          </form>
+        <% } %>
       </div>
     </header>
 
     
     <script>
-
+    <% if (isProduction) { %>
       function onSignIn(googleUser) {
         var profile = googleUser.getBasicProfile();
         var id_token = googleUser.getAuthResponse().id_token;
@@ -32,7 +67,23 @@
           location.reload()
         };
       }
-    </script>
+    <% } else { %>
+      function onDevSignIn() {
+        const email = document.getElementById('email').value;
+        const firstName = document.getElementById('first-name').value;
+        const lastName = document.getElementById('last-name').value;
 
+        const authLevel = document.getElementById('auth-level').value;
+
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', `${location.protocol}//${location.host}/member/devauth?email=${email}&first=${firstName}&last=${lastName}&name=${firstName} ${lastName}&level=${authLevel}`)
+        xhr.send()
+        xhr.onload = function() {
+          console.log('Signed in as: ' + xhr.responseText);
+          location.reload()
+        };
+      }
+      <% } %>
+    </script>
   </body>
 </html>
