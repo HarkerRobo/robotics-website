@@ -55,7 +55,7 @@ app.use(clientErrorHandler);
 //TODO: Route mobile
 
 // use routers
-// if (config.server.runInternal) 
+// if (config.server.runInternal)
 app.use("/member", memberRouter);
 
 if (config.server.runInternal)
