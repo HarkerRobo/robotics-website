@@ -92,6 +92,37 @@ cron.schedule(config.automail.cronPattern, async () => {
 });
 // cronEmails("24kabirr@students.harker.org", 0);
 
+if (!config.server.runInternal)
+    router.post("/devauth", function (req, res) {
+        const { email, first, last, name, level } = req.query;
+
+        if (!email || !first || !last || !name) {
+            res.status(400).send("Missing parameters");
+
+            return;
+        }
+
+        let data = {
+            ...(first && { given_name: first }),
+            ...(last && { family_name: last }),
+            ...(name && { name }),
+            ...(email && { email }),
+        };
+
+        req.session.auth = {
+            loggedin: true,
+            token: null,
+            info: data,
+            level: level ?? 0,
+        };
+
+        res.status(200).setHeader("Content-Type", "application/json").send({
+            success: true,
+            level: req.session.auth.level,
+            data,
+        });
+    });
+
 // https://developers.google.com/identity/sign-in/web/backend-auth
 // handles google sign-in tokens given from client
 //
