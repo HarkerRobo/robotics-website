@@ -46,7 +46,7 @@
             <label for="auth-level">Auth Level:</label>
             <input type="number" id="auth-level" name="auth-level" placeholder="10" value="10" min="0" max="100" required><br><br>
 
-            <button id="devAuth" style="width: 120px; margin: auto;" onclick="onDevSignIn()">Log In</button>
+            <button type="button" id="devAuth" style="width: 120px; margin: auto;" onclick="onDevSignIn()">Log In</button>
           </form>
         <% } %>
       </div>
@@ -76,7 +76,7 @@
         const authLevel = document.getElementById('auth-level').value;
 
         var xhr = new XMLHttpRequest();
-        xhr.open('POST', `${location.protocol}//${location.host}/member/devauth?email=${email}&first=${firstName}&last=${lastName}&name=${firstName} ${lastName}&level=${authLevel}`)
+        xhr.open('POST', `/member/devauth?email=${email}&first=${firstName}&last=${lastName}&name=${firstName} ${lastName}&level=${authLevel}`)
         xhr.send()
         xhr.onload = function() {
           console.log('Signed in as: ' + xhr.responseText);
