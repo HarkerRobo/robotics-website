@@ -19,7 +19,7 @@ const express = require("express"),
     email = require("../../helpers/email");
 
 const MENTOR_EMAIL = config.users.mentor;
-const ADMIN_EMAIL = config.users.admin;
+const ADMIN_EMAILS = config.users.admin;
 
 const PURCHASE_FIELDS = {
     purchase_id: "Purchase ID",
@@ -317,13 +317,15 @@ View it here: https://${config.server.domain}/member/purchase/view/${purchase.pu
 <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
 Click here to view the request</a>`;
 
-            await email.sendMail(
-                config.automail.auth.address,
-                ADMIN_EMAIL,
-                subject,
-                text,
-                html
-            );
+            for (const adminEmail of ADMIN_EMAILS) {
+                await email.sendMail(
+                    config.automail.auth.address,
+                    adminEmail,
+                    subject,
+                    text,
+                    html
+                );
+            }
 
             res.redirect("view/" + purchase.purchase_id);
         } catch (err) {
