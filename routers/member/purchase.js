@@ -312,7 +312,7 @@ router.post(
             const subject = "New purchase request awaiting approval";
             const text = `A new purchase request (#${purchase.purchase_id}) is awaiting your approval.
 View it here: https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}`;
-            
+
             const html = `A new purchase request (#${purchase.purchase_id}) is awaiting your approval.<br/>
 <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
 Click here to view the request</a>`;
