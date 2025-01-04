@@ -19,7 +19,7 @@ const express = require("express"),
     email = require("../../helpers/email");
 
 const MENTOR_EMAIL = config.users.mentor;
-const ADMIN_EMAILS = config.users.admin;
+const ADMIN_EMAILS = config.users.admins;
 
 const PURCHASE_FIELDS = {
     purchase_id: "Purchase ID",
