@@ -19,6 +19,7 @@ const express = require("express"),
     email = require("../../helpers/email");
 
 const MENTOR_EMAIL = config.users.mentor;
+const ADMIN_EMAIL = config.users.admin;
 
 const PURCHASE_FIELDS = {
     purchase_id: "Purchase ID",
@@ -307,6 +308,23 @@ router.post(
                 submitted_by: safeString(req.auth.info.email),
                 draft: Boolean(safeString(req.body.draft)),
             });
+
+            const subject = "New purchase request awaiting approval";
+            const text = `A new purchase request (#${purchase.purchase_id}) is awaiting your approval.
+View it here: https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}`;
+            
+            const html = `A new purchase request (#${purchase.purchase_id}) is awaiting your approval.<br/>
+<a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
+Click here to view the request</a>`;
+
+            await email.sendMail(
+                config.automail.auth.address,
+                ADMIN_EMAIL,
+                subject,
+                text,
+                html
+            );
+
             res.redirect("view/" + purchase.purchase_id);
         } catch (err) {
             console.error(err);
