@@ -283,6 +283,7 @@ router.post(
                 error: "Purchase reason missing",
             });
         }
+        const draft = Boolean(safeString(req.body.draft));
         try {
             const purchase = await Purchase.create({
                 subteam: xss(safeString(req.body.subteam)),
@@ -306,7 +307,7 @@ router.post(
                 ),
                 tax: xss(toDollarAmount(req.body.tax, 0)),
                 submitted_by: safeString(req.auth.info.email),
-                draft: Boolean(safeString(req.body.draft)),
+                draft: draft,
             });
 
             const subject = "New purchase request awaiting approval";
@@ -317,14 +318,16 @@ View it here: https://${config.server.domain}/member/purchase/view/${purchase.pu
 <a href="https://${config.server.domain}/member/purchase/view/${purchase.purchase_id}">
 Click here to view the request</a>`;
 
-            for (const adminEmail of ADMIN_EMAILS) {
-                await email.sendMail(
-                    config.automail.auth.address,
-                    adminEmail,
-                    subject,
-                    text,
-                    html
-                );
+            if (!draft) {
+                for (const adminEmail of ADMIN_EMAILS) {
+                    await email.sendMail(
+                        config.automail.auth.address,
+                        adminEmail,
+                        subject,
+                        text,
+                        html
+                    );
+                }
             }
 
             res.redirect("view/" + purchase.purchase_id);
