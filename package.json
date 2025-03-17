@@ -33,7 +33,7 @@
         "le-store-certbot": "^2.1.2",
         "letsencrypt-express": "^2.0.7",
         "moment": "^2.29.2",
-        "mongoose": "^6.1.0",
+        "mongoose": "^6.4.6",
         "mongoose-auto-increment": "^5.0.1",
         "mpath": "^0.8.4",
         "multiparty": "^4.2.2",
