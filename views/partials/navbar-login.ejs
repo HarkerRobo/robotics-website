@@ -25,18 +25,25 @@
       }
 
       function signOut() {
+
+      <%if(isProduction){%>
         var auth2 = gapi.auth2.getAuthInstance()
         auth2.signOut().then(function() {
+      <%}%>
           console.log('User signed out.')
           var xhr = new XMLHttpRequest();
-          xhr.open('DELETE', location.protocol+'//'+location.hostname + '/member/token')
+          xhr.open('DELETE', location.protocol+'//'+location.host + '/member/token')
           xhr.send()
           location.href='/'
+      <%if(isProduction){%>
         })
+      <%}%>
 
       }
     </script>
+    <%if(isProduction){%>
     <script src="https://apis.google.com/js/platform.js" onload="loadGAPI()" async defer></script>
+    <%}%>
 
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">

@@ -6,10 +6,10 @@ var transporter = nodemailer.createTransport({
     port: config.automail.auth.port,
     secure: config.automail.auth.secure,
     auth: {
-      user: config.automail.auth.username,
-      pass: config.automail.auth.password
+        user: config.automail.auth.username,
+        pass: config.automail.auth.password,
     },
-    tls: { rejectUnauthorized: false }
+    tls: { rejectUnauthorized: false },
 });
 
 const sendMail = (from, to, subject, text, html) => {
@@ -28,6 +28,6 @@ const sendMail = (from, to, subject, text, html) => {
             console.log("Email sent: " + info.response);
         }
     });
-}
+};
 
 exports.sendMail = sendMail;
