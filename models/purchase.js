@@ -32,7 +32,10 @@ const purchaseSchema = mongoose.Schema(
         part_name: [String],
         subsystem: [String],
         price_per_unit: [Number],
-        quantity: [Number],
+        quantity: {
+            type: Number,
+            default: 1,
+        },
         shipping_and_handling: [Number],
         tax: {
             type: Number,
